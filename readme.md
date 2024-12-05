@@ -1,5 +1,5 @@
 <h3 align="center">
-<img src="./codex_logo.png" width=60%>
+<img src="./codex_logo.png" width=100px>
 </br>
 </h3>
 
