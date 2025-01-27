@@ -1,9 +1,9 @@
-<h3 align="center">
-<img src="./codex_logo.png" width=100px>
-</br>
-</h3>
-
-
+<p align="center">
+  <picture>
+    <source srcset="earthkit-dark.svg" media="(prefers-color-scheme: dark)">
+    <img src="earthkit-light.svg" height="80">
+  </picture>
+</p>
 
 
 <p align="center">
