@@ -1,0 +1,41 @@
+{
+    "?": "Welcome to the template for Sphinx documentation in ECMWF projects!\n\nPlease provide values to following template variables, in order to properly\nprepare the template for you. In case you don't know the answer, you can just\nleave the default value by pressing Enter.\n\nNote that number of features are optional, you can activate them by answering\n'y' when prompted.\n\nLet's get started, press Enter to continue...",
+    "project_name": "ECMWF Project",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "project_description": "A sample ECMWF project that needs some documentation.",
+    "maturity_badge": [
+        "Sandbox",
+        "Incubating",
+        "Graduated",
+        "Archived"
+    ],
+    "docs_dir": "docs",
+    "copyright_year": "{% now 'utc', '%Y' %}",
+    "copyright_name": "ECMWF",
+    "github_organisation": "ecmwf",
+    "fail_on_warning": "y",
+    "additional_formats": "n",
+    "use_github_workflow": "y",
+    "use_include": "n",
+    "use_autodoc": "n",
+    "use_version_file": "n",
+    "use_doxygen": "n",
+    "use_ipynb": "n",
+    "use_copybutton": "n",
+    "use_tabs": "n",
+    "use_todo": "n",
+    "use_fortran": "n",
+    "use_ecflow_lexer": "n",
+    "open_source_licence": [
+        "Apache Software License 2.0",
+        "BSD license",
+        "GNU General Public License v3",
+        "ISC license",
+        "MIT license",
+        "Not open source"
+    ],
+    "_extensions": [
+        "jinja2_time.TimeExtension"
+    ],
+    "logo_path": "n"
+}
