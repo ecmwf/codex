@@ -1,5 +1,8 @@
 <h3 align="center">
-<img src="./codex_logo.png" width=100px>
+<picture>
+    <source srcset="https://raw.githubusercontent.com/ecmwf/logos/refs/heads/main/logos/codex_dark.png" media="(prefers-color-scheme: dark)">
+    <img src="https://raw.githubusercontent.com/ecmwf/logos/refs/heads/main/logos/codex_light.png" width="100">
+  </picture>
 </br>
 </h3>
 
@@ -11,6 +14,6 @@ The Codex is a set of guidelines for development of software and services at ECM
   - [Python](./Language%20Guidelines/Python)
   - [C++](./Language%20Guidelines/C++)
   - [Rust](./Language%20Guidelines/Rust)
-- [Repositories](./Repositories)
+- [Repository Structure](./Repository%20Structure)
 - [Project Maturity](./Project%20Maturity)
 - [ECMWF Software EnginE (ESEE)](./ESEE)

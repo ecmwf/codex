@@ -10,7 +10,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/ESEE-Foundation-orange" alt="ESEE Foundation">
   <a href="https://github.com/ecmwf/codex/blob/cookiecutter/Project%20Maturity/project-maturity.md">
-    <img src="https://img.shields.io/badge/Maturity-{{ cookiecutter.maturity_badge }}-{{ {'Sandbox': 'yellow', 'Incubating': 'violet', 'Graduated': 'green', 'Archived': 'orange'}[cookiecutter.maturity_badge] }}" alt="Maturity {{ cookiecutter.maturity_badge }}">
+    <img src="https://img.shields.io/badge/Maturity-{{ cookiecutter.maturity_badge }}-{{ {'Sandbox': 'yellow', 'Incubating': 'lightskyblue', 'Emerging': 'violet', 'Graduated': 'green', 'Archived': 'orange'}[cookiecutter.maturity_badge] }}" alt="Maturity {{ cookiecutter.maturity_badge }}">
   </a>
 
 {% if cookiecutter.ci_actions == 'y' -%}
@@ -107,6 +107,55 @@ or from PyPI:
 python -m pip install {{ cookiecutter.package_name }}
 ```
 {%- elif cookiecutter.language == 'rust' -%}
+Install from the GitHub repository directly:
+```
+cargo add --git https://github.com/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}
+```
+or from crates.io:
+```
+cargo add {{ cookiecutter.project_slug }}
+```
+{%- elif cookiecutter.language == 'mixed' -%}
+> [!TIP]
+> For mixed languages repositories you need to edit the install instructions to obtain custum instructions for your repository. Standard install instruction templates for C++, Python, and Rust are included below.
+
+> Standard instruction for C++
+{{ cookiecutter.project_name }} employs an out-of-source build/install based on CMake.
+
+Make sure ecbuild is installed and the ecbuild executable script is found ( `which ecbuild` ).
+
+Now proceed with installation as follows:
+
+```bash
+# Environment --- Edit as needed
+srcdir=$(pwd)
+builddir=build
+installdir=$HOME/.local
+
+# 1. Create the build directory:
+mkdir $builddir
+cd $builddir
+
+# 2. Run CMake
+ecbuild --prefix=$installdir -- $srcdir
+
+# 3. Compile / Install
+make -j10
+make install
+
+# 4. Check installation
+$installdir/bin/{{ cookiecutter.project_slug }}-version
+```
+> Standard instructions for Python
+Install from the Github repository directly:
+```
+python -m pip install https://github.com/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}
+```
+or from PyPI:
+```
+python -m pip install {{ cookiecutter.package_name }}
+```
+> Standard instructions for Rust
 Install from the GitHub repository directly:
 ```
 cargo add --git https://github.com/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}

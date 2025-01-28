@@ -6,6 +6,7 @@
     "maturity_badge": [
         "Sandbox",
         "Incubating",
+        "Emerging",
         "Graduated",
         "Archived"
     ],
@@ -18,7 +19,8 @@
     "language": [
         "python",
         "cpp",
-        "rust"
+        "rust",
+        "mixed"
     ],
     "fail_on_warning": "y",
     "additional_formats": "n",
@@ -39,5 +41,5 @@
     "_extensions": [
         "jinja2_time.TimeExtension"
     ],
-    "logo_path": "n"
+    "logo_path": ""
 }
