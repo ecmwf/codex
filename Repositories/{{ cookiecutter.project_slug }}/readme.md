@@ -1,6 +1,6 @@
 {% if cookiecutter.logo_path != 'n' -%}
 <h3 align="center">
-<img src="{{ cookiecutter.logo_path }}" width=100px>
+<img src="./logo.png" width=100px>
 </br>
 </h3>
 {%- else -%}
