@@ -13,6 +13,10 @@
     "copyright_year": "{% now 'utc', '%Y' %}",
     "copyright_name": "ECMWF",
     "github_organisation": "ecmwf",
+    "language": [
+        "python",
+        "cpp"
+    ],
     "fail_on_warning": "y",
     "additional_formats": "n",
     "use_github_workflow": "y",

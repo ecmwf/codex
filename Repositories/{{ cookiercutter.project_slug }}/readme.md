@@ -31,8 +31,8 @@
 {%- endif%}
 
 {% if cookiecutter.open_source_license == 'Not open source' -%}
-  <a href="https://opensource.org/licenses/{{ cookiecutter.open_source_license }}-{{ {'Apache Software License 2.0': 'Apache 2.0', 'BSD license': , 'GNU General Public License v3': , 'ISC license': , 'MIT license': 'The MIT License'} }}">
-    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License: Apache 2.0">
+  <a href="https://opensource.org/licenses/{{ cookiecutter.open_source_license }}-{{ {'Apache Software License 2.0': 'apache-2-0', 'BSD license': 'bsd-3-clause', 'GNU General Public License v3': 'gpl-3-0', 'ISC license': 'isc-license-txt', 'MIT license': 'mit'} }}">
+    <img src="https://img.shields.io/badge/License-{{ cookiecutter.open_source_license }}-{{ {'Apache Software License 2.0': 'Apache%202.0', 'BSD license': 'BSD%203', 'GNU General Public License v3': 'GPL%20v3.0', 'ISC license': 'ISC', 'MIT license': 'MIT'} }}-blue.svg" alt="License: {{ cookiecutter.open_source_license }}">
   </a>
 {%- else -%}
 # Not open source
@@ -76,4 +76,4 @@
 
 ## License
 
-© {{ cookiecutter.year }} {{ cookiecutter.author_name }}. All rights reserved.
+© {{ cookiecutter.year }} {{ cookiecutter.copyright_name }}. All rights reserved.

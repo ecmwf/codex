@@ -33,7 +33,7 @@
   <a href="https://polytope.readthedocs.io/en/latest/">Documentation</a>
 </p>
 
-Codex is a collection of guidelines for coding styles, best practices and design decisions for our software packages unterpinning the ECMWF Software Engine (ESEE). It provides a reference for ensuring consistency for patterns and prodecures to follow for different programming languages and architectures.
+Codex is a collection of guidelines for coding styles, best practices and design decisions for our software packages underpinning the ECMWF Software Engine (ESEE). It provides a reference for ensuring consistency for patterns and procedures to follow for different programming languages and architectures.
 
 # Quick Start
 
