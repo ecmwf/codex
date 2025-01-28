@@ -6,7 +6,7 @@ Software maturity refers to the stages a software project goes through during it
 
 ![Static Badge](https://img.shields.io/badge/Maturity-Graduated-green)
 
-Graduated projects are operationally used by ECMWF and/or its Member and Cooperating states.
+Graduated projects are ready for operations, and typically used by ECMWF and/or its Member and Cooperating states in operations. This does not mean we give operational support to the software itself.
 
 # Incubating
 

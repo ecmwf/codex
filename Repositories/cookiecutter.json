@@ -1,21 +1,24 @@
 {
-    "?": "Welcome to the template for Sphinx documentation in ECMWF projects!\n\nPlease provide values to following template variables, in order to properly\nprepare the template for you. In case you don't know the answer, you can just\nleave the default value by pressing Enter.\n\nNote that number of features are optional, you can activate them by answering\n'y' when prompted.\n\nLet's get started, press Enter to continue...",
+    "?": "Welcome to the template for ECMWF projects!\n\nPlease provide values to following template variables, in order to properly\nprepare the template for you. In case you don't know the answer, you can just\nleave the default value by pressing Enter.\n\nNote that number of features are optional, you can activate them by answering\n'y' when prompted.\n\nLet's get started, press Enter to continue...",
     "project_name": "ECMWF Project",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-    "project_description": "A sample ECMWF project that needs some documentation.",
+    "package_name": "{{ cookiecutter.project_slug }}",
     "maturity_badge": [
         "Sandbox",
         "Incubating",
         "Graduated",
         "Archived"
     ],
+    "ci_actions": "y",
+    "code_coverage": "y",
     "docs_dir": "docs",
     "copyright_year": "{% now 'utc', '%Y' %}",
     "copyright_name": "ECMWF",
     "github_organisation": "ecmwf",
     "language": [
         "python",
-        "cpp"
+        "cpp",
+        "rust"
     ],
     "fail_on_warning": "y",
     "additional_formats": "n",
@@ -30,13 +33,8 @@
     "use_todo": "n",
     "use_fortran": "n",
     "use_ecflow_lexer": "n",
-    "open_source_licence": [
-        "Apache Software License 2.0",
-        "BSD license",
-        "GNU General Public License v3",
-        "ISC license",
-        "MIT license",
-        "Not open source"
+    "open_source_license": [
+        "Apache Software License 2.0"
     ],
     "_extensions": [
         "jinja2_time.TimeExtension"
