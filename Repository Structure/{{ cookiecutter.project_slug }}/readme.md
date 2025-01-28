@@ -120,6 +120,7 @@ cargo add {{ cookiecutter.project_slug }}
 > For mixed languages repositories you need to edit the install instructions to obtain custum instructions for your repository. Standard install instruction templates for C++, Python, and Rust are included below.
 
 > Standard instruction for C++
+
 {{ cookiecutter.project_name }} employs an out-of-source build/install based on CMake.
 
 Make sure ecbuild is installed and the ecbuild executable script is found ( `which ecbuild` ).

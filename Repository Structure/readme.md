@@ -15,9 +15,11 @@ To get started you can [use the cookiecutter template](#UsingtheTemplate).
 - [Contributors](#Contributors)
 
 ## Readme
+Each repository must contain a README.md file. The cookiecutter generates one automatically from a template file. The generated README.md must then be filled in with project specific information.
 
 ## Badges
-the cookiecutter automatically adds badges at the beginning of the README.md file. Make sure that they are kept at the beginning of the README.md file.
+
+The cookiecutter automatically adds badges at the beginning of the README.md file. Make sure that they are all working correctly, and syncing to CI, coverages and docs.
 
 ## Code Structure
 
