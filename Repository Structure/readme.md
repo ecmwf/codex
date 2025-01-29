@@ -108,4 +108,5 @@ Note that several features are optional, you can activate them by answering 'y' 
 * `use_fortran`: Whether to add support for documenting Fortran code
 * `use_ecflow_lexer`: Whether to add support for ecFlow syntax highlighting
 * `open_source_license`: Project licence
-* `logo_path`: Filepath to a logo, leave default if there is none
+* `logo_path_light`: Filepath to a logo for light mode, skipped if not provided
+* `logo_path_dark`: Filepath to a logo for dark mode, use light if not provided

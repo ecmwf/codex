@@ -38,8 +38,13 @@
     "open_source_license": [
         "Apache Software License 2.0"
     ],
+    "logo_path_light": "",
+    "logo_path_dark": "{{ cookiecutter.logo_path_light }}",
+    "__prompts__": {
+        "logo_path_light": "Absolute path to the light logo (must be a png), skipped if not provided",
+        "logo_path_dark": "Absolute path to the dark logo (must be a png), use light logo if not provided, unused if light logo not provided"
+    },
     "_extensions": [
         "jinja2_time.TimeExtension"
-    ],
-    "logo_path": ""
+    ]
 }

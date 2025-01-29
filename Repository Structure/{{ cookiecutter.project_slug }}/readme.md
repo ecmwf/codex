@@ -1,6 +1,9 @@
-{% if cookiecutter.logo_path != 'n' -%}
+{% if cookiecutter.logo_path_light != "" -%}
 <h3 align="center">
-<img src="./logo.png" width=100px>
+<picture>
+    <source srcset="https://raw.githubusercontent.com/ecmwf/logos/refs/heads/main/logos/{{ cookiecutter.project_slug }}_dark.png" media="(prefers-color-scheme: dark)">
+    <img src="https://raw.githubusercontent.com/ecmwf/logos/refs/heads/main/logos/{{ cookiecutter.project_slug }}_light.png" width="100">
+  </picture>
 </br>
 </h3>
 {%- else -%}
