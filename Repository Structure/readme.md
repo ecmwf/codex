@@ -2,7 +2,7 @@
 
 These are the guidelines for how to set up a repository...
 
-To get started you can [use the cookiecutter template](#UsingtheTemplate).
+To get started you can [use the cookiecutter template](https://github.com/ecmwf/cookie-cutter).
 
 - [Readme](#Readme)
 - [Badges](#Badges)
@@ -33,7 +33,7 @@ my-repo/
 ├── examples/             # optional
 ├── LICENSE
 ├── pyproject.toml
-├── README.rst            # deviation from the guide
+├── README.md            # deviation from the guide
 ├── setup.py              # VERY shallow, just calls setup() or something
 ├── src/
 │   └── example_package/
@@ -46,14 +46,38 @@ my-repo/
 
 Note the extra src directory. This prevents setuptool's find_package from adding unwanted code to the installation, without having to add exceptions for tests, examples, etc. It also forces the package to be pip install'ed before running the tests, which helps checking that the package will work as intended once installed. Simple use case: it won't import the local package if you run pytest in the folder.
 
-### C++
-TODO
+### C/C++
+
+```
+<project-name>
+├── CMakeLists.txt
+├── LICENSE
+├── README.md
+├── VERSION
+├── cmake
+├── doc
+|   ├── CMakeLists.txt
+|   └── Doxyfile.in
+├── share
+└── src
+|   ├── CMakeLists.txt
+|   ├── <project-name>
+|   ├── experimental
+|   └── tools
+└── tests
+    ├── CMakeLists.txt
+    ├── test_1
+    ├── ...
+    └── test_N
+```
+
 
 ### Rust
 TODO
 
 ### Mixed Languages
-TODO
+
+
 
 ## License
 Add a LICENSE file at the root of the project. Add following text to the README.md file:
