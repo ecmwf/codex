@@ -6,13 +6,21 @@ Software maturity refers to the stages a software project goes through during it
 
 ![Static Badge](https://img.shields.io/badge/Maturity-Graduated-green)
 
-Graduated projects are operationally used by ECMWF and/or its Member and Cooperating states.
+
+
+Graduated projects are ready for operations, and typically used by ECMWF and/or its Member and Cooperating states in operations. This does not mean we give operational support to the software itself.
 
 # Incubating
 
-![Static Badge](https://img.shields.io/badge/Maturity-Incubating-violet)
+![Static Badge](https://img.shields.io/badge/Maturity-Incubating-lightskyblue)
 
-Incubating projects are under development and should not be used for operational or time-critical applications. They are mostly feature-complete and the interface is mostly stable.
+Incubating projects are mostly feature-complete and the interface is mostly stable. However, they are still under development and should not be used for operational or time-critical applications.
+
+# Emerging
+
+![Static Badge](https://img.shields.io/badge/Maturity-Emerging-violet)
+
+Emerging projects are in the early stages of development. There is a clear project goal, but they are not yet feature-complete and not stable.
 
 # Sandbox
 
