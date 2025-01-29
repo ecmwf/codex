@@ -4,7 +4,7 @@ Software maturity refers to the stages a software project goes through during it
 
 # Graduated
 
-![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/graduated_badge.svg)
+[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/graduated_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity)
 
 Graduated projects are ready for operations, and typically used by ECMWF and/or its Member and Cooperating states in operations. This does not mean we give operational support to the software itself.
 
@@ -12,7 +12,7 @@ Graduated projects are ready for operations, and typically used by ECMWF and/or 
 
 # Incubating
 
-![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/incubating_badge.svg)
+[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/incubating_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity)
 
 Incubating projects are mostly feature-complete and the interface is mostly stable. However, they are still under development and should not be used for operational or time-critical applications.
 
@@ -20,7 +20,7 @@ Incubating projects are mostly feature-complete and the interface is mostly stab
 
 # Emerging
 
-![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/emerging_badge.svg)
+[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/emerging_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity)
 
 Emerging projects are in the early stages of development. There is a clear project goal, but they are not yet feature-complete and not stable.
 
@@ -28,7 +28,7 @@ Emerging projects are in the early stages of development. There is a clear proje
 
 # Sandbox
 
-![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/sandbox_badge.svg)
+[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/sandbox_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity)
 
 Sandbox projects are experimental, proof-of-concept. Expect frequent changes, incomplete features and instability.
 
@@ -36,7 +36,7 @@ Sandbox projects are experimental, proof-of-concept. Expect frequent changes, in
 
 # Archived
 
-![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/archived_badge.svg)
+[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/archived_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity)
 
 Projects that have reached the end of their lifecycle.
 They are no longer actively maintained or developed. 
