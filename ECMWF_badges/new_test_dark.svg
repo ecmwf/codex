@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="122" height="20" role="img" aria-label="Maturity: Graduated">
+  <title>Maturity: Graduated</title>
+  <style>
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #333; } /* Dark background */
+      .label { fill: #fff; } /* Keep text white */
+    }
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #fff; } /* Light background */
+      .label { fill: #000; } /* Change text to black for contrast */
+    }
+  </style>
+  <linearGradient id="s" x2="0" y2="100%">
+    <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <clipPath id="r">
+    <rect width="122" height="20" rx="3" class="bg"/>
+  </clipPath>
+  <g clip-path="url(#r)">
+    <rect width="55" height="20" fill="#555"/>
+    <rect x="55" width="67" height="20" fill="#97ca00"/>
+    <rect width="122" height="20" fill="url(#s)"/>
+  </g>
+  <g class="label" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110">
+    <text aria-hidden="true" x="285" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="450">Maturity</text>
+    <text x="285" y="140" transform="scale(.1)" class="label" textLength="450">Maturity</text>
+    <text aria-hidden="true" x="875" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="570">Graduated</text>
+    <text x="875" y="140" transform="scale(.1)" class="label" textLength="570">Graduated</text>
+  </g>
+</svg>
