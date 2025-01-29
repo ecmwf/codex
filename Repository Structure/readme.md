@@ -46,8 +46,45 @@ my-repo/
 
 Note the extra src directory. This prevents setuptool's find_package from adding unwanted code to the installation, without having to add exceptions for tests, examples, etc. It also forces the package to be pip install'ed before running the tests, which helps checking that the package will work as intended once installed. Simple use case: it won't import the local package if you run pytest in the folder.
 
-### C++
-TODO
+### C/C++
+
+```
+<project-name>
+├── .clang-format
+├── .git
+├── .gitignore
+├── AUTHORS
+├── CMakeLists.txt
+├── COPYING
+├── ChangeLog
+├── INSTALL
+├── LICENSE
+├── NOTICE
+├── README.md
+├── VERSION
+├── cmake
+├── doc
+|   ├── CMakeLists.txt
+|   └── Doxyfile.in
+├── <project-name>-import.cmake.in
+├── <project-name>.code-workspace
+├── <project-name>.sublime-project
+├── project_summary.cmake
+├── share
+└── src
+|   ├── CMakeLists.txt
+|   ├── <project-name>
+|   ├── experimental
+|   ├── sandbox
+|   └── tools
+└── tests
+    ├── CMakeLists.txt
+    ├── test_1
+    ├── test_2
+    ├── ...
+    └── value
+```
+
 
 ### Rust
 TODO
