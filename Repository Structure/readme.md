@@ -2,7 +2,7 @@
 
 These are the guidelines for how to set up a repository...
 
-To get started you can [use the cookiecutter template](#UsingtheTemplate).
+To get started you can [use the cookiecutter template](https://github.com/ecmwf/cookie-cutter).
 
 - [Readme](#Readme)
 - [Badges](#Badges)
@@ -33,7 +33,7 @@ my-repo/
 ├── examples/             # optional
 ├── LICENSE
 ├── pyproject.toml
-├── README.rst            # deviation from the guide
+├── README.md            # deviation from the guide
 ├── setup.py              # VERY shallow, just calls setup() or something
 ├── src/
 │   └── example_package/
@@ -50,39 +50,25 @@ Note the extra src directory. This prevents setuptool's find_package from adding
 
 ```
 <project-name>
-├── .clang-format
-├── .git
-├── .gitignore
-├── AUTHORS
 ├── CMakeLists.txt
-├── COPYING
-├── ChangeLog
-├── INSTALL
 ├── LICENSE
-├── NOTICE
 ├── README.md
 ├── VERSION
 ├── cmake
 ├── doc
 |   ├── CMakeLists.txt
 |   └── Doxyfile.in
-├── <project-name>-import.cmake.in
-├── <project-name>.code-workspace
-├── <project-name>.sublime-project
-├── project_summary.cmake
 ├── share
 └── src
 |   ├── CMakeLists.txt
 |   ├── <project-name>
 |   ├── experimental
-|   ├── sandbox
 |   └── tools
 └── tests
     ├── CMakeLists.txt
     ├── test_1
-    ├── test_2
     ├── ...
-    └── value
+    └── test_N
 ```
 
 
@@ -90,7 +76,8 @@ Note the extra src directory. This prevents setuptool's find_package from adding
 TODO
 
 ### Mixed Languages
-TODO
+
+
 
 ## License
 Add a LICENSE file at the root of the project. Add following text to the README.md file:
