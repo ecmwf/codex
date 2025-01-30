@@ -1,6 +1,6 @@
 # Maturity Levels of Software
 
-Software maturity refers to the stages a software project goes through during its lifecycle. ECMWF does not provide 
+Software maturity refers to the stages a software project goes through during its lifecycle. While ECMWF runs operational services, this does not necessarily mean that the underlying software is operationally supported for external users. The following maturity levels provide an indication of how well-supported and operationally ready ECMWF software is. However, as with any open-source software, users should evaluate its suitability for their needs and use it at their own risk.
 
 # Graduated
 
