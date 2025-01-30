@@ -1,4 +1,4 @@
-# Best Practices of Containerization
+# Best Practices for Containerization
 
 ## Why Containerize?
 
