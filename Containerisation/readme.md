@@ -54,6 +54,8 @@ The 12-Factor App is a set of best practices for building applications that are 
 
 Adhering to these principles bridges the gap between development and production environments, reducing deployment issues and scaling challenges.
 
+---
+
 ## 2. Why Containerize?
 
 Containerization packages an application along with all its dependencies into a lightweight, self-contained unit. This approach brings several advantages that complement the 12-Factor principles.
@@ -104,6 +106,8 @@ Scaling manually is inefficient. Modern orchestration platforms automate scaling
 
 These features enable applications to handle varying workloads efficiently without requiring manual intervention.
 
+---
+
 ## 3. Containers vs. Virtual Machines
 
 It is important to distinguish between **containers and virtual machines**:
@@ -121,6 +125,8 @@ It is important to distinguish between **containers and virtual machines**:
 | **Resource Efficiency** | Lower (more duplication) | Higher (shared OS, less overhead) |
 
 Virtual machines operate like separate apartments with individual utilities, while containers resemble rooms within a shared house—isolated but with significantly reduced overhead.
+
+---
 
 ## 4. Why Kubernetes?
 
