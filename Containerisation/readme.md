@@ -35,10 +35,14 @@
    - [Helm](#52-helm)
    - [Telepresence](#53-telepresence)
    - [Stern](#54-stern)
-6. [References](#6-references)
+6. [Repository Structure](#6-repository-structure)
+   - [Public Helm Chart Repository](#61-public-helm-chart-repository)
+   - [Private Configuration Repository](#62-private-configuration-repository)
+   - [Putting It All Together](#63-putting-it-all-together)
+7. [References](#7-references)
 
-
-## 1. Introduction: 
+---
+## 1. Introduction:
 
 Before discussing the benefits of containerization, it might be important to understand one of a key foundation for modern, cloud-native applications—[the 12-Factor App](https://12factor.net/).
 
@@ -117,11 +121,11 @@ It is important to distinguish between **containers and virtual machines**:
 
 ### Key Differences
 | Feature          | Virtual Machines  | Containers  |
-|-----------------|------------------|-------------|
-| **OS**         | Each VM has its own OS kernel | Containers share the host OS kernel |
-| **Startup Time** | Minutes | Seconds (or less) |
-| **Overhead**  | High (due to full OS) | Low (lightweight processes) |
-| **Isolation** | Strong (full OS per VM) | Process-level isolation |
+|-----------------|--------------------|-------------|
+| **OS**           | Each VM has its own OS kernel  | Containers share the host OS kernel |
+| **Startup Time** | Minutes           | Seconds (or less) |
+| **Overhead**     | High (due to full OS) | Low (lightweight processes) |
+| **Isolation**    | Strong (full OS per VM) | Process-level isolation |
 | **Resource Efficiency** | Lower (more duplication) | Higher (shared OS, less overhead) |
 
 Virtual machines operate like separate apartments with individual utilities, while containers resemble rooms within a shared house—isolated but with significantly reduced overhead.
@@ -130,7 +134,7 @@ Virtual machines operate like separate apartments with individual utilities, whi
 
 ## 4. Why Kubernetes?
 
-Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications.  It abstracts away the complexity of infrastructure management, enabling teams to focus on building and running applications efficiently.
+Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications. It abstracts away the complexity of infrastructure management, enabling teams to focus on building and running applications efficiently.
 
 ### 4.1 What Is Kubernetes?
 At its core, Kubernetes provides a framework to run distributed systems resiliently. It handles tasks such as scaling, failover, deployment rollouts, and service discovery, ensuring applications remain highly available and performant. Kubernetes operates on a cluster of machines (nodes), managing containers grouped into pods—the smallest deployable units in Kubernetes. Key features include:
@@ -140,11 +144,11 @@ At its core, Kubernetes provides a framework to run distributed systems resilien
 * **Service Discovery & Load Balancing:** Kubernetes automatically exposes applications via DNS or IPs and balances traffic across healthy pods.
 * **Multi-cloud Support:** Kubernetes provides a consistent deployment experience across on-premises data centers and public clouds.
 
-### 4.2  What’s the Cost?
+### 4.2 What’s the Cost?
 While Kubernetes offers tremendous benefits, it comes with some upfront costs that organization must consider:
 
 #### Learning Cost
-Kubernetes introduces a steep learning curve due to its extensive ecosystem and concepts such as pods, services, deployments, ingress controllers, and networking policies. Teams must invest time in mastering these components as well as tools like Helm (for package management) and kubectl (for cluster interaction). 
+Kubernetes introduces a steep learning curve due to its extensive ecosystem and concepts such as pods, services, deployments, ingress controllers, and networking policies. Teams must invest time in mastering these components as well as tools like Helm (for package management) and kubectl (for cluster interaction).
 
 #### Project Setup Overhead
 Setting up a project in Kubernetes involves creating configuration files (manifests) or Helm charts to define application deployments, services, secrets, and other resources. While this adds initial complexity, these configurations are reusable and modular. Once established, they significantly streamline future deployments and updates.
@@ -156,7 +160,7 @@ Managing a Kubernetes cluster requires additional expertise in areas such as mon
 Despite the costs, the advantages of Kubernetes far outweigh its challenges:
 
 #### Easy Scaling
-Kubernetes makes horizontal scali ng effortless by allowing you to add or remove container instances dynamically based on traffic or resource utilization. With auto-scaling features like the Horizontal Pod Autoscaler (HPA), applications can handle sudden spikes in demand without manual intervention.
+Kubernetes makes horizontal scaling effortless by allowing you to add or remove container instances dynamically based on traffic or resource utilization. With auto-scaling features like the Horizontal Pod Autoscaler (HPA), applications can handle sudden spikes in demand without manual intervention.
 
 #### Efficient Resource Utilization
 Kubernetes optimizes resource allocation by scheduling workloads intelligently across nodes based on CPU and memory requirements. This ensures that hardware is used efficiently while avoiding over-provisioning or underutilization.
@@ -167,7 +171,7 @@ By automating routine tasks such as rollouts, rollbacks, health checks, and fail
 #### Multi-Application Management
 Kubernetes excels at managing multiple applications within a single cluster. Whether running microservices architectures or monolithic applications side-by-side, Kubernetes isolates workloads while maintaining centralized control over resources.
 
-Ultimately, Kubernetes excels in environments where scalability, portability, and operational consistency are critical. 
+Ultimately, Kubernetes excels in environments where scalability, portability, and operational consistency are critical.
 
 ---
 
@@ -225,7 +229,91 @@ Stern provides a **real-time** view of application behavior, making it indispens
 
 ---
 
-## 6. References
+## 6. Repository Structure
+
+A well-organized repository structure ensures that your containerized application can be built, tested, and deployed consistently across various environments. An increasingly popular best practice is **splitting your Helm charts into a separate public repository** and placing environment-specific configurations (including overrides and sensitive data) in a **private configuration repository**. This approach leverages hierarchical Helm configurations, allowing you to manage multiple deployments from a single source of truth while keeping sensitive details out of public view.
+
+### 6.1 Public Helm Chart Repository
+
+This repository contains the minimal Helm chart needed to deploy your application. It includes:
+
+- **Chart Metadata** (`Chart.yaml`): Name, version, description, and dependencies of your chart.  
+- **Default Values** (`values.yaml`): A basic configuration that works out of the box, suitable for demo or simple development setups.  
+- **Templates** (in a `templates` folder): Kubernetes manifests that define your application deployments, services, config maps, etc.
+
+Because this repo is publicly accessible, it **must not contain** sensitive information. Instead, any credentials or secret keys should be handled in your private configuration repo.
+
+**Example Structure**:
+```
+mychart-repo/ 
+├── Chart.yaml 
+├── values.yaml 
+├── templates/ 
+│ ├── deployment.yaml 
+│ ├── service.yaml 
+│ └── ... 
+├── charts/ 
+│ └── optional-subchart/ 
+│ ├───── Chart.yaml 
+│ ├───── values.yaml 
+│ ├───── templates/ 
+└── README.md
+```
+### 6.2 Private Configuration Repository
+
+Your configuration repository stores environment-specific overrides and sensitive data that should **never** be committed to a public repo. This includes:
+
+- **Environment Overrides** (e.g., `dev`, `staging`, `prod`)  
+  Each environment has its own `values.yaml` or multiple override files referencing the public chart. Here, you define resource limits, replica counts, domain names, and other environment-specific settings.
+- **Secrets & Credentials**  
+  Keep secret data out of source control via methods like [Sealed Secrets](https://github.com/bitnami-labs/sealed-secrets) or external secret management services (e.g., HashiCorp Vault). If necessary, store encrypted secrets or secure them in a private Git repository with restricted access.
+
+Because Helm supports merging multiple values files, you can stack environment overrides easily. For example, you might have a `values-dev.yaml` file and a `secrets-dev.yaml` file for development, while production uses `values-prod.yaml` and `secrets-prod.yaml`.
+
+**Example Structure**:
+
+```
+config-repo/ 
+├── overlays/ 
+│ ├── dev/ 
+│ │ ├── values-dev.yaml 
+│ │ └── secrets-dev.yaml 
+│ ├── staging/ 
+│ │ ├── values-staging.yaml 
+│ │ └── secrets-staging.yaml 
+│ └── prod/ 
+│ │ ├── values-prod.yaml 
+│ │ └── secrets-prod.yaml 
+├── common.yaml
+└── ...
+```
+
+### 6.3 Putting It All Together
+
+1. **Store Your Helm Chart Publicly**  
+   Publish the minimal, non-sensitive chart in the **public repository**. This chart defines the core logic (e.g., deployments, services) and a default set of values. Any subcharts you need can live in the `charts/` directory of this repo.
+
+2. **Maintain Sensitive Configurations Privately**  
+   Use a separate, **private repository** for environment overrides and secrets. Helm’s hierarchical values approach allows you to combine multiple YAML files at deployment time.
+
+3. **Deploy Using Layered Values**  
+   When deploying to a specific environment (e.g., `dev`), you reference both the public chart and your private overrides. A typical Helm command might look like:
+   ```bash
+   helm install myapp \
+     ./mychart-repo \
+     -f ./config-repo/common.yaml \
+     -f ./config-repo/overlays/dev/values-dev.yaml \
+     -f ./config-repo/overlays/dev/secrets-dev.yaml \
+     --namespace dev
+
+---
+
+## Maintainers
+
+- Samet Demir
+- James Hawkes
+
+## 7. References
 
 1. Adam Wiggins, *The Twelve-Factor App*, 2011. Available at: [https://12factor.net](https://12factor.net/)
 2. Brendan Burns and Joe Beda, *Kubernetes Up & Running*, O'Reilly Media, 2019.
