@@ -16,7 +16,7 @@
       * [Effortless Horizontal Scaling](#effortless-horizontal-scaling)
       * [Orchestration: The Magic Behind Scaling](#orchestration-the-magic-behind-scaling)
 3. [Containers vs. Virtual Machines](#3-containers-vs-virtual-machines)
-   1. [Key Differences](#31-key-differences)
+   1. [Key Differences](#key-differences)
 4. [Why Kubernetes?](#4-why-kubernetes)
    1. [What Is Kubernetes?](#41-what-is-kubernetes)
    2. [What’s the Cost?](#42-whats-the-cost)
@@ -103,7 +103,7 @@ It is important to distinguish between **containers and virtual machines**:
 * Containers run directly on the host OS using features like **cgroups** (for resource isolation) and **namespaces** (for process isolation), avoiding the overhead of full virtualization.
 * While containers share the host OS kernel, they **isolate everything else**—such as file systems, libraries, and runtime dependencies—ensuring security and stability without duplicating entire operating systems.
 
-### **Key Differences**
+### Key Differences
 | Feature          | Virtual Machines  | Containers  |
 |-----------------|------------------|-------------|
 | **OS**         | Each VM has its own OS kernel | Containers share the host OS kernel |
