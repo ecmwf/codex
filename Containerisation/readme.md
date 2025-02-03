@@ -306,13 +306,6 @@ config-repo/
      -f ./config-repo/overlays/dev/secrets-dev.yaml \
      --namespace dev
 
----
-
-## Maintainers
-
-- Samet Demir
-- James Hawkes
-
 ## 7. References
 
 1. Adam Wiggins, *The Twelve-Factor App*, 2011. Available at: [https://12factor.net](https://12factor.net/)
