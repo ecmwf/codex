@@ -1,40 +1,48 @@
 # Best Practices for Containerization
 
 ## Table of Contents
-1. [Introduction: The 12-Factor App](#1-introduction-the-12-factor-app)
+
+1. [Introduction](#1-introduction)
+   - [The 12-Factor App](#the-12-factor-app)
 2. [Why Containerize?](#2-why-containerize)
-   1. [Declarative & Automated Setup](#21-declarative--automated-setup)
-   2. [Clean Contract with the Operating System](#22-clean-contract-with-the-operating-system)
-      * [Standardized Environments](#standardized-environments)
-      * [Automation-Friendly](#automation-friendly)
-   3. [It is Lightweight](#23-it-is-lightweight)
-      * [No Virtualization Overhead](#no-virtualization-overhead)
-   4. [Consistency](#24-consistency)
-      * [Minimized Environment Divergence](#minimized-environment-divergence)
-      * [Ephemeral and Immutable](#ephemeral-and-immutable)
-   5. [Scalability](#25-scalability)
-      * [Effortless Horizontal Scaling](#effortless-horizontal-scaling)
-      * [Orchestration: The Magic Behind Scaling](#orchestration-the-magic-behind-scaling)
+   - [Declarative & Automated Setup](#21-declarative--automated-setup)
+   - [Clean Contract with the Operating System](#22-clean-contract-with-the-operating-system)
+     - [Standardized Environments](#standardized-environments)
+     - [Automation-Friendly](#automation-friendly)
+   - [It is Lightweight](#23-it-is-lightweight)
+     - [No Virtualization Overhead](#no-virtualization-overhead)
+   - [Consistency](#24-consistency)
+     - [Minimized Environment Divergence](#minimized-environment-divergence)
+     - [Ephemeral and Immutable](#ephemeral-and-immutable)
+   - [Scalability](#25-scalability)
+     - [Effortless Horizontal Scaling](#effortless-horizontal-scaling)
+     - [Orchestration: The Magic Behind Scaling](#orchestration-the-magic-behind-scaling)
 3. [Containers vs. Virtual Machines](#3-containers-vs-virtual-machines)
-   1. [Key Differences](#key-differences)
+   - [Key Differences](#key-differences)
 4. [Why Kubernetes?](#4-why-kubernetes)
-   1. [What Is Kubernetes?](#41-what-is-kubernetes)
-   2. [What’s the Cost?](#42-whats-the-cost)
-      * [Learning Cost](#learning-cost)
-      * [Project Setup Overhead](#project-setup-overhead)
-      * [Operational Complexity](#operational-complexity)
-   3. [Why Use Kubernetes Then?](#43-why-use-kubernetes-then)
-      * [Easy Scaling](#easy-scaling)
-      * [Efficient Resource Utilization](#efficient-resource-utilization)
-      * [Reduced Dependence on System Administrators](#reduced-dependence-on-system-administrators)
-      * [Multi-Application Management](#multi-application-management)
-5. [References](#5-references)
+   - [What Is Kubernetes?](#41-what-is-kubernetes)
+   - [What’s the Cost?](#42-whats-the-cost)
+     - [Learning Cost](#learning-cost)
+     - [Project Setup Overhead](#project-setup-overhead)
+     - [Operational Complexity](#operational-complexity)
+   - [Why Use Kubernetes Then?](#43-why-use-kubernetes-then)
+     - [Easy Scaling](#easy-scaling)
+     - [Efficient Resource Utilization](#efficient-resource-utilization)
+     - [Reduced Dependence on System Administrators](#reduced-dependence-on-system-administrators)
+     - [Multi-Application Management](#multi-application-management)
+5. [Tools](#5-tools)
+   - [Skaffold](#51-skaffold)
+   - [Helm](#52-helm)
+   - [Telepresence](#53-telepresence)
+   - [Stern](#54-stern)
+6. [References](#6-references)
 
----
 
-## 1. Introduction: The 12-Factor App
+## 1. Introduction: 
 
 Before discussing the benefits of containerization, it might be important to understand one of a key foundation for modern, cloud-native applications—[the 12-Factor App](https://12factor.net/).
+
+### The 12-Factor App
 
 The 12-Factor App is a set of best practices for building applications that are portable, scalable, and resilient. These principles guide the development of software-as-a-service applications that are easy to deploy and maintain. Key tenets include:
 
@@ -157,11 +165,69 @@ Ultimately, Kubernetes excels in environments where scalability, portability, an
 
 ---
 
-## 5. References
+## 5. Tools
+
+The container ecosystem is rich with tools designed to simplify development, deployment, debugging, and monitoring. While many options exist, this is a **curated list** of tools that stand out for their practicality and reliability in containerized workflows.
+
+### 5.1 Skaffold
+
+**Skaffold** is a container-first tool that automates and streamlines the process of building, tagging, and pushing container images. It eliminates the need to write complex scripts for container image management, ensuring consistency across development and deployment environments.
+
+#### Key Features
+- **Container Build Automation**: Supports multiple builders, including Docker, Buildpacks, Kaniko, Jib, and Bazel, allowing teams to choose the most efficient option.
+- **Fast Iteration**: Detects code changes and automatically rebuilds and redeploys containers, minimizing downtime during development.
+- **Multi-Stage & Remote Builds**: Enables secure and efficient builds, including cloud-based builds that avoid local resource constraints.
+- **Pluggable CI/CD Integration**: Works with GitOps workflows, allowing container images to be automatically pushed and versioned.
+
+By automating the container build and deployment cycle, Skaffold eliminates repetitive tasks, enabling developers to focus on writing code rather than managing images manually.
+
+### 5.2 Helm
+
+**Helm** is the package manager for Kubernetes, providing a structured way to define, install, and manage applications in a cluster. It simplifies the deployment of complex applications by packaging them as **Helm charts**—reusable, versioned application definitions.
+
+#### Key Features
+- **Templating Engine**: Uses YAML-based templates with values injection, ensuring flexibility across different environments.
+- **Version Control**: Manages application versions and rollbacks, making it easy to revert to a previous state if needed.
+- **Dependency Management**: Allows applications to define dependencies and automatically fetch required services.
+- **Chart Repositories**: Enables sharing and distribution of Helm charts via public or private repositories.
+
+With Helm, deploying applications becomes declarative and reproducible, reducing configuration drift and manual setup overhead.
+
+### 5.3 Telepresence
+
+**Telepresence** bridges the gap between local development environments and remote Kubernetes clusters, allowing developers to work with cloud-based services while writing and testing code locally.
+
+#### Key Features
+- **Real-time Development**: Runs local services as if they were deployed in the cluster, enabling seamless interaction with cloud-based APIs and microservices.
+- **Intercept Mode**: Redirects traffic from the cluster to a local process, eliminating the need for full redeployments during debugging.
+- **Hybrid Development**: Mixes locally running services with cloud-hosted components, reducing latency and improving the development experience.
+- **Security & Compliance**: Avoids the need for direct Kubernetes cluster access, making it safer to develop against production-like environments.
+
+By using Telepresence, teams can debug services in real-time without disrupting existing deployments, speeding up iteration cycles.
+
+### 5.4 Stern
+
+**Stern** is a powerful log aggregation tool for Kubernetes, designed to make it easier to inspect logs from multiple pods simultaneously. It enhances observability, especially in distributed microservices architectures.
+
+#### Key Features
+- **Multi-Pod Log Streaming**: Tails logs from multiple pods in real-time, filtering based on labels or names.
+- **Color-Coded Output**: Differentiates logs from various pods and containers for better readability.
+- **Flexible Filtering**: Supports regex-based filtering to display only relevant log messages.
+- **Compatibility**: Works seamlessly with Kubernetes and can be integrated into debugging workflows.
+
+Stern provides a **real-time** view of application behavior, making it indispensable for troubleshooting and monitoring large-scale deployments.
+
+---
+
+## 6. References
 
 1. Adam Wiggins, *The Twelve-Factor App*, 2011. Available at: [https://12factor.net](https://12factor.net/)
 2. Brendan Burns and Joe Beda, *Kubernetes Up & Running*, O'Reilly Media, 2019.
 3. Docker Inc., *Docker Overview*, Available at: [https://www.docker.com/](https://www.docker.com/)
 4. Kubernetes Documentation, *Concepts Overview*, Available at: [https://kubernetes.io/docs/concepts/](https://kubernetes.io/docs/concepts/)
 5. Google Site Reliability Engineering, *The Case for Containers*, Available at: [https://sre.google/sre-book/](https://sre.google/sre-book/table-of-contents/)
-6. NIST, *Application Container Security Guide*, Special Publication 800-190, Available at: [https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf]
+6. NIST, *Application Container Security Guide*, Special Publication 800-190, Available at: [https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf)
+7. Skaffold Documentation, Available at: [https://skaffold.dev/docs/](https://skaffold.dev/docs/)
+8. Helm Documentation, Available at: [https://helm.sh/docs/](https://helm.sh/docs/)
+9. Telepresence Documentation, Available at: [https://www.telepresence.io/docs/quick-start](https://www.telepresence.io/docs/quick-start)
+10. Stern GitHub Repository, Available at: [https://github.com/stern/stern](https://github.com/stern/stern)
