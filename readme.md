@@ -16,4 +16,5 @@ The Codex is a set of guidelines for development of software and services at ECM
   - [Rust](./Language%20Guidelines/Rust)
 - [Repository Structure](./Repository%20Structure)
 - [Project Maturity](./Project%20Maturity)
+- [Containerisation](./Containerisation)
 - [ECMWF Software EnginE (ESEE)](./ESEE)
