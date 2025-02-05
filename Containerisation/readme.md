@@ -80,7 +80,7 @@ Declarative configurations enable seamless integration into CI/CD pipelines, aut
 ### 2.3 It is Lightweight
 
 #### No Virtualization Overhead
-Unlike traditional virtual machines, containers share the host’s kernel and use lightweight mechanisms—such as **cgroups** for resource isolation. This results in minimal startup times and lower resource overhead while maintaining strong process isolation.
+Unlike traditional virtual machines, containers share the host’s kernel and use lightweight mechanisms—such as **cgroups** for resource limits. This results in minimal startup times and lower resource overhead while maintaining strong process isolation.
 
 ### 2.4 Consistency
 
