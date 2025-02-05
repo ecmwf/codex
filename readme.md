@@ -10,10 +10,6 @@ The Codex is a set of guidelines for development of software and services at ECM
 
 # Contents
 
-- [Language Guidelines](./Language%20Guidelines)
-  - [Python](./Language%20Guidelines/Python)
-  - [C++](./Language%20Guidelines/C++)
-  - [Rust](./Language%20Guidelines/Rust)
 - [Repository Structure](./Repository%20Structure)
 - [Project Maturity](./Project%20Maturity)
 - [Containerisation](./Containerisation)
