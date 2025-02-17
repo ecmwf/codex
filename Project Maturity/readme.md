@@ -6,7 +6,7 @@ Software maturity refers to the stages a software project goes through during it
 
 [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/graduated_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity)
 
-Graduated projects are ready for operations, and typically used by ECMWF and/or its Member and Cooperating states in operations. This does not mean we give operational support to the software itself.
+Graduated projects are ready for operations, and typically used by ECMWF and/or its Member and Cooperating states in operations. This does not mean ECMWF gives operational support to the software itself.
 
     [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/graduated_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity)
 
