@@ -1,53 +1,21 @@
 {% if cookiecutter.logo_path_light != "" -%}
-<h3 align="center">
-<picture>
-    <source srcset="https://raw.githubusercontent.com/ecmwf/logos/refs/heads/main/logos/{{ cookiecutter.project_slug }}_dark.png" media="(prefers-color-scheme: dark)">
-    <img src="https://raw.githubusercontent.com/ecmwf/logos/refs/heads/main/logos/{{ cookiecutter.project_slug }}_light.png" width="100">
-  </picture>
-</br>
-</h3>
-{%- else -%}
+![{{ cookiecutter.project_slug }} logo](https://raw.githubusercontent.com/ecmwf/logos/refs/heads/main/logos/{{ cookiecutter.project_slug }}_dark.png)
 {%- endif%}
 
-
-<p align="center">
-  <img src="https://img.shields.io/badge/ESEE-Foundation-orange" alt="ESEE Foundation">
-  <a href="https://github.com/ecmwf/codex/blob/cookiecutter/Project%20Maturity/project-maturity.md">
-    <img src="https://img.shields.io/badge/Maturity-{{ cookiecutter.maturity_badge }}-{{ {'Sandbox': 'yellow', 'Incubating': 'lightskyblue', 'Emerging': 'violet', 'Graduated': 'green', 'Archived': 'orange'}[cookiecutter.maturity_badge] }}" alt="Maturity {{ cookiecutter.maturity_badge }}">
-  </a>
+[![ESEE Foundation](https://img.shields.io/badge/ESEE-Foundation-orange)]()
+[![Maturity: {{ cookiecutter.maturity_badge }}](https://img.shields.io/badge/Maturity-{{ cookiecutter.maturity_badge }}-{{ {'Sandbox': 'yellow', 'Incubating': 'lightskyblue', 'Emerging': 'violet', 'Graduated': 'green', 'Archived': 'orange'}[cookiecutter.maturity_badge] }})](https://github.com/ecmwf/codex/blob/cookiecutter/Project%20Maturity/project-maturity.md)
 
 {% if cookiecutter.ci_actions == 'y' -%}
-  <a href="https://github.com/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}/actions/workflows/ci.yaml">
-    <img src="https://github.com/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}/actions/workflows/ci.yaml/badge.svg" alt="CI Status">
-  </a>
-{%- else -%}
+[![CI](https://github.com/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}/actions/workflows/ci.yaml/badge.svg)](https://github.com/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}/actions/workflows/ci.yaml)
 {%- endif%}
 
 {% if cookiecutter.code_coverage == 'y' -%}
-  <a href="https://codecov.io/gh/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}">
-    <img src="https://codecov.io/gh/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}/branch/develop/graph/badge.svg" alt="Code Coverage">
-  </a>
-{%- else -%}
+[![Code Coverage](https://codecov.io/gh/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}/branch/develop/graph/badge.svg)](https://codecov.io/gh/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }})
 {%- endif%}
 
-  <a href="https://opensource.org/licenses/apache-2-0">
-    <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License: Apache 2.0">
-  </a>
-
-  <a href="https://github.com/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}/releases">
-    <img src="https://img.shields.io/github/v/release/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}?color=blue&label=Release&style=flat-square" alt="Latest Release">
-  </a>
-  <a href="https://{{ cookiecutter.project_slug }}.readthedocs.io/en/latest/?badge=latest">
-    <img src="https://readthedocs.org/projects/{{ cookiecutter.project_slug }}/badge/?version=latest" alt="Documentation Status">
-  </a>
-</p>
-
-<p align="center">
-  <a href="#quick-start">Quick Start</a> *
-  <a href="#installation">Installation</a> *
-  <a href="#contributors">Contributors</a> *
-  <a href="https://{{ cookiecutter.project_slug }}.readthedocs.io/en/latest/">Documentation</a>
-</p>
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/apache-2-0)
+[![Latest Release](https://img.shields.io/github/v/release/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}?color=blue&label=Release&style=flat-square)](https://github.com/{{ cookiecutter.github_organisation }}/{{ cookiecutter.project_slug }}/releases)
+[![Documentation Status](https://readthedocs.org/projects/{{ cookiecutter.project_slug }}/badge/?version=latest)](https://{{ cookiecutter.project_slug }}.readthedocs.io/en/latest/)
 
 # {{ cookiecutter.project_name }}
 
