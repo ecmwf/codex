@@ -97,11 +97,11 @@ A [Cookiecutter] template for an ECMWF project.
 
 Generate the project skeleton in a new directory:
 
-    cookiecutter ssh://git@github.com:ecmwf/cookie-cutter.git
+    cookiecutter ssh://git@github.com/ecmwf/cookie-cutter.git
 
 For adding readmes and files to existing projects, make sure to supply an additional parameter to overwrite existing directories:
 
-    cookiecutter ssh://git@github.com:ecmwf/cookie-cutter.git --overwrite-if-exists
+    cookiecutter ssh://git@github.com/ecmwf/cookie-cutter.git --overwrite-if-exists
 
 You will be asked to provide answers to several questions, in order to properly prepare the template for you. In case you don't know the answer, you can just leave the answer at the default value by pressing Enter.
 
