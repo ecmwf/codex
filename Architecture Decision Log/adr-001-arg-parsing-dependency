@@ -1,0 +1,94 @@
+# Decision Record 001: Arg Parsing Dependency
+
+ ## Status
+[**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
+
+## Context
+
+So far tools from our stack relied on `eckit::CmdArg` for argument parsing.
+`CmdArg` offers basic arg parsing functionality but is lacking support for
+sub-commands, repeated options and built-in validation.
+
+It is to be noted that besides any command-line argument parsing with `CmdArg`
+`eckit::ResourceBase` is also parsing passed arguments for all resources
+starting with a '-'.
+
+### Command Line Argument Parsing with CLI11
+
+CLI11 is an open-source library licensed under BSD Clause 3 License which has
+been maintained by the University of Cincinnati. The library has an active
+community and has recent releases. 
+
+Documentation can be found (here)[https://cliutils.github.io/CLI11/book/]
+
+The library is header only.
+
+### Design / Usage Guidelines
+
+Tools using CLI11 may do so under the condition that CLI11 type and function
+usage is isolated to allow for future replacement. After parsing all options
+are to be passed on to the remainder of the program as either
+`eckit::LocalConfiguration` or domain specific structure.
+
+Example:
+
+```cpp
+#include <CLI/CLI.hpp>
+#include <filesystem>
+
+// Use eckit::LocalConfiguration or custom struct
+struct CommandLineArgs {
+  std::filesystem::path file{};
+  bool foo{};
+  bool bar{};
+};
+
+// Place this in seperate translation unit, no CLI11 headers leak
+CommandLineArgs parseComandLineArgs(int argc, char *argv[]) {
+  CommandLineArgs args{};
+  CLI::App app{"App description"};
+  // Allow extra args to stay compatible with eckit ressource comandline args
+  app.allow_extras();
+  argv = app.ensure_utf8(argv);
+
+  std::string filename = "default";
+  app.add_option("-f,--file", args.file, "A help string")->required();
+  app.add_flag("--foo", args.foo);
+  app.add_flag("-b,--bar,--some-deprecated-alias", args.bar);
+  app.set_version_flag("--version", [](){return "1.33.7!";});
+
+  try {
+    app.parse(argc, argv);
+  } catch (const CLI::ParseError &e) {
+    // Exit the application directly
+    // --help / --version result in the application to
+    // exit but with the error code 0
+    std::exit(app.exit(e));
+  }
+  return {};
+}
+
+int main(int argc, char **argv) {
+  const auto args = parseComandLineArgs(argc, argv);
+}
+```
+
+Applications may migrate away from `eckit::CmdArg` to CLI11. CLI11 code shall
+be constraint to a couple of free functions 
+
+#### Compatibility with eckit::ResourceBase
+
+CLI11 allows to specify `allow_extras()` to disable unrecognized options being
+an error. 
+
+
+### Decision
+
+Tools may opt int to the use of CLI11 instead of `eckit::CmdArg`. If CLI11 is
+used it the code has to adhere to the guidlines layed out above.
+
+## Date
+2025-06-06
+
+## Authors
+- Kai Kratz
