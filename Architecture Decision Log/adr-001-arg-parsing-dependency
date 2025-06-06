@@ -1,0 +1,82 @@
+# Decision Record 001: Arg Parsing Dependency
+
+ ## Status
+[**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
+
+## Context
+
+So far tools from our stack relied on `eckit::CmdArg` for argument parsing.
+`CmdArg` offers basic arg parsing functionality but is lacking support for
+sub-commands, repeated options and built-in validation.
+
+It is to be noted that besides any command-line argument parsing with `CmdArg`
+`eckit::ResourceBase` is also parsing passed arguments for all resources
+starting with a '-'.
+
+### Comandline Argument Parsing with CLI11
+
+CLI11 is an open-source library licensed under BSD Clause 3 License which has
+been maintained by the University of Cincinnati. The library has an active
+community and has recent releases. 
+
+Documentation can be found (here)[https://cliutils.github.io/CLI11/book/]
+
+### Design / Usage Guidelines
+
+Tools using CLI11 may do so under the condition that CLI11 type and function
+usage is isolated to allow for future replacement. After parsing all options
+are to be passed on to the remainder of the program as either
+`eckit::LocalConfiguration` or domain specific structure.
+
+Example:
+
+```cpp
+struct Args {
+    bool flag1;
+    bool flag2;
+    std::vector<std::string> positional;
+};
+
+Args parse_cmdline_args(int argc, const char* argv[]) {
+    Args args{};
+
+    // ... parsing into args ...
+
+    return args;
+}
+
+```
+
+Applications may migrate away from `eckit::CmdArg` to CLI11. CLI11 code shall
+be constraint to a couple of free functions 
+
+### Compatibility with eckit::ResourceBase
+
+CLI11 allows to specify `allow_extras()` to disable unrecognized options being
+an error. 
+
+
+### Decision
+This is the status quo of the implementation and we want to keep the behavior. Currently there are only four
+values supported:
+
+- auto
+- av
+- N128
+- N200
+
+### Consequences
+No consequences to be expected because this is exactly what MIR does internally.
+
+### Alternatives Considered
+None
+
+### Related Decisions
+None
+
+## Date
+2025-06-06
+
+## Authors
+- Kai Kratz
+
