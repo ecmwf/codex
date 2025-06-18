@@ -13,11 +13,13 @@ External collaborators of ECMWF are expected to fork our repositories and then m
 ## Readme Template
 
 > \[!CAUTION\]
-> This is a fork of <repository name> for preparing contributions by ECMWF before pushing them to the upstream repo. ECMWF aims to synchronise this repo regularly with the upstream repo. Please go to the original repo linked below for further information about <repository name>.
+> This is a fork of **xyz** for preparing contributions by ECMWF before pushing them to the upstream repo. ECMWF aims to synchronise this repo regularly with the upstream repo. Please go to the original repo linked below for further information about **xyz**.
 
 ```
 > \[!CAUTION\]
 > This is a fork of <repository name> for preparing contributions by ECMWF before pushing them to the upstream repo. ECMWF aims to synchronise this repo regularly with the upstream repo. Please go to the original repo linked below for further information about <repository name>.
 ```
+
+Replace `xyz` with the name of the origin repository.
 
 The remainder of the readme can describe the original project or any particular modifications ECMWF have made, or can be left blank.
