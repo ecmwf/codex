@@ -7,7 +7,7 @@ External collaborators of ECMWF are expected to fork our repositories and then m
 1. Fork the repository. It will be public and cannot be changed.
 2. Create a new branch, which shall be empty except for a readme.md. The branch can be called `default`. Follow the template below.
 3. Make that branch the default branch, so that it is the page most people land on.
-4. In the repository settings, disable all actions, because we don't know what workflows we just imported, and they would now have access to internal systems and organisation secrets.
+4. In the repository settings, disable all actions, because we don't know what workflows we just imported, and they now have access to internal systems and organisation secrets.
 
 
 ## Readme Template
