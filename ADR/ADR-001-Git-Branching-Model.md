@@ -133,7 +133,7 @@ Based on GitHub's lightweight workflow described at https://docs.github.com/en/g
 * Coordination challenges: Requires strict discipline for production readiness
 * Hotfix complexity: May interfere with ongoing feature development
 * Less suitable for scheduled releases: Harder to prepare release candidates
-* Not ideal for versioned software: Difficult to maintain multiple versions
+* Not ideal for versioned software: Difficult to support multiple versions in the presence of hotfixes on previous versions
 * Less structured: No clear separation between production and development code
 * Requires strong team discipline: Teams must ensure main is always deployable
 * Not as common in operational software: Many operational software packages use Git Flow
