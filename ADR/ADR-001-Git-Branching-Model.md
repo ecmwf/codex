@@ -15,6 +15,8 @@ GitHub Flow - GitHub's lightweight branch-based workflow using only main/master
 
 The Git Flow model has been so far the choice for many operational software packages, providing a structured approach to managing releases and features, as well as support branches for hotfixes and long-term maintenance. It has allowed for parallel development of features while maintaining a stable main branch for production releases.
 
+Meanwhile, GitHub Flow has gained popularity for its simplicity and alignment with continuous delivery practices, especially in web applications. It allows for rapid development and deployment cycles, but requires strong discipline to ensure the main branch remains stable and deployable.
+
 We recognise that the choice of branching strategy significantly impacts development velocity, release management, code stability, and team coordination. Different repositories may have varying complexity levels and operational requirements, necessitating a flexible approach that can evolve with project needs.
 
 **Decision Drivers**
