@@ -197,6 +197,7 @@ When upgrading from GitHub Flow to Git Flow:
 
 * Create develop branch from current main
 * Update repository documentation and contribution guidelines
+* Make develop the default branch on GitHub so that PRs target it by default
 * Configure branch protection rules for both main and develop
 * Train team members on new workflow and branch types
 * Update CI/CD pipelines to support new branching structure
