@@ -4,7 +4,7 @@ This document provides a Guidelines and a template for creating Architectural De
 
 ## Template for Architectural Decision Records (ADRs)
 
-Please find the template for creatinsg ADRs in the `ADR-Template.md` file. This template should be used for all ADRs to ensure consistency and clarity.
+Please find the template for creatinsg ADRs in the [ADR-Template.md](./ADR-Template.md) file. This template should be used for all ADRs to ensure consistency and clarity.
 
 ## Purpose
 
