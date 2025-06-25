@@ -43,6 +43,29 @@ Based on the branching model described at https://nvie.com/posts/a-successful-gi
 * hotfix branches: Critical production fixes, branched from main/master
 * support branches: Long-term maintenance for older releases
 
+**Workflow Steps**
+
+Feature Development:
+
+* Create feature branch from develop
+* Develop feature with regular commits
+* When complete, merge back to develop and delete feature branch
+
+Release Process:
+
+* Create release branch from develop
+* Bump version number and commit
+* Perform final testing and bug fixes on release branch, possibly coordinating with other components
+* Merge to main and tag the release
+* Merge back to develop and delete release branch
+
+Hotfix Process:
+
+* Create hotfix branch from main
+* Bump version and fix the bug(s)
+* Merge to main and tag the hotfix
+* Merge to develop and delete hotfix branch
+
 **Advantages**
 
 * Clear separation of concerns: Production code (main) vs. development integration (develop)
