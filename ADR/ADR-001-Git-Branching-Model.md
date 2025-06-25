@@ -149,7 +149,7 @@ Based on GitHub's lightweight workflow described at https://docs.github.com/en/g
 **Release Patterns**
 
 * Continuous deployment: GitHub Flow aligns perfectly with continuous delivery practices
-* Scheduled releases: Git Flow provides better control and release preparation capabilities
+* Scheduled releases: Git Flow provides better control and release preparation capabilities. Also supports synchronised releases of multiple components.
 * Mixed patterns: May require different strategies per repository based on deployment needs
 
 **Software Type Considerations**
