@@ -3,7 +3,7 @@
 ## Status
 [**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
 
-## Date
+## Last Updated
 2025-06-25
 
 ## Context
