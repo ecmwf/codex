@@ -76,6 +76,7 @@ Hotfix Process:
 * Version management: Excellent for maintaining multiple software versions
 * Audit trail: Clearer history of what went into each release
 * Rollback safety: Easy to identify last known good state
+* Consistent treatment of support branches: which are treated the same as other long-lived branches
 * Suited for scheduled releases: Works well with planned release cycles
 * Well suited for synchronised releases of multiple components as it allows to test all the packages together on develop before doing the synchronised release
 
