@@ -16,7 +16,7 @@ This section should list the options that were considered before making the deci
 
 ### Analysis
 
-This section should provide an analysis of the options considered, including any trade-offs, risks, and implications of each option. It should explain why the chosen option was selected over the others. If no alternetive options were considered, analysie the impact of the decision. 
+This section should provide an analysis of the options considered, including any trade-offs, risks, and implications of each option. It should explain why the chosen option was selected over the others. If no alternative options were considered, analyse the impact of the decision. 
 
 ## Decision
 
