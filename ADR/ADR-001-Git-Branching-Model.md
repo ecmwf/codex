@@ -188,6 +188,8 @@ Lead developers (GateKeepers) for each repository can decide to upgrade to Git F
 * Deployment risk warrants additional safeguards and staging processes
 * Continuous delivery is not suitable for the software type
 
+The reverse can also happen, where a repository using Git Flow can revert to GitHub Flow if it the assessment of the criteria reverses (e.g. becomes simpler or less critical).
+
 ### Migration Path
 
 When upgrading from GitHub Flow to Git Flow:
