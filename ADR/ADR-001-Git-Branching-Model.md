@@ -175,7 +175,7 @@ All new repositories will start with GitHub Flow:
 * Create feature branches for development
 * Use pull requests for code review and collaboration
 * Merge directly to main when features are complete and reviewed
-* Deploy directly from main (manual or automated)
+* Deploy directly from a tag on main (manual or automated)
 * Use hotfix branches for critical production issues if needed
 
 ### Evolution Trigger: GateKeeper Decision
