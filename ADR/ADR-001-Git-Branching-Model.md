@@ -13,10 +13,6 @@ We would like to provide guidelines for a more consistent Git branching strategy
 Git Flow - The branching model by Vincent Driessen using both main/master and develop branches
 GitHub Flow - GitHub's lightweight branch-based workflow using only main/master
 
-The Git Flow model has been so far the choice for many operational software packages, providing a structured approach to managing releases and features, as well as support branches for hotfixes and long-term maintenance. It has allowed for parallel development of features while maintaining a stable main branch for production releases.
-
-Meanwhile, GitHub Flow has gained popularity for its simplicity and alignment with continuous delivery practices, especially in web applications. It allows for rapid development and deployment cycles, but requires strong discipline to ensure the main branch remains stable and deployable.
-
 We recognise that the choice of branching strategy significantly impacts development velocity, release management, code stability, and team coordination. Different repositories may have varying complexity levels and operational requirements, necessitating a flexible approach that can evolve with project needs.
 
 **Decision Drivers**
@@ -33,6 +29,8 @@ We recognise that the choice of branching strategy significantly impacts develop
 #### Option 1: Git Flow (Vincent Driessen's Model)
 
 Based on the branching model described at https://nvie.com/posts/a-successful-git-branching-model/
+
+The Git Flow model has been so far the choice for many operational software packages, providing a structured approach to managing releases and features, as well as support branches for hotfixes and long-term maintenance. It has allowed for parallel development of features while maintaining a stable main branch for production releases.
 
 **Structure**
 
@@ -96,6 +94,8 @@ Hotfix Process:
 #### Option 2: GitHub Flow
 
 Based on GitHub's lightweight workflow described at https://docs.github.com/en/get-started/using-github/github-flow
+
+GitHub Flow has gained popularity for its simplicity and alignment with continuous delivery practices, especially in web applications. It allows for rapid development and deployment cycles, but requires strong discipline to ensure the main branch remains stable and deployable.
 
 **Structure**
 
