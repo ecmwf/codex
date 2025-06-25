@@ -54,6 +54,8 @@ Based on the branching model described at https://nvie.com/posts/a-successful-gi
 * Audit trail: Clearer history of what went into each release
 * Rollback safety: Easy to identify last known good state
 * Suited for scheduled releases: Works well with planned release cycles
+* Well suited for synchronised releases of multiple components as it allows to test all the packages together on develop before doing the synchronised release
+
 
 **Disadvantages**
 
