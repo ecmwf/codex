@@ -109,7 +109,7 @@ Based on GitHub's lightweight workflow described at https://docs.github.com/en/g
 * Make changes and commit to the branch
 * Create a pull request for review
 * Address review comments
-* Merge the pull request to main
+* Merge the pull request to main and possibly tag new version (if applicable)
 * Delete the feature branch
 * Deploy (possibly automatically) or Publish artifact
 
