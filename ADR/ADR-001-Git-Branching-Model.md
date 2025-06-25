@@ -1,4 +1,4 @@
-# Decision Record 001: Git Branching Model
+# Architectural Decision Record 001: Git Branching Model
 
 ## Status
 [**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]

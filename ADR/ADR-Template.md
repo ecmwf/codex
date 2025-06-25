@@ -1,4 +1,4 @@
-# Decision Record XXX: Title of the Decision
+# Architectural Decision Record XXX: Title of the Decision
 
 ## Status
 [**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
