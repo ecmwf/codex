@@ -37,7 +37,7 @@ Create an ADR when making decisions that:
 ### Section-Specific Guidelines
 
 #### Status
-- Use **Proposed** for draft ADRs under review
+- Use **Proposed** for draft ADRs under review (only the text not the decision which should at this stage already be clear)
 - Use **Accepted** for approved and implemented decisions
 - Use **Deprecated** for decisions no longer valid but historically important
 - Use **Superseded by [ADR-XXX]** when replaced by a newer decision
