@@ -43,50 +43,74 @@ Create an ADR when making decisions that:
 - Use **Superseded by [ADR-XXX]** when replaced by a newer decision
 
 #### Context
+
+Explain the context of the decision, including any relevant background information, constraints, and requirements. This section should provide enough detail for someone unfamiliar with the project to understand the decision.
+Consider including:
 - Explain the business or technical problem being solved
 - Describe relevant constraints (time, budget, technology, regulatory)
 - Provide sufficient background for someone unfamiliar with the project
 - Include relevant ECMWF-specific considerations (operational requirements, data volumes, performance needs)
 
 #### Options Considered
+
+This section should list the options that were considered before making the decision. Each option should be described briefly, including its pros and cons if applicable. If no options were considered, state "None".
+Consider including:
 - List all seriously considered alternatives, including "do nothing"
 - Provide brief descriptions of each option
 - Include pros and cons for each alternative
 - If only one option was viable, explain why others were dismissed early
 
 #### Analysis
+
+This section should provide an analysis of the options considered, including any trade-offs, risks, and implications of each option. It should explain why the chosen option was selected over the others. If no alternative options were considered, analyse the impact of the decision. 
+Consider including:
 - Compare options against relevant criteria (cost, performance, maintainability, risk)
 - Explain trade-offs and their implications
 - Reference any prototypes, benchmarks, or research conducted (if applicable)
 - Consider both immediate and long-term impacts
 
 #### Decision
+
+This section should clearly state the decision that was made. It should be concise and unambiguous, providing a definitive answer to the problem or question at hand.
+Consider including:
 - State the chosen option clearly and unambiguously
 - Avoid implementation details unless crucial to understanding
 - Include any conditions or limitations on the decision
 
 #### Related Decisions
+
+This section should list any related decisions that may impact or be impacted by this decision. If there are no related decisions, state "None".
+Consider including:
 - Reference other ADRs that influenced or are influenced by this decision
 - Note any decisions this ADR modifies or supersedes
 - Consider impacts on existing architectural patterns
 - Reference ECMWF previous decisions that may be relevant but not documented as ADRs
 
 #### Consequences
+
+This section should describe the consequences of the decision, both positive and negative. It should outline any expected outcomes, changes to the system, or implications for future work. In the unlikely case there are no expected consequences, state "No consequences to be expected".
+Consider including:
 - List both positive and negative expected outcomes
 - Include impacts on performance, maintainability, team productivity, and operations
 - Note any new risks introduced or mitigated
 - Consider implications for future decisions
 
 #### References
+
+This section should include any references to external documents, links, or resources that provide additional context or information related to the decision. This could include links to discussions, design documents, or relevant standards.
+Consider including:
 - Include links to relevant documentation, RFCs, or standards
 - Reference meeting notes, email threads, or other decision artifacts
 - Link to prototypes, benchmarks, or analysis documents
 - Cite relevant ECMWF policies or guidelines
 
 #### Authors
+
+List the authors of the decision record. This helps in tracking who was involved in making the decision.
+Consider including:
 - List all significant contributors to the decision
-- Include roles if meaningful and when helpful for context
-- Consider including reviewers who provided substantial input
+- Contributor roles if meaningful and when helpful for context
+- Reviewers who provided substantial input
 
 ## Quality Checklist
 

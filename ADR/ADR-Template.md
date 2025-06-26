@@ -8,35 +8,50 @@ YYYY-MM-DD
 
 ## Context
 
-Explain the context of the decision, including any relevant background information, constraints, and requirements. This section should provide enough detail for someone unfamiliar with the project to understand the decision.
+[ ] Explained the business or technical problem being solved  
+[ ] Described relevant constraints (time, budget, technology, regulatory)  
+[ ] Provided sufficient background for someone unfamiliar with the project  
+[ ] Included relevant ECMWF-specific considerations (operational requirements, data volumes, performance needs, etc)
 
 ### Options Considered
 
-This section should list the options that were considered before making the decision. Each option should be described briefly, including its pros and cons if applicable. If no options were considered, state "None".
+[ ] Listed all seriously considered alternatives 
+[ ] Provided brief descriptions of each option
+[ ] Included pros and cons for each alternative  
 
 ### Analysis
 
-This section should provide an analysis of the options considered, including any trade-offs, risks, and implications of each option. It should explain why the chosen option was selected over the others. If no alternative options were considered, analyse the impact of the decision. 
+[ ] Compared options against relevant criteria (cost, performance, maintainability, risk, etc)  
+[ ] Explained trade-offs and their implications
+[ ] Referenced any prototypes, benchmarks, or research conducted (if applicable)  
+[ ] Considered both immediate and long-term impacts
 
 ## Decision
 
-This section should clearly state the decision that was made. It should be concise and unambiguous, providing a definitive answer to the problem or question at hand.
+[ ] Stated the chosen option (clearly and unambiguously)
+[ ] Avoided implementation details (unless crucial to understanding the decision)
+[ ] Included any conditions or limitations on the decision
 
 ### Related Decisions
 
-This section should list any related decisions that may impact or be impacted by this decision. If there are no related decisions, state "None".
+[ ] Referenced other ADRs that influenced or are influenced by this decision  
+[ ] Noted any decisions this ADR modifies or supersedes  
+[ ] Considered impacts on existing architectural patterns  
+[ ] Referenced ECMWF previous decisions that may be relevant but not documented as ADRs
 
 ## Consequences
 
-This section should describe the consequences of the decision, both positive and negative. It should outline any expected outcomes, changes to the system, or implications for future work. In the unlikely case there are no expected consequences, state "No consequences to be expected".
+[ ] Listed both positive and negative expected outcomes (if applicable)
+[ ] Included impacts on performance, maintainability, team productivity, operations, etc
+[ ] Noted any new risks introduced or mitigated
+[ ] Considered implications for future decisions
 
 ## References
 
-This section should include any references to external documents, links, or resources that provide additional context or information related to the decision. This could include links to discussions, design documents, or relevant standards.
+[ ] Linked to any relevant documents, discussions, or resources that informed the decision  
+[ ] Included links to related ADRs, design documents, or external references
 
 ## Authors
-
-List the authors of the decision record. This helps in tracking who was involved in making the decision.
 
 - Author 1
 - Author 2
