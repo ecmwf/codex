@@ -109,6 +109,8 @@ Before finalizing an ADR, ensure it meets these criteria:
 
 ## Review Process
 
+This review process refers to the text in the ADR. It does not refer to the decision itself, which should already be clear at this stage. The review process is as follows:
+
 1. **Draft Creation** - Author(s) create(s) ADR with status "Proposed"
 2. **Technical & Architecture Review** - Relevant technical teams including GateKeeper(s) review for accuracy and completeness
 4. **Stakeholder Review** - Team Leader(s) and Section head review for alignment with ECMWF strategic goals
