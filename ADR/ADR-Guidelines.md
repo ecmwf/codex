@@ -126,7 +126,7 @@ Before finalizing an ADR, ensure it meets these criteria:
 
 ## Numbering and Filing
 
-- Use sequential numbering: ADR-001, ADR-002, etc.
+- Use sequential numbering: ADR-001-Meaningfull-Title, ADR-002-Another-Meaningfull-Title, etc.
 - Store ADRs in the project repository under `/docs/adr/` or similar
 - Use descriptive filenames: `ADR-001-language-selection.md`
 - Maintain an index of all ADRs with brief descriptions
