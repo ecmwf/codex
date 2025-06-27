@@ -1,7 +1,7 @@
 # Architectural Decision Record 001: Git Branching Model
 
 ## Status
-[**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
+[<s>Proposed</s> | Accepted | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
 
 ## Last Updated
 2025-06-25
