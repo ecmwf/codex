@@ -1,36 +1,171 @@
 # Architectural Decision Record 002: Optional C++ Dependency CLI11 
 
-C++ Tools may opt-in to use of CLI11 instead of `eckit::CmdArg`. When using
-CLI11, developers need to adhere to the design guidelines outlined in this
-document.
-
  ## Status
 
-[**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
+**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>
 
 ## Last Updated
 
 2025-08-13
 
+## Decision
+
+C++ Tools may opt-in to use of CLI11 instead of `eckit::CmdArg`. When using
+CLI11, developers need to adhere to the design guidelines outlined in this
+document.
+
 ## Context
 
-So far tools from our stack relied on `eckit::CmdArg` for argument parsing.
-`CmdArg` offers basic arg parsing functionality but is lacking support for
-sub-commands, repeated options and built-in validation.
+Command line parsing in out C++ stack is either done with `eckit::CmdArg` or
+with custom solutions predating EcKit.
 
-It is to be noted that besides any command-line argument parsing with `CmdArg`
-`eckit::ResourceBase` is also parsing passed arguments for all resources
-starting with a '-'.
+`eckit::CmdArg` is missing useful functionality such as:
 
-### Command Line Argument Parsing with CLI11
+- Dependant options
+- Subcommands
+- Auto-generated help text
+- Hooks to add validation code
 
-CLI11 is an open-source library licensed under BSD Clause 3 License which has
-been maintained by the University of Cincinnati. The library has an active
-community and has recent releases. 
+Need for such functionality increases because we want to improve usability of
+our command line tools. This means better help text, documented options instead
+of environment variables which have to be known or looked up some place else.
+Moving forward we can either extend the existing implementation or take on a
+third-party dependency.
 
-Documentation can be found (here)[https://cliutils.github.io/CLI11/book/]
+## Options Considered
 
-The library is header only.
+We considered build ourselves or take on one of several existing open source
+libraries.
+
+### Extend EcKit
+
+Design and architecture of a command line parsing is sometimes considered a
+'entry level' topic, it nevertheless requires consensus building, design,
+implementation and testing work. Our development time and resources are better
+spent on other topics.
+
+### Open Source Solution
+
+Looking at the available solutions the following characteristics have been
+taken into account:
+
+- Feature richness. -> To ensure the library will serve us well even with
+  changing requirements.
+- Maturity. -> To ensure that the API is stable enough to build on it.
+- Development activity and age. -> We want to pick something that is going to
+  be maintained for a long time. Expected future lifetime of a project is
+  proportional to its current age (Lindy's law).
+- Compatible License -> No GPL
+- Ease of integration 
+
+The considered libraries are:
+
+#### Argprse
+
+[argparse](https://github.com/p-ranav/argparse)
+
+Replicates python argparse in C++.
+
+Relative few commits in the last year, development speed seems to have slowed
+down.
+
+Development started in 2019, 733 commits to date.
+
+Developed under MIT-License.
+
+Distributed as a single header library.
+
+#### CLI11
+
+[CLI11](https://github.com/CLIUtils/CLI11)
+
+Very close to rusts clap library. Most comprehensive list of features of all
+libraries in this list. Allows arbitrary nesting of sub-commands. Out of the
+box support to map configuration files / environment variables to command line
+options.
+
+Active development. Multiple feature / bug fix releases in this year.
+
+Development started in 2017, 1357 commits to date.
+
+Developed BSD Clause 3 License.
+
+Distributed as a single header library.
+
+#### Lyra
+
+[Lyra](https://github.com/bfgroup/Lyra)
+
+Fork of Clara, the command line parsing library used by Catch2. DSL-Style
+interface. Most features can be realised but dos not feature mutually exclusive
+argument groups for example.  
+
+Active but slow development.
+
+Forked in 2019, 513 commits to date.
+
+Developed under Boost Software License v1.
+
+Distributed as a header only library.
+
+#### CmdLime
+
+[cmdlime](https://github.com/kamchatka-volcano/cmdlime)
+
+Declarative style. No support for mutually exclusive groups.
+
+Very little active development.
+
+Development started in 2021, 150 commits to date.
+
+Developed under Microsoft Public License.
+
+Distributed as a header only library.
+
+#### Boost Program Options
+
+[Boost Program Options](https://www.boost.org/doc/libs/1_89_0/doc/html/program_options.html)
+
+Most mature library of the selection but does not offer direct support for
+subcommands, although this can be made to work. It comes with boost. Only
+library of this selection that is not header only.
+
+Development started in 2002, 529 commits to date.
+
+Developed under Boost Software License v1.
+
+Distributed as compiled library.
+
+## Analysis
+
+The choice of library has superficial impact on longterm development as it sits
+atop the application and should be almost trivially to replace if the general
+deign guidelines, outlined below, are followed.
+
+Further Given our limited development capacity we want to allow use of an existing open
+source library. All candidates with the exception of boost program options are
+viable. Boost program options is excluded because it is a compiled dependency
+and only distributed thought the boost distribution.
+
+Of the remaining libraries CLI11 has be in development to longest, the most
+active development and the largest feature set.
+
+## Related Decisions
+
+None.
+
+## Consequences
+
+If developers wish to migrate away from `eckit::CmdArg` they may do so under
+the condition that they follow the design guidelines outlined below. The design
+guidelines aim at isolating the use of any command line parsing library to the
+using application. It is advocated to create custom types to store an forward
+parsed arguments. Do not use types from the command line parsing library
+outside of the actual parsing and validation code. Other parts of the program
+shall use custom types instead.
+
+The expectation is that with this design guideline we will isolate our code
+from potential future replacements of said command line parsing library.
 
 ### Design / Usage Guidelines
 
@@ -46,7 +181,6 @@ Example:
 #include <filesystem>
 
 // Use eckit::LocalConfiguration or custom struct.
-// Th
 struct CommandLineArgs {
   std::filesystem::path file{};
   bool foo{};
@@ -75,7 +209,7 @@ CommandLineArgs parseComandLineArgs(int argc, char *argv[]) {
     // exit but with the error code 0
     std::exit(app.exit(e));
   }
-  return {};
+  return args;
 }
 
 int main(int argc, char **argv) {
@@ -83,9 +217,11 @@ int main(int argc, char **argv) {
 }
 ```
 
-> [!NOTE] Compatibility with eckit::ResourceBase
-> To retain compatibility with `eckit::Ressource` CLI11 needs to be called with
-> `allow_extras()` to disable unrecognized options to be treated as an error. 
+> [!IMPORTANT] 
+> **Compatibility with eckit::ResourceBase**
+> 
+> To retain compatibility with `eckit::Resource` CLI11 needs to be called with
+> `allow_extras()` to prevent unrecognized options being treated as an error. 
 
 See [mars-client-cpp](https://github.com/ecmwf/mars-client-cpp) for a full integration.
 
@@ -99,9 +235,36 @@ See [mars-client-cpp](https://github.com/ecmwf/mars-client-cpp) for a full integ
    structs / classes or `eckit::LocalConfiguration`
 
 3. You _need_ to set `CLI::APP::allow_extras()` otherwise you _will break_
-   `eckit::Ressource`. This is required because `eckit::Ressource` parses
+   `eckit::Resource`. This is required because `eckit::Resource` parses
    `args[]` on the fly.
+
+### Migrating from eckit::CmdArg to CLI11
+
+Migrating to CLI11 can be done without breaking the current command line
+interface in most cases. While CLI11 follows GNU style option naming, i.e.
+single dash short options that can be combined and double dash long options,
+CLI11 also allows to define single dash long options, e.g. `-longopt`.
+
+It is important to note that CLI11 will interpret `-longopt` as `-l -o -n -g -o
+-p -t` _unless_ `-longopt` is explicitly defined. So mixing single dash long
+and short options is not recommended.
+
+Options and flags can be created with aliases, e.g. `app.add_flag("-foo,--foo",
+args.foo);`, allowing callers to migrate to GNU style options gradually.
+
+## References
+
+See [mars-client-cpp](https://github.com/ecmwf/mars-client-cpp) for a full integration.
+
+Documentation for CLI11 can be found [here](https://cliutils.github.io/CLI11/book/)
+
+*Sources:*
+[CLI11](https://github.com/CLIUtils/CLI11)
+[argparse](https://github.com/p-ranav/argparse)
+[Lyra](https://github.com/bfgroup/Lyra)
+[cmdlime](https://github.com/kamchatka-volcano/cmdlime)
+[Boost Program Options](https://www.boost.org/doc/libs/1_89_0/doc/html/program_options.html)
 
 ## Authors
 
-- Kai Kratz
+- Kai Kratz ([Ozaq](https://github.com/ozaq))
