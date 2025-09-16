@@ -1,4 +1,4 @@
-# Architectural Decision Record 002: Optional C++ Dependency CLI11 
+# Architectural Decision Record 002: Optional C++ Dependency CLI11
 
  ## Status
 
@@ -29,8 +29,9 @@ with custom solutions predating EcKit.
 Need for such functionality increases because we want to improve usability of
 our command line tools. This means better help text, documented options instead
 of environment variables which have to be known or looked up some place else.
-Moving forward we can either extend the existing implementation or take on a
-third-party dependency.
+Moving forward we want to take on a third-party dependency because we do not
+want to spend work on extending eckit::CmdArgs and generally want to reduce
+maintenance burden.
 
 ## Options Considered
 
@@ -42,7 +43,8 @@ libraries.
 Design and architecture of a command line parsing is sometimes considered a
 'entry level' topic, it nevertheless requires consensus building, design,
 implementation and testing work. Our development time and resources are better
-spent on other topics.
+spent on other topics. This includes the initial cost to build a bespoke
+solution as the continued maintenance.
 
 ### Open Source Solution
 
@@ -56,7 +58,7 @@ taken into account:
   be maintained for a long time. Expected future lifetime of a project is
   proportional to its current age (Lindy's law).
 - Compatible License -> No GPL
-- Ease of integration 
+- Ease of integration
 
 The considered libraries are:
 
@@ -98,7 +100,7 @@ Distributed as a single header library.
 
 Fork of Clara, the command line parsing library used by Catch2. DSL-Style
 interface. Most features can be realised but dos not feature mutually exclusive
-argument groups for example.  
+argument groups for example.
 
 Active but slow development.
 
@@ -127,8 +129,10 @@ Distributed as a header only library.
 [Boost Program Options](https://www.boost.org/doc/libs/1_89_0/doc/html/program_options.html)
 
 Most mature library of the selection but does not offer direct support for
-subcommands, although this can be made to work. It comes with boost. Only
-library of this selection that is not header only.
+subcommands, although this can be made to work. It comes with Boost. Only
+library of this selection that is not header only. In general Boost is a
+cumbersome dependency that historically had issues with compatibility. We do
+not want to depend on Boost unless we have to.
 
 Development started in 2002, 529 commits to date.
 
@@ -145,7 +149,8 @@ deign guidelines, outlined below, are followed.
 Further Given our limited development capacity we want to allow use of an existing open
 source library. All candidates with the exception of boost program options are
 viable. Boost program options is excluded because it is a compiled dependency
-and only distributed thought the boost distribution.
+and only distributed thought the boost distribution. We strongly prefer a
+header only solution here due to the ease of integration.
 
 Of the remaining libraries CLI11 has be in development to longest, the most
 active development and the largest feature set.
@@ -217,11 +222,11 @@ int main(int argc, char **argv) {
 }
 ```
 
-> [!IMPORTANT] 
+> [!IMPORTANT]
 > **Compatibility with eckit::ResourceBase**
-> 
+>
 > To retain compatibility with `eckit::Resource` CLI11 needs to be called with
-> `allow_extras()` to prevent unrecognized options being treated as an error. 
+> `allow_extras()` to prevent unrecognized options being treated as an error.
 
 See [mars-client-cpp](https://github.com/ecmwf/mars-client-cpp) for a full integration.
 
