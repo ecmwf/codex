@@ -2,7 +2,7 @@
 
  ## Status
 
-**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>
+<s>Proposed<s> | **Accepted** | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>
 
 ## Last Updated
 
