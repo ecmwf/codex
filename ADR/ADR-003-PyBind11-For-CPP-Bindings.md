@@ -179,6 +179,7 @@ binary size.
 
 Compared to PyBind11 several key features have been
 [removed](https://nanobind.readthedocs.io/en/latest/porting.html#removed-features).
+Especially notable is the removal of module local bindings.
 
 PyBind11 requires distribution of a native Python extension and
 supports CPython [stable API](https://docs.python.org/3/c-api/stable.html).
