@@ -314,12 +314,12 @@ None
 
 ## Consequences
 
-Existing python bindings that are not pybind11 bindings can be migrated through the [design guidelines](#design-guidelines).
+Existing python bindings that are not pybind11 bindings can optionally be migrated through the [design guidelines](#design-guidelines).
 
 
 ### Design guidelines
 
-*No domain-specific/business logic* must be specified in the file. 
+*No domain-specific/business logic* must be specified in the bindings definition. 
 The C++ bindings should forward all internal logic directly without adding new.
 The binding layer shall be a 1-1 layer of the existing C++ interface.
 There shall be no transformations and mappings in the binding layer.
