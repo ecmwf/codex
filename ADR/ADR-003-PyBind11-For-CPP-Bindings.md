@@ -168,26 +168,30 @@ one extension per supported minor Python version has to be provided.
 **Visibility**: 17.3k stars on Github, 26.6k users, used in PyTorch and TensorFlow.
 
 
-#### nanobind
+#### Nanobind
 
-[source](https://github.com/wjakob/nanobind) | [documentation](https://nanobind.readthedocs.io/en/latest/)
+[source](https://github.com/wjakob/nanobind) |
+[documentation](https://nanobind.readthedocs.io/en/latest/)
 
-nanobind is similar to PyBind11 (almost the same interface) but with the purpose of
-  
-  * being faster & having less overhead than pybind11
-  * producing smaller binary sizes
+Nanobind is a rewrite of PyBind11 from the same author and claims to be "use
+near identical syntax". Goal is to improve performance, reduce compile time and
+binary size.
 
-while explicitly having reduced compatibility with `std` and third party modules.
-It is not header-only and requires linking to a shared or static library.
+Compared to PyBind11 several key features have been
+[removed](https://nanobind.readthedocs.io/en/latest/porting.html#removed-features).
 
+PyBind11 requires distribution of a native Python extension and
+supports CPython [stable API](https://docs.python.org/3/c-api/stable.html).
 
-**Licence**: BSD-style**Maturity**: new project, start in 2022
+**Licence**: BSD-style
 
-**Longevity**: 96 contributors (github)
+**Maturity**: new project, start in 2022.
 
-**Activity**: very new but high activity (44 Tags)
+**Longevity**: 96 contributors (github).
 
-**Visibility**: 3k stars on Github, 485k users
+**Activity**: very new but high activity (44 Tags).
+
+**Visibility**: 3k stars on Github, 485k users.
 
 
 #### Boost.Python
