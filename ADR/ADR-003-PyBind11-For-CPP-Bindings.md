@@ -99,7 +99,7 @@ The workflow is:
 
 Licence: MIT
 Maturity: Start in 2012, many releases (33 tags on github), good documentation 
-Longevity: 8 maintainers (pypy), 77 contributors (github)
+Longevity: 8 maintainers (pypi), 77 contributors (github)
 Activity: Multiple releases in the last years, community interaction
 Visibility: 204 stars on Github 
 
@@ -211,6 +211,30 @@ Key Points:
  * Requires SWIG tool installation and a simple build step.
 
 
+#### Cython
+
+[source](https://github.com/cython/cython) | [documentation](https://cython.readthedocs.io/en/latest/)
+
+Licence: Apache 2.0 License
+Maturity: Start in 2007
+Longevity: 492 contributors (github)
+Activity: almost monthly releases, community interaction
+Visibility: 10.3 stars on Github, 206k users
+
+
+Cython is a superset of Python that allows writing python-like code that is then compiled
+to C (or C++) and linked as a native extension module.
+
+Its primary goals are:
+  * Speed: By adding type annotations and compiling,
+    near-C performance can be achieved for critical sections.
+  * Interoperability: it simplifies calling C/C++ code directly from Python
+    without manually handling the CPython C-API in most cases
+  * Ease of use: Cython code closely resembles Python syntax,
+    so Python developers can gradually add optimizations without switching languages.
+
+
+
 ### Analysis
 
 We want to have python bindings for our whole C++ stack - this has a long term impact.
@@ -244,6 +268,11 @@ Swig:
  * Pros: automates most of the binding work, supports multiple languages, mature and stable tool
  * Cons: interface files add an extra step, generated code may be harder to debug, 
    less "pythonic" feel compared to pybind11 or Boost.Python
+
+Cython:
+ * Pros: can directly wrap C++ (compared to CFFI), python-like syntax
+ * Cons: limited modern C++ support, more boilerplate than alternatives,
+   harder debugging for crashes, extra build step needed
 
 
 Our canditate of choice is Pybind11 - compared to all the other candidates (except nanobind) it offers the 
