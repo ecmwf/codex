@@ -70,29 +70,21 @@ to Python that:
 
 [source](https://github.com/python/cpython) | [documentation](https://docs.python.org/3/c-api/index.html)
 
-This approach uses the official Python C API (<Python.h>) to directly expose C++ functions or classes to Python. 
+This approach uses the official Python C API (<Python.h>) to directly expose 
+C++ functions or classes to Python. It is the most low-level and native approach 
+and is the basis for most of the frameworks mentioned below.
 
-The workflow is:
-  1. Define C++ Code:
-     Write normal C++ headers and implementation files for the logic you want to expose (e.g., mylib.h, mylib.cpp).
+The CPython C-API exposes functions, macros, and data structures for creating and 
+manipulating Python objects directly in C (or C++). When wrapping C++ code, 
+you use these APIs to:
+  * Create Python-visible types (`PyTypeObject`) that wrap native C++ classes.
+  * Map methods and attributes from the C++ side into Python-callable functions (`PyMethodDef` table).
+  * Handle reference counting, object lifetime, and GIL management explicitly.
+  * Declare a python module and its initialization (`PyInit_<mymodule>`)
 
-  2. Create Binding Layer:
-     Implement a small C++ file that:
-
-       * Includes <Python.h> and your C++ headers
-       * Wraps C++ functions using `PyArg_ParseTuple` (to read Python arguments) 
-         and `Py_BuildValue/PyLong_FromLong` (to return values)
-
-       * Registers methods in a `PyMethodDef` table
-         Provides a `PyInit_<module>` function to initialize the Python module
-
-  3. Compile to Shared Library:
-     Build the code into a shared object (.so/.pyd) using the Python development headers and link flags. 
-     Python can then import this module directly.
-
-  4. Usage in Python:
-     Once built, the module can be imported like any native Python package (import mymodule) 
-     and the wrapped C++ functions can be called as normal Python functions.
+The code is built into a shared object (.so/.pyd) using the Python development headers and link flags. 
+Python can then import this module directly. The module can be imported like any native Python package 
+and the wrapped C++ functions can be called as normal Python functions.
 
 
 **Licence**: Python Software Foundation License (PSFL), BSD-style, GPL-compatible
