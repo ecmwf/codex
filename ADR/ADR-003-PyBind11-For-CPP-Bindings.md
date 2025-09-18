@@ -15,24 +15,27 @@ Developers should follow the [design guidline](#design-guidlines).
 ## Context
 
 ECMWF maintains a suite of high-performance C++ libraries that are increasingly
-required to be accessible from Python — for both internal workflows and external
-users. Historically, this integration has been achieved using CFFI, which
-requires exposing a C-compatible API and writing additional Python wrappers.
+required to be accessible from Python — for both internal workflows and
+external users. Historically, this integration has been achieved using CFFI,
+which requires exposing a C-compatible API and writing additional Python
+wrappers.
 
 However, this approach presents several technical and business challenges:
 
 
 ### Technical Challenges
 
-- Limited C++ Support: CFFI does not natively support C++ features such as
-  classes, templates, or STL containers. This forces developers to write and
-  maintain intermediate C wrappers, which is error-prone and hard to scale.
-- High Maintenance Overhead: The need to manually manage memory, object
-  lifetimes, and API consistency across C and Python layers increases
-  complexity and slows development. 
-- Performance Bottlenecks: Indirect bindings through C layers can introduce
+- **CFFI is build for C**: CFFI loads symbols via dlsym and thus relies on C
+  function declarations. This allows only direct mapping of procedural APIs.
+  Creating Object Oriented or "Pythonic" interfaces requires considerable
+  effort in the binding layer. This is amplified because our C++ code already
+  exposes Object Oriented Interfaces which have to be mapped to a prcedural C
+  interface and then have to be mapped back to an Object Oriented interface on
+  again.
+- **Maintenance Burden**: The different approaches to object lifetime between Python and C++ have to be mitigated. Fine grained RAII style object lifetime  
+- **Performance Bottlenecks**: Indirect bindings through C layers can introduce
   overhead, which is problematic for performance-critical applications.
-- Developer Friction: The dual-language interface (C++ → C → Python)
+- **Developer Friction**: The dual-language interface (C++ → C → Python)
   increases the cognitive load and makes onboarding more difficult for new
   developers.
 
@@ -51,7 +54,8 @@ However, this approach presents several technical and business challenges:
 
 ### Goal
 
-To adopt a modern, maintainable, and performant solution for exposing C++ code to Python that:
+To adopt a modern, maintainable, and performant solution for exposing C++ code
+to Python that:
 
 - Supports direct binding of C++ constructs without intermediate C layers
 - Reduces boilerplate and maintenance effort
