@@ -321,8 +321,11 @@ Our canditate of choice is Pybind11 - compared to all the other candidates (exce
   * is well maintained & documented
   * battle-tested and widely used in famous frameworks
 
-Depending on the development on nanobind over the next coming years. 
-It might become a replacement for pybind11 - as the API is similar to pybind11, a migration will be rather simple.
+Pybind11 is chosen over Nanobind for maintainability reasons. 
+PyBind11 is widely used and more likely to be maintained for a long time.
+Depending on the development on nanobind over the next coming years, 
+it might become a replacement for pybind11. 
+As the API is similar to pybind11, a migration will be rather simple.
 
 
 ### Related Decisions
