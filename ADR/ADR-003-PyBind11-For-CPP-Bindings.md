@@ -115,6 +115,8 @@ remapping intermediate C structures. The wrapping python code usually has to
 explicitly care about lifetime of objects. Python itself has no concept of
 ownership as it is considered in C/C++.
 
+CFFI does not require to distribute a native Python extension.
+
 **Licence**: MIT
 
 **Maturity**: Created in 2012, many releases (33 tags on github), good documentation. 
@@ -131,27 +133,39 @@ ownership as it is considered in C/C++.
 [source](https://github.com/pybind/pybind11) |
 [documentation](https://pybind11.readthedocs.io/en/stable/)
 
-pybind11 is a C++ header-only library that 
-enables seamless binding of C++ code to Python. It allows you to expose C++ classes, 
-functions, and data structures to Python with minimal boilerplate. 
-The python functionaly is directly expressed in C++ by
- 
- * writing a C++ wrapper using pybind11 macros (like PYBIND11\_MODULE).
- * compile the C++ code into a Python extension module (usually done via the
-   buildsystem, e.g. CMake)
- * import and use the C++ code directly from Python
+PyBind11 is a C++ header-only library that enables seamless binding of C++ code
+to Python. It allows you to expose C++ classes, functions, and data structures
+to Python with minimal boilerplate. 
 
-PyBind11 offers compatibility with most of C++ `std` (iterators, exceptions,
-smart pointers, variant/tuples, ...) and commonly used modules like NumPy.
+Pybind11 features:
 
+* Automatically translates C++ exceptions to matching Python exceptions, see
+  [details](https://pybind11.readthedocs.io/en/stable/advanced/exceptions.html).
+  This includes the ability to register custom type conversions that map domain specific
+  exceptions, e.g. `eckit::Exception` to `eckit.Excpeption`.
+* Automatically maps between many std types and corresponding python types, see
+  [here](https://pybind11.readthedocs.io/en/stable/advanced/cast/overview.html#conversion-table).
+* Allows exchanging wrapped types across bindings, see [module local
+  bindings](https://pybind11.readthedocs.io/en/stable/advanced/classes.html#module-local-class-bindings)
+* Allows setting call policies that affect object lifetimes. These policies allow to
+  definition of dependencies between objects whose lifetime is managed by
+  python, see [keep
+  alive](https://pybind11.readthedocs.io/en/stable/advanced/functions.html#keep-alive)
+* Allows mapping of C++ methods to read only or read/write properties.
 
-**Licence**: BSD-style**Maturity**: Built on C++11 features, first released Oct 2015, 36 releases
+PyBind11 requires distribution of a native Python extension and does not
+support CPython [stable API](https://docs.python.org/3/c-api/stable.html), i.e.
+one extension per supported minor Python version has to be provided.
 
-**Longevity**: 388 contributors (github)
+**Licence**: BSD-style
 
-**Activity**: recent major release 3.0
+**Maturity**: Built on C++11 features, first released Oct 2015, 36 releases.
 
-**Visibility**: 17.3k stars on Github, 26.6k users, used in PyTorch and TensorFlow
+**Longevity**: 388 contributors (github).
+
+**Activity**: Recent major release 3.0.
+
+**Visibility**: 17.3k stars on Github, 26.6k users, used in PyTorch and TensorFlow.
 
 
 #### nanobind
