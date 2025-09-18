@@ -212,7 +212,7 @@ Dependencies: Requires the Boost libraries and a compatible C++ compiler.
 SWIG (Simplified Wrapper and Interface Generator) is a tool that automatically generates binding code to expose C/C++ functions and classes 
 to multiple languages, including Python. 
 
-An user-specified interface file (.i) describes what should be exposed, and SWIG generates the C/C++ glue code plus Python wrappers.
+A user-specified interface file (.i) describes what should be exposed, and SWIG generates the C/C++ glue code plus Python wrappers.
 
 Key Points:
  * Supports many languages besides Python (Java, Ruby, etc.).
