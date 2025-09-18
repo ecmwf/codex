@@ -9,7 +9,7 @@
 ## Decision
 
 The decision is to use Pybind11 for C++ bindings (see [analysis](#analysis)). 
-Developers should follow the [design guidline](#design-guidlines).
+Developers should follow the [design guideline](#design-guidelines).
 
 
 ## Context
@@ -243,7 +243,7 @@ Its primary goals are:
 
 We want to have python bindings for our whole C++ stack - this has a long term impact.
 From that derived requirements for a binding framework are: 
- * longe term maintenance of the framework should be guaranteed for the foreseeable future
+ * long term maintenance of the framework should be guaranteed for the foreseeable future
  * low binding complexity to reduced development and maintenance overhead
  * needs to be battle tested (due to the expected wide adoption)
 
@@ -296,10 +296,10 @@ None
 
 ## Consequences
 
-Existing python bindings that are not pybind11 bindings can be migrated through the [design guidlines](#design-guidelines).
+Existing python bindings that are not pybind11 bindings can be migrated through the [design guidelines](#design-guidelines).
 
 
-### Design guidlines
+### Design guidelines
 
 *No domain-specific/business logic* must be specified in the file. 
 The C++ bindings should forward all internal logic directly without adding new.
@@ -307,7 +307,7 @@ The binding layer shall be a 1-1 layer of the existing C++ interface.
 There shall be no transformations and mappings in the binding layer.
 
 Optionally, the user can provihde an additional wrapping python module.
-This has several benefit:
+This has several benefits:
  * handle additional transformations & mappings
  * address compatibility problems through API changes
  * readable API and more accessable docstrings for most IDE & language servers
