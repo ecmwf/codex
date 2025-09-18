@@ -69,9 +69,6 @@ to Python that:
 
 [source](https://github.com/python/cpython) | [documentation](https://docs.python.org/3/c-api/index.html)
 
-Licence: Python Software Foundation License (PSFL), BSD-style, GPL-compatible
-Maturity: Start in 1991 with python
-
 This approach uses the official Python C API (<Python.h>) to directly expose C++ functions or classes to Python. 
 
 The workflow is:
@@ -97,15 +94,14 @@ The workflow is:
      and the wrapped C++ functions can be called as normal Python functions.
 
 
+**Licence**: Python Software Foundation License (PSFL), BSD-style, GPL-compatible
+
+**Maturity**: Start in 1991 with python
+
+
 #### CFFI
 
 [source](https://github.com/python-cffi/cffi) | [documentation](https://cffi.readthedocs.io/en/stable/)
-
-Licence: MIT
-Maturity: Start in 2012, many releases (33 tags on github), good documentation 
-Longevity: 8 maintainers (pypi), 77 contributors (github)
-Activity: Multiple releases in the last years, community interaction
-Visibility: 204 stars on Github 
 
 CFFI (C Foreign Function Interface) is a Python library that allows Python code
 to call C functions and use C data types. With CFFI it is possible to
@@ -125,15 +121,18 @@ care about lifetime of objects. Python itself has no concept of ownership as it
 is considered in C/C++.
 
 
+**Licence**: MIT**Maturity***: Start in 2012, many releases (33 tags on github), good documentation 
+
+**Longevity**: 8 maintainers (pypi), 77 contributors (github)
+
+**Activity**: Multiple releases in the last years, community interaction
+
+**Visibility**: 204 stars on Github 
+
+
 #### PyBind11 3.0
 
 [source](https://github.com/pybind/pybind11) | [documentation](https://pybind11.readthedocs.io/en/stable/)
-
-Licence: BSD-style
-Maturity: Built on C++11 features, first released Oct 2015, 36 releases
-Longevity: 388 contributors (github)
-Activity: recent major release 3.0
-Visibility: 17.3k stars on Github, 26.6k users, used in PyTorch and TensorFlow
 
 pybind11 is a C++ header-only library that 
 enables seamless binding of C++ code to Python. It allows you to expose C++ classes, 
@@ -149,15 +148,18 @@ PyBind11 offers compatibility with most of C++ `std` (iterators, exceptions,
 smart pointers, variant/tuples, ...) and commonly used modules like NumPy.
 
 
+**Licence**: BSD-style**Maturity**: Built on C++11 features, first released Oct 2015, 36 releases
+
+**Longevity**: 388 contributors (github)
+
+**Activity**: recent major release 3.0
+
+**Visibility**: 17.3k stars on Github, 26.6k users, used in PyTorch and TensorFlow
+
+
 #### nanobind
 
 [source](https://github.com/wjakob/nanobind) | [documentation](https://nanobind.readthedocs.io/en/latest/)
-
-Licence: BSD-style
-Maturity: new project, start in 2022
-Longevity: 96 contributors (github)
-Activity: very new but high activity (44 Tags)
-Visibility: 3k stars on Github, 485k users
 
 nanobind is similar to PyBind11 (almost the same interface) but with the purpose of
   
@@ -168,24 +170,26 @@ while explicitly having reduced compatibility with `std` and third party modules
 It is not header-only and requires linking to a shared or static library.
 
 
+**Licence**: BSD-style**Maturity**: new project, start in 2022
+
+**Longevity**: 96 contributors (github)
+
+**Activity**: very new but high activity (44 Tags)
+
+**Visibility**: 3k stars on Github, 485k users
+
+
 #### Boost.Python
 
 [source](https://github.com/boostorg/python) | [documentation](https://boostorg.github.io/python/doc/html/reference/index.html)
-
-Licence: Boost Software Licence v1.0
-Maturity: old project, start in 2002
-Longevity: 92 contributors (github)
-Activity: very new but high activity (44 Tags)
-Visibility: 502k stars on Github
 
 Boost.Python is a component of the 
 Boost C++ Libraries designed to simplify interoperability between C++ and Python. 
 
 It provides a high-level, declarative API to expose C++ functions, classes, and objects to Python 
+
 with minimal boilerplate compared to the raw Python C API.Key aspects:
-
 Integration: Handles type conversions, exception mapping, and reference counting automatically.
-
 C++-centric: Code is written entirely in C++, with bindings expressed through template-based syntax.
 
 Stability: Mature, well-tested, and widely used, though less actively developed than newer alternatives (e.g., pybind11).
@@ -193,15 +197,20 @@ Stability: Mature, well-tested, and widely used, though less actively developed 
 Dependencies: Requires the Boost libraries and a compatible C++ compiler.
 
 
+**Licence**: Boost Software Licence v1.0
+
+**Maturity**: old project, start in 2002
+
+**Longevity**: 92 contributors (github)
+
+**Activity**: very new but high activity (44 Tags)
+
+**Visibility**: 502k stars on Github
+
+
 #### SWIG
 
 [source](https://www.swig.org/) | [documentation](https://www.swig.org/doc.html)
-
-Licence: GPLv3, generated code has same licencing as input to SWIG
-Maturity: settled and mature project, initial release 1996
-Longevity: 272 contributors (github)
-Activity: weekly commits, few patches per year
-Visibility: 6.1k stars on Github
 
 SWIG (Simplified Wrapper and Interface Generator) is a tool that automatically generates binding code to expose C/C++ functions and classes 
 to multiple languages, including Python. 
@@ -215,16 +224,18 @@ Key Points:
  * Requires SWIG tool installation and a simple build step.
 
 
+**Licence**: GPLv3, generated code has same licencing as input to SWIG**Maturity**: settled and mature project, initial release 1996
+
+**Longevity**: 272 contributors (github)
+
+**Activity**: weekly commits, few patches per year
+
+**Visibility**: 6.1k stars on Github
+
+
 #### Cython
 
 [source](https://github.com/cython/cython) | [documentation](https://cython.readthedocs.io/en/latest/)
-
-Licence: Apache 2.0 License
-Maturity: Start in 2007
-Longevity: 492 contributors (github)
-Activity: almost monthly releases, community interaction
-Visibility: 10.3 stars on Github, 206k users
-
 
 Cython is a superset of Python that allows writing python-like code that is then compiled
 to C (or C++) and linked as a native extension module.
@@ -237,6 +248,16 @@ Its primary goals are:
   * Ease of use: Cython code closely resembles Python syntax,
     so Python developers can gradually add optimizations without switching languages.
 
+
+**Licence**: Apache 2.0 License
+
+**Maturity**: Start in 2007
+
+**Longevity**: 492 contributors (github)
+
+**Activity**: almost monthly releases, community interaction
+
+**Visibility**: 10.3 stars on Github, 206k users
 
 
 ### Analysis
