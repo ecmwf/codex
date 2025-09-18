@@ -29,14 +29,15 @@ However, this approach presents several technical and business challenges:
   function declarations. This allows only direct mapping of procedural APIs.
   Creating Object Oriented or "Pythonic" interfaces requires considerable
   effort in the binding layer. This is amplified because our C++ code already
-  exposes Object Oriented Interfaces which have to be mapped to a prcedural C
+  exposes Object Oriented Interfaces which have to be mapped to a Procedural C
   interface and then have to be mapped back to an Object Oriented interface on
   again.
-- **Maintenance Burden**: The different approaches to object lifetime between Python and C++ have to be mitigated. Fine grained RAII style object lifetime  
+- **Maintenance Burden**: The different approaches to object lifetime between
+  Python and C++ have to be mitigated. Fine grained RAII style object lifetime  
 - **Performance Bottlenecks**: Indirect bindings through C layers can introduce
   overhead, which is problematic for performance-critical applications.
 - **Developer Friction**: The dual-language interface (C++ → C → Python)
-  increases the cognitive load and makes onboarding more difficult for new
+  increases the cognitive load and makes on-boarding more difficult for new
   developers.
 
 
@@ -101,38 +102,42 @@ The workflow is:
 
 #### CFFI
 
-[source](https://github.com/python-cffi/cffi) | [documentation](https://cffi.readthedocs.io/en/stable/)
+[source](https://github.com/python-cffi/cffi) |
+[documentation](https://cffi.readthedocs.io/en/stable/)
 
 CFFI (C Foreign Function Interface) is a Python library that allows Python code
 to call C functions and use C data types. With CFFI it is possible to
  
- * declare C interfaces: write C declarations (function prototypes, structs,
-   etc.) in a string using ffi.cdef()
- * load C libraries (like .so, .dll, .dylib) using ffi.dlopen() and access all
-   symbols. 
- * call C functions: python code can now call C functions and manipulate C data
-   structures as if they were native Python objects
+* Extract C declarations from your to-be-wrapped API, note that this is a
+  preprocessing step because CFFI cannot parse C or C++ header files.
+* Load shared libraries using ffi.dlopen() and access all symbols. 
+* Now Python code can call C functions and manipulate C data
+  structures as if they were native Python objects
 
-Using CFFI usally requires to write a certain amount of wrapping code to hide
-foreign structures and to make the usage of the library more pythonic. Exposing
-complex mechanisms (like an C++ iterator) requires writing and remapping
-intermediate C structures. The wrapping python code usually has to explicitly
-care about lifetime of objects. Python itself has no concept of ownership as it
-is considered in C/C++.
+Applying CFFI yields a one-to-one mapping of your procedural code, to create an
+Object Oriented or even "Pythonic" interface you need to write another layer on
+top.
 
+Exposing complex mechanisms, for example an C++ iterator, requires writing and
+remapping intermediate C structures. The wrapping python code usually has to
+explicitly care about lifetime of objects. Python itself has no concept of
+ownership as it is considered in C/C++.
 
-**Licence**: MIT**Maturity***: Start in 2012, many releases (33 tags on github), good documentation 
+**Licence**: MIT
 
-**Longevity**: 8 maintainers (pypi), 77 contributors (github)
+**Maturity**: Created in 2012, many releases (33 tags on github), good documentation. 
 
-**Activity**: Multiple releases in the last years, community interaction
+**Longevity**: 8 maintainers (pypi), 77 contributors (github).
 
-**Visibility**: 204 stars on Github 
+**Activity**: Multiple releases in the last years, community interaction.
+
+**Visibility**: 204 stars on Github.
 
 
 #### PyBind11 3.0
 
-[source](https://github.com/pybind/pybind11) | [documentation](https://pybind11.readthedocs.io/en/stable/)
+[source](https://github.com/pybind/pybind11) |
+[documentation](https://pybind11.readthedocs.io/en/stable/)
 
 pybind11 is a C++ header-only library that 
 enables seamless binding of C++ code to Python. It allows you to expose C++ classes, 
