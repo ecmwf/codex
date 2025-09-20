@@ -14,7 +14,7 @@ PyBind11 is selected to be the library of choice to create Python bindings for
 C++ libraries. Existing bindings do not need to be migrated, however migration
 is encouraged in case bindings need to be updated or expanded.
 
-Developers should follow the [design guidelines](#design-guidelines).
+Developers should follow the [design guidelines](#design--usage-guidelines).
 
 ## Context
 
@@ -28,7 +28,7 @@ However, this approach presents several technical and business challenges:
 
 ### Technical Challenges
 
-- **CFFI is build for C**: CFFI loads symbols via dlsym and thus relies on C
+- **CFFI is built for C**: CFFI loads symbols via dlsym and thus relies on C
   function declarations. This allows only direct mapping of procedural APIs.
   Creating Object Oriented or "Pythonic" interfaces requires considerable
   effort in the binding layer. This is amplified because our C++ code already
@@ -37,6 +37,8 @@ However, this approach presents several technical and business challenges:
   again.
 - **Maintenance Burden**: The different approaches to object lifetime between
   Python and C++ have to be mitigated. Fine grained RAII style object lifetime  
+  management has to be reimplemented with less reliable finalizers like `__del__`
+  or managed explicitly instead.
 - **Performance Bottlenecks**: Indirect bindings through C layers can introduce
   overhead, which is problematic for performance-critical applications.
 - **Developer Friction**: The dual-language interface (C++ → C → Python)
@@ -106,7 +108,7 @@ to call C functions and use C data types. With CFFI it is possible to
 * Extract C declarations from your to-be-wrapped API, note that this is a
   preprocessing step because CFFI cannot parse C or C++ header files.
 * Load shared libraries using ffi.dlopen() and access all symbols. 
-* Now Python code can call C functions and manipulate C data
+* Call C functions and manipulate C data
   structures as if they were native Python objects
 
 Applying CFFI yields a one-to-one mapping of your procedural code, to create an
@@ -318,10 +320,10 @@ Secondarily because it less fully featured than PyBind11.
 
 Nanobind is less fully featured and explicitly chooses to not provide features
 we want to use, i.e. module local bindings. Additionally it is a comparatively
-young project with a smaller contributor base.
+younger project with a smaller contributor base.
 
-Cython is similar to SWIG and CFFI a more verbose and manual process, although
-to a less extend. Further it does not provide automatic type conversions as
+Cython is, like SWIG and CFFI, a more verbose and manual process, although
+to a lesser extend. Furthermore it does not provide automatic type conversions as
 provided by PyBind11.
 
 ### Related Decisions
@@ -361,19 +363,19 @@ following:
    security concerns.
 
 4. Documentation generation with Sphinx is highly simplified when extracting
-   documentation from pyre python code. If you need to extract documentation
+   documentation from pure python code. If you need to extract documentation
    from native Python extensions you are required to compile the C++ code as
    part of the documentation build.
 
 5. This layer servers as a logical point to make the underlying API more
-   "Pythonic", e.g. provide state full Python iterators with pure Python code.
+   "Pythonic", e.g. provide stateful Python iterators with pure Python code.
 
 **A note about linking to the wrapped library**:
 
 Our current approach to find the wrapped libraries such as `libfdb5.so` for
 example has been to use '[findlibs](https://github.com/ecmwf/findlibs)'. This
 mechanism can be used without changes to load the dependency into the memory
-space prior to the dynamic liner loading the dependencies of the  native Python
+space prior to the dynamic linker loading the dependencies of the  native Python
 extension. Key is here to use 'findlibs' to locate and load the dependency prior
 to importing the native Python extension. To do this you need to provide a
 python shim similar to this:
