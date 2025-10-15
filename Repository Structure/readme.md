@@ -15,8 +15,7 @@ respository following the guidelines documented below.
     - [Mixed Languages](#mixed-languages)
   - [License](#license)
   - [Contributors](#contributors)
-- [Using the Template](#using-the-template)
-  - [Glossary](#glossary)
+  - [Resources](#resources)
 
 ## Readme
 Each repository must contain a README.md file. The cookiecutter generates one automatically from a template file. The generated README.md must then be filled in with project specific information.
@@ -94,47 +93,6 @@ Add a LICENSE file at the root of the project. Add following text to the README.
 ## Contributors
 The cookiecutter template automatically generates a contributors file. External contributors are encouraged to open their Pull Requests to be added to the list.
 
+## Resources
 
-A [Cookiecutter] template for an ECMWF project.
-
-# Using the Template
-
-Generate the project skeleton in a new directory:
-
-    cookiecutter ssh://git@github.com:ecmwf/cookie-cutter.git
-
-For adding readmes and files to existing projects, make sure to supply an additional parameter to overwrite existing directories:
-
-    cookiecutter ssh://git@github.com:ecmwf/cookie-cutter.git --overwrite-if-exists
-
-You will be asked to provide answers to several questions, in order to properly prepare the template for you. In case you don't know the answer, you can just leave the answer at the default value by pressing Enter.
-
-Note that several features are optional, you can activate them by answering 'y' when prompted.
-
-## Glossary
-
-* `project_name`: Official name of the project, used as input for project_slug
-* `project_slug`: Used as name of the project directory, alphanumerics only
-* `project_description`: Textual description of the project
-* `maturity_badge`: Level of maturity of the repository
-* `docs_dir`: Subdirectory for the documentation, supply a dot (.) for none
-* `copyright_year`: Official start year of copyright
-* `copyright_name`: Official copyright holder name
-* `github_organisation`: Github space where the repository lives
-* `language`: The main language of the repository, used for structure and guidelines generation
-* `fail_on_warning`: Fail build when warning is encountered
-* `additional_formats`: Whether to generate PDF/EPUB/single HTML formats for the docs
-* `use_github_workflow`: Whether to add Github workflow to test doc builds
-* `use_include`: Whether to include upper directories in documentation
-* `use_autodoc`: Whether to document Python code automatically
-* `use_version_file`: Whether to infer release version from VERSION file
-* `use_doxygen`: Whether to document C/C++ code automatically
-* `use_ipynb`: Whether to add support for Jupyter Notebooks
-* `use_copybutton`: Whether to add copy to clipboard button for code blocks
-* `use_tabs`: Whether to add tabs for switchable content
-* `use_todo`: Whether to add TODO comment blocks
-* `use_fortran`: Whether to add support for documenting Fortran code
-* `use_ecflow_lexer`: Whether to add support for ecFlow syntax highlighting
-* `open_source_license`: Project licence
-* `logo_path_light`: Filepath to a logo for light mode, skipped if not provided
-* `logo_path_dark`: Filepath to a logo for dark mode, use light if not provided
+- [Cookiecutter template](https://github.com/ecmwf/cookie-cutter)
