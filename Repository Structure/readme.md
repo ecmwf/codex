@@ -1,18 +1,22 @@
 # Repository Structure
 
-These are the guidelines for how to set up a repository...
+These are the guidelines for how a software package repository should be structured.
+If creating a new software package repository you should
+[use the cookiecutter template](https://github.com/ecmwf/cookie-cutter) which will create
+respository following the guidelines documented below.
 
-To get started you can [use the cookiecutter template](https://github.com/ecmwf/cookie-cutter).
-
-- [Readme](#Readme)
-- [Badges](#Badges)
-- [Code Structure](#code-structure)
+- [Repository Structure](#repository-structure)
+  - [Readme](#readme)
+  - [Badges](#badges)
+  - [Code Structure](#code-structure)
     - [Python](#python)
-    - [C++](#c++)
-    - [Rust](#Rust)
+    - [C/C++](#cc)
+    - [Rust](#rust)
     - [Mixed Languages](#mixed-languages)
-- [License](#License)
-- [Contributors](#Contributors)
+  - [License](#license)
+  - [Contributors](#contributors)
+- [Using the Template](#using-the-template)
+  - [Glossary](#glossary)
 
 ## Readme
 Each repository must contain a README.md file. The cookiecutter generates one automatically from a template file. The generated README.md must then be filled in with project specific information.
