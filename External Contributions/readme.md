@@ -11,27 +11,15 @@ requested by any PR template in place for the reposistory. ECMWF staff will then
 are not malicious and add the label `approved-for-ci` to the PR. This will allow the github automated actions
 to run, ensuring that the Pull Request passed all CI/CD tests and actions that are in place.
 
-New contributions to existing repositories MUST include tests which demonstrate the purpose of the code
+Contributions to repositories MUST include tests which demonstrate the purpose of the code
 changes, and ensure that future developments do not break the changes introduced.
 
-TODO: What can the contractor do prior to opening PR?
-
 ## New repositories
-If contractors are developing a new github repository, then they should create a repository in their
-personal/company github organisation following the instructions provided in the
+New repositories will be granted upon agreement with ECMWF, via the Technical Officer assigned to the
+contract/project.
+The repository will be created by ECMWF with permissions granted and visibility options set
+as required for the work undertaken.
+The repository must be initialised following the instructions provided in the
 [Repository Structure](../Repository%20Structure/readme.md) codex documentation.
-The ECMWF staff member following the contract (Technical Officer), and in some cases supporting ECMWF
-colleagues, must be added with at least read permissions so that they can follow progress throughout
-the contract.
-
-Upon delivery, the repository should include the CI/CD tests and actions provided in the cookiecutter template/as documented in [Repository Structure](../Repository%20Structure/readme.md). The actions must run successfully, the delivery will then be reviewed by the Technical Officer.
-
-Delivery of the software will be done in one of two ways, decision is made on a case-by-case basis, but more often than not it will be option 1:
-
-1. Transfer ownership of the github repository to an ECMWF github organisation. This requires that an owner of the ECMWF github organisation is added to the repository with an admin role to make the transfer. At this point the contractors will lose the admin role of the original repository. Future developments should then follow the [Contributing to existing repositories](#contributing-to-existing-repositories).
-2. Fork the repository to an ECMWF organiation. This requires an owner of the ECMWF github organisation to make the fork to the ECMWF github organisation. In this scenario, the contractor maintains the admin role of the upstream repository.
-
-
-## Glossary
-
-TBC
+Following the initial setup of the repository, external contributions should then be made as described
+in the [Contributing to existing repositories](#contributing-to-existing-repositories) section.
