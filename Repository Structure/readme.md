@@ -11,8 +11,6 @@ respository following the guidelines documented below.
   - [Code Structure](#code-structure)
     - [Python](#python)
     - [C/C++](#cc)
-    - [Rust](#rust)
-    - [Mixed Languages](#mixed-languages)
   - [License](#license)
   - [Contributors](#contributors)
   - [Resources](#resources)
@@ -73,14 +71,6 @@ Note the extra src directory. This prevents setuptool's find_package from adding
     ├── ...
     └── test_N
 ```
-
-
-### Rust
-TODO
-
-### Mixed Languages
-
-
 
 ## License
 Add a LICENSE file at the root of the project. Add following text to the README.md file:
