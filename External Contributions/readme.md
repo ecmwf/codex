@@ -19,7 +19,8 @@ New repositories will be granted upon agreement with ECMWF, via the Technical Of
 contract/project.
 The repository will be created by ECMWF with permissions granted and visibility options set
 as required for the work undertaken.
+External contributions should then be made as described
+in the [Contributing to existing repositories](#contributing-to-existing-repositories) section.
+
 The repository must be initialised following the instructions provided in the
 [Repository Structure](../Repository%20Structure/readme.md) codex documentation.
-Following the initial setup of the repository, external contributions should then be made as described
-in the [Contributing to existing repositories](#contributing-to-existing-repositories) section.
