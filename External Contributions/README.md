@@ -18,7 +18,7 @@ changes, and ensure that future developments do not break the changes introduced
 
 If you are contributing to a private repository owned by ECMWF, you will need to be granted a license to ECMWF's GitHub enterprise. To arrange this, speak to the Technical Officer assigned to the contract/project. Internally, management of licenses is handled by User Support (@bkasic). You will then have direct access to the repository. Developments should be made to a branch, and then follow the same PR process as above.
 
-## New repositories
+## New Repositories
 
 If you are contributing a new repository to ECMWF, please _do not_ create this in your own space. The new repository should be created under ECMWF organisation from the beginning. This will ensure the repository evolves in line with ECMWF's standards.
 
@@ -29,3 +29,29 @@ Note that new projects can and should be marked with a [project maturity badge](
 External contributions should then be made as described in the [Contributing to existing repositories](#contributing-to-existing-repositories) section.
 
 The repository must be initialised following the instructions provided in the [Repository Structure](../Repository%20Structure/readme.md) codex documentation.
+
+## Existing Repositories
+
+There are exceptional cases where ECMWF may need to inherit a repository from another individual or organisation. For example, Code4Earth projects often begin their life outside of the ECMWF GitHub organisation. The best process for this will be made on a case-by-case basis, with three broad options in ordere of preference:
+
+1. Create a [new repository](#new-repositories), run the cookie-cutter on the empty repository, and then merge the existing repository in via pull request. Fix any deviations in repository structure or best practices as part of the pull request.
+
+2. Transfer ownership: move the entire repository, history, issues, etc., directly to ECMWF.
+    * Compared to option 1, this has the advantage that the Git history, GitHub issues, list of contributors and other metadata are kept.
+    * Note that the repository MUST be adapted to follow ECMWF practices BEFORE the transfer if that repository is public. This means adding the correct licences, GitHub actions, copyright notices, readme template, badges, etc. which would usually be set up by the cookie cutter. It is possible to run the cookie-cutter on existing repositories, but there may be conflicts.
+
+3. ECMWF makes a fork: useful if the project continues to exist outside of ECMWF.
+    * Note that ECMWF has limited control over the repository in this case, a particular concern for GitHub actions. It is usually sensible to disable all actions.
+    * Depending on the situation, it may be best to make it clear that this is a fork. Follow these instructions:
+    <details>
+        1. Create a new branch, which shall be empty except for a readme.md. The branch can be called `default`. You can do this with `git switch --orphan default` Follow the template below.
+        2. Make that branch the default branch, so that it is the page most people land on.
+        3. In the repository settings, disable all actions, because we don't know what workflows we just imported, and they now have access to internal systems and organisation secrets.
+
+    <pre>
+        > \[!CAUTION\]
+        > This is a fork of **xyz** for preparing contributions by ECMWF before pushing them to the upstream repo. ECMWF aims to synchronise this repo regularly with the upstream repo. Please go to the original repo linked below for further information about **xyz**.
+    </pre>
+    </details>
+
+
