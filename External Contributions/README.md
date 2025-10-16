@@ -53,7 +53,7 @@ There are exceptional cases where ECMWF may need to inherit a repository from an
 
         <pre>
             > \[!CAUTION\]
-            > This is a fork of **xyz** for preparing contributions by ECMWF before pushing them to the upstream repo. ECMWF aims to synchronise this repo regularly with the upstream repo. Please go to the original repo linked below for further information about **xyz**.
+            > This is a fork of **xyz**. Please go to the original repo linked below for further information about **xyz**.
         </pre>
         </details>
 
