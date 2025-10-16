@@ -2,13 +2,22 @@
 
 Software maturity refers to the stages a software project goes through during its lifecycle. While ECMWF runs operational services, this does not necessarily mean that the underlying software is operationally supported for external users. The following maturity levels provide an indication of how well-supported and operationally ready ECMWF software is. However, as with any open-source software, users should evaluate its suitability for their needs and use it at their own risk.
 
+Repositories should show a badge indicating their software maturity level, and the following disclaimer, adjusted to the correct level:
+
+> \[!IMPORTANT\]
+> This software is **Graduated** and subject to ECMWF's guidelines on [Software Maturity](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity).
+
 # Graduated
 
 [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/graduated_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity#graduated)
 
-Graduated projects are ready for operations, and typically used by ECMWF and/or its Member and Cooperating states in operations. This does not mean we give operational support to the software itself.
+Graduated projects are ready for operations, and typically used by ECMWF and/or its Member and Cooperating states in operations. This does not mean ECMWF gives operational support to the software itself.
 
     [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/graduated_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity#graduated))
+
+    > \[!IMPORTANT\]
+    > This software is **Graduated** and subject to ECMWF's guidelines on [Software Maturity](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity).
+
 
 # Incubating
 
@@ -18,6 +27,10 @@ Incubating projects are mostly feature-complete and the interface is mostly stab
 
     [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/incubating_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity#incubating)
 
+
+    > \[!IMPORTANT\]
+    > This software is **Incubating** and subject to ECMWF's guidelines on [Software Maturity](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity).
+
 # Emerging
 
 [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/emerging_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity#emerging)
@@ -26,6 +39,10 @@ Emerging projects are in the early stages of development. There is a clear proje
 
     [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/emerging_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity#emerging)
 
+    > \[!IMPORTANT\]
+    > This software is **Emerging** and subject to ECMWF's guidelines on [Software Maturity](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity).
+
+
 # Sandbox
 
 [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/sandbox_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity#sandbox)
@@ -33,6 +50,10 @@ Emerging projects are in the early stages of development. There is a clear proje
 Sandbox projects are experimental, proof-of-concept. Expect frequent changes, incomplete features and instability.
 
     [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/sandbox_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity#sandbox)
+
+    > \[!IMPORTANT\]
+    > This software is **Sandbox** and subject to ECMWF's guidelines on [Software Maturity](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity).
+
 
 # Archived
 
@@ -43,3 +64,7 @@ They are no longer actively maintained or developed.
 These projects may still be available for reference or historical purposes, but they should not be used for any active development or operational purposes.
 
     [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity/archived_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity#archived)
+
+    > \[!IMPORTANT\]
+    > This software is **Archived** and subject to ECMWF's guidelines on [Software Maturity](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity).
+    
