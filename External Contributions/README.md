@@ -24,11 +24,11 @@ If you are contributing a new repository to ECMWF, please _do not_ create this i
 
 New repositories will be created upon agreement with ECMWF, via the Technical Officer assigned to the contract/project. The repository will be created by ECMWF with permissions granted and visibility options set as required for the work undertaken. A decision on whether the repository is to be made public or private should be made _as early as possible_ , with a general preference towards public visibility. If the repository is aimed to be public in the future, prefer to keep all development public from the beginning.
 
-Note that new projects can and should be marked with a [project maturity badge](../Project%20Maturity/readme.md) (e.g. Sandbox).
+Note that new projects can and should be marked with a [project maturity badge](../Project%20Maturity/README.md) (e.g. Sandbox).
 
 External contributions should then be made as described in the [Contributing to existing repositories](#contributing-to-existing-repositories) section.
 
-The repository must be initialised following the instructions provided in the [Repository Structure](../Repository%20Structure/readme.md) codex documentation.
+The repository must be initialised following the instructions provided in the [Repository Structure](../Repository%20Structure/README.md) codex documentation.
 
 ## Existing Repositories
 
