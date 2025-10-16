@@ -36,11 +36,12 @@ There are exceptional cases where ECMWF may need to inherit a repository from an
 
 1. Create a [new repository](#new-repositories), run the cookie-cutter on the empty repository, and then merge the existing repository in via pull request. Fix any deviations in repository structure or best practices as part of the pull request.
 
-2. Transfer ownership: move the entire repository, history, issues, etc., directly to ECMWF.
+2. Transfer ownership:
     * Compared to option 1, this has the advantage that the Git history, GitHub issues, list of contributors and other metadata are kept.
     * Note that the repository MUST be adapted to follow ECMWF practices BEFORE the transfer if that repository is public. This means adding the correct licences, GitHub actions, copyright notices, readme template, badges, etc. which would usually be set up by the cookie cutter. It is possible to run the cookie-cutter on existing repositories, but there may be conflicts.
 
-3. ECMWF makes a fork: useful if the project continues to exist outside of ECMWF.
+3. ECMWF makes a fork:
+    * Useful if the project continues to exist and evolve outside of ECMWF, but ECMWF needs its own version.
     * Note that ECMWF has limited control over the repository in this case, a particular concern for GitHub actions. It is usually sensible to disable all actions.
     * Depending on the situation, it may be best to make it clear that this is a fork. Follow these instructions:
     <details>
