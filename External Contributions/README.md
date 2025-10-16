@@ -45,9 +45,11 @@ There are exceptional cases where ECMWF may need to inherit a repository from an
     * Note that ECMWF has limited control over the repository in this case, a particular concern for GitHub actions. It is usually sensible to disable all actions.
     * Depending on the situation, it may be best to make it clear that this is a fork. Follow these instructions:
         <details>
-            1. Create a new branch, which shall be empty except for a readme.md. The branch can be called `default`. You can do this with `git switch --orphan default` Follow the template below.
-            2. Make that branch the default branch, so that it is the page most people land on.
-            3. In the repository settings, disable all actions, because we don't know what workflows we just imported, and they now have access to internal systems and organisation secrets.
+            <ol>
+            <li>Create a new branch, which shall be empty except for a readme.md. The branch can be called `default`. You can do this with `git switch --orphan default` Follow the template below.</li>
+            <li>Make that branch the default branch, so that it is the page most people land on.</li>
+            <li>In the repository settings, disable all actions, because we don't know what workflows we just imported, and they now have access to internal systems and organisation secrets.</li>
+            </ol>
 
         <pre>
             > \[!CAUTION\]
