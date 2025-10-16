@@ -20,7 +20,7 @@ If you are contributing to a private repository owned by ECMWF, you will need to
 
 ## New Repositories
 
-If you are contributing a new repository to ECMWF, please _do not_ create this in your own space. The new repository should be created under ECMWF organisation from the beginning. This will ensure the repository evolves in line with ECMWF's standards.
+If you are contributing a new repository to ECMWF, please _do not_ create this in your own space. The new repository should be created under the ECMWF organisation from the beginning. This will ensure the repository evolves in line with ECMWF's standards.
 
 New repositories will be created upon agreement with ECMWF, via the Technical Officer assigned to the contract/project. The repository will be created by ECMWF with permissions granted and visibility options set as required for the work undertaken. A decision on whether the repository is to be made public or private should be made _as early as possible_ , with a general preference towards public visibility. If the repository is aimed to be public in the future, prefer to keep all development public from the beginning.
 
@@ -32,7 +32,7 @@ The repository must be initialised following the instructions provided in the [R
 
 ## Existing Repositories
 
-There are exceptional cases where ECMWF may need to inherit a repository from another individual or organisation. For example, Code4Earth projects often begin their life outside of the ECMWF GitHub organisation. The best process for this will be made on a case-by-case basis, with three broad options in ordere of preference:
+There are exceptional cases where ECMWF may need to inherit a repository from another individual or organisation. For example, Code4Earth projects often begin their life outside of the ECMWF GitHub organisation. The best process for this will be made on a case-by-case basis, with three broad options in order of preference:
 
 1. Create a [new repository](#new-repositories), run the cookie-cutter on the empty repository, and then merge the existing repository in via pull request. Fix any deviations in repository structure or best practices as part of the pull request.
 
