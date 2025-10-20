@@ -6,7 +6,7 @@ TODO: Guidelines for unit, integration and regression testing, and for test suit
 
 Various tests in testing repositories require fixed datasets. This data should be made available
 by static web hosting at ECMWF. Data should be stored in a Data Repository, hosted in the ECMWF
-[https://sites.ecmwf.int](sites infrastructure). This data is made available at a url matching
+[sites infrastructure](https://sites.ecmwf.int). This data is made available at a url matching
 `https://sites.ecmwf.int/repository/<package-name>/test-data/<path>`.
 
 Data can be uploaded to the test repository via the web interface, located at
