@@ -53,7 +53,7 @@ If ECMWF inherits an external repository (e.g., a Code4Earth project), one of th
 2. **Transfer Ownership** — transfer the repository into ECMWF’s organisation once it complies with ECMWF’s licensing, copyright, and workflow requirements.  
 3. **Fork** — ECMWF forks the repository to maintain its own variant while the original remains active.  
    - Create an empty `default` branch containing a notice linking to the original project.  
-   - Make `default` the visible branch.  
+   - Make `default` the default branch so that it shows as the main entrypoint to the repository.  
    - Disable all GitHub Actions to prevent execution of unverified workflows.
 
 ---
