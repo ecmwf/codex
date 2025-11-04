@@ -71,10 +71,7 @@ Contractors may work in one of two ways:
    - Tags and iterations remain isolated to the contractor’s fork.
 
 2. **ECMWF Integration Branch** — when working directly in the ECMWF repository.  
-   - The contractor creates their own integration branch named `upstream` or namespaced as:
-     ```
-     upstream/<vendor>
-     ```
+   - The contractor creates their own integration branch named `upstream` or namespaced as `upstream/<vendor>`.
    - Direct commits to ECMWF’s `main` or `master` are not permitted.  
    - Force-pushes are prohibited.  
    - All changes are proposed to ECMWF via Pull Requests.
