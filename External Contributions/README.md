@@ -105,13 +105,15 @@ When ready for delivery:
 
 1. Open a PR from the contractor’s fork `main` or from the ECMWF integration branch (`upstream` or `upstream/<vendor>`) into ECMWF’s `main` or `master`.  
 2. ECMWF staff perform review, validation, and compliance checks.  
-3. Upon acceptance, ECMWF merges the PR and applies a **production tag**:
+3. Upon acceptance, ECMWF merges the PR. When appropriate, ECMWF can apply a **production tag**:
 
 ```
 x.y.z
 ```
 
-Only this tag marks the release as accepted and production-ready.
+Acceptance of the PR is the point at which a contractor's deliverable is accepted for the purposes of the contract.
+
+Only a production tag marks the release as production-ready.
 
 ### Production Control
 
