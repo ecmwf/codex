@@ -74,7 +74,7 @@ Contractors may work in one of two ways:
    - The contractor creates their own integration branch named `upstream` or namespaced as `upstream/<vendor>`.
    - Direct commits to ECMWF’s `main` or `master` are not permitted.  
    - Force-pushes are prohibited.  
-   - All changes are proposed to ECMWF via Pull Requests.
+   - All changes are proposed to ECMWF `main` or `master` via Pull Requests from the integration branch.
 
 ### Tagging Rules
 
