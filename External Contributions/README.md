@@ -1,6 +1,6 @@
 # External Contributions
 
-These guidelines define how all external contributions to the ECMWF software stack must be developed, delivered, and maintained. They apply to all collaborators — including individuals, partner organisations, and contracted suppliers — across all ECMWF-managed repositories (software, configuration, deployment manifests, and scripts).
+These guidelines define how all external contributions to the ECMWF software stack must be developed, delivered, and maintained. They apply to all collaborators, including individuals, partner organisations, and contracted suppliers, across all ECMWF-managed repositories (software, configuration, deployment manifests, and scripts).
 
 Two contribution pathways exist, depending on the nature of the work:
 
