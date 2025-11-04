@@ -23,7 +23,7 @@ Public contributions follow the normal GitHub workflow.
 - The PR must pass all required tests, code-quality checks, and workflows before merge.  
 - All contributions must include tests demonstrating correct behaviour and preventing regressions.
 
-This process applies equally to **contractors** unless a more controlled delivery method (Section 2) has been explicitly agreed.
+This process applies equally to **contractors** unless following the Integration Delivery Workflow (Section 2).
 
 ### Private Repositories
 
