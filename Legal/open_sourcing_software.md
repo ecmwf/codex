@@ -5,7 +5,7 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
 ## GitHub ECMWF package check list
 
 - Contact point:
-   - FSD contact point/admin for github.com/ecmwf: Tiago Quintino at ECMWF
+   - FSD contact point/admin for github.com/ecmwf: Head of Development at ECMWF
    - Seek approval for open source:
      - Verify the package is right for ECMWF GitHub page and discuss the suitablility for it to be open.
      - Discuss the scope of the software, what it does and what it does not
