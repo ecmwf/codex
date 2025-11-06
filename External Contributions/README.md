@@ -111,7 +111,7 @@ When ready for delivery:
 x.y.z
 ```
 
-Acceptance of the PR is the point at which a contractor's deliverable is accepted for the purposes of the contract.
+**Note:** Acceptance of the PR into `main` or `master` is the point at which a contractor's deliverable is accepted for the purposes of the contract.
 
 Only a production tag marks the release as production-ready.
 
