@@ -27,7 +27,7 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
    - Explains purpose and scope of code
    - Explains what kind of support is to expect (none) and how to contact ECMWF (link to Service Desk)
    - May feature a disclaimer for codes that are not officially supported or should not be used in operational context
-   - Clarify the state of the software (stable, alpha, beta, obsolete, …) or, preferably, define following Software Maturity guidelines, see [Software Maturity](External%20Contributions/Software%20Maturity.md)
+   - Clarify the state of the software (stable, alpha, beta, obsolete, …) or, preferably, define following Software Maturity guidelines, see [Software Maturity](../External%20Contributions/Software%20Maturity.md)
    - Clarify the level of support (none, best effort, operational, …)
    - Link to any further documentation of the code
    - Provide instructions on how to install
@@ -35,8 +35,8 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
    - Use `.md` (prefered) or `.rst` format
 
 - Ensure the relevant software licence is applied
-   - One central licence file and references in each (code) file as described in [Copyright and Licensing](Legal/copyright_and_licensing.md)
-   - For Apache Licence, see [Applying the Apache License](Legal/copyright_and_licensing.md)
+   - One central licence file and references in each (code) file as described in [Copyright and Licensing](copyright_and_licensing.md)
+   - For Apache Licence, see [Applying the Apache License](copyright_and_licensing.md)
    - For first time releases, codes should be audited for:
       - IPR violations. Contact Development Section to arrange for a code audit
       - Sensitive information that is internal to ECMWF (e.g. passwords, user names, hostanmes, emails, etc.)
