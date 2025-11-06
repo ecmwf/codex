@@ -20,7 +20,7 @@ Public contributions follow the normal GitHub workflow.
 - When ready, open a Pull Request (PR) to the ECMWF repository.  
 - Follow the repository’s PR template and provide sufficient description, issue references, and rationale.
 - Note that all contributions must comply with ECMWF’s copyright and licensing policies, as outlined in [Copyright and Licensing](Legal/copyright_and_licensing.md).
-- By creating a PR, you agree to the terms of the [Contributor License Agreement (CLA)](Legal/contributor_license_agreement.md) and this should be part of the PR template.
+- By creating a PR, you agree to the terms of the [Contributor License Agreement (CLA)](codex/Legal/contributor_license_agreement.md) and this should be part of the PR template.
 - ECMWF staff will review for safety and apply the label `approved-for-ci`, which enables automated CI/CD checks.  
 - The PR must pass all required tests, code-quality checks, and workflows before merge.  
 - All contributions must include tests demonstrating correct behaviour and preventing regressions.
