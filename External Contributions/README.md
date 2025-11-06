@@ -93,7 +93,7 @@ Rules:
 - These prerelease tags are **non-production**.  
 - They must not appear on ECMWF’s `main` or `master` branches.  
 - They are valid only for contractor-side testing, packaging, or CI pipelines.  
-- ECMWF production tags must use the clean SemVer form:
+- ECMWF production tags must use the clean [Semantic Versioning](https://semver.org) form:
 
 ```
 x.y.z
