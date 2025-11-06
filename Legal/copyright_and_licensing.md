@@ -17,7 +17,7 @@ In December 2011, it was decided that ECMWF software packages, when open sourced
         Copyright 1996- European Centre for Medium-Range Weather Forecasts (ECMWF)
 ```
 
-Alternatively, you can use the [apache-licence](Legal/apache-licence) file provided in this repository as a template.
+Alternatively, you can use the [apache-licence](apache-licence) file provided in this repository as a template.
 
 3. A correct `NOTICE` file **must** be included in the same directory as the `LICENSE` file and list ALL external code contributions (if any). Please follow the instructions the [Apache guidelines](http://www.apache.org/legal/src-headers.html#notice). Typically, the `NOTICE` file will be empty for ECMWF packages unless you have included third-party code.
 
