@@ -20,7 +20,7 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
 
 - To give access, Maintainers and Contributors need to have a GitHub account. Currently for github.com/ecmwf this is a Github Enterprise account, for which the following applies:
    - Maintainers should be ECMWF staff
-   - External contributions must follow the policy for [External Contributions|../External%20Contributions/README.md]
+   - External contributions must follow the policy for [External Contributions](../External%20Contributions/README.md)
    - External contributors will be asked to agree with a contribution license agreement (CLA) on pull request.
    
 - Ensure a `README` file exists in the root directory
