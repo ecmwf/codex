@@ -8,25 +8,41 @@
 
 ## Context
 
-Cascade is a workflow scheduling and execution system, a component within the wider Earthkit Worflows framework, used for example in the Forecast in a Box project.
+Cascade is a workflow scheduling and execution system, a component within the wider Earthkit Workflows framework, used for example in the Forecast in a Box project.
 
 This record captures the decision making of the initial feature set and design, in particular justifying the need to write such system in the first place, as opposed to reusing some existing open-source one.
 
 ### Options Considered
 
-We considered using Dask and analyzed it in greater detail.
+Firstly, we considered using Dask as a wholesome offering, and analyzed it in greater detail.
 We were aware of other solutions like Ray, Daft, Spark; but didn't thorougly analyse them due to resource constraints as well as assumed similarity to Dask.
+
+After deciding to go with an in-house solution, we assessed multiple features and made a decision for each of them.
 
 ### Analysis
 
-A thorough analysis and outcome are presented in [the project's repository](https://github.com/ecmwf/earthkit-workflows/blob/00c50b92281476537f4d83931f10679365826758/docs/cascadeFeatures.md).
+There are multiple options of utilizing Dask:
+1. as-is, accepting performance downsides and lack of features,
+2. utilize selected internals while pluging in our own frontends/backends where needed,
+3. extending Dask itself with what we were missing.
+
+The option 1 was deemed unacceptable -- at the least, we need efficient memory sharing between concurrent computing entities (processes/threads) due to the structure of our jobs, as well as generator-like semantics for tasks due to how forecast models output individidual steps.
+Neither is possible in vanilla Dask.
+
+The option 2 would enable us to address the aforementioned missing features, but after analysing Dask internals, architecture, structure, it would mean a large upfront cost, as well as ongoing investments due to Dask internals obviously evolving and presumably diverging.
+
+The option 3 is, given the ratio of Dask popularity to Dask maintainer time (1k+ issues, 200+ open PRs at the time of writing) and Dask generality, not compatible with our need to deliver something in a reasonable time.
+
+The options 1-3 would allow us to re-use all existing Dask features, but we concluded there isn't that much to it.
+
+Analysis of individual features we were considering for implementation is thoroughly exposed in [the project's repository](https://github.com/ecmwf/earthkit-workflows/blob/00c50b92281476537f4d83931f10679365826758/docs/cascadeFeatures.md).
 
 ## Decision
 
 We chose to implement a custom solution, tailoring it to specific workflow characteristics of running AIFS models and pprocing their outputs.
 
 We don't maintain any compatibility, feature parity or interoperability with Dask -- it would be too restricting and performance-degrading.
-However, Dask DAGs which are simple enough should be easily convertible to Cascade, and we will explore such option.
+However, as Dask DAGs are simple enough, we have developed a convertor to Cascade, and most likely will be able to maintain it, although this is not required.
 
 We maintain execution-independent information-rich representation of both Earthkit Workflow DAG and schedule, to possibly replace Cascade with a different execution/scheduling engine -- regardless whether in-house or open source.
 
