@@ -8,7 +8,7 @@ Documentation
 Training
 ========
 
-Training material in the form of software artifacts should live in [ecmwf-training](github.com/ecmwf-training).
+All ECMWF training material in the form of software artifacts should live in [ecmwf-training](github.com/ecmwf-training).
 
 The following resources should be used to guide the creation and lifecycle of these artifacts:
 
