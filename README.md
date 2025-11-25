@@ -10,8 +10,11 @@ The Codex is a set of guidelines for development of software and services at ECM
 
 # Contents
 
+- [Architectural Decision Records](./ADR)
 - [Repository Structure](./Repository%20Structure)
 - [Project Maturity](./Project%20Maturity)
 - [Containerisation](./Containerisation)
+- [Testing](./Testing)
 - [ECMWF Software EnginE (ESEE)](./ESEE)
-- [Contributing Externally](./Contributing%20Externally/)
+- [Contributing to External Projects](./Contributing%20Externally/)
+- [Incoming External Contributions](./External%20Contributions/)
