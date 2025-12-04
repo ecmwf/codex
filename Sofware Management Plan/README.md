@@ -15,8 +15,8 @@ Include:
 - **Problem it solves / value it provides**
 - **Scope and boundaries** (what is included and excluded)
 - **Relationship to the ECMWF software stack**  
-  - New component?  
-  - Extension?  
+  - New components?
+  - Extension?
   - Replacement of legacy functionality?
 
 ---
@@ -50,16 +50,18 @@ Include:
 
 ---
 
-## 4. Development Plan and Roadmap
+## 4. Development, Maintenance and Ownership Roadmap
 
-Provide a forward-looking plan describing how the software will evolve.
+Provide a forward-looking plan describing how the software will be developed and maintained, and who
+will be responsible and take ownership in the longterm.
 
 Include:
 
 - **Milestones and deliverables**
 - **Release strategy** (frequency, versioning, branching model)
+- **Maintenance and ownership model**
 - **Planned features and enhancements**
-- **Dependencies on other ECMWF components**
+- **Dependency management**
 - **Risk assessment**
 - **Timeline**
 
@@ -67,10 +69,14 @@ Include:
 
 ## 5. Compliance With ECMWF Development Guidelines
 
-Demonstrate adherence to ECMWF software practices.
+Ensure the project contributions are managed visibly and according to ECMWF standards and software practices.
 
 Address:
 
+- **Repository requirements** 
+  - Required repositories
+  - Type and purpose of each
+  - Visibility (public/private)
 - **Coding style standards** (per language)
 - **Quality assurance**
   - Unit, integration, regression testing
@@ -78,12 +84,17 @@ Address:
   - Code review process
 - **Performance expectations**
 - **Security considerations**
+- **License choice** (with justification if non-standard)
+- **Contribution workflow**
+  - Branching model
+  - Merge/pull request requirements
+  - Mandatory reviews
 
 ---
 
 ## 6. Documentation and User Support
 
-Outline how users and developers will work with the software.
+Outline how users (e.g. maintainers and operators) and developers will work with the software.
 
 Include:
 
@@ -94,39 +105,6 @@ Include:
   - Issue tracking
   - Expected response times
   - Communication channels
-
----
-
-## 7. Repository, Visibility, and Licensing
-
-Ensure the project is managed visibly and according to ECMWF standards.
-
-Include:
-
-- **Repository requirements** 
-  - Required repositories
-  - Type and purpose of each
-  - Visibility (public/private)
-- **License choice** (with justification if non-standard)
-- **Contribution workflow**
-  - Branching model
-  - Merge/pull request requirements
-  - Mandatory reviews
-
----
-
-## 8. Software Sustainability and Maintenance
-
-Describe how the software will remain functional long-term.
-
-Include:
-
-- **Maintenance and ownership model**
-- **Update strategy**
-- **Dependency management**
-- **Deprecation policy**
-- **Required resources**
-- **Archiving or retirement plan**
 
 ---
 
@@ -141,43 +119,19 @@ If the software interacts with ECMWF data, specify:
 
 ---
 
-## 10. Validation and Acceptance
+## 10. AOB
 
-Define how the software will be validated prior to integration into the ECMWF stack.
+If useful, applicable and/or specifically requested, it may also be useful to include aspects related to:
 
-Include:
-
-- **Definition of “done”**
-- **Acceptance criteria**
-- **Testing/validation environments**
-- **Scientific or performance validation**
-- **Sign-off process**
-
----
-
-## 11. Change Management
-
-Describe how future changes will be governed.
-
-Include:
-
-- **Process for proposing major changes**
-- **Feature request workflow**
-- **Backwards compatibility policy**
-- **Release notes and changelog management**
-
----
-
-## 12. Risk Management
-
-Identify known risks and mitigation strategies.
-
-Common risks:
-
-- Loss of key personnel
-- Dependency end-of-life
-- Insufficient documentation
-- Performance regressions
-- Underestimated maintenance cost
-- Scope creep
-
+- **Definition of “done” and/or Acceptance criteria**
+- **Performance/testing/validation criteria**
+- **Description of future changes will be governed**
+  - Feature request workflows
+  - Backwards compatibility policy
+  - Release notes and changelog management
+- **Risk management**
+  - Loss of key personnel
+  - Insufficient documentation
+  - Performance regressions
+  - Maintenance cost
+  - Scope creep
