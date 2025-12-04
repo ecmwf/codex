@@ -108,7 +108,7 @@ Include:
 
 ---
 
-## 9. Data Handling (if applicable)
+## 7. Data Handling (if applicable)
 
 If the software interacts with ECMWF data, specify:
 
@@ -119,7 +119,7 @@ If the software interacts with ECMWF data, specify:
 
 ---
 
-## 10. AOB
+## 8. AOB
 
 If useful, applicable and/or specifically requested, it may also be useful to include aspects related to:
 
