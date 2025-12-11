@@ -83,10 +83,15 @@ As you would any python wheel with cython/cffi.
 Only make sure you utilize `findlibs` correctly -- consult e.g. eckit or mir examples for cython, or eccodes or pyfdb for cffi.
 
 ### How do I incorporate Python wrapper release into my regular release process? How is the release actually triggered?
-Currently it is manually triggered, but we will set up an automated release for a few selected projects.
+Currently it is manually triggered, but we will set up an automated release -- definition of a trigger pending, with options being for example a few selected projects being released, or a synchronized release.
 
 The project which drives all the releasing is called [python develop bundle](https://github.com/ecmwf/python-develop-bundle), and is capable of releasing any part of the stack with recursive dependency discovery & release, maintains the fourth-version-counter, handles both test and regular pypi, supports building from any branch, ...
 Consult respective `release.yml` file in that bundle for all configurable details.
+Originally, we used to maintain a counter per platform x python version x pypi, but that proves problematic for tools like `uv` or `poetry` -- it is imperative that for any single python package, all supported platforms and python versions have the _exact same_ wheel versioning.
+We thus replaced with a single counter per pypi, maintained as `whlcnt-universal-{pypiprod,pypitest}-{N}` tag on the repo.
+When the `release.yml` action is executed, a first step attempts to increase the counter and propagates the resulting version to job-per-platform-and-python.
+This makes the action safe to re-run -- if only a few subjobs fail, we can retry just those and the counter remains unchanged, retaining the exact same versioning; but we can also run the action again, causing every sub-job get the new, identical value for the buildcounter.
+Re-run is additionally safe in the sense of no action in the case of pypi collision -- we do that because we assume that tags on the source code repositories (like eckit, eccodes) are immutable.
 
 It can be configured to release _both_ wrapper wheel and python interface wheel at the same time, and for most projects it does so already.
 However, there is currently a deficiency that we don't correctly derive pins for the python interface wheel -- that is, when we release `eccodes`, it just has vanilla `eccodeslib` dependency, not `eccodes>=x.y.z,<x+1`.
