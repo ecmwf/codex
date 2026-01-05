@@ -35,15 +35,17 @@ Address:
 
 ---
 
-## 3. Stakeholders and Ownership
+## 3. Ownership and Stakeholders
 
-Identify roles and responsibilities, please note that an individual or group can be assigned multiple roles.
+Identify the roles and responsibilities, and the estimated roadmap/timeline of these roles. Please note that an individual or group can be assigned multiple roles.
 
 Include:
 
 - **Project owner(s) / maintainer(s)**
-- **Contributors / development team**
-- **Users and beneficiaries**
+  - If these roles are expected to change, e.g. when the project/contract comes to an end, please include an estimated timeline.
+- **Contributors/development team**
+- **Stakeholders**
+  - Identify the users and/or beneficiaries
 
 Optionally include (if different from the *Project owner/maintainer* above):
 
@@ -53,20 +55,23 @@ Optionally include (if different from the *Project owner/maintainer* above):
 
 ---
 
-## 4. Development, Maintenance and Ownership Roadmap
+## 4. Development and Maintenance Roadmap
 
-Provide a forward-looking plan describing how the software will be developed and maintained, and who
-will be responsible and take ownership in the longterm.
+Provide a forward-looking plan describing how the software will be developed and subsequently maintained.
 
 Include:
 
 - **Milestones and deliverables**
-- **Release strategy** (frequency, versioning, branching model)
-- **Maintenance and ownership model**
-- **Planned features and enhancements**
+- **Release strategy**
+  - Frequency, versioning, branching model
 - **Dependency management**
-- **Risk assessment**
-- **Timeline**
+- **Maintenance**
+  - Who is the maintainer of the delivered software, both during and after the project?
+  - How will future developments, and user requests, be managed?
+
+Optionally include:
+
+- **Any planned extensions and/or enhancements**
 
 ---
 
@@ -98,7 +103,7 @@ Address:
 ## 6. Documentation and User Support
 
 Outline how users (e.g. maintainers and operators) and developers will work with and understand the software.
-Please note that the documentation *MUST* be produced in unison with the software developments, and follow the
+Please note that the documentation developments *MUST* be in unison with software developments and follow the
 [Repository Structure guidelines](../Repository%20Structure/README.md).
 
 Include:
