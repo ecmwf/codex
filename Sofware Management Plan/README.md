@@ -1,13 +1,15 @@
-# Software Management Plan
+# Software Management Plan Guidelines
 
-A sofware management plan should be provided for all projects which contribute to the ECMWF software stack.
+A sofware management plan (SMP) should be provided for all projects which contribute to the ECMWF software stack.
 This is to ensure that contributions are appropriate, visible, follow guidelines and there is a clear roadmap
 for development and ownership.
 
-A software management plan is required for all projects where the lead developers are external contributors
+A SMP is required for all projects where the lead developers are external contributors
 and should be provided in the planning stages of the project.
-For internal contributors, a software management plan is required to progress a project from the *Sandbox*
+For internal contributors, a SMP is required to progress a project from the *Sandbox*
 to the *Emerging* [Project Maturity](../Project%20Maturity/) level.
+
+Please refer to the [example SMP](./example.md) for any further clarifications on what is expected.
 
 ## 1. Project Overview
 
@@ -60,7 +62,7 @@ Optionally include (if different from the *Project owner/Technical Officer* abov
 
 ## 4. New Repositories
 
-List the repositories required to develop, deliver, and maintain the software covered by the Software Management Plan.
+List the repositories required to develop, deliver, and maintain the software covered by the SMP.
 Where possible, minimise the number of repositories and clearly justify the need for any additional ones.
 
 For each repository, please provide:
