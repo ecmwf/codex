@@ -151,7 +151,7 @@ If the software interacts with ECMWF data, specify:
 - **Data volumes**
 - **Compliance with ECMWF data governance policies**
 
-## 9. AOB
+## 9. Any Other Business
 
 If useful, applicable and/or specifically requested, it may also be useful to include aspects related to:
 
