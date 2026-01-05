@@ -58,7 +58,7 @@ Optionally include (if different from the *Project owner/Technical Officer* abov
 - **Points of contact**
 - **Long-term maintenance owner**
 
-## 4. New repositories required
+## 4. New Repositories
 
 List the repositories required to develop, deliver, and maintain the software covered by the Software Management Plan.
 Where possible, minimise the number of repositories and clearly justify the need for any additional ones.
@@ -128,7 +128,7 @@ Include:
   - Expected response times
   - Communication channels
 
-## 7. Risk management
+## 7. Risk Management
 
 Identify potential risks associated with the development and maintainance of the software produced.
 
