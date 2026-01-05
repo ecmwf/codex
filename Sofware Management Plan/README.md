@@ -97,12 +97,17 @@ Address:
 
 ## 6. Documentation and User Support
 
-Outline how users (e.g. maintainers and operators) and developers will work with the software.
+Outline how users (e.g. maintainers and operators) and developers will work with and understand the software.
+Please note that the documentation *MUST* be produced in unison with the software developments, and follow the
+[Repository Structure guidelines](../Repository%20Structure/README.md).
 
 Include:
 
-- **User documentation** (installation, usage, examples)
-- **Developer documentation** (API, architecture, contribution guidelines)
+- **User documentation** 
+  - What will it cover, e.g. installation, usage, examples.
+  - How will you ensure that user needs are met?
+- **Developer documentation**
+  - What will it cover, e.g. API, architecture, contribution guidelines.
 - **Documentation location**
 - **Support model**
   - Issue tracking
@@ -111,7 +116,22 @@ Include:
 
 ---
 
-## 7. Data Handling (if applicable)
+## 7. Risk management
+
+Identify potential risks associated with the development and maintainance of the software produced.
+
+Where applicable, include:
+
+- **Dependancies**
+- **Loss of key personnel**
+- **Insufficient documentation**
+- **Performance regressions**
+- **Maintenance cost**
+- **Scope creep**
+
+---
+
+## 8. Data Handling (if applicable)
 
 If the software interacts with ECMWF data, specify:
 
@@ -122,7 +142,7 @@ If the software interacts with ECMWF data, specify:
 
 ---
 
-## 8. AOB
+## 9. AOB
 
 If useful, applicable and/or specifically requested, it may also be useful to include aspects related to:
 
@@ -132,9 +152,3 @@ If useful, applicable and/or specifically requested, it may also be useful to in
   - Feature request workflows
   - Backwards compatibility policy
   - Release notes and changelog management
-- **Risk management**
-  - Loss of key personnel
-  - Insufficient documentation
-  - Performance regressions
-  - Maintenance cost
-  - Scope creep
