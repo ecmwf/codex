@@ -37,13 +37,16 @@ Address:
 
 ## 3. Stakeholders and Ownership
 
-Identify roles and responsibilities.
+Identify roles and responsibilities, please note that an individual or group can be assigned multiple roles.
 
 Include:
 
-- **Project owner / maintainer**
+- **Project owner(s) / maintainer(s)**
 - **Contributors / development team**
 - **Users and beneficiaries**
+
+Optionally include (if different from the *Project owner/maintainer* above):
+
 - **Domain experts / reviewers**
 - **Points of contact**
 - **Long-term maintenance owner**
