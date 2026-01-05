@@ -80,7 +80,7 @@ For each repository, please provide:
 Optional:
 
 - **Template**
-  - If using a repository template, pleaase provide the link here.
+  - If using a repository template, please provide the link here.
 - **Licence**
   - If not the standard [Apache 2.0 licence](../Legal/apache-licence)
 - **Long-term maintainence owner**
