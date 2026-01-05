@@ -4,10 +4,10 @@ A sofware management plan should be provided for all projects which contribute t
 This is to ensure that contributions are appropriate, visible, follow guidelines and there is a clear roadmap
 for development and ownership.
 
-A software management plan is required for all projects where the lead developers are external contributors.
+A software management plan is required for all projects where the lead developers are external contributors
+and should be provided in the planning stages of the project.
 For internal contributors, a software management plan is required to progress your project from the Sandbox
 to Emerging [Project Maturity](../Project%20Maturity/).
-
 
 ## 1. Project Overview
 
@@ -17,8 +17,8 @@ Include:
 
 - **Project name**
 - **Purpose and goals**
-- **Problem it solves / value it provides**
-- **Scope and boundaries** (what is included and excluded)
+  - What problem it solves / value it provides
+  - Scope and boundaries (what is included and excluded)
 - **Relationship to the ECMWF software stack**  
   - New components?
   - Extension?
