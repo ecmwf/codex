@@ -4,6 +4,11 @@ A sofware management plan should be provided for all projects which contribute t
 This is to ensure that contributions are appropriate, visible, follow guidelines and there is a clear roadmap
 for development and ownership.
 
+A software management plan is required for all projects where the lead developers are external contributors.
+For internal contributors, a software management plan is required to progress your project from the Sandbox
+to Emerging [Project Maturity](../Project%20Maturity/).
+
+
 ## 1. Project Overview
 
 Provide a concise overview to allow others to understand the project and its purpose.
@@ -67,6 +72,8 @@ Include:
 - **Maintenance**
   - Who is the maintainer of the delivered software, both during and after the project?
   - How will future developments, and user requests, be managed?
+- **Maturity timeline**
+  - What is the expected timeline for the progression through the [Project Maturity](../Project%20Maturity/) classifications
 
 Optionally include:
 
