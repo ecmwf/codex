@@ -6,8 +6,8 @@ for development and ownership.
 
 A software management plan is required for all projects where the lead developers are external contributors
 and should be provided in the planning stages of the project.
-For internal contributors, a software management plan is required to progress your project from the Sandbox
-to Emerging [Project Maturity](../Project%20Maturity/).
+For internal contributors, a software management plan is required to progress a project from the *Sandbox*
+to the *Emerging* [Project Maturity](../Project%20Maturity/) level.
 
 ## 1. Project Overview
 
@@ -19,23 +19,25 @@ Include:
 - **Purpose and goals**
   - What problem it solves / value it provides
   - Scope and boundaries (what is included and excluded)
-- **Relationship to the ECMWF software stack**  
-  - New components?
-  - Extension?
-  - Replacement of legacy functionality?
+
 
 ---
 
 ## 2. Alignment With ECMWF Strategy and Architecture
 
-Explain how the software fits into ECMWF's broader technical and organisational goals.
+Explain how the software fits into ECMWF's broader organisational goals.
 
 Address:
 
-- **Alignment with ECMWF technical strategy**
-- **Fit with ECMWF architecture, APIs, data formats, workflows, and coding standards**
-- **Avoiding duplication**
+- **Alignment with the ECMWF software stack**
+  - New components
+  - An extension of existing components
+  - A replacement of legacy functionality?
+- **Compatibility with ECMWF architectures**
+  - Identify steps that ensure consistency with other ECMWF software, e.g. APIs
 - **Interoperability and portability**
+- **Avoiding duplication**
+  - Confirm that overly similar software does not exist elsewhere in the ECMWF software stack
 
 ---
 
