@@ -29,7 +29,6 @@ Address:
 
 - **Alignment with ECMWF technical strategy**
 - **Fit with ECMWF architecture, APIs, data formats, workflows, and coding standards**
-- **Dependencies** (internal and external)
 - **Avoiding duplication**
 - **Interoperability and portability**
 
