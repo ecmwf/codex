@@ -9,7 +9,8 @@ and should be provided in the planning stages of the project.
 For internal contributors, a SMP is required to progress a project from the *Sandbox*
 to the *Emerging* [Project Maturity](../Project%20Maturity/) level.
 
-Please refer to the [example SMP](./example.md) for any further clarifications on what is expected.
+Please use the [template SMP](./SMP-template.docx) to create your SMP, it contains much of the description
+provide below.
 
 ## 1. Project Overview
 
@@ -22,6 +23,8 @@ Include:
   - What problem it solves / value it provides
   - Who is the target audience?
   - Scope and boundaries (what is included and, if useful, what is excluded)
+- **Contract Number**
+  - Where applicable
 
 ## 2. Alignment With ECMWF Strategy and Architecture
 
@@ -85,8 +88,8 @@ Optional:
   - If using a repository template, please provide the link here.
 - **Licence**
   - If not the standard [Apache 2.0 licence](../Legal/apache-licence)
-- **Long-term maintainence owner**
-  - If this is not consistant accross all repostories
+- **Long-term maintenence owner**
+  - If this is not consistent across all repostories
 
 ## 5. Development and Maintenance Roadmap
 
@@ -95,21 +98,20 @@ Provide a forward-looking plan describing how the software will be developed and
 Include:
 
 - **Milestones and deliverables**
+  - Including expected delivery date and acceptance criteria
 - **Development and contribution workflow**
   - Branching model
-  - Merge/pull request requirements, e.g. mandatory reviews
+  - Merge criteria, e.g. pull requests with mandatory X reviews, all CI/CD test pass
 - **Release strategy**
   - Versioning system, e.g. *"Semantic versioning (MAJOR.MINOR.PATCH)"*
 - **Maintenance**
-  - Who is the primary maintainer of the delivered software, both during and after the project?
-    - If this is  not consistant accross all repostories, please specify in section 4.
   - How will future developments, and user requests, be managed?
 - **Maturity timeline**
   - What is the expected timeline for the progression through the [Project Maturity](../Project%20Maturity/) classifications
-
-Optionally include:
-
-- **Any planned extensions and/or enhancements**
+- **Performance and/or validation testing**
+  - Optional. Describe any performance and/or validation testing that will be included
+- **Planned extensions/enhancements**
+  - Optional. List any planned extensions/enhancements that are expected beyond the timescale of the project.
 
 ## 6. Documentation and User Support
 
@@ -120,15 +122,18 @@ Please note that the documentation developments *MUST* be in unison with softwar
 Include:
 
 - **User documentation** 
-  - What will it cover, e.g. installation, usage, examples.
+  - Who are the users?
+  - What will it cover? e.g. installation, usage, examples.
   - How will you ensure that evolving user needs are met?
 - **Developer documentation**
   - What will it cover, e.g. API, architecture, contribution guidelines.
 - **Documentation location**
+  - read-the-docs/github-pages/confluence?
 - **Support model**
-  - Issue tracking
-  - Expected response times
-  - Communication channels
+  - Who is the point of conact for support
+  - Where and how is support provided, e.g. github issues and/or jira tickets.
+  - SLAs, expected response times
+  - What support is and what support is not covered (optional)
 
 ## 7. Risk Management
 
@@ -152,14 +157,3 @@ If the software interacts with ECMWF data, specify:
 - **Storage locations**
 - **Data volumes**
 - **Compliance with ECMWF data governance policies**
-
-## 9. Any Other Business
-
-If useful, applicable and/or specifically requested, it may also be useful to include aspects related to:
-
-- **Definition of “done” and/or Acceptance criteria**
-- **Performance/testing/validation criteria**
-- **Description of future changes will be governed**
-  - Feature request workflows
-  - Backwards compatibility policy
-  - Release notes and changelog management
