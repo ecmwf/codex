@@ -1,128 +1,122 @@
-# Architectural Decision Record 004: Storing of Grid Definition Files
+# Architectural Decision Record 004: Storing of MeteoSwiss ICON Grid Definition Files
 
 ## Status
 [**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
 
 ## Last Updated
-2026-01-20
+2026-02-03
 
 ## Context
 
-The `eckit::geo` library used by Polytope and FDB at ECMWF implements support for the ICON native grid as a fully unstructured grid for forecast data extraction and retrieval. The definition for the grid consists of the list of cell centers and related metadata. This results in large grid definition files, which complicate software distribution and operational maintenance. The goal of the current ADR is to explore options that would help mitigate or eliminate these downsides.
+Polytope and FDB use the `eckit::geo` library to extract and retrieve forecast data defined on the ICON native grid. ICON grids are fully unstructured, and their definition consists of large files describing cell centres, connectivity, and associated metadata. These grid definition files are required at runtime in order to correctly interpret and access forecast data.
 
-At MeteoSwiss, Polytope and FDB are used to access forecasts produced on the ICON unstructured grid. In addition to the operational grid, there is a need to support additional research grids alongside it. This raises questions about efficient representation of ICON grids and about where operational and research grid definitions should be stored and managed.
+Due to their size, these grid definition files complicate software distribution, deployment, and operational maintenance.
 
-This ADR distinguishes between two categories of ICON grid definitions:
+At MeteoSwiss, Polytope and FDB are deployed to provide production access to forecasts produced on ICON grids. Only a small number of ICON grids are used operationally, but they are critical to production services and therefore have strict availability, stability, and maintainability requirements.
 
-- **Operational (OPR) grids**
-  Grids used in production operations, with availability and stability requirements. For MeteoSwiss operations, only two grids fall into this category.
+In the current setup, grid definition files are retrieved from ECMWF-hosted web
+services at runtime. This introduces a dependency on the availability of external services, which can directly impact MeteoSwiss service uptime. Reducing or removing this dependency is required to minimise operational downtime and improve overall service robustness.
 
-- **Custom (research) grids**
-  User- or project-specific grids used for research and experimentation, with more flexibility.
+This ADR is limited to centrally defined operational ICON grid definitions.
+User-defined or client-side grids used for research purposes are explicitly out of scope, as no strategy currently exists for their identification, labelling, or lifecycle management.
 
-The following analysis evaluates storage options separately for these two use cases.
 
-### Decision drivers
-- Operational reliability without runtime dependency on ECMWF services
-- Support for both operational and research user-provided ICON grids
+## Decision Drivers
 
-### Options Considered
+- High operational reliability
+- No runtime dependency on external services
+- Clear operational ownership of grid definitions
+- Maintainable and predictable grid lifecycle management
 
-#### Option 1: [current implementation] pull the grid definition files from ECMWF sites web service
-The current solution implemented by ECMWF is to host the grid definition files on a web service and to download the files as required by the users.
+## Options Considered
 
-##### Benefits
-- Authoritative source: Grid definitions are centrally maintained by ECMWF, ensuring consistency.
-- Always current: updates and corrections are available immediately without local action.
-- Simpler clients: Rely on a standard service rather than custom logic
+### Option 1: Pull grid definition files from ECMWF web services (current implementation)
 
-##### Drawbacks / risks
-- Introduces a dependency on ECMWF service availability. In a high-availability context, any ECMWF downtime could directly impact service uptime.
-- Operations related to MeteoSwiss would incur potentially significant costs (traffic) on the ECMWF infrastructure.
-- Adding research grids needs to be coordinated with the ECMWF resulting in additional bureacratic overhead
-- Operational state of the service depends on an external service provider which is not covered by the monitoring platform and results in an overall system which is more difficult to operate
+Grid definition files are hosted by ECMWF and downloaded on demand at runtime.
+
+#### Benefits
+- Authoritative source centrally maintained by ECMWF
+- Updates and corrections available immediately
+- Simple client-side implementation
+
+#### Drawbacks / risks
+- Runtime dependency on ECMWF service availability
+- Potential impact on MeteoSwiss service availability
+- External traffic and cost implications
+- External service is not covered by MeteoSwiss monitoring
 - Changes to the API of the external service need to be coordinated with software releases to ensure operational continuity
 
-#### Option 2: Put the grid definition files inside the container image
+---
 
-Ship the required ICON grid definition files inside the container image used by MeteoSwiss applications, so no download from ECMWF is needed at runtime.
-The source location of the grid files is configurable, with the default defined at build time.
+### Option 2: Package grid definition files inside the application container image
 
-#####  How it works
-- During image build, copy a curated set of grid definition files into the image (e.g., under /opt/grids/...).
-- Configure eckit::geo (or wrapper code) to look for grid definitions locally first.
-- Alternative: eckit::geo implements a caching mechanism that is prepopulated at build time.
+Grid definition files are bundled into the application container image and accessed locally at runtime. The source location of the grid files is configurable, with the default defined at build time.
 
-##### Benefits
-- No runtime dependency on ECMWF infrastructure (uptime + cost risk eliminated).
-- Very fast at runtime (local reads).
+#### Benefits
+- No runtime dependency on ECMWF infrastructure
+- Predictable behaviour and fast local access
+- Simple operational model
 
-##### Drawbacks / risks
-- Image size increases (build/pull time, registry storage).
-- Updating grid files requires rebuilding and redeploying images.
+#### Drawbacks / risks
+- Increased container image size
+- Grid updates require rebuilding and redeploying images
 
-#### Option 3: Mirroring object store
-Mirror ECMWF sites to a MeteoSwiss-managed object store (Nexus) and configure Polytope to fetch grid definition files from the mirror.
-This option can support both operational (OPR) and custom (research) grids, with open questions regarding configuration and update policies for each use case.
+### Option 3: Mirror grid definition files into a MeteoSwiss-managed object store
 
+Grid definition files are mirrored from ECMWF into a MeteoSwiss-managed object store (e.g. Nexus), and Polytope deployment at MeteoSwiss is configured to fetch operational grid definitions from this mirror.
 
-##### Benefits
-- Reduced runtime dependency on ECMWF infrastructure; availability and cost risks are bound to MeteoSwiss infrastructure.
-- Grid updates do not require application rebuilds, enabling independent grid lifecycle management.
+#### Benefits
+- Removes runtime dependency on ECMWF services
+- Centralised management of grid definition files
+- Grid updates independent of application rebuilds
+- Clear operational ownership within MeteoSwiss infrastructure
 
+#### Drawbacks / risks
+- Requires reliable synchronisation between ECMWF and the mirror
+- Risk of serving outdated or inconsistent grid definitions if synchronisation fails
+- Additional operational overhead to operate and monitor the mirror
+- Changes in `eckit::geo` may be required to support configurable grid sources
+- Caching strategies may be needed to reduce load on the mirror
 
-##### Drawbacks / risks
-- Synchronisation requirement between ECMWF and the mirror.
-- Risk of serving outdated or inconsistent grid definitions if synchronisation fails.
-- Additional operational overhead to operate and monitor the mirror.
-- Changes in `eckit::geo` may be required to support configurable grid sources.
-- Caching strategies may be needed to reduce load on the mirror.
+---
 
+## Analysis
 
-### Analysis
-Option 3 appears to offer the best long-term maintainability by removing the runtime
-dependency on ECMWF services and centralising grid management within MeteoSwiss
-infrastructure. This applies to both operational (OPR) and custom (research) grids,
-provided appropriate configuration and controls are defined.
+Option 3 provides the most suitable long-term operational characteristics for
+MeteoSwiss production use. By removing the runtime dependency on ECMWF services
+and centralising grid definition management within MeteoSwiss infrastructure,
+it improves availability, operational control, and maintainability for
+operational ICON grids.
 
-This option was discussed together with James H. during the MeteoSwiss/ECMWF sync.
-Open points remain regarding its implementation, in particular:
-1. how synchronisation between the ECMWF source and the mirror should be implemented
-   (e.g. periodic polling or event-based updates),
-2. how grid source configuration and overrides should be handled in `eckit::geo`, for OPR and research grids.
+Options 1 and 2 do not fully satisfy MeteoSwiss operational requirements.
+Option 1 introduces a runtime dependency on external services, while Option 2
+tightly couples grid updates to application build and deployment cycles.
 
-[] TODO Discuss details of points 1) and 2) with Pedro M. and Mathilde L. and document
-the agreed approach for Option 3.
+Option 3 was discussed with James H. during the MeteoSwiss/ECMWF sync. Open points
+remain regarding its implementation, in particular:
+1. how synchronisation between the ECMWF source and the MeteoSwiss mirror should
+   be implemented (e.g. periodic polling or event-based updates),
+2. how grid source configuration and overrides should be handled in `eckit::geo`
+   for operational use.
 
+These points must be clarified before the implementation of Option 3 is finalised.
 
-
-[ ] Compared options against relevant criteria (cost, performance, maintainability, risk, etc)  
-[ ] Explained trade-offs and their implications
-[ ] Referenced any prototypes, benchmarks, or research conducted (if applicable)  
-[ ] Considered both immediate and long-term impacts
+This decision applies to the Polytope and FDB deployments operated at MeteoSwiss.
+Users of earthkit outside the MeteoSwiss network do not have access to the
+MeteoSwiss-managed object store and will continue to retrieve ICON grid definition
+files from ECMWF-hosted services. For these use cases, caching of grid definition
+files is required (if not already implemented) to mitigate repeated downloads and
+reduce dependency on external services.
 
 ## Decision
-[ ] Stated the chosen option (clearly and unambiguously)
-[ ] Avoided implementation details (unless crucial to understanding the decision)
-[ ] Included any conditions or limitations on the decision
 
-### Related Decisions
-[ ] Referenced other ADRs that influenced or are influenced by this decision  
-[ ] Noted any decisions this ADR modifies or supersedes  
-[ ] Considered impacts on existing architectural patterns  
-[ ] Referenced ECMWF previous decisions that may be relevant but not documented as ADRs
+The decision is pending resolution of the open implementation questions identified in the Analysis section.
 
 ## Consequences
 
-[ ] Listed both positive and negative expected outcomes (if applicable)
-[ ] Included impacts on performance, maintainability, team productivity, operations, etc
-[ ] Noted any new risks introduced or mitigated
-[ ] Considered implications for future decisions
-
-## References
-
-[ ] Linked to any relevant documents, discussions, or resources that informed the decision  
-[ ] Included links to related ADRs, design documents, or external references
+- Improved operational reliability for production services
+- Clear ownership of grid definition files within MeteoSwiss
+- Additional operational responsibility for maintaining the mirror infrastructure
 
 ## Authors
 
