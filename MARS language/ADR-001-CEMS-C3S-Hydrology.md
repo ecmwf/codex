@@ -1,4 +1,4 @@
-# Architectural Decision Record XXX: Title of the Decision
+# Architectural Decision Record 001: CEMS and C3S hydrology data in MARS 
 
 ## Status
 [**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
