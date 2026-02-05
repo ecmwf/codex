@@ -1,4 +1,4 @@
-# Architectural Decision Record 001: CEMS and C3S hydrology data in MARS 
+# Architectural Decision Record 002: GRIB2 data in flight levels in MARS and FDB
 
 ## Status
 [**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
