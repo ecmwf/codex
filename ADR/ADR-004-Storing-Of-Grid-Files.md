@@ -83,6 +83,7 @@ Grid definition files are mirrored from ECMWF into a MeteoSwiss-managed object s
 
 All options involving remote access to grid definition files benefit from client-side
 caching. Caching influences operational impact but is not a primary decision driver.
+
 ---
 
 ## Analysis
