@@ -24,7 +24,7 @@ User-defined or client-side grids used for research purposes are explicitly out 
 ## Decision Drivers
 
 - High operational reliability
-- No runtime dependency on external services
+- Reduced interdependency between MeteoSwiss and ECMWF services
 - Clear operational ownership of grid definitions
 - Maintainable and predictable grid lifecycle management
 
@@ -60,6 +60,7 @@ Grid definition files are bundled into the application container image and acces
 #### Drawbacks / risks
 - Increased container image size
 - Grid updates require rebuilding and redeploying images
+- Build time dependency on the external (ECMWF) service
 
 ### Option 3: Mirror grid definition files into a MeteoSwiss-managed object store
 
@@ -76,8 +77,12 @@ Grid definition files are mirrored from ECMWF into a MeteoSwiss-managed object s
 - Risk of serving outdated or inconsistent grid definitions if synchronisation fails
 - Additional operational overhead to operate and monitor the mirror
 - Changes in `eckit::geo` may be required to support configurable grid sources
-- Caching strategies may be needed to reduce load on the mirror
+- Requires a client-side caching strategy to avoid repeated downloads and reduce load on the mirror
 
+### Cross-cutting concern: caching of grid definition files
+
+All options involving remote access to grid definition files benefit from client-side
+caching. Caching influences operational impact but is not a primary decision driver.
 ---
 
 ## Analysis
@@ -105,8 +110,7 @@ This decision applies to the Polytope and FDB deployments operated at MeteoSwiss
 Users of earthkit outside the MeteoSwiss network do not have access to the
 MeteoSwiss-managed object store and will continue to retrieve ICON grid definition
 files from ECMWF-hosted services. For these use cases, caching of grid definition
-files is required (if not already implemented) to mitigate repeated downloads and
-reduce dependency on external services.
+files is required (if not already implemented) to mitigate the load on the external service.
 
 ## Decision
 
