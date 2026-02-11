@@ -1,5 +1,9 @@
 # ECMWF Observability Guidelines
 
+<!-- markdownlint-configure-file
+{"MD013":{"code_blocks":false,"tables":false}}
+-->
+
 ## Table of Contents
 
 - [1. Purpose and Scope](#1-purpose-and-scope)
@@ -51,8 +55,10 @@ Out of scope in this version:
 - Use consistent observability conventions across all ECMWF software.
 - Prefer machine-parseable telemetry over free-form text.
 - Keep telemetry actionable and low-noise.
-- Correlate signals where possible (for example, include trace/span identifiers in logs when available).
-- Protect sensitive data by design (no credentials, tokens, or personal data in logs/metrics/traces).
+- Correlate signals where possible (for example, include trace/span
+  identifiers in logs when available).
+- Protect sensitive data by design (no credentials, tokens, or personal data
+  in logs/metrics/traces).
 
 ### 2.1 Normative Language
 
@@ -70,11 +76,14 @@ ECMWF software runs in multiple environments:
 - Virtual machines
 - HPC systems
 
-This document focuses on common logs and metrics structure plus application emission rules. Environment-specific collection design for Kubernetes, VMs, and HPC will be specified later.
+This document focuses on common logs and metrics structure plus application
+emission rules. Environment-specific collection design for Kubernetes, VMs,
+and HPC will be specified later.
 
 ## 4. Logging Standard
 
-ECMWF software should emit structured logs aligned with the OpenTelemetry log data model.
+ECMWF software should emit structured logs aligned with the OpenTelemetry
+log data model.
 
 Useful references:
 
@@ -208,7 +217,8 @@ Good log line characteristics:
   - Include `trace_id` and `span_id` when context exists.
   - Include request/job identifiers when available.
 
-Examples below use the same canonical structure as Section 4.1 (`resource` and `attributes`) for consistency.
+Examples below use the same canonical structure as Section 4.1 (`resource`
+and `attributes`) for consistency.
 
 Bad log line characteristics:
 
@@ -265,9 +275,11 @@ Login failed for user alice password=PlainTextSecret token=eyJhbGci...
 - `ERROR`: failed operation requiring attention.
 - `FATAL`: unrecoverable condition before shutdown.
 
-Use stable event names (`event.name`) where possible, and make messages explicit about outcome, target, and reason.
+Use stable event names (`event.name`) where possible, and make messages
+explicit about outcome, target, and reason.
 
-For severity mapping guidance, follow OpenTelemetry severity concepts in the logs data model reference.
+For severity mapping guidance, follow OpenTelemetry severity concepts in the
+logs data model reference.
 
 ### 4.7 Exception and Error Logging
 
@@ -279,7 +291,8 @@ For severity mapping guidance, follow OpenTelemetry severity concepts in the log
 
 ### 4.8 Safety and Compliance Rules
 
-- MUST never log secrets, credentials, session tokens, private keys, or personal data.
+- MUST never log secrets, credentials, session tokens, private keys, or
+  personal data.
 - MUST redact sensitive substrings before writing log output.
 - SHOULD avoid full object dumps unless explicitly sanitized.
 - SHOULD include stack traces for errors only when useful and sanitized.
@@ -324,19 +337,24 @@ Ownership split for compliance:
 ## 5. Metrics Standard
 
 Metrics MUST be exposed in Prometheus/OpenMetrics-compatible format.
-ECMWF services MUST use Prometheus metric types and naming conventions, and MUST expose metrics in a Prometheus/OpenMetrics-compatible text format.
-Metrics defined in this section are the source for alerting rules defined in the Alerting section.
+ECMWF services MUST use Prometheus metric types and naming conventions, and
+MUST expose metrics in a Prometheus/OpenMetrics-compatible text format.
+Metrics defined in this section are the source for alerting rules defined in
+the Alerting section.
 
 ### 5.1 Scope and Standard
 
-- This section defines instrumentation expectations, metric schema, and quality requirements.
-- Environment-specific scrape/discovery designs for Kubernetes, VMs, and HPC are specified separately.
+- This section defines instrumentation expectations, metric schema, and
+  quality requirements.
+- Environment-specific scrape/discovery designs for Kubernetes, VMs, and HPC
+  are specified separately.
 
 ### 5.2 References
 
 - Prometheus metric types: <https://prometheus.io/docs/concepts/metric_types/>
 - Prometheus naming best practices: <https://prometheus.io/docs/practices/naming/>
-- OpenMetrics specification: <https://github.com/OpenObservability/OpenMetrics/blob/main/specification/OpenMetrics.md>
+- OpenMetrics specification:
+  <https://github.com/OpenObservability/OpenMetrics/blob/main/specification/OpenMetrics.md>
 
 ### 5.3 Metric Types and Usage
 
@@ -361,7 +379,8 @@ Metrics defined in this section are the source for alerting rules defined in the
   - `_bytes` for size
   - `_total` for counters
 - Metric names SHOULD be stable over time.
-- If a name must change, introduce the new metric and deprecate the old one before removal.
+- If a name must change, introduce the new metric and deprecate the old one
+  before removal.
 
 Good naming examples:
 
@@ -429,7 +448,8 @@ Batch/HPC job metrics (where applicable):
 
 Example bucket set for service latency metric:
 
-- `0.005`, `0.01`, `0.025`, `0.05`, `0.1`, `0.25`, `0.5`, `1`, `2.5`, `5`, `10` seconds
+- `0.005`, `0.01`, `0.025`, `0.05`, `0.1`, `0.25`, `0.5`, `1`, `2.5`, `5`,
+  `10` seconds
 
 ### 5.8 Good and Bad Metric Examples
 
