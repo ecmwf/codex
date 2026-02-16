@@ -10,12 +10,14 @@
 - [2. Core Principles](#2-core-principles)
   - [2.1 Normative Language](#21-normative-language)
 - [3. Platform Context](#3-platform-context)
+  - [3.1 High-Level Collection Strategy](#31-high-level-collection-strategy)
 - [4. Logging Standard](#4-logging-standard)
   - [4.1 Log Event Model](#41-log-event-model)
   - [4.2 Required Fields (Minimum Contract)](#42-required-fields-minimum-contract)
   - [4.3 Event Naming and Attribute Cardinality](#43-event-naming-and-attribute-cardinality)
   - [4.4 Library vs Binary Application Logging](#44-library-vs-binary-application-logging)
   - [4.5 Good and Bad Log Lines](#45-good-and-bad-log-lines)
+    - [4.5.1 Trace Correlation Fields (`trace_id` and `span_id`)](#451-trace-correlation-fields-trace_id-and-span_id)
   - [4.6 Severity and Event Design](#46-severity-and-event-design)
   - [4.7 Exception and Error Logging](#47-exception-and-error-logging)
   - [4.8 Safety and Compliance Rules](#48-safety-and-compliance-rules)
@@ -79,6 +81,37 @@ ECMWF software runs in multiple environments:
 This document focuses on common logs and metrics structure plus application
 emission rules. Environment-specific collection design for Kubernetes, VMs,
 and HPC will be specified later.
+
+### 3.1 High-Level Collection Strategy
+
+The collection pipeline is part of the deployment environment and MUST be
+considered in service design.
+
+- Kubernetes workloads:
+  - Platform Engineering Team deploys and operates OpenTelemetry collectors.
+  - Workloads emit logs/metrics in the agreed formats.
+- VM and HPC workloads:
+  - A collector/forwarder SHOULD run alongside the application or on the host.
+  - Workloads emit logs/metrics in the agreed formats.
+- Central ingestion:
+  - Logs are forwarded to the central ECMWF logging backend.
+  - Metrics are collected into the central Prometheus-compatible metrics stack.
+
+```mermaid
+flowchart TB
+  subgraph K["Kubernetes"]
+    A1["Workloads"] --> A2["Collector<br/>(DaemonSet/Sidecar)"]
+  end
+
+  subgraph V["VM / HPC"]
+    B1["Applications / Jobs"] --> B2["Collector Agent<br/>(Host-local)"]
+  end
+
+  A2 --> C["Central Ingestion"]
+  B2 --> C
+  C -->|logs| D["Logs Backend"]
+  C -->|metrics| E["Prometheus Metrics<br/>Stack"]
+```
 
 ## 4. Logging Standard
 
@@ -220,6 +253,15 @@ Good log line characteristics:
 Examples below use the same canonical structure as Section 4.1 (`resource`
 and `attributes`) for consistency.
 
+#### 4.5.1 Trace Correlation Fields (`trace_id` and `span_id`)
+
+- `trace_id` identifies the full end-to-end request/workflow across services.
+- `span_id` identifies one operation within that trace in a single service.
+- Multiple log records in one service operation typically share a `span_id`.
+- A single `trace_id` usually contains multiple spans across components.
+- When tracing context is unavailable (for example offline batch steps),
+  these fields MAY be absent.
+
 Bad log line characteristics:
 
 - Free-form text without structure.
@@ -279,7 +321,8 @@ Use stable event names (`event.name`) where possible, and make messages
 explicit about outcome, target, and reason.
 
 For severity mapping guidance, follow OpenTelemetry severity concepts in the
-logs data model reference.
+logs data model:
+<https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber>
 
 ### 4.7 Exception and Error Logging
 
@@ -348,6 +391,11 @@ the Alerting section.
   quality requirements.
 - Environment-specific scrape/discovery designs for Kubernetes, VMs, and HPC
   are specified separately.
+- Metrics exposure and collection at a high level:
+  - HTTP services SHOULD expose a `/metrics` endpoint owned by the service.
+  - Non-HTTP and batch/HPC workloads MUST still expose Prometheus-compatible
+    metrics, typically via a local collector/forwarder integration.
+  - Platform Engineering Team owns central scrape and ingestion configuration.
 
 ### 5.2 References
 
