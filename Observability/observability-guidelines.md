@@ -367,7 +367,7 @@ Before release, teams should verify:
 
 Ownership split for compliance:
 
-| Control | App Team | Platform Team |
+| Control | Development Team | Platform Engineering Team |
 | --- | --- | --- |
 | Structured JSON emitted by app | MUST | N/A |
 | Required app fields (`service.name`, `service.version`, `deployment.environment`, `body`, severity) | MUST | Validate only |
@@ -529,11 +529,11 @@ Before release, teams should verify:
 
 Ownership split for compliance:
 
-| Control | App Team | Platform Team |
-| --- | --- | --- |
-| Instrument required baseline metrics | MUST | N/A |
-| Naming and unit compliance | MUST | SHOULD validate |
-| Label cardinality discipline | MUST | SHOULD enforce guardrails |
-| Scrape/discovery pipeline configuration | N/A | MUST |
-| Central metric relabeling and hygiene checks | N/A | SHOULD |
-| Cost and cardinality monitoring at platform level | N/A | SHOULD |
+| Control | Development Team | Platform Engineering Team | Production Team |
+| --- | --- | --- | --- |
+| Instrument required baseline metrics | MUST | N/A | SHOULD review service-level usefulness |
+| Naming and unit compliance | MUST | SHOULD validate | SHOULD validate monitoring readiness |
+| Label cardinality discipline | MUST | SHOULD enforce guardrails | SHOULD flag operational risks |
+| Scrape/discovery pipeline configuration | N/A | MUST | SHOULD validate production coverage |
+| Central metric relabeling and hygiene checks | N/A | SHOULD | N/A |
+| Cost and cardinality monitoring at platform level | N/A | SHOULD | SHOULD provide operational feedback |
