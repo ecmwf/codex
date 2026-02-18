@@ -4,7 +4,7 @@
 [**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
 
 ## Last Updated
-2026-02-03
+2026-02-18
 
 ## Context
 
@@ -105,7 +105,7 @@ remain regarding its implementation, in particular:
 2. how grid source configuration and overrides should be handled in `eckit::geo`
    for operational use.
 
-These points must be clarified before the implementation of Option 3 is finalised.
+These points will be addressed during the implementation of Option 3.
 
 This decision applies to the Polytope and FDB deployments operated at MeteoSwiss.
 Users of earthkit outside the MeteoSwiss network do not have access to the
@@ -115,7 +115,9 @@ files is required (if not already implemented) to mitigate the load on the exter
 
 ## Decision
 
-The decision is pending resolution of the open implementation questions identified in the Analysis section.
+MeteoSwiss will adopt Option 3: mirror ICON grid definition files into a MeteoSwiss-managed object store and configure Polytope and FDB deployments to retrieve operational grid definitions from this mirror.
+
+This removes the runtime dependency on ECMWF-hosted services while ensuring operational control and independent lifecycle management of grid definition files. The open points identified in the Analysis section will be resolved as part of the implementation.
 
 ## Consequences
 
