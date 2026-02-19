@@ -24,7 +24,7 @@ At ECMWF, we view AI Code Agents and Large Language Models (LLMs) as powerful pr
 
 ### Security and Asset Protection
 
-* **Verification:** The responsible human developer must actively verify the AI-generated code for security vulnerabilities, logic flaws, or accidental damage to ECMWF assets.
+* **Verification:** The responsible human developer must actively verify the AI-generated code for security vulnerabilities, logic flaws, or accidental damage to ECMWF assets (e.g., data, infrastructure, etc).
 * **Standard Precaution:** Treat AI-generated code with the same scrutiny for malicious or accidental flaws as you would any code submitted by an unknown external party.
 
 ### Managing External Contributions
