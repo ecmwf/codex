@@ -29,7 +29,7 @@ Please have the following details ready before filling out the e-form:
 
 Once your e-form is submitted, it follows a standard administrative workflow:
 
-1. **Review & Approval:** The Head of Development will review your request to ensure it aligns with ECMWF's software strategy and naming conventions.
+1. **Review & Approval:** The Head of Development will review your request to ensure it aligns with ECMWF's software strategy and naming conventions. Your repository name will be checked for clarity and relevance to its intended purpose. You may be contacted for additional information or clarification during this stage, including a discussion on the name and scope of the repository.
 2. **Creation & Configuration:** If approved, **User Services** will manually create or transfer the repository and apply the requested access permissions.
 3. **Notification:** You will receive a notification once your repository is set up and ready to use. Please check that your permissions are correctly applied and that the repository is configured as requested.
 4. **Check Branch Protection Rules:** If applicable, ensure that any necessary branch protection rules are set up to maintain code quality and security standards (e.g., ensuring the main branches are protected, requiring pull request reviews, status checks, etc).
