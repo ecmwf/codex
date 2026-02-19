@@ -38,4 +38,4 @@ At ECMWF, we view AI Code Agents and Large Language Models (LLMs) as powerful pr
 
 * **Warning on Intellectual Property and Licensing:** Note that AI models can occasionally reproduce snippets of copyrighted code (e.g., strictly GPL-licensed code). Developers should ensure the generated code does not violate ECMWF's open-source licensing strategy (mostly Apache 2.0).
 
-* **Mandatory Test Coverage:** As for all external contributions, it is highly desirable that AI-generated code should be accompanied by unit tests. However, it is more important for AI generated code that *some* human-verified unit tests are included. AI is notoriously good at writing code that *looks* right but fails edge cases, making strict testing coverage even more important.
+* **Test Coverage:** As for all external contributions, it is highly desirable that AI-generated code should be accompanied by unit tests. However, it is more important for AI generated code that *some* human-verified unit tests are included. AI is notoriously good at writing code that *looks* right but fails edge cases, making strict testing coverage even more important.
