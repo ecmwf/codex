@@ -4,7 +4,7 @@
 
 GitHub has strict rules regarding repository ownership and creation.
 
-Because all repositories within the ECMWF GitHub Enterprise are owned by ECMWF, individual users — including members of underlying ECMWF GitHub organisations — are **not permitted** to directly create repositories within those organizations.
+Because all repositories within the ECMWF GitHub Enterprise are owned by ECMWF, individual users are **not permitted** to directly create repositories within those  ECMWF Github organisations.
 
 Instead, all repository creations and transfers must go through a centralized request process to ensure compliance and management of the single namespace. This ensures ECMWF can properly manage naming conventions, visibility, access policies, compliance requirements, billing, and security settings for all assets under Github Enterprise.
 
@@ -21,7 +21,8 @@ Please have the following details ready before filling out the e-form:
 * **Proposed Name:** The desired name for the repository (this will be checked against availability and clarity of purpose).
 * **Main Goal:** A brief description of the repository's intended use and purpose.
 * **Content Type:** The kind of assets that will be stored (e.g., source code, training materials, configurations, documentation, etc).
-* **Visibility Level:** The required visibility on GitHub (Private, Internal, or Public). *Note: See Section 4 for important rules regarding Public repositories.*
+* **Visibility Level:** The required visibility on GitHub (Private, Internal, or Public). 
+   * *Note: See Section 4 for important rules regarding Public repositories.*
 * **Access Permissions:** A list of users or teams who need access, specifying their required permission levels (e.g., Admin, Write, Read).
 
 ## 3. Workflow and Approval Process
