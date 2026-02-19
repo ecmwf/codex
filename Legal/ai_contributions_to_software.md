@@ -34,7 +34,7 @@ At ECMWF, we view AI Code Agents and Large Language Models (LLMs) as powerful pr
 
 ### Working with AI Agents
 
-* **Data Privacy and Prompt Security:** Developers must not paste sensitive ECMWF data, proprietary keys, unreleased model architectures, or sensitive infrastructure details into *public* AI prompts (e.g., consumer ChatGPT) versus approved internal enterprise tools like GitHub Copilot Enterprise. We have guarrantees from our enterprise providers that data kept secure, but we should still avoid sharing sensitive information in prompts.
+* **Data Privacy and Prompt Security:** Developers must not paste sensitive ECMWF data, proprietary keys, unreleased model architectures, or sensitive infrastructure details into *public* AI prompts (e.g., consumer ChatGPT) versus approved internal enterprise tools like GitHub Copilot Enterprise. We have guarrantees from our enterprise providers that data is kept secure, but we should still avoid sharing sensitive information in prompts.
 
 * **Warning on Intellectual Property and Licensing:** Note that AI models can occasionally reproduce snippets of copyrighted code (e.g., strictly GPL-licensed code). Developers should ensure the generated code does not violate ECMWF's open-source licensing strategy (mostly Apache 2.0).
 
