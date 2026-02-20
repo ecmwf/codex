@@ -42,7 +42,7 @@ For private repositories owned by ECMWF:
 When a new repository is needed:
 
 - It must be created under the **ECMWF GitHub organisation**, not a personal or external account.  
-- Creation is handled by ECMWF staff via the Technical Officer.  
+- Creation is handled by ECMWF staff via the Technical Officer, and must follow the [Requesting a New Repository](../Legal/requesting_new_repository.md) procedure.
 - Visibility (public or private) should be decided early, preferring public where feasible.
 - If the project will eventually be public, start development publicly to avoid migration overhead.
 - For public repositories or that eventually will be made public, all contributions must comply with ECMWF’s copyright and licensing policies, as outlined in [Copyright and Licensing](../Legal/copyright_and_licensing.md).
