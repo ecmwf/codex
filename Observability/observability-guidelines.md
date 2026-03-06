@@ -20,8 +20,8 @@
   - [4.3 Event Naming and Attribute Cardinality](#43-event-naming-and-attribute-cardinality)
   - [4.4 Library vs Binary Application Logging](#44-library-vs-binary-application-logging)
   - [4.5 Good and Bad Log Lines](#45-good-and-bad-log-lines)
-    - [4.5.1 Trace Correlation Fields (`trace_id` and `span_id`)](#451-trace-correlation-fields-trace_id-and-span_id)
-    - [4.5.2 Correlation Identifiers (`trace_id`, `request.id`, `job.id`)](#452-correlation-identifiers-trace_id-requestid-jobid)
+    - [4.5.1 Trace Correlation Fields (`traceId` and `spanId`)](#451-trace-correlation-fields-traceid-and-spanid)
+    - [4.5.2 Correlation Identifiers (`traceId`, `request.id`, `job.id`)](#452-correlation-identifiers-traceid-requestid-jobid)
   - [4.6 Severity and Event Design](#46-severity-and-event-design)
   - [4.7 Exception and Error Logging](#47-exception-and-error-logging)
   - [4.8 Safety and Compliance Rules](#48-safety-and-compliance-rules)
@@ -74,7 +74,7 @@ Out of scope in this version:
 The keywords `MUST`, `SHOULD`, and `MAY` are used as requirement levels:
 
 - `MUST`: mandatory requirement for compliance.
-- `SHOULD`: recommended default; deviations should be justified.
+- `SHOULD`: recommended default; deviations require justification.
 - `MAY`: optional behavior.
 
 ## 3. Platform Context
@@ -210,7 +210,7 @@ Ownership model:
 
 ## 4. Logging Standard
 
-ECMWF software should emit structured logs aligned with the OpenTelemetry
+ECMWF software SHOULD emit structured logs aligned with the OpenTelemetry
 log data model.
 
 Useful references:
@@ -224,7 +224,7 @@ Each log event MUST provide the following information, either directly in the
 record or via stable resource/context enrichment in the pipeline:
 
 - A clear event message (`body` / message).
-- Severity (`severity_text`, `severity_number`).
+- Severity (`severityText`, `severityNumber`).
 - Timestamp in UTC.
 - Stable resource attributes (service and environment metadata).
 - Context attributes for debugging and operations.
@@ -234,8 +234,10 @@ Canonical structure (OpenTelemetry-aligned):
 ```json
 {
   "timestamp": "2026-02-11T12:20:43Z",
-  "severity_text": "INFO",
-  "severity_number": 9,
+  "traceId": "7f3fbbf5b8f24f32a59ec8ef9b264f93",
+  "spanId": "f9c3a29d03ef154f",
+  "severityText": "INFO",
+  "severityNumber": 9,
   "body": "Operation completed",
   "resource": {
     "service.name": "example-service",
@@ -245,11 +247,9 @@ Canonical structure (OpenTelemetry-aligned):
     "k8s.pod.name": "example-service-7f8b66f9f7-rj8vd"
   },
   "attributes": {
-    "event.name": "operation.completed",
+    "event.name": "data.transfer.completed",
     "request.id": "req-8f31c9",
-    "job.id": "job-42a7",
-    "trace_id": "7f3fbbf5b8f24f32a59ec8ef9b264f93",
-    "span_id": "f9c3a29d03ef154f"
+    "job.id": "job-42a7"
   }
 }
 ```
@@ -262,19 +262,24 @@ The minimum contract applies to the effective log event at query/analysis
 time. Fields MAY be set directly by the application or added by approved
 collector/pipeline enrichment, provided values are stable and correct.
 
-Application-emitted fields:
+LogRecord fields (top-level in the log record):
 
 | Field | Requirement | Notes |
 | --- | --- | --- |
 | `timestamp` | MUST | UTC, RFC 3339 / ISO-8601 format |
-| `severity_text` | MUST | `DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL` |
-| `severity_number` | MUST | Numeric OTel-compatible severity |
+| `severityText` | MUST | `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR`, `FATAL` |
+| `severityNumber` | MUST | Numeric OTel-compatible severity |
 | `body` | MUST | Human-readable message describing one event |
+| `traceId` | MUST when available | Enables log-trace correlation; not required for startup, housekeeping, or other non-request events |
+| `spanId` | MUST when available | Enables log-trace correlation |
+
+Resource attributes (nested inside the `resource` block):
+
+| Field | Requirement | Notes |
+| --- | --- | --- |
 | `service.name` | MUST | Logical service/application name |
 | `service.version` | MUST | Deployed version/build identifier |
-| `deployment.environment` | MUST | e.g. `dev`, `test`, `staging`, `prod` |
-| `trace_id` | SHOULD when available | Enables log-trace correlation; not required for startup, housekeeping, or other non-request events |
-| `span_id` | MUST when available | Enables log-trace correlation |
+| `deployment.environment` | SHOULD | e.g. `dev`, `test`, `staging`, `prod`; may not be known by the application at runtime |
 
 Collector-enriched or infrastructure fields:
 
@@ -287,8 +292,7 @@ Collector-enriched or infrastructure fields:
 Recommended additional fields:
 
 - `event.name` (stable event type)
-- `event.domain` (component/domain group)
-- `error.type` and `error.message` for failures
+- `error.type` for error classification; `exception.type`, `exception.message`, and `exception.stacktrace` for exception details
 - Request/work item identifiers (for example `request.id`, `job.id`)
 
 ### 4.3 Event Naming and Attribute Cardinality
@@ -302,8 +306,8 @@ Event naming convention:
 
 Examples:
 
-- `operation.completed`
-- `operation.failed`
+- `data.transfer.completed`
+- `data.transfer.failed`
 
 When defining log attributes, teams MUST consider attribute cardinality.
 Cardinality is the number of distinct values an attribute has across events.
@@ -324,12 +328,12 @@ Attribute guidance:
 
 #### Libraries
 
-- MUST not configure global logging policy (sinks, format, or global levels).
+- MUST NOT configure global logging policy (sinks, format, or global levels).
 - MUST use logger/context provided by the application, or a documented
   adapter/interface supplied by the application.
 - MUST expose structured key/value fields in logging calls, not only
   pre-formatted message strings.
-- MUST not log secrets or large payloads.
+- MUST NOT log secrets or large payloads.
 - SHOULD avoid excessive `INFO`/`DEBUG` logs in hot code paths.
 - SHOULD include stable event names for reusable log points:
   - Example: `event.name="library.decode.failed"`
@@ -369,27 +373,27 @@ Good log line characteristics:
 - Includes identifiers and outcome.
 - Uses stable field names.
 - Supports correlation:
-  - Include `trace_id` and `span_id` when context exists.
+  - Include `traceId` and `spanId` when context exists.
   - Include request/job identifiers when available.
 
 Examples below use the same canonical structure as Section 4.1 (`resource`
 and `attributes`) for consistency.
 
-#### 4.5.1 Trace Correlation Fields (`trace_id` and `span_id`)
+#### 4.5.1 Trace Correlation Fields (`traceId` and `spanId`)
 
-- `trace_id` identifies the full end-to-end request/workflow across services.
-- `span_id` identifies one operation within that trace in a single service.
-- Multiple log records in one service operation typically share a `span_id`.
-- A single `trace_id` usually contains multiple spans across components.
+- `traceId` identifies the full end-to-end request/workflow across services.
+- `spanId` identifies one operation within that trace in a single service.
+- Multiple log records in one service operation typically share a `spanId`.
+- A single `traceId` usually contains multiple spans across components.
 - When tracing context is unavailable (for example offline batch steps),
   these fields MAY be absent.
 
-#### 4.5.2 Correlation Identifiers (`trace_id`, `request.id`, `job.id`)
+#### 4.5.2 Correlation Identifiers (`traceId`, `request.id`, `job.id`)
 
 These identifiers represent different scopes of correlation and MAY appear
 together in a single log event.
 
-- `trace_id`: identifies one end-to-end distributed trace across services.
+- `traceId`: identifies one end-to-end distributed trace across services.
   It is created by tracing instrumentation and used to follow cross-service
   call chains.
 - `request.id`: identifies one application-level request or unit of API/user
@@ -403,8 +407,8 @@ Guidance:
 
 - These identifiers are complementary and not interchangeable.
 - Include all identifiers that exist in the current execution context.
-- In request/response flows, `trace_id` and `request.id` often coexist.
-- In batch/HPC flows, `job.id` is usually primary; `trace_id` MAY be absent
+- In request/response flows, `traceId` and `request.id` often coexist.
+- In batch/HPC flows, `job.id` is usually primary; `traceId` MAY be absent
   unless tracing is enabled for that workflow.
 
 Bad log line characteristics:
@@ -422,8 +426,10 @@ Good example:
 ```json
 {
   "timestamp": "2026-02-11T12:20:43Z",
-  "severity_text": "INFO",
-  "severity_number": 9,
+  "traceId": "7f3fbbf5b8f24f32a59ec8ef9b264f93",
+  "spanId": "f9c3a29d03ef154f",
+  "severityText": "INFO",
+  "severityNumber": 9,
   "body": "Operation completed",
   "resource": {
     "service.name": "example-service",
@@ -433,11 +439,9 @@ Good example:
     "k8s.pod.name": "example-service-7f8b66f9f7-rj8vd"
   },
   "attributes": {
-    "event.name": "operation.completed",
+    "event.name": "data.transfer.completed",
     "request.id": "req-8f31c9",
-    "job.id": "job-42a7",
-    "trace_id": "7f3fbbf5b8f24f32a59ec8ef9b264f93",
-    "span_id": "f9c3a29d03ef154f"
+    "job.id": "job-42a7"
   }
 }
 ```
@@ -456,17 +460,29 @@ Login failed for user alice password=PlainTextSecret token=eyJhbGci...
 
 ### 4.6 Severity and Event Design
 
+- `TRACE`: fine-grained diagnostics; more verbose than `DEBUG`.
 - `DEBUG`: development diagnostics and verbose internals.
 - `INFO`: normal lifecycle and business-relevant state changes.
 - `WARN`: unexpected but recoverable conditions.
 - `ERROR`: failed operation requiring attention.
 - `FATAL`: unrecoverable condition before shutdown.
 
+`severityText` to `severityNumber` mapping (use the lowest value in the range
+unless a finer distinction is needed):
+
+| `severityText` | `severityNumber` range |
+| --- | --- |
+| `TRACE` | 1–4 |
+| `DEBUG` | 5–8 |
+| `INFO` | 9–12 |
+| `WARN` | 13–16 |
+| `ERROR` | 17–20 |
+| `FATAL` | 21–24 |
+
 Use stable event names (`event.name`) where possible, and make messages
 explicit about outcome, target, and reason.
 
-For severity mapping guidance, follow OpenTelemetry severity concepts in the
-logs data model:
+For the full severity number specification including sub-levels, see:
 <https://opentelemetry.io/docs/specs/otel/logs/data-model/#field-severitynumber>
 
 ### 4.7 Exception and Error Logging
@@ -483,6 +499,8 @@ logs data model:
     lower layer.
 - Use the language/runtime error-chain mechanism where available so operators
   can reconstruct the sequence of failure causes from boundary logs.
+- When recording exception details, use the OTel semantic convention attributes:
+  `exception.type`, `exception.message`, and `exception.stacktrace`.
 - Include stack traces when they materially improve diagnosis.
 - Sanitize stack traces and exception messages before emission.
 
@@ -491,7 +509,7 @@ request failure) without logging the same full stack trace at every layer.
 
 ### 4.8 Safety and Compliance Rules
 
-- MUST never log secrets, credentials, session tokens, private keys, or
+- MUST NOT log secrets, credentials, session tokens, private keys, or
   personal data.
 - MUST redact sensitive substrings before writing log output.
 - SHOULD avoid full object dumps unless explicitly sanitized.
@@ -513,7 +531,7 @@ request failure) without logging the same full stack trace at every layer.
 
 ### 4.10 Validation Checklist and Ownership
 
-Before release, teams should verify:
+Before release, teams SHOULD verify:
 
 - Required fields are present in production logs.
 - Log output is valid structured JSON, or legacy format logs are mapped to
@@ -521,14 +539,14 @@ Before release, teams should verify:
 - Secrets and sensitive data are redacted.
 - Library and binary responsibilities are correctly separated.
 - Severity levels are used consistently.
-- Correlation fields (`trace_id`, `span_id`) are present when tracing context exists.
+- Correlation fields (`traceId`, `spanId`) are present when tracing context exists.
 
 Ownership split for compliance:
 
 | Control | Development Team | Platform Engineering Team |
 | --- | --- | --- |
 | Structured JSON emitted by app | MUST for new services; phased plan allowed for approved legacy services | N/A |
-| Required app fields (`service.name`, `service.version`, `deployment.environment`, `body`, severity) | MUST | Validate only |
+| Required app fields (`service.name`, `service.version`, `body`, severity); `deployment.environment` where known | MUST; `deployment.environment` SHOULD | Validate only |
 | Secret redaction in app logs | MUST | SHOULD add defensive redaction in pipeline |
 | `k8s.namespace.name`, `k8s.pod.name`, `host.name` enrichment | MAY | MUST where collector supports it |
 | Log transport to backend (for example Splunk) | N/A | MUST |
@@ -703,7 +721,7 @@ requestDurationMs{path="/api/v1/items/123456"} 187
 
 ### 5.9 Validation Checklist and Ownership
 
-Before release, teams should verify:
+Before release, teams SHOULD verify:
 
 - Metric names, units, and suffixes are compliant.
 - Required baseline metrics are present.
