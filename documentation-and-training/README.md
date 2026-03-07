@@ -1,5 +1,5 @@
-Documentation
-=============
+Documentation and Training
+==========================
 
 1. Documentation can be generated via any sensible tool that generates static pages (mkdocs, sphinx, etc.)
 2. Documentation should be published to readthedocs, github pages or sites.ecmwf.int
