@@ -4,7 +4,7 @@ This document provides a Guidelines and a template for creating Architectural De
 
 ## Template for Architectural Decision Records (ADRs)
 
-Please find the template for creatinsg ADRs in the [ADR-Template.md](./ADR-Template.md) file. This template should be used for all ADRs to ensure consistency and clarity.
+Please find the template for creating ADRs in the [ADR-Template.md](./ADR-Template.md) file. This template should be used for all ADRs to ensure consistency and clarity.
 
 ## Purpose
 
@@ -22,7 +22,7 @@ Create an ADR when making decisions that:
 - **Require justification and analysis** - Trade-offs between options, risk assessments, cost-benefit
 - **Involve trade-offs between alternatives** - For example performance vs. maintainability, cost vs. functionality
 - **Establish important conventions** - Coding standards, deployment processes, monitoring strategies
-- **Address compliance or regulatory requirements** - Adherance to standards like OGC and Data governance, but also security policies and identity managment
+- **Address compliance or regulatory requirements** - Adherence to standards like OGC and Data governance, but also security policies and identity management
 
 ## Writing Guidelines
 
@@ -126,10 +126,10 @@ Before finalizing an ADR, ensure it meets these criteria:
 
 ## Numbering and Filing
 
-- Use sequential numbering: ADR-001-Meaningfull-Title, ADR-002-Another-Meaningfull-Title, etc.
-- Store ADRs in the central **Codex** repository under `/ADR/`
+- Use sequential numbering: ADR-001-Meaningful-Title, ADR-002-Another-Meaningful-Title, etc.
+- Store ADRs in the central **Codex** repository under `/adr/`
 - Use descriptive filenames: `ADR-001-Git-Branching-Model.md`
-- Use the [ADR index](./ADR/ADR-Index.md) to track all ADRs and their statuses
+- Use the [ADR index](./ADR-Index.md) to track all ADRs and their statuses
 
 ## Review Process
 

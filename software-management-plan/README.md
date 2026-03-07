@@ -1,13 +1,13 @@
 # Software Management Plan Guidelines
 
-A sofware management plan (SMP) should be provided for all projects which contribute to the ECMWF software stack.
+A software management plan (SMP) should be provided for all projects which contribute to the ECMWF software stack.
 This is to ensure that contributions are appropriate, visible, follow guidelines and there is a clear roadmap
 for development and ownership.
 
 A SMP is required for all projects where the lead developers are external contributors
 and should be provided in the planning stages of the project.
 For internal contributors, a SMP is required to progress a project from the *Sandbox*
-to the *Emerging* [Project Maturity](../Project%20Maturity/) level.
+to the *Emerging* [Project Maturity](../project-maturity/) level.
 
 Please use the [template SMP](./SMP-template.docx) to create your SMP, it contains much of the description
 provide below.
@@ -97,9 +97,9 @@ Optional:
 - **Template**
   - If using a repository template, please provide the link here.
 - **Licence**
-  - If not the standard [Apache 2.0 licence](../Legal/apache-licence)
-- **Long-term maintenence owner**
-  - If this is not consistent across all repostories
+  - If not the standard [Apache 2.0 licence](../legal/apache-licence)
+- **Long-term maintenance owner**
+  - If this is not consistent across all repositories
 
 ## 6. Development and Maintenance Roadmap
 
@@ -119,7 +119,7 @@ Include:
 - **Maintenance**
   - How will future developments, and user requests, be managed?
 - **Maturity timeline**
-  - What is the expected timeline for the progression through the [Project Maturity](../Project%20Maturity/) classifications
+  - What is the expected timeline for the progression through the [Project Maturity](../project-maturity/) classifications
 - **Performance and/or validation testing**
   - Optional. Describe any performance and/or validation testing that will be included
 - **Planned extensions/enhancements**
@@ -129,7 +129,7 @@ Include:
 
 Outline how users (e.g. maintainers and operators) and developers will work with and understand the software.
 Please note that the documentation developments *MUST* be in unison with software developments and follow the
-[Repository Structure guidelines](../Repository%20Structure/README.md).
+[Repository Structure guidelines](../repository-structure/README.md).
 
 Include:
 
@@ -142,7 +142,7 @@ Include:
 - **Documentation location**
   - read-the-docs/github-pages/confluence?
 - **Support model**
-  - Who is the point of conact for support
+  - Who is the point of contact for support
   - Where and how is support provided, e.g. github issues and/or jira tickets.
   - SLAs, expected response times
   - What support is and what support is not covered (optional)

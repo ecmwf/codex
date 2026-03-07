@@ -5,7 +5,7 @@ Changes to our repositories primary branches, i.e. 'main' / 'master' /
 Requests (PR). Reviewer and Reviewee have specific responsibilities. This
 document aims to help both roles to understand their responsibilities. Please
 also refer to our branching policy in
-[ADR-001](../ADR/ADR-001-Git-Branching-Model.md)
+[ADR-001](../adr/ADR-001-Git-Branching-Model.md)
 
 ## Preparation
 
@@ -67,7 +67,7 @@ merge commits such as "WIP" or "Fix Review Comment", commits like this make it
 more difficult in the future to reason about changes. Be aware that this means
 rewriting your PRs history. While history rewriting is strongly discourraged
 for the primary branches, it is explicitly encouraged on your development
-branch to create meaningfull commits.
+branch to create meaningful commits.
 
 ## General Guidelines
 

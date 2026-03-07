@@ -41,4 +41,4 @@ Requesting a **Public** repository (or changing an existing repository's visibil
 If your repository requires public visibility, you must complete the official open-sourcing approval procedure.
 Your repository will be first made Private and only made Public once the open-sourcing process is complete and approved.
 
-Please review and follow the guidelines documented here: [Open Sourcing Software Procedure](https://github.com/ecmwf/codex/blob/main/Legal/open_sourcing_software.md)
+Please review and follow the guidelines documented here: [Open Sourcing Software Procedure](https://github.com/ecmwf/codex/blob/main/legal/open_sourcing_software.md)

@@ -9,7 +9,7 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
    - Seek approval for open source:
      - Verify the package is right for ECMWF GitHub page and discuss the suitablility for it to be open.
      - Discuss the scope of the software, what it does and what it does not
-     - Agree the initial access, i.e. start closed and then open or start immedietly open even if incomplete.
+     - Agree the initial access, i.e. start closed and then open or start immediately open even if incomplete.
      - Agree that only once the following check list is complete, will this software be open sourced.
 
 - Contact GitHub space administrator, typically a Team Leader in Development:
@@ -20,14 +20,14 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
 
 - To give access, Maintainers and Contributors need to have a GitHub account. Currently for github.com/ecmwf this is a Github Enterprise account, for which the following applies:
    - Maintainers should be ECMWF staff
-   - External contributions must follow the policy for [External Contributions](../External%20Contributions/README.md)
+   - External contributions must follow the policy for [External Contributions](../external-contributions/README.md)
    - External contributors will be asked to agree with a contribution license agreement (CLA) on pull request.
    
 - Ensure a `README` file exists in the root directory
    - Explains purpose and scope of code
    - Explains what kind of support is to expect (none) and how to contact ECMWF (link to Service Desk)
    - May feature a disclaimer for codes that are not officially supported or should not be used in operational context
-   - Clarify the state of the software (stable, alpha, beta, obsolete, …) or, preferably, define following Software Maturity guidelines, see [Software Maturity](../Project%20Maturity/README.md)
+   - Clarify the state of the software (stable, alpha, beta, obsolete, …) or, preferably, define following Software Maturity guidelines, see [Software Maturity](../project-maturity/README.md)
    - Clarify the level of support (none, best effort, operational, …)
    - Link to any further documentation of the code
    - Provide instructions on how to install
