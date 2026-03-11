@@ -1,4 +1,4 @@
-# ADR-004: Model keyword for DE330 (ODEDT)
+# ADR-005: Model keyword for DE330 (ODEDT)
 
 # Status
 
@@ -6,7 +6,7 @@ Proposed
 
 # Last Updated
 
-06.03.2026
+10.03.2026
 
 # Context
 
@@ -62,7 +62,8 @@ We believe this key is necessary to index data coming from different models with
 
 # Analysis
 
-Prototype at: [text](https://github.com/ecmwf/eccodes/tree/feature/ECC-2222-model-for-de330)
+- Prototype at: [text](https://github.com/ecmwf/eccodes/tree/feature/ECC-2222-model-for-de330)
+- This has been introduced in other datasets such as class=ai. We would add the model keyword in the same way here. Thus this represents a consistent approach in-line with other datasets.
 
 # Decision
 
@@ -72,6 +73,11 @@ Meeting was held on 06/03/2026 to discuss the proposal with:
 - Emanuele Danovaro
 - Seb Villaume
 - Robert Osinski
+- Bojan Kasic
+
+Following up meeting to confirm with User Services with:
+
+- Paul Dando
 - Bojan Kasic
 
 Everyone was happy with the proposal. We will proceed with the implementation.
