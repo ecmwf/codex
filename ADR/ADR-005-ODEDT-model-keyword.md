@@ -14,7 +14,7 @@ Proposed
 
 The on-demand-extremes-dt routinely runs multiple models covering the same period, such as different NWP models (ALARO, AROME, HARMONIE-AROME) as well as several impact models (AQ, Hydrology, renewables, wildfire etc.).
 
-Thus, an additional axis is needed to cope with several models running with all other mars metadata identical. To this end we would introduce the model keyword to the on-demand-extremes-dt data index, as has been introduced in other datasets such as class=ai. We would add the model keyword in the same way here.
+Thus, an additional axis is needed to cope with several models running with all other mars metadata identical. To this end we would introduce the model keyword to the on-demand-extremes-dt data index, as has been introduced in other datasets and contexts such as class=ai. We would add the model keyword in the same way here. Thus this represents a consistent approach in-line with other datasets.
 
 Values in ecCodes are currently as follows, but would be extended as the impact models become known and well formed ( `localConcepts/destine/modelNameConcept` ):
 
