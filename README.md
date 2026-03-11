@@ -11,6 +11,7 @@ The Codex is a set of guidelines for development of software and services at ECM
 # Contents
 
 - [Architectural Decision Records](./ADR)
+- [Branching Patterns](./Branching)
 - [Repository Structure](./Repository%20Structure)
 - [Project Maturity](./Project%20Maturity)
 - [Containerisation](./Containerisation)
