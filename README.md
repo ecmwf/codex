@@ -15,6 +15,7 @@ The Codex is a set of guidelines for development of software and services at ECM
 - [Project Maturity](./Project%20Maturity)
 - [Containerisation](./Containerisation)
 - [Testing](./Testing)
+- [Observability](./Development%20Practices/Observability.md)
 - [ECMWF Software EnginE (ESEE)](./ESEE)
 - [External Contributions](./External%20Contributions/)
 - [Documentation and Training](./Documentation%20and%20Training/)
