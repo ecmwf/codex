@@ -5,7 +5,7 @@ This document describes the existing mechanism for Python Wheels to interface wi
 * Compiled library: e.g. `eckit`, `eccodes`, `mir`, `atlas`, ... code in e.g. C++ with ecbuild-based compilation
 * Python interface library: e.g. `eccodes-python`, `mir-python`, `pyodc`, ... either cffi or cython interface to a Compiled library
 * Python wrapper wheel: a trivial wheel containing only a Compiled library. We currently use `-lib` naming convention. For example, `eckitlib.whl` is a wheel (zip archive) of compiled `eckit`, including `lib64`, `include`, `etc`, ... everything found in install target.
-* Python interface wheel: a regular wheel you can import in python and invoke code from, containing e.g. `eccodes-python` or `pyodc`. Whether its a binary wheel or pure python wheel depends on whether cython or cfii are used. Does not contain the Compiled library itself, but obviously requires it at runtime.
+* Python interface wheel: a regular wheel you can import in python and invoke code from, containing e.g. `eccodes-python` or `pyodc`. Whether its a binary wheel or pure python wheel depends on whether cython or cffi are used. Does not contain the Compiled library itself, but obviously requires it at runtime.
 * Wheelmaker: utility docker image used in local or github actions builds of Python wrapper wheels
 * Findlibs: python library for dynamic discovery of libraries at python import time -- this is the glue that binds together at runtime the Python interface wheel to Compiled libraries (whether via Python wrapper wheel or manually compiled).
 
