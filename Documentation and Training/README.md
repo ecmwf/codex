@@ -8,7 +8,7 @@ Documentation and Training
 Training
 ========
 
-Training material, in the form of software artifacts, may be hosted in [ecmwf-training](github.com/ecmwf-training).
+Training material, in the form of software artifacts, may be hosted in [ecmwf-training](https://github.com/ecmwf-training).
 
 The following resources should be used to guide the creation and lifecycle of these artifacts:
 
