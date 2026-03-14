@@ -1,6 +1,6 @@
 # Software Management Plan Guidelines
 
-A sofware management plan (SMP) should be provided for all projects which contribute to the ECMWF software stack.
+A software management plan (SMP) should be provided for all projects which contribute to the ECMWF software stack.
 This is to ensure that contributions are appropriate, visible, follow guidelines and there is a clear roadmap
 for development and ownership.
 
@@ -98,8 +98,8 @@ Optional:
   - If using a repository template, please provide the link here.
 - **Licence**
   - If not the standard [Apache 2.0 licence](../Legal/apache-licence)
-- **Long-term maintenence owner**
-  - If this is not consistent across all repostories
+- **Long-term maintenance owner**
+  - If this is not consistent across all repositories
 
 ## 6. Development and Maintenance Roadmap
 
@@ -142,7 +142,7 @@ Include:
 - **Documentation location**
   - read-the-docs/github-pages/confluence?
 - **Support model**
-  - Who is the point of conact for support
+  - Who is the point of contact for support
   - Where and how is support provided, e.g. github issues and/or jira tickets.
   - SLAs, expected response times
   - What support is and what support is not covered (optional)
