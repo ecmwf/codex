@@ -17,7 +17,7 @@ The Codex is a set of guidelines for development of software and services at ECM
 - [Containerisation](./Guidelines/Containerisation.md)
 - [Observability](./Guidelines/Observability.md)
 - [ECMWF Software EnginE (ESEE)](./ESEE)
-- [External Contributions](./Guidelines/external-contributions.md)
+- [External Contributions](./Guidelines/External-Contributions.md)
 - [Documentation and Training](./Documentation%20and%20Training/)
 - [Contributing to External Projects](./Contributing%20Upstream/)
 - [Guidelines](./Guidelines/)
