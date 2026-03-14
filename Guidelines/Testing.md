@@ -13,7 +13,7 @@ Data can be uploaded to the test repository via the web interface, located at
 `https://sites.ecmwf.int/repository/<package-name>/s/admin/files/`. There are other interfaces
 (CLI, python, REST) available according to [the documentation](https://confluence.ecmwf.int/display/UDOC/Website+as+Data+Repository).
 
-For any new packages, the 
+For any new packages, the
 [linked instructions](https://confluence.ecmwf.int/display/UDOC/Website+as+Data+Repository)
 should be followed to create a new package data repository. Once created, you will need to
 request that the data repository be made public, in the repository settings, and then contact
