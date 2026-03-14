@@ -61,7 +61,7 @@ main  ────────────────────────�
    git switch -c feature/my-feature main
    ```
 2. **Develop** — commit changes to the feature branch, keeping the branch short-lived and focused.
-3. **Push and open a PR** — push the branch and open a Pull Request against `main`. Follow the [PR guidelines](../Guidelines/pr_guidelines.md).
+3. **Push and open a PR** — push the branch and open a Pull Request against `main`. Follow the [PR guidelines](pr_guidelines.md).
 4. **Review** — address reviewer comments; all CI checks must pass.
 5. **Merge** — a GateKeeper merges the PR into `main` using the merge strategy agreed by the team (merge commit or squash).
 6. **Delete** the feature branch after merging.
@@ -132,7 +132,7 @@ hotfix/1.1.1  ──────────────► (merge to main + dev
    git switch -c feature/my-feature develop
    ```
 2. **Develop** — make commits on the feature branch.
-3. **Push and open a PR** against `develop`. Follow the [PR guidelines](../Guidelines/pr_guidelines.md).
+3. **Push and open a PR** against `develop`. Follow the [PR guidelines](pr_guidelines.md).
 4. **Review** — address reviewer comments; all CI checks must pass.
 5. **Merge** into `develop` and delete the feature branch.
 
