@@ -11,32 +11,32 @@ ESEE components are split into **four sub-categories**:
 
 ## Production Chain
 
-[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/esee/production_chain_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/esee)
+[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE/production_chain_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE)
 
 ESEE Production Chain encompasses components that drive the execution of operational and research workflows, managing complex dependencies, scheduling, and processing of data at scale.
 
-    [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/esee/production_chain_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/esee)
+    [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE/production_chain_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE)
 
 ## Data Provision
 
-[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/esee/data_provision_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/esee)
+[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE/data_provision_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE)
 
 ESEE Data Provision category includes components responsible for managing, storing, and delivering data, ensuring that users can access large datasets with ease.
 
-    [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/esee/data_provision_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/esee)
+    [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE/data_provision_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE)
 
 ## User Interaction
 
-[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/esee/user_interaction_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/esee)
+[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE/user_interaction_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE)
 
 ESEE User Interaction focuses on user APIs, visualization tools, and interactive environments that allow users to efficiently access and work with Earth System data and tools.
 
-    [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/esee/user_interaction_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/esee)
+    [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE/user_interaction_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE)
 
 ## Foundation
 
-[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/esee/foundation_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/esee)
+[![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE/foundation_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE)
 
 ESEE Foundation comprises essential libraries, frameworks, and utilities that ensure scalability, interoperability, and performance across all components.
 
-    [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/esee/foundation_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/esee)
+    [![Static Badge](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE/foundation_badge.svg)](https://github.com/ecmwf/codex/raw/refs/heads/main/ESEE)
