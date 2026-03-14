@@ -1,4 +1,4 @@
-# ADR-005: Model keyword for DE330 (ODEDT)
+# Architectural Decision Record 006: MARS Model Keyword for DestinE ODEDT (DE330)
 
 # Status
 
