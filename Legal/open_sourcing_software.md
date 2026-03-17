@@ -39,7 +39,7 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
    - For Apache Licence, see [Applying the Apache License](copyright_and_licensing.md)
    - For first time releases, codes should be audited for:
       - IPR violations. Contact Development Section to arrange for a code audit
-      - Sensitive information that is internal to ECMWF (e.g. passwords, user names, hostanmes, emails, etc.)
+      - Sensitive information that is internal to ECMWF (e.g. passwords, user names, hostnames, emails, etc.)
       - Ensure that the code is not using any third party software that is not compatible with the Apache Licence
    - NB: "licence" is the correct spelling for the noun; "license" for the verb (so "licensing")
 
