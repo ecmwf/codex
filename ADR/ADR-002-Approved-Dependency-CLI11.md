@@ -1,4 +1,4 @@
-# Architectural Decision Record 002: Optional C++ Dependency CLI11
+# Architectural Decision Record 002: Approved C++ Dependency CLI11
 
  ## Status
 
