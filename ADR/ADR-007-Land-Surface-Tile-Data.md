@@ -93,15 +93,15 @@ A more detailed configuration separates natural vegetation into forest and non-f
 
 #### Tile Distribution example:
 
-![Comparison of land surface tile schemes](./images/tile_schemes_comparison.png)
+![Comparison of land surface tile schemes](images/tile_schemes_comparison.png)
 
 #### Possible tile schemes:
 
 The full options of different schemes are below — each column in the second diagram represents a possible tile scheme becoming more granular from right to left:
 
-![A black and white chart with red text](./images/tile_scheme_details_1.png)
+![Tile scheme possible vegetation types](images/tile_scheme_details_1.png)
 
-![A colorful grid with numbers](./images/tile_scheme_details_2.png)
+![Tile scheme possible combinations to form groups](images/tile_scheme_details_2.png)
 
 #### CARRA2:
 
