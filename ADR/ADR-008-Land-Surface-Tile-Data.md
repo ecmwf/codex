@@ -1,4 +1,4 @@
-# ADR-00X: Land surface tile data
+# ADR-008: Land surface tile data
 
 # Status
 
