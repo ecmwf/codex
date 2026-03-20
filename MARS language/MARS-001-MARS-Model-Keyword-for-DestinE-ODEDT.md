@@ -1,12 +1,12 @@
-# Architectural Decision Record 006: MARS Model Keyword for DestinE ODEDT (DE330)
+# MARS Language Decision Record 001: MARS Model Keyword for DestinE ODEDT (DE330)
 
 # Status
 
-Withdrawn - Moved to become MARS Language Decision Record
+Proposed
 
 # Last Updated
 
-20.03.2026
+10.03.2026
 
 # Context
 
