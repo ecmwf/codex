@@ -1,4 +1,4 @@
-# ADR-008: Land surface tile data
+# MARS-006: Land surface tile data
 
 # Status
 
