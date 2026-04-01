@@ -1,8 +1,6 @@
 # MARS Language Decision Record 001: MARS Model Keyword for DestinE ODEDT (DE330)
 
-# Status
-
-Proposed
+[~~Proposed~~ | **Accepted** | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
 
 # Last Updated
 
