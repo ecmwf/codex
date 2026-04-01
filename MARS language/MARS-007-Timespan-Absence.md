@@ -122,7 +122,7 @@ This case is the same as Option 1, except:
 	 - post-MTG2 data should always report the value of `timespan`, including `timespan=none`
  - fdb should use a defaulted-optional value
 	 - `timespan?none?` in the schema
-	 - On archive, this uses the value provided if supplied. This must match the `mars` namespace, and so will be absent for pre-MTG2 data, and present for post-.
+	 - On archive, this uses the value provided. This must match the `mars` namespace, and so will be absent for pre-MTG2 data, and present for post-.
 	 - On retrieve, both `timespan=none` and `timespan` absent match against either `timespan=none` or `timespan` absent in the fdb index.
 	 - This could be proposed as a standard behaviour going forward.
  - We pre-analyse data in the MARS client, prior to submitting an archive request using explicit eccodes calls to determine if we are pre/post MTG2
@@ -165,10 +165,13 @@ Overall, after *much* discussion and dispute, we believe that the best compromis
 We choose **option 3** from the selections above. That is that `timespan=none` should appear in the MARS namespace for new (post-MTG2) data, and this keyword is required to be supplied on archival. The `timespan` keyword can then be used internally to inform FDB and MARS indexing decisions. For listing and retrieval `timespan=none` and `timespan` absent are to be treated as strictly interchangeable from the user perspective.
 
 Conceptual change
+
  - We introduce a new semantic for the MARS language.
 	* `keyword=none` is strictly equivalent to `keyword` unspecified
 	* This behaviour can be extended to other contexts in the future, where appropriate, but should be consistent in all cases.
+
 New development required
+
 * We introduce a new type into the MARS tree (`PSimpleNodeDefault`) 
 	* This type has a specified default value for retrieve lookups if a keyword is absent from the MARS request
 	* Otherwise this node is identical to `PSimpleNode`
@@ -177,7 +180,9 @@ New development required
 	* Archival stores data exactly as specified (including absent values)
 	* On retrieval both absence, and `default` match against either absence or `default` in the index
 	* Wipe requires explicit matching in all contexts
+
 Configuration changes required
+
  - In the FDB
 	* We use `timespan?none` in the FDB schema
 	* pre-MTG2 data will be archived with `timespan` absent
@@ -189,7 +194,9 @@ Configuration changes required
 	* 
 	* We need to use `PSimpleNodeDefault` to select the correct branch during retrieve requests if `timespan` is not specified in the request.
 	* In verification, we can still verify that an archive request matches *exactly* to the contents of the MARS namespace (we can run an identical check to that in the client).
+
 Implications for workflows and other tools
+
 * *On archive* and *delete* we require the MARS request to *exactly* match the contents of the MARS namespace in the GRIB
 	* `timespan` must be specified with post-MTG2 data
 	* `timespan` must not be specified with pre-MTG2 data
@@ -206,9 +213,10 @@ Implications for workflows and other tools
 * In the Product Editor
 	* FDB retrieval is equivalent between absence and `timespan=none`
 	* Requests can be specified in either form. Existing requests do not need to be updated
+
 ### Related Decisions
 
- - MARS-XXX - `paramtype` introduced as internal indirection, not exposed to users
+ - (pre-MARS-XXX process) `paramtype` introduced as internal indirection, not exposed to users
 ## Consequences
 
  - The introduction of `timespan` will impact ***all*** fields produced after a cutoff date, which depends on the context
