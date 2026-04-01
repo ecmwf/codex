@@ -94,6 +94,7 @@ This precedent is useful for the construction of the MARS tree, some assumptions
 ### Options Considered
 
 ### 1. General introduction of `timespan` node with default
+
  - `timespan=none` becomes as internal as possible.
  - eccodes does not report `timespan=none` in `grib_ls -m`, or other queries of `mars` namespace.
  - `timespan=none` stripped from MARS requests if supplied
@@ -109,14 +110,18 @@ This precedent is useful for the construction of the MARS tree, some assumptions
  - Introduce a new node type `PSimpleNodeDefault`, which remembers the default value it is supplied with.
 	 - Unlike with `paramtype`, we need to identify the branch unambiguously, as there may be falsely matching data in the `timespan=Xh` branches in the `timespan=none` case
 	 - This new node type only explores the matching branch...
+
 ### 2. Switched behaviour based on post-MTG2 detection
+
 This case is the same as Option 1, except:
  - When we pre-analyse the data in the MARS client, prior to submitting an archive request, we use explicit eccodes calls to determine if we are pre/post MTG2
  - We inject a private value (possibly `_wmoGRIB2`, or similar) into the MARS request
 	 - This should not reference `MTG2` - that term is unlikely to have any semantic meaning to a developer in 20 years.
  - This value is the used in the build rules to determine whether we use the old or the new layouts.
  - This will need to be implemented in both the C and C++ clients
+
 ### 3.  `timespan=none` everywhere, but optional
+
  - eccodes should have different behaviour for the pre/post MTG2 data
 	 - Existing data should be unchanged. `timespan` is not present in the `mars` namespace
 	 - post-MTG2 data should always report the value of `timespan`, including `timespan=none`
@@ -125,11 +130,12 @@ This case is the same as Option 1, except:
 	 - On archive, this uses the value provided. This must match the `mars` namespace, and so will be absent for pre-MTG2 data, and present for post-.
 	 - On retrieve, both `timespan=none` and `timespan` absent match against either `timespan=none` or `timespan` absent in the fdb index.
 	 - This could be proposed as a standard behaviour going forward.
- - We pre-analyse data in the MARS client, prior to submitting an archive request using explicit eccodes calls to determine if we are pre/post MTG2
-	 - If pre-MTG2, and the user supplies `timespan=none`, then `timespan` should be stripped from the request
-	 - If post-MTG2, and the user does not supply `timespan`, then `timespan=none` should be injected
+ - We pre-analyse data in the MARS client, prior to submitting an archive request using explicit eccodes calls to determine if we are pre/post MTG2.
+   We actively ensure that the MARS request matches the `mars` namespace in eccodes. That is `timespan` must be present post-MTG2, and not pre-.
  - We still require the `PSimpleNodeDefault` change suggested in Option 1 to ensure that we correctly uniquely select data on retrieve.
+
 ### 4. `timespan=none` mandatory everywhere
+
  - Old cycles remain unchanged
  - In all contexts, for all post-MTG2 data, `timespan` becomes a mandatory keyword. `timespan=none` must be supplied explicitly in construction and use of all MARS requests.
  - `timespan?` used in the FDB to ensure this works with pre-MTG2 data.
