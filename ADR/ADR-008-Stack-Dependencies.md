@@ -187,12 +187,30 @@ via `add_subdirectory()`.
 3. Option B's main weakness — build time — is addressable through CI caching.
    The sentinel file mechanism already exists for this purpose.
 
-4. The python_wheels documentation already identifies this approach as the
+4. Option B and D are complementary, as the stack-dependencies build can be used
+   to pre-populate a Docker image.
+
+5. Option E would lead to multiple copies of the same dependency across projects,
+   with no centralised version control or build scripts. This would increase
+   maintenance burden and risk of version drift between projects.
+   In particular, the caching of build artifacts would have to be replicated everywhere
+   potentially deteriorating the build time issue.
+
+6. The python_wheels documentation already identifies this approach as the
    intended path forward for compiled dependencies in wheel builds, indicating
    organisational alignment.
 
-5. If the dependency count grows significantly (beyond ~30 libraries), Spack may
+7. If the dependency count grows significantly (beyond ~30 libraries), Spack may
    warrant re-evaluation. This should be treated as a reassessment trigger.
+
+8. Fortran is currently out of scope for `stack-dependencies` as typical Fortran libraries,
+   such as BLAS and LAPACK, are tightly coupled to the compiler and HPC environment.
+   However, if a need arises to manage Fortran dependencies in the future, the repository's build scripts
+   and CMake integration could be extended to support Fortran libraries as well.
+
+9. The libraries and versions that a provided by `stack-dependencies` are not to be considered the only versions of those libraries
+    compatible with the ECMWF stack, but rather a curated set of commonly used libraries that are guaranteed to be available across all environments.
+
 
 ### Trade-Off Summary
 
