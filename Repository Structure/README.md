@@ -3,7 +3,7 @@
 These are the guidelines for how a software package repository should be structured.
 If creating a new software package repository you should
 [use the cookiecutter template](https://github.com/ecmwf/cookie-cutter) which will create
-respository following the guidelines documented below.
+repository following the guidelines documented below.
 
 - [Repository Structure](#repository-structure)
   - [Readme](#readme)

@@ -23,7 +23,7 @@ Alternatively, you can use the [apache-licence](apache-licence) file provided in
 
 4. Each original source document (code and documentation, but excluding generated files) **must** include a short license header at the top. To facilitate this, please you may use the script provided in the [Available Tooling](#available-tooling) section below.
 
-Each source file shall begin with the following license and liability discalimer:
+Each source file shall begin with the following license and liability disclaimer:
 
 ```
 (C) Copyright <FILE-CREATED-YEAR>- ECMWF and individual contributors.

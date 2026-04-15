@@ -6,16 +6,22 @@
 </br>
 </h3>
 
-The Codex is a set of guidelines for development of software and services at ECMWF. It is a snapshot of our current best practices and procedures. It is designed to change, via pull request and discussion.
+The Codex is a set of principles and guidelines for development of software and services at ECMWF. It is a snapshot of our current best practices and procedures. It is designed to change, via pull request and discussion.
 
 # Contents
 
+- [Principles](./Principles)
 - [Architectural Decision Records](./ADR)
 - [Repository Structure](./Repository%20Structure)
 - [Project Maturity](./Project%20Maturity)
-- [Containerisation](./Containerisation)
-- [Testing](./Testing)
+- [Testing](./Guidelines/Testing.md)
+- [Containerisation](./Guidelines/Containerisation.md)
+- [Observability](./Guidelines/Observability.md)
 - [ECMWF Software EnginE (ESEE)](./ESEE)
-- [External Contributions](./External%20Contributions/)
+- [External Contributions](./Guidelines/External-Contributions.md)
 - [Documentation and Training](./Documentation%20and%20Training/)
-- [Contributing to External Projects](./Contributing%20Externally/)
+- [Contributing to External Projects](./Contributing%20Upstream/)
+- [Guidelines](./Guidelines/)
+- [Languages](./Languages/)
+- [Legal](./Legal/)
+- [Software Management Plan](./Software%20Management%20Plan/)
