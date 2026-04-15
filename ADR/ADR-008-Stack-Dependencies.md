@@ -51,6 +51,35 @@ These dependencies are tightly coupled to the host environment — the scheduler
 interconnect, filesystem, and hardware. Building them from source would
 introduce more problems than it solves.
 
+### Governance
+
+#### Adding a New Dependency
+
+1. **Approval via ADR**: the dependency must first be approved through its own
+   ADR, following the precedent of [ADR-002](./ADR-002-Approved-Dependency-CLI11.md),
+   [ADR-003](./ADR-003-PyBind11-For-CPP-Bindings.md), and
+   [ADR-007](./ADR-007-Approved-Dependency-libfmt.md). The individual ADR
+   evaluates *what* library to adopt; this ADR governs *how* it is provisioned.
+
+2. **Integration**: once approved, a build script is added to `build-scripts/`
+   and the library is added as a git submodule pinned to the approved version.
+   A corresponding `STACK_DEP_<NAME>` toggle is added.
+
+3. **Validation**: the new dependency must build successfully across all CI
+   environments (VM and HPC) before being merged.
+
+#### Version Updates
+
+- **Patch/minor updates**: submodule pointer changes go through standard PR
+  review.
+- **Major version upgrades**: must be discussed with the team before merging, as
+  they may introduce breaking API changes affecting downstream projects.
+
+#### Retirement
+
+If a dependency is deprecated (via its ADR being superseded), it is removed from
+`stack-dependencies` after all downstream projects have migrated off.
+
 ## Context
 
 ECMWF's software stack is deployed across a wide range of environments:
@@ -131,19 +160,41 @@ and CMake/pkg-config metadata.
 - Compiler matrix: must be tested across all target compilers, though this also
   surfaces toolchain-specific issues early.
 
-### Option C: lmod / Conan / vcpkg
+### Option C: Spack / Conan / vcpkg / lmod
 
-Use a package manager to provide dependencies / lmod on HPC.
+Use a dedicated package manager — Spack for HPC, Conan or vcpkg for non-HPC —
+or lmod modules to provide dependencies.
+
+Spack is the most relevant candidate: it is purpose-built for HPC, supports
+building from source with configurable compilers and variants, and handles
+complex dependency graphs. Conan and vcpkg are widely adopted in the broader
+C++ ecosystem but have limited HPC presence.
+
+However, all of these tools solve a **different problem** than
+`stack-dependencies`. Package managers manage installed software across an
+environment — resolving versions, handling transitive dependencies, and
+providing environment modules or activation scripts. By contrast,
+`stack-dependencies` produces a **self-contained, version-pinned source bundle**
+that builds alongside the ECMWF stack using only git, CMake, and a compiler.
+It is orthogonal to package managers: the output of a `stack-dependencies` build
+could itself be packaged as a Spack spec, a Conan recipe, or an lmod module.
 
 **Advantages:**
-- Designed for dependency managemet
+- Designed for dependency management.
 - Supports multiple concurrent installations with different configurations.
+- Spack specifically handles HPC toolchains and module generation.
 
 **Disadvantages:**
-- Requires differen solution for HPC / non-HPC environemnts
-- Need to maintain HPC and non-HPC build scripts to generate Conan / vcpkg or
-  lmod package.
-- Still needs admin intervention on HPC
+- Requires different tooling for HPC (Spack/lmod) and non-HPC (Conan/vcpkg)
+  environments — no single solution spans all targets.
+- Introduces a tool dependency (Spack, Conan, or vcpkg) that is not universally
+  available or configured across all ECMWF environments today.
+- Still requires administrator intervention on HPC to install and maintain the
+  package manager itself and its configuration.
+- Need to maintain separate build recipes or package definitions per tool, in
+  addition to the upstream CMake build.
+- Does not directly integrate with ecbuild bundles or produce
+  `find_package()`-compatible install trees without additional wrapper work.
 
 ### Option D: Docker / Container-Based Isolation
 
@@ -170,7 +221,7 @@ via `add_subdirectory()`.
 - No shared infrastructure.
 
 **Disadvantages:**
-- Non-trivial CMake integration due to mutltiple ECMWF libraries requring the same dependency
+- Non-trivial CMake integration due to multiple ECMWF libraries requiring the same dependency
 - Possibly multiple submodules of the same dependency
 
 ## Analysis
@@ -178,8 +229,11 @@ via `add_subdirectory()`.
 ### Key Observations
 
 1. Options C and D introduce tool dependencies not universally available
-   across all target environments. The HPC production constraint eliminates
-   containers (D) as a primary strategy.
+   across all target environments. Option C (Spack/Conan/vcpkg) solves a
+   different problem — environment-level package management — whereas
+   `stack-dependencies` produces self-contained source bundles that are
+   orthogonal to and composable with any package manager. The HPC production
+   constraint eliminates containers (D) as a primary strategy.
 
 2. Option B uses only tools already present everywhere: git, CMake, and a C/C++
    compiler. It adds no new tool dependency.
@@ -200,17 +254,20 @@ via `add_subdirectory()`.
    intended path forward for compiled dependencies in wheel builds, indicating
    organisational alignment.
 
-7. If the dependency count grows significantly (beyond ~30 libraries), Spack may
-   warrant re-evaluation. This should be treated as a reassessment trigger.
+7. If the dependency count grows significantly (beyond ~30 libraries), adopting
+   a full package manager such as Spack may warrant re-evaluation. This should
+   be treated as a reassessment trigger, not a near-term concern.
 
-8. Fortran is currently out of scope for `stack-dependencies` as typical Fortran libraries,
-   such as BLAS and LAPACK, are tightly coupled to the compiler and HPC environment.
-   However, if a need arises to manage Fortran dependencies in the future, the repository's build scripts
-   and CMake integration could be extended to support Fortran libraries as well.
+8. Fortran is currently out of scope for `stack-dependencies` as typical
+   Fortran libraries, such as BLAS and LAPACK, are tightly coupled to the
+   compiler and HPC environment. However, if a need arises to manage Fortran
+   dependencies in the future, the repository's build scripts and CMake
+   integration could be extended to support Fortran libraries as well.
 
-9. The libraries and versions that a provided by `stack-dependencies` are not to be considered the only versions of those libraries
-    compatible with the ECMWF stack, but rather a curated set of commonly used libraries that are guaranteed to be available across all environments.
-
+9. The libraries and versions provided by `stack-dependencies` are not to be
+   considered the only versions of those libraries compatible with the ECMWF
+   stack, but rather a curated set of commonly used libraries that are
+   guaranteed to be available across all environments.
 
 ### Trade-Off Summary
 
@@ -218,35 +275,6 @@ The core trade-off is between a small, bounded maintenance burden (build scripts
 for each dependency) and the larger, unpredictable burden of diagnosing
 environment-specific build failures. The former is version-controlled and
 reviewable; the latter is opaque and unbounded.
-
-## Governance
-
-### Adding a New Dependency
-
-1. **Approval via ADR**: the dependency must first be approved through its own
-   ADR, following the precedent of [ADR-002](./ADR-002-Approved-Dependency-CLI11.md),
-   [ADR-003](./ADR-003-PyBind11-For-CPP-Bindings.md), and
-   [ADR-007](./ADR-007-Approved-Dependency-libfmt.md). The individual ADR
-   evaluates *what* library to adopt; this ADR governs *how* it is provisioned.
-
-2. **Integration**: once approved, a build script is added to `build-scripts/`
-   and the library is added as a git submodule pinned to the approved version.
-   A corresponding `STACK_DEP_<NAME>` toggle is added.
-
-3. **Validation**: the new dependency must build successfully across all CI
-   environments (VM and HPC) before being merged.
-
-### Version Updates
-
-- **Patch/minor updates**: submodule pointer changes go through standard PR
-  review.
-- **Major version upgrades**: must be discussed with the team before merging, as
-  they may introduce breaking API changes affecting downstream projects.
-
-### Retirement
-
-If a dependency is deprecated (via its ADR being superseded), it is removed from
-`stack-dependencies` after all downstream projects have migrated off.
 
 ## Related Decisions
 
