@@ -1,5 +1,7 @@
 # Open Source Principles
 
+> **Last reviewed:** 2026-03-15
+
 ECMWF endorses and adopts the [United Nations Open Source Principles](https://opensource.un.org/en/news/united-nations-open-source-principles), a set of 8 guidelines that provide a framework to guide the use, development and sharing of open source software. As an intergovernmental organisation whose software underpins critical weather and climate services across its Member and Co-operating States, ECMWF recognises that open source is fundamental to our mission of advancing Earth system science for the benefit of society.
 
 The principles below are applied to all ECMWF open source developments. Each principle is accompanied by an explanation of how it applies in the ECMWF context.
@@ -46,7 +48,7 @@ Good documentation is not optional — it is part of the deliverable. Every ECMW
 
 *Empowering individuals and communities to actively participate.*
 
-ECMWF recognises that open source is made by people, and people need to be acknowledged and supported. Internally, this means recognising open source contributions as a valued part of a developer's work, not a side activity. Externally, it means acknowledging contributors, supporting community members through programmes like [Code for Earth](https://codeforearth.ecmwf.int/), and empowering Member and Co-operating States to become active participants and co-developers, in — not just consumers of — ECMWF software.
+ECMWF recognises that open source is made by people, and people need to be acknowledged and supported. Internally, this means recognising open source contributions as a valued part of a developer's work, not a side activity. Externally, it means acknowledging contributors, supporting community members through programmes like [Code for Earth](https://codeforearth.ecmwf.int/), and empowering Member and Co-operating States to become active co-developers of ECMWF software, not just consumers.
 
 ## 8 — Sustain and Scale
 
