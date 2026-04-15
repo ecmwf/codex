@@ -10,7 +10,7 @@ The Codex is a set of principles and guidelines for development of software and 
 
 # Contents
 
-- [Code of Conduct](./CODE_OF_CONDUCT.md)
+- [Code of Conduct](./Principles/CODE_OF_CONDUCT.md)
 - [Principles](./Principles)
 - [Architectural Decision Records](./ADR)
 - [Repository Structure](./Repository%20Structure)
