@@ -4,6 +4,7 @@ Development guidelines for ECMWF software projects.
 
 ## Contents
 
+- [Branching](./Branching.md) — branching patterns (GitHub Flow, Git Flow), release process, and migration guide
 - [Pull Request Guidelines](./Pull-Requests.md) — responsibilities for reviewers and reviewees, and the PR workflow
 - [AI Contributions to Software](./Ai-Contributions-To-Software.md) — policy guidelines for AI-assisted code generation and AI agents
 - [Containerisation](./Containerisation.md) — guidelines for containerising ECMWF software
