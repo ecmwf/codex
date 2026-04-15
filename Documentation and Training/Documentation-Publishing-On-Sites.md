@@ -111,8 +111,11 @@ upload location.
 
 **preview-unpublish-fdb:** Similar to `preview-publish-fdb`, the same path is
 computed, but this time the HTML tree is removed from `sites.ecmwf.int`. This
-will happen whenever a pull request is closed. The workflow does not update the
-pull request description on deletion; the now-broken URL is accepted.
+will happen whenever a pull request is closed.
+
+> **Known limitation:** The workflow does not update the pull request description
+> on deletion — the preview link will remain in the PR body but point to a
+> removed resource.
 
 **publish-fdb:** Uploads the HTML tree similarly to `preview-publish-fdb`,
 except that it appends the branch or tag name to the path, creates softlinks
@@ -122,7 +125,6 @@ Sphinx themes.
 
 A detailed description of all mentioned reusable workflows and their composite
 actions can be found in the [Component Summary](#component-summary) below.
-
 
 ## Architecture
 
@@ -268,7 +270,6 @@ landing version:
  </head>
 </html>
 ```
-
 
 ## Component Summary
 
@@ -494,6 +495,8 @@ publish:
   secrets:
     sites-token: ${{ secrets.MY_SITES_TOKEN }}
 ```
+
+---
 
 ### Composite Actions
 
