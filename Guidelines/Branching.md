@@ -15,6 +15,7 @@ This document describes the branching patterns used across ECMWF repositories. T
   - [Feature Development](#git-flow-feature-development)
   - [Release Process](#git-flow-release-process)
   - [Hotfix Process](#git-flow-hotfix-process)
+  - [Support Branch Process](#git-flow-support-branch-process)
 - [Choosing a Model](#choosing-a-model)
 - [Migration from GitHub Flow to Git Flow](#migration-from-github-flow-to-git-flow)
 - [External Contractors](#external-contractors)
@@ -61,7 +62,7 @@ main  ────────────────────────�
    git switch -c feature/my-feature main
    ```
 2. **Develop** — commit changes to the feature branch, keeping the branch short-lived and focused.
-3. **Push and open a PR** — push the branch and open a Pull Request against `main`. Follow the [PR guidelines](pr_guidelines.md).
+3. **Push and open a PR** — push the branch and open a Pull Request against `main`. Follow the [PR guidelines](Pull-Requests.md).
 4. **Review** — address reviewer comments; all CI checks must pass.
 5. **Merge** — a GateKeeper merges the PR into `main` using the merge strategy agreed by the team (merge commit or squash).
 6. **Delete** the feature branch after merging.
@@ -85,9 +86,9 @@ Releases in GitHub Flow are created directly from `main`:
 
 For critical production issues:
 
-1. Branch from the affected tag or from `main` (they are the same in GitHub Flow):
+1. Branch from the **affected tag** (or from `main` if the fix applies to the latest state):
    ```
-   git switch -c hotfix/critical-bug main
+   git switch -c hotfix/critical-bug x.y.z
    ```
 2. Apply the fix and push.
 3. Open a PR against `main`; follow the expedited review process agreed by your team.
@@ -132,7 +133,7 @@ hotfix/1.1.1  ──────────────► (merge to main + dev
    git switch -c feature/my-feature develop
    ```
 2. **Develop** — make commits on the feature branch.
-3. **Push and open a PR** against `develop`. Follow the [PR guidelines](pr_guidelines.md).
+3. **Push and open a PR** against `develop`. Follow the [PR guidelines](Pull-Requests.md).
 4. **Review** — address reviewer comments; all CI checks must pass.
 5. **Merge** into `develop` and delete the feature branch.
 
@@ -179,6 +180,31 @@ For critical production issues that cannot wait for the next scheduled release:
 5. **Merge `main` back into `develop`** (via PR) to ensure the fix is not lost in future releases.
 6. **Delete** the hotfix branch.
 
+### Git Flow Support Branch Process
+
+Support branches provide long-term maintenance for older major or minor releases
+when users cannot immediately upgrade to the latest version:
+
+1. **Create a support branch** from the tag of the release to be maintained:
+   ```
+   git switch -c support/1.x v1.9.0
+   ```
+2. **Apply fixes** — cherry-pick or develop fixes on the support branch. Only
+   critical bug fixes and security patches should be included.
+3. **Tag patch releases** directly on the support branch:
+   ```
+   git tag 1.9.1
+   git push origin 1.9.1
+   ```
+4. Support branches are **long-lived** — they are not merged back into `main`
+   or `develop` and are not deleted until the supported version reaches
+   end-of-life.
+
+> [!NOTE]
+> Support branches are independent from the main development line. Fixes applied
+> here must be separately cherry-picked to `develop` if they are also relevant
+> to the current version.
+
 ---
 
 ## Choosing a Model
@@ -215,7 +241,7 @@ When upgrading a repository from GitHub Flow to Git Flow:
 
 ## External Contractors
 
-Contractors who need a tighter development loop or internal tagging for staged testing prior to formal ECMWF acceptance should follow the [Integration Delivery Workflow](../External%20Contributions/README.md#2-integration-delivery-workflow-optional). This covers:
+Contractors who need a tighter development loop or internal tagging for staged testing prior to formal ECMWF acceptance should follow the [Integration Delivery Workflow](External-Contributions.md#2-integration-delivery-workflow-optional). This covers:
 
 - **Forked development** — using the contractor's fork as a working upstream.
 - **ECMWF integration branches** — using `upstream` or `upstream/<vendor>` branches within the ECMWF repository.
