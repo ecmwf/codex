@@ -1,8 +1,6 @@
-# MARS-006: Land surface tile data
+# MARS Language Decision Record 006: Land surface tile data
 
-# Status
-
-Proposed
+[~~Proposed~~ | **Accepted** | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
 
 # Last Updated
 
