@@ -1,4 +1,13 @@
-# Architectural Decision Records (ADR) Index
+# Architectural Decision Records (ADR)
+
+Architectural Decision Records capturing key technical decisions for ECMWF software.
+
+## Resources
+
+- [ADR Guidelines](./ADR-Guidelines.md) — how to write and structure an ADR
+- [ADR Template](./ADR-Template.md) — blank template for new records
+
+## Index
 
 | ADR | Status |
 | ----------- | ----------- |
