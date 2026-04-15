@@ -9,4 +9,4 @@
 | [ADR-005 Storing of ICON Grid Files](./ADR-005-Storing-Of-ICON-Grid-Files.md) | Accepted |
 | [ADR-006 MARS Model Keyword for DestinE ODEDT](./ADR-006-MARS-Model-Keyword-for-DestinE-ODEDT.md) | Withdrawn — moved to [MARS-001](../MARS%20language/MARS-001-MARS-Model-Keyword-for-DestinE-ODEDT.md) |
 | [ADR-007 Approved Dependency libfmt](./ADR-007-Approved-Dependency-libfmt.md) | Proposed |
-| [ADR-008 From-Source Builds for C++ Stack Dependencies](./ADR-008-Stack-Dependencies.md) | Proposed |
+| [ADR-008 From-Source Builds for C++ Stack Dependencies](./ADR-008-Stack-Dependencies.md) | Accepted |
