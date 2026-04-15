@@ -2,15 +2,16 @@
 
 ## Our Pledge
 
-While developing software and services at ECMWF and with our community of Member and Cooperating States, we are
+In developing software and services at ECMWF and with our community of Member and Cooperating States, we are
 committed to fostering an inclusive, respectful, and harassment-free community
 in line with [ECMWF's Open Source Principles](./open-source-principles.md),
 which are inspired by the [United Nations Open Source Principles](https://opensource.un.org/en/news/united-nations-open-source-principles).
 
-We pledge to make participation in our project and community a welcoming
+In harmony with the [ECMWF's Charter of Ethics and Conduct](https://www.ecmwf.int/sites/default/files/Charter_of_Ethics.pdf),
+we pledge to make participation in our project and community a welcoming
 experience for everyone, regardless of age, body size, disability, ethnicity,
 gender identity and expression, level of experience, nationality, personal
-appearance, race, religion, or sexual identity and orientation.
+appearance, race, religion, or sexual identity and orientation. 
 
 ## Our Standards
 
