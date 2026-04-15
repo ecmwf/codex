@@ -97,7 +97,7 @@ Optional:
 - **Template**
   - If using a repository template, please provide the link here.
 - **Licence**
-  - If not the standard [Apache 2.0 licence](../Legal/apache-licence)
+  - If not the standard [Apache 2.0 licence](../Legal/Apache-Licence)
 - **Long-term maintenance owner**
   - If this is not consistent across all repositories
 

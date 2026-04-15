@@ -250,7 +250,7 @@ via `add_subdirectory()`.
    In particular, the caching of build artifacts would have to be replicated everywhere
    potentially deteriorating the build time issue.
 
-6. The python_wheels documentation already identifies this approach as the
+6. The Python-Wheels documentation already identifies this approach as the
    intended path forward for compiled dependencies in wheel builds, indicating
    organisational alignment.
 
@@ -287,7 +287,7 @@ reviewable; the latter is opaque and unbounded.
   libfmt is managed by `stack-dependencies`. ADR-007 notes that libfmt is
   "trivially built from source with CMake" — `stack-dependencies` provides the
   `find_package(fmt)`-compatible install tree.
-- The python_wheels infrastructure (`Languages/python_wheels.md`) references
+- The Python-Wheels infrastructure (`Languages/Python-Wheels.md`) references
   this repository as the intended mechanism for external compiled dependencies
   in wheel builds.
 
@@ -312,7 +312,7 @@ provision them.
 - **Auditability**: the exact source of every dependency is available in the
   repository, satisfying compliance and licence audit requirements.
 - **Python wheel alignment**: unifies the dependency provisioning strategy
-  between the C++ build pipeline and the python_wheels pipeline.
+   between the C++ build pipeline and the Python-Wheels pipeline.
 
 ### Negative
 
@@ -330,7 +330,7 @@ provision them.
 ## References
 
 - `stack-dependencies` repository: https://github.com/ecmwf/stack-dependencies
-- Python wheels documentation: `Languages/python_wheels.md`
+- Python wheels documentation: `Languages/Python-Wheels.md`
 - ecbuild: https://github.com/ecmwf/ecbuild
 - Spack: https://spack.io/
 - Conan: https://conan.io/

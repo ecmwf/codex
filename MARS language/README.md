@@ -1,4 +1,12 @@
-# MARS Language Decision Records Index
+# MARS Language Decision Records
+
+Decision records for changes and additions to the MARS language.
+
+## Resources
+
+- [MARS Template](./MARS-Template.md) — blank template for new MARS language records
+
+## Index
 
 | Item | Status |
 | -- | -- |

@@ -4,7 +4,7 @@
 
 In developing software and services at ECMWF and with our community of Member and Cooperating States, we are
 committed to fostering an inclusive, respectful, and harassment-free community
-in line with [ECMWF's Open Source Principles](./open-source-principles.md),
+in line with [ECMWF's Open Source Principles](./Open-Source-Principles.md),
 which are inspired by the [United Nations Open Source Principles](https://opensource.un.org/en/news/united-nations-open-source-principles).
 
 In harmony with the [ECMWF's Charter of Ethics and Conduct](https://www.ecmwf.int/sites/default/files/Charter_of_Ethics.pdf),
@@ -64,4 +64,4 @@ to maintain confidentiality with regard to the reporter of an incident.
 This Code of Conduct is adapted from the
 [Contributor Covenant](https://www.contributor-covenant.org), version 2.1,
 available at https://www.contributor-covenant.org/version/2/1/code_of_conduct.html,
-and informed by [ECMWF's Open Source Principles](./open-source-principles.md).
+and informed by [ECMWF's Open Source Principles](./Open-Source-Principles.md).

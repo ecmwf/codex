@@ -35,8 +35,8 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
    - Use `.md` (prefered) or `.rst` format
 
 - Ensure the relevant software licence is applied
-   - One central licence file and references in each (code) file as described in [Copyright and Licensing](copyright_and_licensing.md)
-   - For Apache Licence, see [Applying the Apache License](copyright_and_licensing.md)
+   - One central licence file and references in each (code) file as described in [Copyright and Licensing](Copyright-And-Licensing.md)
+   - For Apache Licence, see [Applying the Apache License](Copyright-And-Licensing.md)
    - For first time releases, codes should be audited for:
       - IPR violations. Contact Development Section to arrange for a code audit
       - Sensitive information that is internal to ECMWF (e.g. passwords, user names, hostnames, emails, etc.)
