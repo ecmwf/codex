@@ -6,10 +6,11 @@
 </br>
 </h3>
 
-The Codex is a set of guidelines for development of software and services at ECMWF. It is a snapshot of our current best practices and procedures. It is designed to change, via pull request and discussion.
+The Codex is a set of principles and guidelines for development of software and services at ECMWF. It is a snapshot of our current best practices and procedures. It is designed to change, via pull request and discussion.
 
 # Contents
 
+- [Principles](./Principles)
 - [Architectural Decision Records](./ADR)
 - [Repository Structure](./Repository%20Structure)
 - [Project Maturity](./Project%20Maturity)
