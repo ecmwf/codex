@@ -14,6 +14,7 @@ As part of the GRIB2 migration, we intend to update and standardise these fields
 There are three main categories of downstream challenges and decisions that need to be made:
 
 **Parameter Short Names**
+
 Parameters have corresponding short names which can be used in MARS requests, and other contexts, to identify data rather than using the `paramid` directly. Many of these short names are not unique - but for all data currently served at ECMWF it is possible to identify the short name within any MARS request as all short names are unique within *a context*. That is, in combination with other keys in the request (typically `class` and `stream`) the short name to `paramid` mapping is unique.
 
 This latest change has the potential to break this mapping. Other than the `paramid`, *nothing* in the metadata description of the field changes. As such, if the short names are preserved the only factor determining which `paramid` is appropriate is whether the request corresponds to data from before or after the implementation date. For research data, even this is insufficient, and the corresponding MARS requests become underspecified.
@@ -25,11 +26,13 @@ Some of the new `paramid`s are not new - see those belonging to table 228 - but 
 We note, that if the short names are preserved but the `paramid`s are not, we end up with a slightly odd situation where *some* existing MARS requests will continue to work, and some will be deprecated, for requests for exactly the same data.
 
 **MARS Request Continuity**
+
 There are many downstream consumers who are already consuming this data. Changes to the MARS requests have a likelihood to break downstream workflows.
 
 There are use cases where data series are requested, which will span the implementation date of the new `paramid`s. The default solution will require downstream users to know the date of the induced discontinuity in the data, and split their workflows to request the data piecemeal across that boundary. If that can be avoided, this is beneficial. However, it is anticipated that many workflows will already need to be adjusted on this implementation data as per other changes being made for the GRIB2 migration.
 
 **Data compatibility and comparison**
+
 Users are likely to make datasets spanning the transition date, and to make comparisons between datasets using old and new conventions (e.g. between era5 and era6). For most of the changes resulting from the GRIB2 migration, this has required some boilerplate changes to the MARS requests to assemble data which is labelled differently piecewise.
 
 This data is different - to be scientifically comparable requires converting units and a resulting (numerical) scaling of the values. Requiring all downstream users to do this themselves is tedious and error prone.
