@@ -1,4 +1,4 @@
-# Short Names for New `paramid`s with WMO Units
+# MARS Language Decision Record 008: Handling of Short Names for New `paramid`s with WMO Units
 
 [**Proposed** | ~~Accepted~~ | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
 

@@ -1,6 +1,6 @@
 # MARS Languge Decision Record 007: Handling (absence of) timespan in post-MTG2 data
 
-[**Proposed** | ~~Accepted~~ | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
+[~~Proposed~~ | **Accepted** | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
 
 ## Last Updated
 
