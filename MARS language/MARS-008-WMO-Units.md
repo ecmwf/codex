@@ -177,7 +177,7 @@ Software implementations
 	 - Add support for the `unit` keyword in the requests
 
 ## References
- - [DPRODGOV-3](https://jira.ecmwf.int/browse/DPRODGOV-32) - IFS only produces GRIB2 with WMO units from Cy50r2. How to handle transition is unresolved (may or may not involve MARS/FDB)
+ - [DPRODGOV-32](https://jira.ecmwf.int/browse/DPRODGOV-32) - IFS only produces GRIB2 with WMO units from Cy50r2. How to handle transition is unresolved (may or may not involve MARS/FDB)
  - [Migration to GRIB2 - changes to encoding of parameters](https://confluence.ecmwf.int/display/MTG2US/Migration+to+GRIB2+-+changes+to+encoding+of+parameters)
 
 ## Authors
