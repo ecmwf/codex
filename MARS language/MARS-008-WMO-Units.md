@@ -7,9 +7,9 @@
 2026-05-13
 
 ## Context
-For some parameters, ECMWF has been providing values in units which are not the official WMO units for many years. These are typically surface parameters in units of metres or metres of water equivalent or as fractional values in the range 0-1. The WMO standardised units for these data are kg m**-2 and % respectively.
+For some parameters, ECMWF has been providing values in units which are not the official WMO units for many years. These are typically surface parameters in units of metres or metres of water equivalent or as fractional values in the range 0-1. The WMO-standardised units for these data are kg m**-2 and % respectively.
 
-As part of the GRIB2 migration, we intend to update and standardise these fields. As we uniquely associate a unit with a `paramid` in the GRIB parameters database, and to avoid sharp numerical changes impacting downstream users with existing MARS requests, it has been decided elsewhere.
+As part of the GRIB2 migration, we intend to update and standardise these fields. As we uniquely associate a unit with a `paramid` in the GRIB parameters database, and to avoid sharp numerical changes impacting downstream users with existing MARS requests, the fields with local units and their counterparts with WMO units will carry separate `paramid`s.
 
 There are three main categories of downstream challenges and decisions that need to be made:
 
@@ -29,25 +29,25 @@ We note, that if the short names are preserved but the `paramid`s are not, we en
 
 There are many downstream consumers who are already consuming this data. Changes to the MARS requests have a likelihood to break downstream workflows.
 
-There are use cases where data series are requested, which will span the implementation date of the new `paramid`s. The default solution will require downstream users to know the date of the induced discontinuity in the data, and split their workflows to request the data piecemeal across that boundary. If that can be avoided, this is beneficial. However, it is anticipated that many workflows will already need to be adjusted on this implementation data as per other changes being made for the GRIB2 migration.
+There are use cases where data series are requested, which will span the implementation date of the new `paramid`s. The default solution will require downstream users to know the date of the induced discontinuity in the data, and split their workflows to request the data piecemeal across that boundary. If that can be avoided, this is beneficial. However, it is anticipated that many workflows will already need to be adjusted on this implementation date because of other changes for the GRIB2 migration.
 
 **Data compatibility and comparison**
 
 Users are likely to make datasets spanning the transition date, and to make comparisons between datasets using old and new conventions (e.g. between era5 and era6). For most of the changes resulting from the GRIB2 migration, this has required some boilerplate changes to the MARS requests to assemble data which is labelled differently piecewise.
 
-This data is different - to be scientifically comparable requires converting units and a resulting (numerical) scaling of the values. Requiring all downstream users to do this themselves is tedious and error prone.
+This data is different -- to be scientifically comparable requires converting units and a resulting (numerical) scaling of the values. Requiring all downstream users to do this themselves is tedious and error prone.
 
 To make this transition straightforward, it will be important to provide a mechanism for users to easily convert this data to the form they need it in.
 
 ### Prior Art
 1. Winds. A previous forecast cycle (***when?***) changed the output wind fields from directional `u/v` wind components, to a vorticity/divergence (`vo/d`) representation. To support downstream users in maintaining continuity of workflows, in all cases a user may request one or both of `u/v` or `vo/d`. The underlying system will retrieve the field(s) requested, or both of the fields corresponding to the alternate representation if not, and the fields will be transformed if appropriate.
-   
+
    This is widely considered to have been a poor solution for long-term maintainability. It adds significant overall complexity, and requires the front-end client language manipulation and handling behaviour to depend on inspection of what field are available in the underlying system. It also breaks a fundamental constraint that it is possible for the number of fields retrieved from storage to not match the number of fields requested, making verification more difficult.
 2. Other metadata changes in the GRIB2 migration. There has been significant restructuring of field metadata in many areas. Where this has resulted in new `paramid`s the responsibility has been placed on the end consumer (with appropriate communication from ECMWF) to adjust requests to handle the new implementation, and to build piecemeal requests to bridge the discontinuity in the datasets.
 
 ### Options Considered
 1. Map unique new short names for each of the new unique `paramid`s, making no additional change to the system.
-2. The MARS client (and the server where necessary) could know about the mapping. For a request for either the new, or old `paramid` whichever form of the data exists could be retrieved and automatically converted to the form supplied in the request. This would follow the precedent (and similar mechanism) to the handling of winds data in `vo/d` or `u/v` forms. 
+2. The MARS client (and the server where necessary) could know about the mapping. For a request for either the new, or old `paramid` whichever form of the data exists could be retrieved and automatically converted to the form supplied in the request. This would follow the precedent (and similar mechanism) to the handling of winds data in `vo/d` or `u/v` forms.
     a) Mapping unique new short names for each of the new unique `paramid`s
     b) If an ambiguous short name is supplied, data is returned as archived
     c) If an ambiguous short name is supplied, a default representation is selected
@@ -106,7 +106,7 @@ This filter can be specified to leave data untouched (value `av`, for "archived 
 ## Decision
 We choose option 4(b).
  - Permit old and new `paramid`s to share short names, even if they cannot be disambiguated by context, if (and only if) this is only to permit changes of units.
-	 - Add a constraint that *both* the old and new `paramid`s may not be produced and archived within the same context.
+	 - Add a constraint that either the old or the new `paramid`s may be produced and archived within the same context, never *both*.
  - In MARS retrieve, list and similar requests, these ambiguous short names will be expanded to both of the contextually matching `paramid`s
 	 - The calculated `expect` value will *not* be updated with this expansion (the 'original' value will be used), summarised in the constraint that for each other combination of MARS values *one and only one* of the matching `paramid`s is permitted.
 	 - Archival will not be permitted with these ambiguous short names. This data must be archived using the `paramid` directly.
