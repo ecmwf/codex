@@ -1,10 +1,10 @@
 # MARS Language Decision Record 004: Land Data Assimilation System (LDAS)
 
 ## Status
-[**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
+[~~Proposed~~ | **Accepted** | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
 
 ## Last Updated
-2026-02-05
+2026-05-19
 
 ## Context
 The Land Data Assimilation (LDAS) system provides initial conditions of land surface parameters for the different forecasting systems which run on different time scales and model resolutions.
