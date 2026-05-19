@@ -1,10 +1,10 @@
 # MARS Language Decision Record 005: CEMS and C3S hydrology data in MARS 
 
 ## Status
-[**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
+[~~Proposed~~ | **Accepted** | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
 
 ## Last Updated
-2025-15-16
+2025-05-19
 
 ## Context
 
@@ -33,7 +33,12 @@ The 2nd proposed key is the forcing keyword which contains the centre identifier
 We did not consider other options than option 1.
 
 ## Decision
-
+| mars_abbreviation | long_name                              |
+|:-----------------:|:---------------------------------------|
+| ef                | EFAS (European flood awareness system) |
+| gf                | GLOFAS (Global flood awareness system) |
+| eh                | C3S European hydrology                 |
+| gh                | C3S Global hydrology                   |
 
 
 ### Related Decisions
