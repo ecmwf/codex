@@ -36,7 +36,7 @@ It was considered that using the names of the streams (enfo/eefo/mmsf) in the co
 Four new mars streams will be created for the land data assimilation system. As there is at the moment only a distinction needed into a near-real-time and a behind-real-time configuration and as it is also unlikely that there will be more options, the stream names include this distinction rather adding an additional key in MARS with only two possible options. Two streams will be created for the statistics of the near-real-time and behind-real-time ldas data. The four streams will be the following ones:
 
 | Stream mars abbreviation | Stream name |
-|:------------:|:-------------:|
+|:------------:|:-------------|
 | ldas | Land data-assimilation system (near real time)|
 | ldbt | Land data-assimilation system behind real time |
 | ldst | Land data-assimilation system statistics (near real time) |
