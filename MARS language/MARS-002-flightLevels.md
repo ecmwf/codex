@@ -1,10 +1,10 @@
 # MARS Language Decision Record 002: GRIB2 data in flight levels in MARS and FDB
 
 ## Status
-[**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
+[~~Proposed~~ | **Accepted** | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
 
 ## Last Updated
-2026-01-23
+2026-05-19
 
 ## Context
 Flight levels are a standardized way of expressing an aircraft’s altitude, primarily used during cruise flight at higher altitudes. Instead of referencing height above sea level directly, flight levels are based on the International Standard Atmosphere (ISA), which assumes a mean sea level pressure of 1013.25 hPa, a temperature of 15 °C at sea level, etc. This ensures that all aircraft in the same airspace use a common reference, maintaining safe vertical separation regardless of local pressure variations. Flight levels are expressed in hundreds of feet, so Flight Level 350 (FL350) corresponds to approximately 35,000 feet. 
@@ -69,13 +69,12 @@ with the mars namespace:
 ```
 
 ## Decision
-
-
+A new MARS levtype fl for the flight level will be introduced and the levelist will get the number of the flight level, e.g., FL350 will get levelist 350.
 
 ### Related Decisions
 
 ## Consequences
-
+This new MARS levtype is completely new so won't affect existing data.
 
 ## References
 
