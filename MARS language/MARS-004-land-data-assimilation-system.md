@@ -33,7 +33,7 @@ It was considered that using the names of the streams (enfo/eefo/mmsf) in the co
 
 
 ## Decision
-Four new mars streams will be created for the Land Data assimilation system. As there is a the moment only a distinction in near real time and behind real time and as it is also unlikely that there will be more options, the stream name include this distinction. Two streams will be created for the statistics of the near real time and behind real time ldas data. The four streams are the following ones:
+Four new mars streams will be created for the land data assimilation system. As there is at the moment only a distinction needed into a near-real-time and a behind-real-time configuration and as it is also unlikely that there will be more options, the stream names include this distinction rather adding an additional key in MARS with only two possible options. Two streams will be created for the statistics of the near-real-time and behind-real-time ldas data. The four streams will be the following ones:
 
 | Stream mars abbreviation | Stream name |
 |:------------:|:-------------:|
@@ -42,14 +42,14 @@ Four new mars streams will be created for the Land Data assimilation system. As 
 | ldst | Land data-assimilation system statistics (near real time) |
 | ldsb | Land data-assimilation system statistics behind real time |
 
-The target forecasting system as well as the cycle of the LDAS system will be specified in the MARS key configuration. It will contain entries like
-      - 49r2-sfdd
-      - 50r1-oper
-      - 50r1-enfo
-      - 50r1-sfdd
-      - 50r2-oper
-      - 50r2-enfo
-      - 50r2-sfdd
+The target forecasting system as well as the cycle of the LDAS system will be specified in the MARS key configuration using the cycle dash mars stream of the target system. It will contain entries like
+      * 49r2-sfdd
+      * 50r1-oper
+      * 50r1-enfo
+      * 50r1-sfdd
+      * 50r2-oper
+      * 50r2-enfo
+      * 50r2-sfdd
 
 anoffset is included in the mars namespace of the near-real-time case and absent in the behind-real-time case. The mars key timespan is used and additionally in the statistical streams ldst and ldsb the mars key stattype.
 
