@@ -1,4 +1,4 @@
-# Architectural Decision Record 004: Land Data Assimilation System (LDAS)
+# MARS Language Decision Record 004: Land Data Assimilation System (LDAS)
 
 ## Status
 [**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
