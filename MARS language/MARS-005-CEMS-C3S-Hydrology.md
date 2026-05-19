@@ -33,12 +33,37 @@ The 2nd proposed key is the forcing keyword which contains the centre identifier
 We did not consider other options than option 1.
 
 ## Decision
-| mars_abbreviation | long_name                              |
+The hydrology data will be archived under the following MARS classes:
+
+| MARS class        | Name                                   |
 |:-----------------:|:---------------------------------------|
 | ef                | EFAS (European flood awareness system) |
 | gf                | GLOFAS (Global flood awareness system) |
 | eh                | C3S European hydrology                 |
 | gh                | C3S Global hydrology                   |
+
+A MARS key forcing will be introduced which will get values like
+* ecmf-ifs
+* ecmf-aifs
+* ecmf-era5
+* ecmf-seas
+* edzw-icon
+* cosmo-cosmo
+* cmcc-sps
+* obs
+
+This is the centre abbreviation dash the modelName. A configuration key will be introduced as well but only used in stream rfsd. It will contain the following values:
+* v1.0
+* v1.0-catchment
+* v1.0-grid
+* v1.0-c3s
+* v2.0
+* v2.1
+* v3.0
+* v3.1
+* v3.5
+* v4.0
+* v5.0
 
 
 ### Related Decisions
