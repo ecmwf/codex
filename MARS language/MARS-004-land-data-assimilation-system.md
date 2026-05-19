@@ -43,13 +43,13 @@ Four new mars streams will be created for the land data assimilation system. As 
 | ldsb | Land data-assimilation system statistics behind real time |
 
 The target forecasting system as well as the cycle of the LDAS system will be specified in the MARS key configuration using the cycle dash mars stream of the target system. It will contain entries like
-      * 49r2-sfdd
-      * 50r1-oper
-      * 50r1-enfo
-      * 50r1-sfdd
-      * 50r2-oper
-      * 50r2-enfo
-      * 50r2-sfdd
+* 49r2-sfdd
+* 50r1-oper
+* 50r1-enfo
+* 50r1-sfdd
+* 50r2-oper
+* 50r2-enfo
+* 50r2-sfdd
 
 anoffset is included in the mars namespace of the near-real-time case and absent in the behind-real-time case. The mars key timespan is used and additionally in the statistical streams ldst and ldsb the mars key stattype.
 
