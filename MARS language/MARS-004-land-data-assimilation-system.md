@@ -62,8 +62,8 @@ The data will be completely new in MARS. SEAS6 will require LDAS data to provide
 ## References
 
 ## Authors
-David Fairbairn
-Jonathan Day
-Robert Osinski
-Sebastien Villaume
-Tim Stockdale
+- David Fairbairn
+- Jonathan Day
+- Robert Osinski
+- Sebastien Villaume
+- Tim Stockdale
