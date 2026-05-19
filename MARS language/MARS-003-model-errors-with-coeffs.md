@@ -1,4 +1,4 @@
-# Architectural Decision Record 003: Model Error Coefficients Index 
+# MARS Language Decision Record 003: Model Error Coefficients Index 
 
 ## Status
 [**Proposed** | <s>Accepted</s> | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
