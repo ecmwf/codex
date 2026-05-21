@@ -96,14 +96,66 @@ One of the principles of the MARS ecosystem is that being explicit is better tha
 
 For the selection of which data to retrieve we have two options:
     (a) Map unique new short names for each of the new unique `paramid`s. This has the same downsides as option (1) and 2.(a).
-    (b) If an ambiguous short name is supplied, we expand this request to contain both possible `paramid`s such that all possible matching data is retrieved. We rely on the (enforced) fact that we never produce both `paramid`s with all other MARS keys equivalent to ensure that the request can be handled to give the same result as the user specified (such that the `expect` value does not change with the expansion).
+    (b) If an ambiguous short name is supplied, we expand this request to contain both possible `paramid`s such that all possible matching data is retrieved. We rely on the (enforced) fact that we never produce both `paramid`s with all other MARS keys equivalent to ensure that the request can be handled to give the same result as the user specified (such that the `expect` value does not change with the expansion). Option 4(b) is analysed further below.
     (c) If an ambiguous short name is supplied, rely on a default. This has the same issues as option 2.(c).
 
 Coercion of the form of data desired can be carried out as a post-processing operation. We specify this with a new post-processing keyword, `units`, which (if present) instantiates a post-processing filter.
 
 This filter can be specified to leave data untouched (value `av`, for "archived version"), or to coerce appropriate data to WMO units (value `wmo`). For non-matching data this filter takes no action.
 
+#### 4.(b) Handling of Ambiguous Short Name Expansion
+
+We have two proposals for how to handle short name expansion:
+
+**Simple expansion, and `expect manipulation`**
+
+In MARS retrieve, list and similar requests, these ambiguous short names will be expanded to both of the contextually matching
+`paramid`s. For example `tp` will be expanded to `228/228228`. The MARS expansion will track the number of parameters which
+have been expanded in this way.
+
+When the `expect` value is calculated for the request, this value will *not* be updated as per the expanded list. The 'original'
+value will be used. This is in line with the constraint that for each other combination of MARS values *one and only one*
+of the matching `paramid`s is permitted.
+
+It is up to the implementation whether this `expect` value is directly calculated from the original request, or whether the
+tracked number of expanded parameters above is used to calculate an equivalent value.
+
+
+**An "Alternatives" Language Type**
+
+We introduce a new notation to the MARS language, `|`, which acts as a separator between two mutually
+exclusive alternatives. For example:
+
+```param = 2t/tp```
+would be expanded to
+```param = 2t/228228|228```
+
+In terms of request handling, this new unit `a|b` acts as one 'unit' for the perspective of counting,
+matching, and hypercube manipulation. This avoids the need to manipulate the `expect` value. It also
+makes enforcement of the restriction that `a` and `b` may not both be present, as both `a` and `b`
+will match to the same entry in a hypercube.
+
+This would require implementing a new type in the metkit type handling system. It comes with
+the challenge that it would need to be implemented for each of the supported underlying types
+(e.g. Alternative<Param> is not the same as Alternative<String>).
+
+This type may also need to be implemented in the FDB's type system, used for schema navigation.
+But it is possible this can be avoided, by fully expanding the request into a flat list as in
+the previous option at some point in the call stack, and checking that the results match.
+
+Explicit thought is needed about how this new functionality would be supported for programmatically
+constructing MARS requests, especially through the Python and Rust wrappers. Consider a construction
+such as:
+
+```
+{
+    'param': [131, [228228, 228], ...]
+    ...
+}
+```
+
 ## Decision
+***To Discuss: Which mechanism of implementing option 4(b) is the right one?***
 We choose option 4(b).
  - Permit old and new `paramid`s to share short names, even if they cannot be disambiguated by context, if (and only if) this is only to permit changes of units.
 	 - Add a constraint that either the old or the new `paramid`s may be produced and archived within the same context, never *both*.
