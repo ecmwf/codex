@@ -125,7 +125,7 @@ Explicitly retrieve all matching data (old and new paramid) across implementatio
 retrieve,
     ...
     param  = 228/228228,
-    unit   = wmo,
+    units  = wmo,
     expect = any
 ```
 
@@ -134,7 +134,7 @@ Retrieve parameter `tp` - either as `paramid` 228 or 228228. The fields will be 
 retrieve,
     ...
     param  = tp,  # ==> 228/228228
-    unit   = av
+    units  = av
 ```
 
 Retrieve parameter `tp` - either as `paramid` 228 or 228228. If the archived value is `paramid=228` this will be converted into 228228 (WMO units) on the fly. If both 228 and 228228 are present this results in an error. Although `tp` will be expanded to `228/228228`, the implied value of `expect` will be the same as if only one param were requested.
@@ -142,8 +142,7 @@ Retrieve parameter `tp` - either as `paramid` 228 or 228228. If the archived val
 retrieve,  
     ...  
     param  = tp, ==> 228/228228  
-    unit   = wmo,  
-    expect = <same as origina
+    units  = wmo
 ```
 
 ### Related Decisions
@@ -162,19 +161,21 @@ Software implementations
  - MultIO
 	 - Transfer re-encoding of fields to Metkit, and use this functionality where required.
  - MARS Client
-	 - Implement `unit=` functionality as a post-processing target
+	 - Implement `units=` functionality as a post-processing target
 	 - Adopt the additional short name expansion changes in metkit, and integrate with the hypercubes/expect testing of the returned fields
 	 - Note that these changes will be needed for the C and the C++ clients. To the extent possible, implement the functionality in Metkit and use it from both contexts.
  - FDB
 	 - Only change required is expansion of short names to both matching `paramid`s in the request expansion, and compatible verification of the correct number/hypercube of returned fields.
 	 - The FDB will not perform conversion of fields itself.
  - PGen
-	 - Implement `unit=` functionality. This could be implemented as a 'filter' between the retrieve from the FDB and the disptach to Mir, or as a post-processing on the output of Mir. ***Will need a careful design discussion.***
+	 - Implement `units=` functionality. This could be implemented as a 'filter' between the retrieve from the FDB and the disptach to Mir, or as a post-processing on the output of Mir. ***Will need a careful design discussion.***
 	 - Need a hard check to ensure that the expanded short names only ever resolve to one field from the FDB. Note that we will be making a *request* to the FDB for more than one field.
+ - PProc
+     - Introduces a potential assymetry between the MARS data source, and the FDB data source, that would require implementing support for `units=` directly in PProc.
  - Catalogues
 	- ***Discussion/decision to make:*** Where old and new `paramid`s differ, but share a common short name, should catalogues be aware of the equivalence of these products?
  - Product Editor
-	 - Add support for the `unit` keyword in the requests
+	 - Add support for the `units` keyword in the requests
 
 ## References
  - [DPRODGOV-32](https://jira.ecmwf.int/browse/DPRODGOV-32) - IFS only produces GRIB2 with WMO units from Cy50r2. How to handle transition is unresolved (may or may not involve MARS/FDB)
