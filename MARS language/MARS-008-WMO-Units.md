@@ -7,7 +7,7 @@
 2026-05-13
 
 ## Context
-For some parameters, ECMWF has been providing values in units which are not the official WMO units for many years. These are typically surface parameters in units of metres or metres of water equivalent or as fractional values in the range 0-1. The WMO-standardised units for these data are kg m**-2 and % respectively.
+For some parameters, ECMWF has been providing values in units which are not the official WMO units for many years. These are typically surface parameters in units of metres or metres of water equivalent or as fractional values in the range 0-1. The WMO-standardised units for these data are kg m^-2 and % respectively.
 
 As part of the GRIB2 migration, we intend to update and standardise these fields. As we uniquely associate a unit with a `paramid` in the GRIB parameters database, and to avoid sharp numerical changes impacting downstream users with existing MARS requests, the fields with local units and their counterparts with WMO units will carry separate `paramid`s.
 
@@ -74,7 +74,7 @@ There is precedent to maintaining continuity of requests for users where it is p
 
 Notably this is not the approach taken for other parameters which have conceptual continuity within the GRIB2 migration - even where there is not only a possible conversion but the data is functionally identical. It is not clear that this unit conversion is sufficiently distinct from all other parts of the migration that we should actively support automagical continuity here when we have decided not to elsewhere.
 
-There is a fundamental problem with this approach in this case, which does not apply for winds. For winds there is a unique mapping between the parameter names and the underlying `paramid`s - as such all requests are fully specified in terms of the data desired. For these new units, if we do not have a unique mapping, then any requests made using short names are under specified. This leads to three options:
+There is a fundamental problem with this approach in this case, which does not apply for winds. For winds there is a unique mapping between the parameter names and the underlying `paramid`s - as such all requests are fully specified in terms of the data desired. For these new units, if we do not have a unique mapping, then any requests made using short names are underspecified. This leads to three options:
 
    (a) Mapping unique new short names for each of the new unique `paramid`s. This has the same issues as discussed under (1), and would break existing Destination Earth/AI workflows.
    (b) If an ambiguous short name is supplied, data is returned as archived. This is straightforward, but significantly reduces the value of this mechanism as it means that continuity is not provided if requests are made in terms of short names.
@@ -124,11 +124,7 @@ tracked number of expanded parameters above is used to calculate an equivalent v
 **An "Alternatives" Language Type**
 
 We introduce a new notation to the MARS language, `|`, which acts as a separator between two mutually
-exclusive alternatives. For example:
-
-```param = 2t/tp```
-would be expanded to
-```param = 2t/228228|228```
+exclusive alternatives. For example `param = 2t/tp` would be expanded to `param = 2t/228228|228`.
 
 In terms of request handling, this new unit `a|b` acts as one 'unit' for the perspective of counting,
 matching, and hypercube manipulation. This avoids the need to manipulate the `expect` value. It also
@@ -193,7 +189,7 @@ Retrieve parameter `tp` - either as `paramid` 228 or 228228. If the archived val
 ```
 retrieve,  
     ...  
-    param  = tp, ==> 228/228228  
+    param  = tp,  # ==> 228/228228  
     units  = wmo
 ```
 
@@ -220,10 +216,10 @@ Software implementations
 	 - Only change required is expansion of short names to both matching `paramid`s in the request expansion, and compatible verification of the correct number/hypercube of returned fields.
 	 - The FDB will not perform conversion of fields itself.
  - PGen
-	 - Implement `units=` functionality. This could be implemented as a 'filter' between the retrieve from the FDB and the disptach to Mir, or as a post-processing on the output of Mir. ***Will need a careful design discussion.***
+	 - Implement `units=` functionality. This could be implemented as a 'filter' between the retrieve from the FDB and the dispatch to Mir, or as a post-processing on the output of Mir. ***Will need a careful design discussion.***
 	 - Need a hard check to ensure that the expanded short names only ever resolve to one field from the FDB. Note that we will be making a *request* to the FDB for more than one field.
  - PProc
-     - Introduces a potential assymetry between the MARS data source, and the FDB data source, that would require implementing support for `units=` directly in PProc.
+     - Introduces a potential asymmetry between the MARS data source, and the FDB data source, that would require implementing support for `units=` directly in PProc.
  - Catalogues
 	- ***Discussion/decision to make:*** Where old and new `paramid`s differ, but share a common short name, should catalogues be aware of the equivalence of these products?
  - Product Editor
