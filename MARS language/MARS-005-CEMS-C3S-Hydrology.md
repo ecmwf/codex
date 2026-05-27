@@ -23,8 +23,9 @@ For this reason, we propose introducing a new MARS keyword called ‘forcing’,
 
 ### Options Considered
 
-We propose to introduce two new MARS keywords. 
-The configuration keyword stores information about the model version and the current running setup in a single key. The 2nd proposed key is the forcing keyword which contains the centre identifier together with the modelName to describe the data used to drive the hydrological model. This is needed to distinguish AIFS and IFS for ECMWF, but also the DWD Cosmo and ICON models which is not doable with the existing origin keyword.
+We propose introducing two new MARS keywords.
+The configuration keyword stores information about the model version and the current runtime setup within a single key. The second proposed keyword, forcing, combines the centre identifier with the modelName to describe the data used to drive the hydrological model.
+This distinction is required to differentiate between AIFS and IFS at ECMWF, as well as between the COSMO and ICON models at DWD, which is not possible using the existing origin keyword alone.
 
 
 ### Analysis
