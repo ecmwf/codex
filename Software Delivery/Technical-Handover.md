@@ -1,6 +1,6 @@
 # Technical Handover Documentation
 
-These guidelines define what a contractor must deliver when handing over a web product (or other software service) to ECMWF. They apply to all external suppliers delivering software under Copernicus and other ECMWF contracts where ECMWF will assume ownership and operation of the delivered software.
+These guidelines define what a contractor must deliver when handing over a software service and/or product (e.g. a web application or a data production workflow) to ECMWF. They apply to all external suppliers delivering software under Copernicus and other ECMWF contracts where ECMWF will assume ownership and operation of the delivered software.
 
 The purpose of the handover is to allow an ECMWF team with no prior involvement in the project to take full ownership of the software: to hold and maintain all source code, to deploy and operate every component on ECMWF infrastructure, and to understand every external dependency required to run it. These requirements complement, and do not replace, the [External Contributions](https://github.com/ecmwf/codex/blob/main/Guidelines/External-Contributions.md) guidelines, which govern how code is contributed and delivered.
 
