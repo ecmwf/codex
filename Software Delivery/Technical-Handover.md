@@ -13,11 +13,7 @@ Documentation must live with the code. The information described in these guidel
 All source code must be delivered to ECMWF as one or more **GitHub repositories within the ECMWF GitHub organisation**. Code is not considered delivered if it resides only in a personal account, an organisation's own GitHub space, or any location outside ECMWF's organisation.
 
 * Repositories are created by ECMWF staff via the Technical Officer, following the [Requesting a New Repository](https://github.com/ecmwf/codex/blob/main/Legal/Requesting-New-Repository.md) procedure.
-* To enable ECMWF to create the repositories, the contractor must provide:
-  * the **number of repositories** required;
-  * the **name of each repository**, with a brief description of its contents;
-  * the **GitHub user accounts** that require access, and for each, the corresponding **ECMWF account username**. Every contributor who requires access must hold *both* a GitHub account and an ECMWF account; access cannot be granted without both.
-* All code contributions must follow the workflow, copyright, and licensing requirements set out in [External Contributions](https://github.com/ecmwf/codex/blob/main/Guidelines/External-Contributions.md) and [Copyright and Licensing](https://github.com/ecmwf/codex/blob/main/Legal/Copyright-And-Licensing.md).
+* To enable ECMWF to create the repositories, the contractor must provide all of the information required as described in the [Software Management Plan](https://github.com/ecmwf/codex/tree/main/Software%20Management%20Plan#5-new-repositories) guidelines.
 * Each repository must contain a `README` describing its contents and providing instructions for building and running the component locally.
 
 ## 2. Deployment on ECMWF Infrastructure
