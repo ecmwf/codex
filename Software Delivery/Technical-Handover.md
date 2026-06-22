@@ -6,6 +6,8 @@ The purpose of the handover is to allow an ECMWF team with no prior involvement 
 
 Documentation must live with the code. The information described in these guidelines must be recorded in the **README** of the relevant repository, or in documentation linked directly from it, rather than collected in a standalone document that can become detached from the code and lost. Where a project spans several repositories, each repository's README must link to the others, so that the full set can be navigated from any one of them. Where a technical handover document is required as a contract deliverable, it need not duplicate this material — it may cross-reference the relevant repository documentation.
 
+AI tools may be used to assist in writing this documentation, but the contractor is responsible for, and must ensure, the final completeness and correctness.
+
 ---
 
 ## 1. Code Delivery
