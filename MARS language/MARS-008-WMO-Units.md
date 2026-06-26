@@ -91,23 +91,22 @@ This comes with an implicit requirement to support production of old and new ver
 
 When considering 3(a) or 3(b), the same considerations apply as between 2(a) and 2(c).
 
+
 #### 4. Explicit Data Conversion
 One of the principles of the MARS ecosystem is that being explicit is better than being implicit. In this option we achieve this by separating the selection of which data is retrieved, and any coercion of the form of the data returned.
 
 For the selection of which data to retrieve we have two options:
     (a) Map unique new short names for each of the new unique `paramid`s. This has the same downsides as option (1) and 2.(a).
-    (b) If an ambiguous short name is supplied, we expand this request to contain both possible `paramid`s such that all possible matching data is retrieved. We rely on the (enforced) fact that we never produce both `paramid`s with all other MARS keys equivalent to ensure that the request can be handled to give the same result as the user specified (such that the `expect` value does not change with the expansion). Option 4(b) is analysed further below.
+    (b) If an ambiguous short name is supplied, we expand this request to contain both possible `paramid`s such that all possible matching data is retrieved. We rely on the (enforced) fact that we never produce both `paramid`s with all other MARS keys equivalent to ensure that the request can be handled to give the same result as the user specified (see options in below subsection) 
     (c) If an ambiguous short name is supplied, rely on a default. This has the same issues as option 2.(c).
 
-Coercion of the form of data desired can be carried out as a post-processing operation. We specify this with a new post-processing keyword, `units`, which (if present) instantiates a post-processing filter.
+Coercion of the form of data desired can be carried out as a post-processing operation.
 
-This filter can be specified to leave data untouched (value `av`, for "archived version"), or to coerce appropriate data to WMO units (value `wmo`). For non-matching data this filter takes no action.
-
-#### 4.(b) Handling of Ambiguous Short Name Expansion
+### 4.(b) Handling of Ambiguous Short Name Expansion
 
 We have two proposals for how to handle short name expansion:
 
-**Simple expansion, and `expect manipulation`**
+#### (e) **Simple expansion, and `expect manipulation`**
 
 In MARS retrieve, list and similar requests, these ambiguous short names will be expanded to both of the contextually matching
 `paramid`s. For example `tp` will be expanded to `228/228228`. The MARS expansion will track the number of parameters which
@@ -121,7 +120,7 @@ It is up to the implementation whether this `expect` value is directly calculate
 tracked number of expanded parameters above is used to calculate an equivalent value.
 
 
-**An "Alternatives" Language Type**
+#### (l) **An "Alternatives" Language Type**
 
 We introduce a new notation to the MARS language, `|`, which acts as a separator between two mutually
 exclusive alternatives. For example `param = 2t/tp` would be expanded to `param = 2t/228228|228`.
@@ -133,7 +132,7 @@ will match to the same entry in a hypercube.
 
 This would require implementing a new type in the metkit type handling system. It comes with
 the challenge that it would need to be implemented for each of the supported underlying types
-(e.g. Alternative<Param> is not the same as Alternative<String>).
+(e.g. `Alternative<Param>` is not the same as `Alternative<String>`).
 
 This type may also need to be implemented in the FDB's type system, used for schema navigation.
 But it is possible this can be avoided, by fully expanding the request into a flat list as in
@@ -150,14 +149,41 @@ such as:
 }
 ```
 
+### Post-processing Specification
+There are multiple ways to describe how a post-processing action to convert data could be implemented:
+#### 1. New keyword, `units`
+We can specify the transformation to perform with a new post-processing keyword, `units`, which (if present) instantiates a post-processing filter.
+
+This filter can be specified to leave data untouched (value `av`, for "archived version"), or to coerce appropriate data to WMO units (value `wmo`). For non-matching data this filter takes no action.
+
+Note that this requires treating all parameters in a request in the same way, which may make incremental migrations difficult. This also gives us less flexibility to support different representations of data in the future. Note that treating all fields in the same way is consistent with, for example, the `grid` or `area` keywords which could equally be applied per parameter.
+
+#### 2. Annotation of parameters
+If we wish the post-processing behaviour to be per-`paramid`, then this annotation needs to be done within the list of values supplied to a MARS key. We can introduce a new syntax for this annotation by following each value with a parenthesis-enclosed annotation.
+
+Any form of parenthesis could be chosen, but `[ ]` gives a clean looking syntax. This introduces a new language feature such that a set of comma separated values could be given. In the current implementation we would only have use for a units specifier (`av` or `wmo`).
+
+The annotation does not form part of the MARS request proper, and should be considered an annotation on the *task* which is being carried out. This will be returned as a separate annotations object from the MARS request parser in metkit, and used to determine the post-processing to be carried out.
+
+There are two advantages to this approach:
+ - This allows gradual migration of existing requests, such that not all downstream systems have to move from legacy units to WMO units in one step
+ - This syntax is general, and could be used for other annotations in the future.
+
+
 ## Decision
 ***To Discuss: Which mechanism of implementing option 4(b) is the right one?***
-We choose option 4(b).
+We choose option 4(b)(l)(2). Note that for the MARS C client we will likely have to implement 4(b)(e)(2) as a less full-featured alternative, as it does not have the metkit type system to fall back on.
  - Permit old and new `paramid`s to share short names, even if they cannot be disambiguated by context, if (and only if) this is only to permit changes of units.
 	 - Add a constraint that either the old or the new `paramid`s may be produced and archived within the same context, never *both*.
  - In MARS retrieve, list and similar requests, these ambiguous short names will be expanded to both of the contextually matching `paramid`s
-	 - The calculated `expect` value will *not* be updated with this expansion (the 'original' value will be used), summarised in the constraint that for each other combination of MARS values *one and only one* of the matching `paramid`s is permitted.
+	 - In the C client, the calculated `expect` value will *not* be updated with this expansion (the 'original' value will be used), summarised in the constraint that for each other combination of MARS values *one and only one* of the matching `paramid`s is permitted.
+	 - In the C++ client, the expansion will use the new Alternatives form.
 	 - Archival will not be permitted with these ambiguous short names. This data must be archived using the `paramid` directly.
+***Choice 1***
+ - Introduce a new MARS syntax for request annotation
+	 - Values may be annotated with `[ ]` syntax, with the results returned in a parallel annotation object with the MARS reqest
+	 - Introduce `av`  or `si` (***CHOICE -  vocabulary***) as annotations for a paramid which trigger post-processing to return either as archived, or converted to SI units.
+***Choice 2***
  - Introduce a new post-processing keyword `units`
 	 - ***To Discuss: `unit` or `units`***
 	 - Available values `av` (archived version) or `wmo`
@@ -167,7 +193,7 @@ We choose option 4(b).
 		 - Note that we do not provide a mapping from WMO units to local units.
  - To facilitate this conversion, the existing conversion functionality will be migrated from MultIO to MetKit.
 
-### Sample Requests
+### Sample Requests - Option 4(b)(1)
 Explicitly retrieve all matching data (old and new paramid) across implementation date, with conversion to the WMO format. `expect=any` required as only one of the two parameters will be present at each step.
 ```
 retrieve,
@@ -177,20 +203,42 @@ retrieve,
     expect = any
 ```
 
+Retrieve parameter `tp` - either as `paramid` 228 or 228228. The fields will be returned as archived (`av`). If both 228 and 228228 are present this results in an error. In the C client, although `tp` will be expanded to `228/228228`, the implied value of `expect` will be the same as if only one param were requested.
+```
+retrieve,
+    ...
+    param  = tp,  # ==> 228|228228
+    units  = av
+```
+
+Retrieve parameter `tp` - either as `paramid` 228 or 228228. If the archived value is `paramid=228` this will be converted into 228228 (WMO units) on the fly. If both 228 and 228228 are present this results in an error. In the C client, although `tp` will be expanded to `228/228228`, the implied value of `expect` will be the same as if only one param were requested.
+```
+retrieve,  
+    ...  
+    param  = tp,  # ==> 228|228228  
+    units  = wmo
+```
+
+### Sample Requests - Option 4(b)(2)
+Explicitly retrieve all matching data (old and new paramid) across implementation date, with conversion to the WMO format. `expect=any` required as only one of the two parameters will be present at each step.
+```
+retrieve,
+    ...
+    param  = 228[wmo]/228228,
+```
+
 Retrieve parameter `tp` - either as `paramid` 228 or 228228. The fields will be returned as archived (`av`). If both 228 and 228228 are present this results in an error. Although `tp` will be expanded to `228/228228`, the implied value of `expect` will be the same as if only one param were requested.
 ```
 retrieve,
     ...
-    param  = tp,  # ==> 228/228228
-    units  = av
+    param  = tp[av],  # ==> 228|228228
 ```
 
 Retrieve parameter `tp` - either as `paramid` 228 or 228228. If the archived value is `paramid=228` this will be converted into 228228 (WMO units) on the fly. If both 228 and 228228 are present this results in an error. Although `tp` will be expanded to `228/228228`, the implied value of `expect` will be the same as if only one param were requested.
 ```
 retrieve,  
     ...  
-    param  = tp,  # ==> 228/228228  
-    units  = wmo
+    param  = tp[wmo], ==> 228[wmo]/228228[wmo]
 ```
 
 ### Related Decisions
@@ -209,21 +257,21 @@ Software implementations
  - MultIO
 	 - Transfer re-encoding of fields to Metkit, and use this functionality where required.
  - MARS Client
-	 - Implement `units=` functionality as a post-processing target
+	 - Implement units conversion functionality as a post-processing target
 	 - Adopt the additional short name expansion changes in metkit, and integrate with the hypercubes/expect testing of the returned fields
 	 - Note that these changes will be needed for the C and the C++ clients. To the extent possible, implement the functionality in Metkit and use it from both contexts.
  - FDB
 	 - Only change required is expansion of short names to both matching `paramid`s in the request expansion, and compatible verification of the correct number/hypercube of returned fields.
 	 - The FDB will not perform conversion of fields itself.
  - PGen
-	 - Implement `units=` functionality. This could be implemented as a 'filter' between the retrieve from the FDB and the dispatch to Mir, or as a post-processing on the output of Mir. ***Will need a careful design discussion.***
+	 - Implement units conversion functionality. This could be implemented as a 'filter' between the retrieve from the FDB and the dispatch to Mir, or as a post-processing on the output of Mir. ***Will need a careful design discussion.***
 	 - Need a hard check to ensure that the expanded short names only ever resolve to one field from the FDB. Note that we will be making a *request* to the FDB for more than one field.
  - PProc
-     - Introduces a potential asymmetry between the MARS data source, and the FDB data source, that would require implementing support for `units=` directly in PProc.
+     - Introduces a potential asymmetry between the MARS data source, and the FDB data source, that would require implementing support for units conversion directly in PProc.
  - Catalogues
 	- ***Discussion/decision to make:*** Where old and new `paramid`s differ, but share a common short name, should catalogues be aware of the equivalence of these products?
  - Product Editor
-	 - Add support for the `units` keyword in the requests
+	 - Add support for the units conversion functionality in the requests
 
 ## References
  - [DPRODGOV-32](https://jira.ecmwf.int/browse/DPRODGOV-32) - IFS only produces GRIB2 with WMO units from Cy50r2. How to handle transition is unresolved (may or may not involve MARS/FDB)
