@@ -1,72 +1,94 @@
 # MARS Language Decision Record 005: CEMS and C3S hydrology data in MARS 
 
-## Status
 [~~Proposed~~ | **Accepted** | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
 
 ## Last Updated
-2025-05-19
 
-## Context
+2026-06-20
 
-CEMS and C3S hydrological data are produced with different hydrological models which are driven by different atmospheric model and observational data.
-The layout of the current way hydrological data is archived will change. In CEMS, the different hydrological versions for the European and the global domain go into different streams under class ce. The new layout has four distinct classes for the European CEMS / C3S and the global counterparts.
-The hydrological model in the current layout is indexed using the ‘model’ keyword. This new proposed layout will also use the model keyword for indexing the hydrological model. One problem with the existing layout is that different model configurations used for producing the climatologies were referenced through the keyword date, which caused overwriting issues with the reforecast data. Therefore, the proposal includes introducing a new MARS keyword, configuration, which specifies not only the model version but also additional information about the setup. This configuration keyword is intended to be used only for the hindcasts as for all other data, there is no overlapping of different configurations at the same point in time.
-Examples of different configurations used in CEMS and C3S are:
-* v1, v4
-* v1-c3s-e_catchment
-* v1-c3s-e_grid
-* v1-c3s-ww
+## Overview
 
-The hydrological data are driven by different atmospheric data. In the old layout this was specified by the origin mars keyword, e.g., origin=ecmf/edwz/cosmo. As for ECMWF forcings will include IFS as well as AIFS, origin=ecmf is no longer sufficient to distinguish between the two models. With the specific post-processing templates, we are using in GRIB2 to encode the data, it is possible to distinguish the data and a string can be created like for example ecmf_ifs or ecmf_aifs. In general, this follows the format "centre_model", which provides more information than the current origin key.
-For this reason, we propose introducing a new MARS keyword called ‘forcing’, which would more accurately represent the model used to produce the data.
+CEMS and C3S hydrological data are produced by multiple different hydrological models, and these runs are driven
+by different atmospheric model and observational data. Users need to be able to identify data along these two
+axes.
 
+Currently the way that hydrological data are archived is problematic. Firstly, currently this data is indexed
+according to the generating model, using the `model` keyword, but this does not contain any information about
+the configuration or version of the model. For reforecast data, the same date is reforecast on multiple
+occasions using different model versions and configurations, and this results in disambiguation issues and
+potential overwriting of data.
 
-### Options Considered
+To address this, we propose introducing an additional keyword `configuration` for hindcast data (specifically
+stream `rfsd`, retrospective forcings and simulation data). Examples of different `configuration`s which
+would be used in CEMS and C3S are:
 
-We propose introducing two new MARS keywords.
-The configuration keyword stores information about the model version and the current runtime setup within a single key. The second proposed keyword, forcing, combines the centre identifier with the modelName to describe the data used to drive the hydrological model.
-This distinction is required to differentiate between AIFS and IFS at ECMWF, as well as between the COSMO and ICON models at DWD, which is not possible using the existing origin keyword alone.
+ - `v1`
+ - `v4`
+ - `v1-c3s-e_catchment`
+ - `v1-c3s-e_grid`
+ - `v1-c3s-ww`
 
+Note that outside of hindcast data, there is no overlap of different configurations for the same point in
+time, and so this additional disambiguation is not necessary.
+
+Secondly, the different atmospheric data used to force the hydrological simulation are currently identified
+using the `origin` keyword, e.g. `origin=ecmf/edwz/cosmo`. With the introduction of the AIFS as well as the
+IFS, using `origin=ecmf` is no longer sufficient to distinguish between all relevant forcings data. The same
+issue is observed between the COSMO and ICON models at DWD. Sufficient data is present in the GRIB header
+to identify this data further.
+
+As such we propose a new MARS keyword `forcing` which will combine the originating centre and the associated
+atmospheric model. The values will be construted of the form `<originating centre>-<model name>`.
+
+Finally, we propose restructuring the overall archive. Currently in CEMS th edifferent hydrological versions for
+the European and the global domains are archived into different `stream`s under `class` `ce`. We introduce instead
+four distinct `class`es for the European CEMS / C3S and their global counterparts.
 
 ### Analysis
 
-We did not consider other options than option 1.
+Only one option was considered.
 
 ## Decision
+
 The hydrology data will be archived under the following MARS classes:
 
 | MARS class        | Name                                   |
 |:-----------------:|:---------------------------------------|
-| ef                | EFAS (European flood awareness system) |
-| gf                | GLOFAS (Global flood awareness system) |
-| eh                | C3S European hydrology                 |
-| gh                | C3S Global hydrology                   |
+| `ef`              | EFAS (European flood awareness system) |
+| `gf`              | GLOFAS (Global flood awareness system) |
+| `eh`              | C3S European hydrology                 |
+| `gh`              | C3S Global hydrology                   |
 
-A MARS key forcing will be introduced which will get values like
-* ecmf-ifs
-* ecmf-aifs
-* ecmf-era5
-* ecmf-seas
-* edzw-icon
-* cosmo-cosmo
-* cmcc-sps
-* obs
+A new MARS key, `forcing` will be introduced. This key will identify the data used to drive the hydrological model,
+combining a centre identifier with a model name resulting in values such as:
 
-This is the centre abbreviation dash the modelName. A configuration key will be introduced as well but only used in stream rfsd. It will contain the following values:
-* v1.0
-* v1.0-catchment
-* v1.0-grid
-* v1.0-c3s
-* v2.0
-* v2.1
-* v3.0
-* v3.1
-* v3.5
-* v4.0
-* v5.0
+ - `ecmf-ifs`
+ - `ecmf-aifs`
+ - `ecmf-era5`
+ - `ecmf-seas`
+ - `edzw-icon`
+ - `cosmo-cosmo`
+ - `cmcc-sps`
+ - `obs`
 
+A new MARS key, `configuration`, will also be introduced for stream `rfsd` (retrospective forcings and simulation data). This
+identifies the version and setup of the model producing this dataset. This will contain values such as:
+
+ - `v1.0`
+ - `v1.0-catchment`
+ - `v1.0-grid`
+ - `v1.0-c3s`
+ - `v2.0`
+ - `v2.1`
+ - `v3.0`
+ - `v3.1`
+ - `v3.5`
+ - `v4.0`
+ - `v5.0`
 
 ### Related Decisions
+
+ - [MARS-004 Land Data Assimilation](MARS-004-land-data-assimilation-system.md)
 
 ## Consequences
 The data will be stored in newly created MARS classes, ensuring that existing datasets remain unaffected, except for the hydrology data, which will be rearchived within the new layout.
@@ -75,7 +97,9 @@ The forcing and configuration MARS keywords are also applicable in other context
 ## References
 
 ## Authors
-- Sebastien Villaume
-- Robert Osinski
-- Mohamed Azhar
+
+ - Sebastien Villaume
+ - Robert Osinski
+ - Mohamed Azhar
+ - Simon Smart
 
