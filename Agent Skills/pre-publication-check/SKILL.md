@@ -39,11 +39,11 @@ cited file if the requirement is ambiguous.
 - [ ] `LICENSE` exists at the repository root and is Apache License 2.0.
 - [ ] The Apache licence text carries the copyright line (the Codex says to
       add it at line 178 of the standard text). The holder is either ECMWF
-      or the European Commission, depending on the funding of the project:
+      or the European Union, depending on the funding of the project:
 
       Copyright 1996- European Centre for Medium-Range Weather Forecasts (ECMWF)
 
-      or a European Commission / EU-programme copyright statement. Either is
+      or a European Union / EU-programme copyright statement. Either is
       acceptable; missing entirely is a FAIL.
 - [ ] Every original source file (code and documentation, excluding
       generated files) carries a licence header of this shape:
@@ -56,7 +56,7 @@ cited file if the requirement is ambiguous.
       granted to it by virtue of its status as an intergovernmental organisation nor
       does it submit to any jurisdiction.
 
-      (again with ECMWF or European Commission as the holder). Spot-check by
+      (again with ECMWF or European Union as the holder). Spot-check by
       grepping for `Apache Licence Version 2.0` or `intergovernmental` and
       comparing the hit count against the source file count. `ecbuild`
       ships `apply_license.sh` to add missing headers.
