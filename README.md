@@ -26,3 +26,4 @@ The Codex is a set of principles and guidelines for development of software and 
 - [Languages](./Languages/)
 - [Legal](./Legal/)
 - [Software Management Plan](./Software%20Management%20Plan/)
+- [Agent Skills](./Agent%20Skills/)

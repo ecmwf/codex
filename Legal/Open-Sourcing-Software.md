@@ -41,6 +41,10 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
       - IPR violations. Contact Development Section to arrange for a code audit
       - Sensitive information that is internal to ECMWF (e.g. passwords, user names, hostnames, emails, etc.)
       - Ensure that the code is not using any third party software that is not compatible with the Apache Licence
+      - Run the [pre-publication-check agent skill](../Agent%20Skills/pre-publication-check/SKILL.md)
+        over the repository using a frontier model before making the repository public.
+        Use at least Opus 4.8 or GPT-5.5 with the highest available
+        thinking/reasoning setting.
    - NB: "licence" is the correct spelling for the noun; "license" for the verb (so "licensing")
 
 - If any external contributions are expected, ensure the contribution licence agreement plugin (CLA Assistant) to the repository.
