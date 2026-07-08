@@ -133,6 +133,13 @@ Decide which mode applies before you start, and state it in the report.
       cargo deny check licenses         # Rust (needs deny.toml)
       go-licenses report ./...          # Go
 
+      Weak-copyleft dependencies (e.g. MPL-2.0, EPL) are file-level and remain
+      Apache-compatible — do not fail them. A dependency reported as `UNKNOWN`
+      usually means missing licence metadata, not a bad licence; **confirm it
+      manually** (check the project's repository/LICENSE) rather than
+      auto-failing — some first-party or binary wheels ship Apache-2.0 code with
+      no licence classifier.
+
 - [ ] **Scan the complete codebase for copied or inlined third-party code**,
       not only declared dependencies. Sweep every source and data file (and the
       git history) for code that looks copied in from elsewhere: foreign or
