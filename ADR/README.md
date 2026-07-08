@@ -20,3 +20,4 @@ Architectural Decision Records capturing key technical decisions for ECMWF softw
 | [ADR-007 Approved Dependency libfmt](./ADR-007-Approved-Dependency-libfmt.md) | Proposed |
 | [ADR-008 From-Source Builds for C++ Stack Dependencies](./ADR-008-Stack-Dependencies.md) | Accepted |
 | [ADR-009 Repository Audit Store](./ADR-009-Repository-Audit-Store.md) | Proposed |
+| [ADR-010 Adopt SPDX Licence Identifiers and REUSE-Compliant File Headers](./ADR-010-SPDX-License-Identifiers-and-REUSE-Headers.md) | Proposed |
