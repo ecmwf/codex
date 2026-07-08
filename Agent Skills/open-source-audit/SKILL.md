@@ -166,8 +166,8 @@ Decide which mode applies before you start, and state it in the report.
       (`based on`, `borrowed from`, `adapted from`, `Stack Overflow`,
       gist/blog URLs). Useful sweeps:
 
-      grep -rniE 'SPDX-License-Identifier|copyright \(c\)|all rights reserved' --exclude-dir=.git | grep -v 'Apache-2.0'
-      grep -rniE 'GPL|LGPL|AGPL|MPL|CC[ -]BY|creative commons|proprietary|based on|borrowed from|adapted from' --exclude-dir=.git
+      grep -rniE 'SPDX-License-Identifier|copyright \(c\)|all rights reserved' . --exclude-dir=.git | grep -v 'Apache-2.0'
+      grep -rniE 'GPL|LGPL|AGPL|MPL|CC[ -]BY|creative commons|proprietary|based on|borrowed from|adapted from' . --exclude-dir=.git
 
       (In repositories migrated to SPDX headers per ADR-010, every ECMWF file
       legitimately carries `SPDX-License-Identifier: Apache-2.0` and an ECMWF
