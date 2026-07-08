@@ -13,6 +13,8 @@ repository following the guidelines documented below.
     - [C/C++](#cc)
   - [License](#license)
   - [Contributors](#contributors)
+  - [Security Policy](#security-policy)
+  - [Citation](#citation)
   - [Resources](#resources)
 
 ## Readme
@@ -82,6 +84,39 @@ Add a LICENSE file at the root of the project. Add following text to the README.
 
 ## Contributors
 The cookiecutter template automatically generates a contributors file. External contributors are encouraged to open their Pull Requests to be added to the list.
+
+## Security Policy
+
+Each repository should contain a `SECURITY.md` file (strongly recommended) so
+that anyone who finds a vulnerability knows how to report it privately rather
+than in a public issue. Place it at the repository root (`.github/` or `docs/`
+also work). This matches the `security-audit` skill, which recommends a
+`SECURITY.md` but does not treat its absence as a blocker.
+
+Copy the generic template — [`SECURITY.md`](./SECURITY.md) — into the new
+repository. It is deliberately language- and project-agnostic: it routes
+reporters to **GitHub private vulnerability reporting** first, with the
+[ECMWF Support Portal](https://support.ecmwf.int) as the fallback, so it applies
+unchanged to any ECMWF repository. Adjust the *Supported Versions* table only if
+the project's release policy differs. What happens after a report is made is
+defined in the
+[Security Vulnerability Disclosure](../Guidelines/Security-Vulnerability-Disclosure.md)
+procedure.
+
+## Citation
+
+Making the software citable is advised for every public repository: mint a DOI
+once the repository is public (e.g. via the GitHub–Zenodo integration) and add a
+`CITATION.cff` file at the repository root so external users and publications
+can reference the software precisely. GitHub surfaces it as a "Cite this
+repository" button, and Zenodo reads it directly when archiving a release. This
+matches the `open-source-audit` skill, which records citation/DOI as an advisory
+(never a blocker).
+
+Copy the example — [`CITATION.cff`](./CITATION.cff) — into the repository root
+and adapt the placeholders (title, abstract, authors, version, and the DOI once
+minted). Validate it with `cffconvert --validate` or the online editor at
+<https://citation-file-format.github.io>.
 
 ## Resources
 

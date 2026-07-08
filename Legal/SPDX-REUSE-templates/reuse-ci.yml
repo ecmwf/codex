@@ -1,0 +1,15 @@
+# Advised GitHub Actions job. Copy into a repository's .github/workflows/
+# directory (e.g. as reuse.yml).
+#
+# Per the Codex audit guidance, pin third-party actions to an immutable commit
+# SHA, not a mutable tag: replace the <commit-sha> placeholders below with the
+# full SHA of the release you have vetted (the tag in the comment is only a
+# hint for locating it).
+name: REUSE Compliance
+on: [push, pull_request]
+jobs:
+  reuse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@<commit-sha>   # SHA of the vetted release (e.g. the v4 tag)
+      - uses: fsfe/reuse-action@<commit-sha>  # SHA of the vetted release (e.g. the v5 tag)

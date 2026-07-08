@@ -5,6 +5,7 @@ Legal guidance for ECMWF software projects covering licensing, copyright, and re
 ## Contents
 
 - [Copyright and Licensing](./Copyright-And-Licensing.md) — ECMWF's approach to copyright and applying the Apache License
+- [SPDX and REUSE](./SPDX-and-REUSE.md) — the ECMWF standard for machine-readable SPDX/REUSE licence headers (ADR-010), with copy-ready [templates](./SPDX-REUSE-templates/)
 - [Open Sourcing Software](./Open-Sourcing-Software.md) — checklist and guidelines for open sourcing ECMWF software
 - [Contributor Licence Agreement](./Contributor-License-Agreement.md) — CLA for contributions to ECMWF software
 - [Requesting a New Repository](./Requesting-New-Repository.md) — process for requesting or renaming GitHub repositories

@@ -1,4 +1,4 @@
-# Arcitectural Decision Record 009: JSON and JSON-Schema Support Libraries for C++ 
+# Architectural Decision Record 012: JSON and JSON-Schema Support Libraries for C++
 
 ## Decisions
 Projects may use *nlohmann-json* and *Valijson*. These libraries are an alternative to EcKit's existing JSON support. We chose this combination for its YAML validation potential and regex engine flexibility, see [Comparison of Solutions](#comparison-of-solutions) for detail.

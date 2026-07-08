@@ -24,7 +24,7 @@ ECMWF does not only publish its own software as open source — it also seeks to
 
 *Making security a priority in all software projects.*
 
-Software developed at ECMWF is deployed in operational forecasting chains, national meteorological services, and critical infrastructure. Security must therefore be considered from the outset, not bolted on later. This includes responsible management of dependencies, timely response to vulnerability disclosures, use of automated security scanning in CI pipelines, and following best practices for secrets management and access control.
+Software developed at ECMWF is deployed in operational forecasting chains, national meteorological services, and critical infrastructure. Security must therefore be considered from the outset, not bolted on later. This includes responsible management of dependencies, timely response to vulnerability disclosures (see the [Security Vulnerability Disclosure](../Guidelines/Security-Vulnerability-Disclosure.md) procedure), use of automated security scanning in CI pipelines, and following best practices for secrets management and access control.
 
 ## 4 — Foster Inclusive Participation
 
