@@ -46,9 +46,26 @@ skill is to catch problems while they are still fixable.
 2. Work through every section below. Do not stop at the first failure —
    collect all findings.
 3. For each item record **PASS**, **FAIL**, or **N/A** (with a one-line
-   reason).
+   reason). Classify every FAIL as a **Blocker** or **Advisory** (see below).
 4. Finish with the report format described at the end. Never make the
    repository public yourself.
+
+**Blocker vs advisory.** Not every deviation should stop publication. Classify
+each FAIL:
+
+- **Blocker** — a genuine reason not to publish yet: secrets/credentials in the
+  code or history, an Apache-incompatible or missing licence, copied code
+  without attribution, unresolved IPR/provenance concerns, or a **NOT_READY
+  security audit**. Blockers set the verdict to NOT_READY and are counted in
+  `fail_count`.
+- **Advisory** — a real but low-impact hygiene deviation that should be fixed but
+  is not a publication risk on its own (e.g. a missing licence header on a test
+  file, README licence-section wording, leftover template cruft, missing
+  `CONTRIBUTING.md`). Advisories are listed and should be fixed, but do **not**
+  block publication and are **not** counted in `fail_count`.
+
+When genuinely unsure whether something is a blocker, treat it as one — the cost
+of a false "ready" is a public leak.
 
 Checks marked **[Codex]** cite the source document in `ecmwf/codex`; read the
 cited file if the requirement is ambiguous.
@@ -86,8 +103,10 @@ Decide which mode applies before you start, and state it in the report.
       or the equivalent European Union copyright statement for EU-funded work
       ("European Union" is the correct holder — not "European Commission").
       Either is acceptable; missing entirely is a FAIL.
-- [ ] Every original source file (code and documentation, excluding
-      generated files) carries a licence header of this shape:
+- [ ] Every original source file (code and documentation) carries a licence
+      header of this shape. Check **git-tracked files only** (`git ls-files`) —
+      do not flag build/install artefacts such as a `setuptools_scm`-generated
+      `_version.py`, which are not in version control:
 
       (C) Copyright <FILE-CREATED-YEAR>- ECMWF and individual contributors.
 
@@ -127,7 +146,11 @@ Decide which mode applies before you start, and state it in the report.
       grep -rniE 'GPL|LGPL|AGPL|MPL|CC[ -]BY|creative commons|proprietary|based on|borrowed from|adapted from' --exclude-dir=.git
 
       Where available, run a provenance/licence scanner over the whole tree:
-      `scancode-toolkit`, `reuse lint`, or GitHub `licensee`.
+      `scancode-toolkit`, `reuse lint`, or GitHub `licensee`. Treat these as
+      **provenance leads, not a compliance gate**: ECMWF uses the prose Apache
+      header above, not SPDX tags, so a `reuse lint` "not compliant" result
+      (missing `SPDX-License-Identifier`) is **expected and not a FAIL** — REUSE
+      compliance is optional at ECMWF.
 - [ ] **Copied code under an Apache-incompatible licence is a FAIL.** Any code
       copied in under GPL/LGPL/AGPL, CC-BY-SA, a non-commercial or
       "no-derivatives" licence, or an unknown/proprietary licence must be
@@ -338,12 +361,12 @@ commit: <full 40-char SHA audited>
 audit_type: open-source
 run_type: initial            # initial | follow-up | periodic
 timestamp: <YYYY-MM-DDThh:mmZ>
-verdict: NOT_READY           # READY only when there are zero FAILs
+verdict: NOT_READY           # READY only when there are zero open Blockers
 auditor_human: <github-username>
 auditor_model: <model + version, or "none">
 previous_report: none        # filename of previous report, or "none"
 next_review: <YYYY-MM-DD>     # audit date + 12 months
-fail_count: 0
+fail_count: 0                # number of open Blockers (advisories not counted)
 unverified_count: 0
 ---
 
@@ -354,8 +377,11 @@ unverified_count: 0
 **Previous report**: <reference or date, or "none">
 **Verdict**: READY / NOT READY
 
-## Blockers (FAIL)
+## Blockers (must fix before publishing)
 - <item> — <evidence, file paths, commands run>
+
+## Advisory (should fix — non-blocking)
+- <item> — <evidence>
 
 ## Unverified
 - <item> — <why it could not be checked, e.g. no API access to repo settings>
@@ -375,7 +401,8 @@ unverified_count: 0
 **Recommended next review**: <YYYY-MM-DD, ~12 months out>
 ```
 
-A repository is **READY** only when there are zero FAILs. List anything you
+A repository is **READY** only when there are zero open **Blockers** (advisories
+may remain, and should be tracked for a follow-up). List anything you
 could not verify under "Unverified" rather than silently passing it. When
 in doubt, the verdict is NOT READY — the cost of a false "ready" is a public
 leak; the cost of a false "not ready" is a short delay.

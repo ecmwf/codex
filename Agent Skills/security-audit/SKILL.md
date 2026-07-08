@@ -128,8 +128,11 @@ Set the tier from the threat model; it decides whether the deep dive (§9) runs.
 
 **High-risk triggers** (any one ⇒ high-risk):
 
-- parses untrusted input or decodes binary formats (GRIB/BUFR/netCDF/Zarr or a
-  custom binary format);
+- contains **repo-owned** code that parses untrusted input or decodes a binary
+  format (a hand-written GRIB/BUFR/netCDF/Zarr or custom-format decoder). Note:
+  merely *using* an audited upstream library (`earthkit`, `xarray`, `netCDF4`,
+  `eccodes`, …) to read data is **not** by itself a high-risk trigger — review
+  that data-handling code as a surface (§6), but it does not force the deep dive;
 - contains C/C++/Fortran, Rust `unsafe`, or any FFI boundary;
 - is network-facing or a service/API;
 - performs deserialization or model/checkpoint loading (classes G / M);
@@ -164,6 +167,13 @@ number of open CRITICAL + HIGH findings; `verdict` is `READY` only when that is
 block** publication. Iterate until zero HIGH remain. When in doubt, the verdict
 is NOT READY.
 
+The severity that governs the verdict is **your triaged severity, not the raw
+label a tool prints**. Scanners apply blanket policies that can over- or
+under-rate a finding in context — for example a workflow auditor may flag an
+unpinned *first-party* reusable workflow as "high" when the practical risk is a
+medium hardening item. Down- or up-rate each finding for the actual threat model
+and record the reasoning; the verdict follows the triaged severity.
+
 ## 4. Methodology
 
 For each surface, work like an attacker and prove each concern:
@@ -194,12 +204,19 @@ installed and install lightweight scanners as needed. Always **triage** output
 **Cross-ecosystem:**
 
 ```
-semgrep --config auto            # or: --config p/security-audit  (multi-language SAST)
+semgrep --config auto            # multi-language SAST (auto REQUIRES metrics on)
+# metrics-free alternative:  semgrep --config p/python --config p/security-audit
 osv-scanner scan --recursive .   # dependency CVEs across many ecosystems
 trivy fs --scanners vuln,misconfig,secret .
 syft . -o spdx-json  &&  grype sbom:-   # SBOM + vulnerability match
 scorecard --repo=github.com/<org>/<repo>   # OpenSSF repo-posture heuristics
 ```
+
+Note: `semgrep --config auto` errors under `--metrics off`; use the `p/...` rule
+packs above when metrics must stay disabled. For dependency CVEs, unpinned
+Python projects resolve best after an install — `pip-audit` against the project's
+environment (or a `uv pip freeze` requirements file) is more reliable than
+lockfile-only scanners.
 
 Secret scanning (`gitleaks`, `trufflehog`) is covered by the
 `open-source-audit` skill's Secrets section; re-run it here only if this is a
@@ -224,6 +241,9 @@ dependency-check ;  spotbugs + find-sec-bugs
 hadolint Dockerfile ;  trivy config . ;  checkov -d .
 # GitHub Actions workflows
 zizmor .github/workflows/ ;  actionlint
+# Jupyter notebooks: run a linter over them via nbqa — the linter must be
+# installed in nbqa's OWN environment, e.g. `uv tool install nbqa --with bandit`
+nbqa bandit notebooks/ ;  nbqa ruff notebooks/
 ```
 
 Where a stronger engine is available, prefer **CodeQL** (`codeql database
