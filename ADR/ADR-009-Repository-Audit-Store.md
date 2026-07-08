@@ -172,7 +172,7 @@ This ADR does not modify or supersede any existing ADR.
   automation is added.
 - Access must be actively kept tight; the store itself is a sensitive asset.
 - Reliant on discipline to redact secret values even though the store is
-  private (mitigated by secret-scanning push protection on the store).
+  private (mitigated by keeping the store private and access-controlled).
 
 ## References
 

@@ -306,17 +306,17 @@ its sink and record findings with CWE tags.
 - [ ] **Third-party actions pinned to a commit SHA**, not a mutable tag.
 - [ ] **Release integrity** — releases signed / provenance attested where
       applicable (Sigstore, SLSA); artefacts reproducible.
-- [ ] **Automated dependency updates** — Dependabot or Renovate configured.
+- [ ] **Dependencies kept up to date** — an automated dependency-update process
+      is in place (whatever tooling the project chooses).
 - [ ] **SBOM** — generated or generable (`syft`), for downstream consumers.
 
 ## 8. Repository security posture — [Codex: Principles/Open-Source-Principles.md — Secure by Design]
 
-Map to OpenSSF Scorecard heuristics; check settings with `gh api` where you have
-access, otherwise note as Unverified.
+Check settings with `gh api` where you have access, otherwise note as Unverified.
 
-- [ ] **Code scanning** (CodeQL or equivalent) enabled or configured in CI.
-- [ ] **Secret scanning + push protection** enabled.
-- [ ] **Dependabot alerts / security updates** enabled.
+- [ ] **CI runs security checks** — the project's CI runs SAST and
+      dependency-vulnerability scanning (whatever tooling the project uses), so
+      regressions are caught continuously, not only at audit time.
 - [ ] **Branch protection** on the default branch: required reviews, required
       checks, no force-push, no deletion.
 - [ ] **No checked-in binaries** of unknown provenance (CWE-506 risk).
@@ -427,7 +427,8 @@ unverified_count: 0
 - <surface> — <reason, e.g. "no native code; deep dive N/A">
 
 ## Recommended follow-ups (non-blocking)
-- Enable CodeQL / Dependabot / secret scanning in CI.
+- Run SAST and dependency-vulnerability scanning in CI so regressions are caught
+  continuously (whatever tooling the project chooses).
 - Add SECURITY.md pointing disclosures to https://support.ecmwf.int.
 - Wire a nightly/weekly deep-fuzz job for parser/codec entry points.
 - Report any upstream third-party vulnerability to its maintainers.

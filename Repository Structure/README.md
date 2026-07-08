@@ -86,13 +86,14 @@ The cookiecutter template automatically generates a contributors file. External 
 
 ## Security Policy
 
-Each repository must contain a `SECURITY.md` file so that anyone who finds a
-vulnerability knows how to report it privately rather than in a public issue.
-Place it at the repository root (GitHub also recognises `.github/` or `docs/`),
-where GitHub surfaces it as the repository's security policy.
+Each repository should contain a `SECURITY.md` file (strongly recommended) so
+that anyone who finds a vulnerability knows how to report it privately rather
+than in a public issue. Place it at the repository root (`.github/` or `docs/`
+also work). This matches the `security-audit` skill, which recommends a
+`SECURITY.md` but does not treat its absence as a blocker.
 
-Copy the generic template — [`SECURITY.md`](./SECURITY.md) — verbatim into the
-new repository. It is deliberately language- and project-agnostic and routes all
+Copy the generic template — [`SECURITY.md`](./SECURITY.md) — into the new
+repository. It is deliberately language- and project-agnostic and routes all
 vulnerability reports to the [ECMWF Support Portal](https://support.ecmwf.int),
 so it applies unchanged to any ECMWF repository. Adjust the *Supported Versions*
 table only if the project's release policy differs.

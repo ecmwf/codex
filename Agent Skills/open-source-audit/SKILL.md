@@ -306,12 +306,12 @@ publication. Removing the file in a new commit is not sufficient.
 
 ## 8. Industry best practices (beyond Codex)
 
-- [ ] Dependency and security scanning enabled or planned: Dependabot /
-      Renovate, secret-scanning + push protection, CodeQL or equivalent
-      where the language supports it — the Codex "Secure by Design"
-      principle expects automated security scanning in CI
-      [Codex: Principles/Open-Source-Principles.md]. Check repo settings
-      with `gh api` where possible; otherwise note as unverified.
+- [ ] Automated security checks run in CI — dependency-vulnerability scanning
+      and static analysis (SAST), using whatever tooling the project chooses —
+      the Codex "Secure by Design" principle expects automated security scanning
+      in CI [Codex: Principles/Open-Source-Principles.md]. (The audit performs
+      these scans itself; this item checks they also run continuously.) Note as
+      unverified if you cannot inspect the CI configuration.
 - [ ] Dependencies are pinned or locked (lockfile committed) so builds are
       reproducible for outside users.
 - [ ] The project builds and its tests pass from a fresh clone following
