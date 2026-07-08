@@ -14,6 +14,7 @@ repository following the guidelines documented below.
   - [License](#license)
   - [Contributors](#contributors)
   - [Security Policy](#security-policy)
+  - [Citation](#citation)
   - [Resources](#resources)
 
 ## Readme
@@ -97,6 +98,21 @@ repository. It is deliberately language- and project-agnostic and routes all
 vulnerability reports to the [ECMWF Support Portal](https://support.ecmwf.int),
 so it applies unchanged to any ECMWF repository. Adjust the *Supported Versions*
 table only if the project's release policy differs.
+
+## Citation
+
+Making the software citable is advised for every public repository: mint a DOI
+once the repository is public (e.g. via the GitHub–Zenodo integration) and add a
+`CITATION.cff` file at the repository root so external users and publications
+can reference the software precisely. GitHub surfaces it as a "Cite this
+repository" button, and Zenodo reads it directly when archiving a release. This
+matches the `open-source-audit` skill, which records citation/DOI as an advisory
+(never a blocker).
+
+Copy the example — [`CITATION.cff`](./CITATION.cff) — into the repository root
+and adapt the placeholders (title, abstract, authors, version, and the DOI once
+minted). Validate it with `cffconvert --validate` or the online editor at
+<https://citation-file-format.github.io>.
 
 ## Resources
 

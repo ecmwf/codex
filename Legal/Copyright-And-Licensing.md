@@ -35,12 +35,13 @@ granted to it by virtue of its status as an intergovernmental organisation nor
 does it submit to any jurisdiction.
 ```
 
-> **Recommended going forward:** new files and repositories should instead use
-> the machine-readable **SPDX + REUSE** header — two tags
+> **Standard going forward:** new files and repositories must instead use the
+> machine-readable **SPDX + REUSE** header — two tags
 > (`SPDX-FileCopyrightText` and `SPDX-License-Identifier: Apache-2.0`) — per
-> [ADR-010](../ADR/ADR-010-SPDX-License-Identifiers-and-REUSE-Headers.md) and the
-> [SPDX and REUSE standard](./SPDX-and-REUSE.md). The prose header above remains
-> valid for not-yet-migrated files.
+> [ADR-010](../ADR/ADR-010-SPDX-License-Identifiers-and-REUSE-Headers.md)
+> (Accepted) and the [SPDX and REUSE standard](./SPDX-and-REUSE.md). The prose
+> header above remains valid for not-yet-migrated files, which are migrated per
+> repository over time.
 
 5. Please make sure that ALL references to any past ECMWF licenses ("ECMWF licence", GPL or LGPL) are removed.
 

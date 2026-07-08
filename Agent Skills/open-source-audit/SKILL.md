@@ -113,8 +113,8 @@ Decide which mode applies before you start, and state it in the report.
       build/install artefacts such as a `setuptools_scm`-generated `_version.py`,
       which are not in version control. Two header forms are acceptable:
 
-      1. The **SPDX + REUSE** form — *recommended going forward*
-         [Codex: Legal/SPDX-and-REUSE.md; ADR-010]:
+      1. The **SPDX + REUSE** form — *the ECMWF standard; required for new
+         files* [Codex: Legal/SPDX-and-REUSE.md; ADR-010]:
 
          SPDX-FileCopyrightText: <year> European Centre for Medium-Range Weather Forecasts (ECMWF)
          SPDX-License-Identifier: Apache-2.0
@@ -135,8 +135,8 @@ Decide which mode applies before you start, and state it in the report.
       (holder ECMWF or, for EU-funded work, European Union). Spot-check by
       grepping for `SPDX-License-Identifier`, `Apache Licence Version 2.0`, or
       `intergovernmental` and comparing the hit count against the source file
-      count. Recommend the SPDX form for new files; `ecbuild`'s
-      `apply_license.sh` or `reuse annotate` can add missing headers.
+      count. The SPDX form is required for new files (ADR-010); `reuse annotate`
+      or `ecbuild`'s `apply_license.sh` can add missing headers.
 - [ ] No references to old ECMWF licences, GPL, or LGPL remain
       (`grep -riE "GPL|GNU General Public" . --exclude-dir=.git`, then filter
       false positives).
@@ -176,11 +176,11 @@ Decide which mode applies before you start, and state it in the report.
 
       Where available, run a provenance/licence scanner over the whole tree:
       `scancode-toolkit`, `reuse lint`, or GitHub `licensee`. Treat these as
-      **provenance leads, not a hard gate**. ECMWF is adopting **SPDX + REUSE**
-      headers going forward (ADR-010 / [Codex: Legal/SPDX-and-REUSE.md]), but
-      migration is incremental: a repository still on prose headers will fail
-      `reuse lint`, which is **advisory, not a blocker** — recommend SPDX/REUSE
-      adoption rather than failing the audit on it.
+      **provenance leads, not a hard gate**. **SPDX + REUSE** headers are the
+      ECMWF standard (ADR-010 / [Codex: Legal/SPDX-and-REUSE.md]), but migration
+      of existing repositories is incremental: a repository still on prose
+      headers will fail `reuse lint`, which is **advisory, not a blocker** —
+      recommend SPDX/REUSE migration rather than failing the audit on it.
 - [ ] **Copied code under an Apache-incompatible licence is a FAIL.** Any code
       copied in under GPL/LGPL/AGPL, CC-BY-SA, a non-commercial or
       "no-derivatives" licence, or an unknown/proprietary licence must be
@@ -227,6 +227,8 @@ Decide which mode applies before you start, and state it in the report.
       making the software citable for external references: mint a DOI (e.g. via
       the GitHub–Zenodo integration) and add a `CITATION.cff` file at the
       repository root so downstream users and publications can cite it precisely.
+      A copy-ready example is in the Codex at
+      [`Repository Structure/CITATION.cff`](../../Repository%20Structure/CITATION.cff).
       This is an **advisory**, never a blocker (it is typically completed once
       the repository is public — see "Post-publication recommendations").
 
@@ -382,8 +384,9 @@ owner, but never block publication on them.
   repository is public, the owner enables the GitHub–Zenodo integration (or mints
   a DOI via [Zenodo](https://zenodo.org)) so the software is citable and archived,
   and adds a `CITATION.cff` file at the repository root (plus the DOI badge in the
-  README) so external users and publications can reference it. This is a
-  recommendation, not a precondition for going public.
+  README) so external users and publications can reference it (example template:
+  `Repository Structure/CITATION.cff` in the Codex). This is a recommendation,
+  not a precondition for going public.
 
 ## Report format
 

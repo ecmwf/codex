@@ -1,0 +1,26 @@
+# Example CITATION.cff for an ECMWF repository. Copy to the repository root and
+# adapt the placeholders. Validate with `cffconvert --validate` or the online
+# editor at https://citation-file-format.github.io. Update `version`,
+# `date-released` and `doi` on each release (the GitHub-Zenodo integration
+# mints and archives the DOI).
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata from this file."
+type: software
+title: "<project-name>"
+abstract: "<one-sentence description of the software>"
+authors:
+  - name: "European Centre for Medium-Range Weather Forecasts (ECMWF)"
+    website: "https://www.ecmwf.int"
+  # Optionally add individual authors:
+  # - family-names: "<Family name>"
+  #   given-names: "<Given name>"
+  #   orcid: "https://orcid.org/0000-0000-0000-0000"
+  #   affiliation: "European Centre for Medium-Range Weather Forecasts (ECMWF)"
+version: "x.y.z"
+date-released: "1970-01-01"
+doi: "10.5281/zenodo.XXXXXXX"
+repository-code: "https://github.com/<org>/<project-name>"
+url: "https://github.com/<org>/<project-name>"
+license: Apache-2.0
+keywords:
+  - "<keyword>"
