@@ -450,10 +450,11 @@ leak; the cost of a false "not ready" is a short delay.
 
 ## Report storage
 
-Reports are filed in the private store **`ecmwf/repo-audits`** (access limited
-to GitHub Enterprise / organisation owners). Reports are **kept** there so that
-later follow-up and periodic re-audits can read the previous report to confirm
-findings were fixed and to detect drift.
+Reports are filed in the private store **`ecmwf/repo-audits`** (writable by
+GitHub Enterprise / organisation owners, who serve as the auditors; readable
+only internally at ECMWF). Reports are **kept** there so that later follow-up
+and periodic re-audits can read the previous report to confirm findings were
+fixed and to detect drift.
 
 A report must **never** be stored anywhere that becomes public with the
 repository — not as a GitHub issue, not as a committed file in the audited repo,

@@ -51,10 +51,11 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
         "frontier" means a top-tier model from a major provider at the time of
         the audit.
       - File the resulting report in the private audit store
-        [`ecmwf/repo-audits`](https://github.com/ecmwf/repo-audits) (access
-        limited to Enterprise / organisation owners), never in the repository
-        being published. Publication proceeds only once both required audits —
-        the open-source audit and the security audit — are `READY`. See
+        [`ecmwf/repo-audits`](https://github.com/ecmwf/repo-audits) (writable by
+        Enterprise / organisation owners, who serve as the auditors; readable
+        only internally at ECMWF), never in the repository being published.
+        Publication proceeds only once both required audits — the open-source
+        audit and the security audit — are `READY`. See
         [ADR-009 Repository Audit Store](../ADR/ADR-009-Repository-Audit-Store.md).
    - NB: "licence" is the correct spelling for the noun; "license" for the verb (so "licensing")
 

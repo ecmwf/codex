@@ -17,16 +17,13 @@ publication and when it is re-audited afterwards.
 
 The store is governed by the following rules:
 
-- **Visibility and access.** The repository is private. **For now, while this
-  process is still maturing**, both read and write access are limited to
-  **GitHub Enterprise / organisation owners** — the same people who perform the
-  audits. Repository admins do not run these audits and do not have access at
-  this stage. Reports are pushed **directly to `main`** by the owner who ran the
-  audit; `main` is protected against force-push and deletion. As the process
-  matures, **read access may later be granted to the admins of the repositories
-  being audited** (for example, so they can see their own repository's reports),
-  while write access remains with owners. Any such change will be reflected in a
-  revision of this ADR.
+- **Visibility and access.** The repository is private and never public. It is
+  **writable by GitHub Enterprise / organisation owners**, who serve as the
+  auditors, and **readable only internally at ECMWF** (ECMWF staff; no external
+  access). Repository admins of audited repositories do not run the audits, but
+  as ECMWF-internal readers they can consult their own repository's reports.
+  Reports are pushed **directly to `main`** by the owner who ran the audit;
+  `main` is protected against force-push and deletion.
 - **Layout.** Reports are namespaced by organisation and repository:
   `audits/<org>/<repo>/`. The store covers multiple ECMWF organisations from the
   outset: `ecmwf`, `ecmwf-ifs`, and `ecmwf-training`. Further organisations are
@@ -59,8 +56,9 @@ the audit checks themselves — those live in the Codex Agent Skills
 - **Automation.** No scheduled reminders or status dashboard are built yet; the
   store is maintained manually. The front-matter schema is designed so these can
   be added later without reworking existing reports.
-- **A dedicated auditors team.** Access deliberately reuses the existing
-  org/Enterprise owner group rather than introducing a new team.
+- **A dedicated auditors team.** Write access deliberately reuses the existing
+  org/Enterprise owner group — the auditors — rather than introducing a new
+  team.
 
 ## Context
 
@@ -135,11 +133,13 @@ periodic re-audits depend on.
 Option C keeps everything in the tooling the owners already operate (GitHub +
 git), gives strong retention and diffable history essentially for free, and lets
 us attach a simple YAML schema that a future reminder job and dashboard can
-consume. Reusing the org/Enterprise owner group for access — rather than a new
-team — matches the reality that owners are the ones who perform audits and flip
-repository visibility, and keeps the sensitive material on a strict
-need-to-know basis. The residual weakness (manual bookkeeping) is acceptable at
-current volumes and is explicitly a future automation target.
+consume. Reusing the org/Enterprise owner group for write access — rather than a
+new team — matches the reality that owners are the ones who perform audits and
+flip repository visibility; keeping read access **internal to ECMWF** lets
+maintainers and repository admins consult the findings that concern them while
+the material stays firmly inside the organisation. The residual weakness (manual
+bookkeeping) is acceptable at current volumes and is explicitly a future
+automation target.
 
 ## Related Decisions
 
@@ -170,7 +170,8 @@ This ADR does not modify or supersede any existing ADR.
 
 - Manual bookkeeping (writing reports, updating each repo's `index.md`) until
   automation is added.
-- Access must be actively kept tight; the store itself is a sensitive asset.
+- Access must be actively managed (owner-only write, ECMWF-internal read, never
+  external); the store itself is a sensitive asset.
 - Reliant on discipline to redact secret values even though the store is
   private (mitigated by keeping the store private and access-controlled).
 
