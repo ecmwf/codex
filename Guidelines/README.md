@@ -10,4 +10,5 @@ Development guidelines for ECMWF software projects.
 - [Containerisation](./Containerisation.md) — guidelines for containerising ECMWF software
 - [Observability](./Observability.md) — observability guidelines for ECMWF services
 - [External Contributions](./External-Contributions.md) — guidelines for accepting external contributions to ECMWF projects
+- [Security Vulnerability Disclosure](./Security-Vulnerability-Disclosure.md) — coordinated disclosure workflow using GitHub Private Vulnerability Reporting (PVR) and security advisories
 - [Testing](./Testing.md) — guidelines for unit, integration and regression testing, and for test suites for services
