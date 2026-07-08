@@ -295,20 +295,19 @@ publication. Removing the file in a new commit is not sufficient.
 Publishing exposes the code to the world, so a security audit is a
 **mandatory** part of the open-sourcing process, not an optional extra. The
 secret/credential scanning in section 4 is necessary but not sufficient — a
-broader security review is required before the repository goes public.
+dedicated security review is required before the repository goes public.
 
-- [ ] A security audit of the repository has been completed and its blocking
-      findings addressed. A dedicated **`security-audit` skill is planned** in
-      `Agent Skills/`; until it lands, perform (or arrange) a security review
-      covering at least: dependency vulnerabilities (e.g. `pip-audit`,
-      `npm audit`, `osv-scanner`), unsafe or dangerous code patterns, insecure
-      defaults, and the workflow/supply-chain checks in section 4.
-- [ ] Absence of a completed security audit is a **FAIL** — the repository is
-      NOT READY until it has been done and blocking findings are resolved.
-
-> When the dedicated `security-audit` skill exists, run it and reference its
-> report here; this section then becomes a hand-off/confirmation step rather
-> than an inline review.
+- [ ] Run the [`security-audit` skill](../security-audit/SKILL.md) against the
+      repository and file its `Security-Audit` report in `ecmwf/repo-audits`
+      alongside this one. That skill builds a threat model, runs SAST /
+      dependency / supply-chain tooling, reviews security-sensitive surfaces
+      (deserialization, injection, memory safety / FFI, crypto, ML model
+      loading), and — for high-risk repositories — adds adversarial testing and
+      bounded fuzzing.
+- [ ] The security audit's verdict must be **READY** — that is, zero open
+      CRITICAL/HIGH findings. A missing security audit, or one with open
+      CRITICAL/HIGH findings, is a **FAIL**: the repository is NOT READY until
+      the security audit passes.
 
 ## Post-publication recommendations (optional)
 

@@ -8,7 +8,14 @@ Reusable AI-agent skills that support ECMWF software governance processes.
   for a repository before it is made public. Checks repository contents against
   the Codex open-sourcing guidance and common publication risks, including
   licensing, README/maturity information, full-history secret scanning,
-  dependency licence review, git-history hygiene, and CI configuration.
+  dependency licence review, git-history hygiene, and CI configuration. Its
+  mandatory security step is delegated to the `security-audit` skill.
+- [`security-audit`](./security-audit/SKILL.md) — risk-tiered security audit of
+  a repository, run before publication (as the mandatory security step of the
+  pre-publication check) and periodically afterwards. Builds a threat model,
+  runs SAST / dependency / supply-chain tooling, reviews security-sensitive
+  surfaces, and for high-risk repositories adds adversarial testing and bounded
+  fuzzing. Produces a CWE-tagged pass/fail report.
 
 ## Format and portability
 
