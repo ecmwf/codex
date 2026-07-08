@@ -104,22 +104,34 @@ Decide which mode applies before you start, and state it in the report.
       ("European Union" is the correct holder — not "European Commission").
       Either is acceptable; missing entirely is a FAIL.
 - [ ] Every original source file (code and documentation) carries a licence
-      header of this shape. Check **git-tracked files only** (`git ls-files`) —
-      do not flag build/install artefacts such as a `setuptools_scm`-generated
-      `_version.py`, which are not in version control:
+      header. Check **git-tracked files only** (`git ls-files`) — do not flag
+      build/install artefacts such as a `setuptools_scm`-generated `_version.py`,
+      which are not in version control. Two header forms are acceptable:
 
-      (C) Copyright <FILE-CREATED-YEAR>- ECMWF and individual contributors.
+      1. The **SPDX + REUSE** form — *recommended going forward*
+         [Codex: Legal/SPDX-and-REUSE.md; ADR-010]:
 
-      This software is licensed under the terms of the Apache Licence Version 2.0
-      which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
-      In applying this licence, ECMWF does not waive the privileges and immunities
-      granted to it by virtue of its status as an intergovernmental organisation nor
-      does it submit to any jurisdiction.
+         SPDX-FileCopyrightText: <year> European Centre for Medium-Range Weather Forecasts (ECMWF)
+         SPDX-License-Identifier: Apache-2.0
 
-      (again with ECMWF or European Union as the holder). Spot-check by
-      grepping for `Apache Licence Version 2.0` or `intergovernmental` and
-      comparing the hit count against the source file count. `ecbuild`
-      ships `apply_license.sh` to add missing headers.
+         with one extra `SPDX-FileCopyrightText:` line per additional copyright
+         holder (e.g. `Crown Copyright, Met Office` for partner-co-developed code).
+
+      2. The legacy **prose** header — still valid for not-yet-migrated files:
+
+         (C) Copyright <FILE-CREATED-YEAR>- ECMWF and individual contributors.
+
+         This software is licensed under the terms of the Apache Licence Version 2.0
+         which can be obtained at http://www.apache.org/licenses/LICENSE-2.0.
+         In applying this licence, ECMWF does not waive the privileges and immunities
+         granted to it by virtue of its status as an intergovernmental organisation nor
+         does it submit to any jurisdiction.
+
+      (holder ECMWF or, for EU-funded work, European Union). Spot-check by
+      grepping for `SPDX-License-Identifier`, `Apache Licence Version 2.0`, or
+      `intergovernmental` and comparing the hit count against the source file
+      count. Recommend the SPDX form for new files; `ecbuild`'s
+      `apply_license.sh` or `reuse annotate` can add missing headers.
 - [ ] No references to old ECMWF licences, GPL, or LGPL remain
       (`grep -riE "GPL|GNU General Public" . --exclude-dir=.git`, then filter
       false positives).
@@ -154,10 +166,11 @@ Decide which mode applies before you start, and state it in the report.
 
       Where available, run a provenance/licence scanner over the whole tree:
       `scancode-toolkit`, `reuse lint`, or GitHub `licensee`. Treat these as
-      **provenance leads, not a compliance gate**: ECMWF uses the prose Apache
-      header above, not SPDX tags, so a `reuse lint` "not compliant" result
-      (missing `SPDX-License-Identifier`) is **expected and not a FAIL** — REUSE
-      compliance is optional at ECMWF.
+      **provenance leads, not a hard gate**. ECMWF is adopting **SPDX + REUSE**
+      headers going forward (ADR-010 / [Codex: Legal/SPDX-and-REUSE.md]), but
+      migration is incremental: a repository still on prose headers will fail
+      `reuse lint`, which is **advisory, not a blocker** — recommend SPDX/REUSE
+      adoption rather than failing the audit on it.
 - [ ] **Copied code under an Apache-incompatible licence is a FAIL.** Any code
       copied in under GPL/LGPL/AGPL, CC-BY-SA, a non-commercial or
       "no-derivatives" licence, or an unknown/proprietary licence must be
