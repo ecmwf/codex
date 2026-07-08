@@ -1,9 +1,10 @@
 ---
-name: pre-publication-check
+name: open-source-audit
 description: >
-  Audit a repository before it is made public, and re-audit it after fixes or
-  periodically to confirm continued compliance. Use when asked to check,
-  review, or prepare a repo for open-sourcing, publication, or a switch from
+  Open-source compliance audit of a repository: run it before the repository is
+  made public, and re-run it after fixes or periodically to confirm an
+  already-public repository still complies. Use when asked to check, review,
+  audit, or prepare a repo for open-sourcing, publication, or a switch from
   private/internal to public visibility. Checks compliance with the ECMWF
   Codex (licensing, copied/third-party code and attribution, README, maturity
   badge, contribution setup) and industry best practices (secret scanning, git
@@ -11,10 +12,12 @@ description: >
   audit. Produces a pass/fail Markdown report; does not flip visibility itself.
 ---
 
-# Pre-publication check
+# Open-source audit
 
 Audit a repository against the [ECMWF Codex](https://github.com/ecmwf/codex)
-and general open-sourcing best practices **before** it is made public.
+and general open-sourcing best practices **before** it is made public — and
+**re-run it any time** to confirm an already-public repository still complies
+(see "Run modes").
 
 This skill is run as part of the ECMWF open-sourcing process described in
 [`Legal/Open-Sourcing-Software.md`](../../Legal/Open-Sourcing-Software.md).
@@ -55,8 +58,8 @@ cited file if the requirement is ambiguous.
 This skill is designed to be run more than once over a repository's lifetime.
 Decide which mode applies before you start, and state it in the report.
 
-- **Initial audit** — the first pre-publication run. Work through every section
-  from scratch.
+- **Initial audit** — the first audit run, before publication. Work through
+  every section from scratch.
 - **Follow-up audit (after fixes)** — a repository that previously failed is
   being re-checked. First locate and read the previous report(s) for this
   repository in the audit store (`ecmwf/repo-audits`, under
@@ -325,7 +328,7 @@ owner, but never block publication on them.
 Always produce the report as Markdown, in this shape:
 
 ```markdown
-# Pre-publication audit: <repo> @ <commit>
+# Open-source audit: <repo> @ <commit>
 
 **Run type**: Initial / Follow-up (after fixes) / Periodic re-audit
 **Date**: <YYYY-MM-DD>

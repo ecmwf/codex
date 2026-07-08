@@ -3,8 +3,8 @@ name: security-audit
 description: >
   Security audit of a repository, tiered by risk — run before it is made public
   and periodically afterwards. Use when asked to run a security audit or
-  review, or to complete the mandatory security step of the pre-publication
-  check. Builds a threat model, runs SAST / dependency / supply-chain tooling,
+  review, or to complete the mandatory security step of the open-source audit.
+  Builds a threat model, runs SAST / dependency / supply-chain tooling,
   manually reviews security-sensitive surfaces (deserialization, injection,
   memory safety / FFI, crypto, ML model loading), and for high-risk repositories
   adds threat-model-driven adversarial tests and bounded fuzzing. Produces a
@@ -18,8 +18,8 @@ Audit a repository for security weaknesses against a threat model and against
 open-source security best practices, **before** it is made public and
 **periodically** afterwards. This skill is the concrete implementation of the
 **mandatory security audit** referenced by the
-[`pre-publication-check`](../pre-publication-check/SKILL.md) skill (its section
-"Security audit"). The two are complementary: `pre-publication-check` covers
+[`open-source-audit`](../open-source-audit/SKILL.md) skill (its section
+"Security audit"). The two are complementary: `open-source-audit` covers
 licensing, README/maturity, secrets-in-history and basic supply-chain hygiene;
 **this** skill is the dedicated, deeper security review.
 
@@ -62,7 +62,7 @@ Checks marked **[Codex]** cite a source document in `ecmwf/codex`.
 
 ## Run modes
 
-Like the pre-publication check, this skill is designed to run more than once.
+Like the open-source audit, this skill is designed to run more than once.
 State the mode in the report.
 
 - **Initial audit** — the first security audit, before publication. Work through
@@ -202,7 +202,7 @@ scorecard --repo=github.com/<org>/<repo>   # OpenSSF repo-posture heuristics
 ```
 
 Secret scanning (`gitleaks`, `trufflehog`) is covered by the
-`pre-publication-check` skill's Secrets section; re-run it here only if this is a
+`open-source-audit` skill's Secrets section; re-run it here only if this is a
 standalone security audit, and cross-reference rather than duplicate.
 
 **Per ecosystem:**
@@ -253,7 +253,7 @@ its sink and record findings with CWE tags.
 - [ ] **Cryptography & secret handling** — broken/weak algorithms (MD5/SHA1 for
       security, DES) (CWE-327), hardcoded keys/credentials (CWE-798), disabled
       TLS/cert verification (CWE-295), insecure randomness for security tokens
-      (CWE-330). Cross-reference the pre-publication secret scan.
+      (CWE-330). Cross-reference the open-source audit's secret scan.
 - [ ] **FFI / `unsafe` boundaries** — raw pointers, `from_raw_parts`, `ctypes`,
       `cffi`, Cython, JNI: unchecked lengths, NULL/dangling pointers, missing
       UTF-8/encoding validation, lifetime/double-free across the boundary
@@ -419,11 +419,11 @@ passing it.
 
 ## Report storage
 
-Security reports follow the same rules as the pre-publication audit: they are
+Security reports follow the same rules as the open-source audit: they are
 filed in the private store **`ecmwf/repo-audits`**, **kept** for follow-up and
 periodic re-audits, and **never** stored anywhere that becomes public with the
 repository. **Redact actual secret values** and trim exploit payloads to what is
 needed to locate and fix the issue — record paths, line references and a short
 description, not live secrets. The audit is run and the report committed to
-`main` by an org/Enterprise owner. See the `pre-publication-check` skill's
+`main` by an org/Enterprise owner. See the `open-source-audit` skill's
 "Report storage" section and `ADR-009 Repository Audit Store` in the Codex.

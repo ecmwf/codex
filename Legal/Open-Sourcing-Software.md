@@ -41,7 +41,7 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
       - IPR violations. Contact Development Section to arrange for a code audit
       - Sensitive information that is internal to ECMWF (e.g. passwords, user names, hostnames, emails, etc.)
       - Ensure that the code is not using any third party software that is not compatible with the Apache Licence
-      - Run the [pre-publication-check agent skill](../Agent%20Skills/pre-publication-check/SKILL.md)
+      - Run the [open-source-audit agent skill](../Agent%20Skills/open-source-audit/SKILL.md)
         over the repository as the final technical gate before it is made public.
         This audit is triggered when a repository owner asks the GitHub
         Enterprise / organisation owner (the contact points above) to switch the

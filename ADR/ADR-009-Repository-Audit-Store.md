@@ -6,7 +6,7 @@
 
 ## Last Updated
 
-2026-07-08
+2026-07-09
 
 ## Decision
 
@@ -33,7 +33,7 @@ The store is governed by the following rules:
   added by creating a folder under `audits/`.
 - **File naming.** `audits/<org>/<repo>/<YYYY-MM-DDThhmm>-<Type>.md`, with the
   timestamp in UTC and `<Type>` one of `Open-Source-Audit` (from the
-  `pre-publication-check` skill) or `Security-Audit` (from the planned
+  `open-source-audit` skill) or `Security-Audit` (from the
   `security-audit` skill).
 - **Report format.** Each report is Markdown with a machine-readable YAML
   front-matter block (repository, **audited commit SHA**, audit type, run type,
@@ -52,7 +52,7 @@ The canonical naming and schema definition live in `SCHEMA.md` in the
 
 This ADR covers **where and how audit reports are stored**. It does not define
 the audit checks themselves — those live in the Codex Agent Skills
-(`pre-publication-check`, and the planned `security-audit`).
+(`open-source-audit` and `security-audit`).
 
 ### Out of scope (for now)
 
@@ -64,7 +64,7 @@ the audit checks themselves — those live in the Codex Agent Skills
 
 ## Context
 
-The Codex `pre-publication-check` skill (and a future `security-audit` skill)
+The Codex `open-source-audit` skill (and the `security-audit` skill)
 produce audit reports that decide whether a repository can be made public. These
 reports contain exactly the sensitive material that must never be published:
 locations of secrets found in history, internal hostnames, personal email
@@ -144,8 +144,8 @@ current volumes and is explicitly a future automation target.
 ## Related Decisions
 
 - The report store is the "designated store" referenced by the
-  `pre-publication-check` skill in
-  [`Agent Skills/pre-publication-check/SKILL.md`](../Agent%20Skills/pre-publication-check/SKILL.md).
+  `open-source-audit` skill in
+  [`Agent Skills/open-source-audit/SKILL.md`](../Agent%20Skills/open-source-audit/SKILL.md).
 - Reports implement part of the open-sourcing process in
   [`Legal/Open-Sourcing-Software.md`](../Legal/Open-Sourcing-Software.md).
 - Supports the **Secure by Design** principle in
@@ -178,8 +178,8 @@ This ADR does not modify or supersede any existing ADR.
 
 - Report store: <https://github.com/ecmwf/repo-audits> (private) and its
   `SCHEMA.md`
-- Pre-publication skill:
-  [`Agent Skills/pre-publication-check/SKILL.md`](../Agent%20Skills/pre-publication-check/SKILL.md)
+- Open-source audit skill:
+  [`Agent Skills/open-source-audit/SKILL.md`](../Agent%20Skills/open-source-audit/SKILL.md)
 - Open-sourcing process:
   [`Legal/Open-Sourcing-Software.md`](../Legal/Open-Sourcing-Software.md)
 
