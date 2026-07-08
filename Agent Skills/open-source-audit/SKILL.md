@@ -213,6 +213,12 @@ Decide which mode applies before you start, and state it in the report.
       `docs/` tree, a published documentation site, or worked usage examples
       are better and expected at higher maturity levels. A stub, empty, or
       template-placeholder README does **not** satisfy this check.
+- [ ] **Citation & DOI — advisory (should).** The repository *should* consider
+      making the software citable for external references: mint a DOI (e.g. via
+      the GitHub–Zenodo integration) and add a `CITATION.cff` file at the
+      repository root so downstream users and publications can cite it precisely.
+      This is an **advisory**, never a blocker (it is typically completed once
+      the repository is public — see "Post-publication recommendations").
 
 ## 3. Maturity badge — [Codex: Project Maturity/README.md]
 
@@ -361,11 +367,12 @@ dedicated security review is required before the repository goes public.
 These are suggestions, not pass/fail checks. Surface them to the repository
 owner, but never block publication on them.
 
-- **Create a Zenodo DOI.** ECMWF recommends that, once the repository is
-  public, the owner enables the GitHub–Zenodo integration (or mints a DOI via
-  [Zenodo](https://zenodo.org)) so the software is citable and archived. Add a
-  `CITATION.cff` file and the DOI badge to the README once the DOI is minted.
-  This is a recommendation, not a precondition for going public.
+- **Create a Zenodo DOI and add `CITATION.cff`.** ECMWF recommends that, once the
+  repository is public, the owner enables the GitHub–Zenodo integration (or mints
+  a DOI via [Zenodo](https://zenodo.org)) so the software is citable and archived,
+  and adds a `CITATION.cff` file at the repository root (plus the DOI badge in the
+  README) so external users and publications can reference it. This is a
+  recommendation, not a precondition for going public.
 
 ## Report format
 
