@@ -215,7 +215,7 @@ semgrep --config auto            # multi-language SAST (auto REQUIRES metrics on
 # metrics-free alternative:  semgrep --config p/python --config p/security-audit
 osv-scanner scan --recursive .   # dependency CVEs across many ecosystems
 trivy fs --scanners vuln,misconfig,secret .
-syft . -o spdx-json | grype             # SBOM piped into vulnerability match
+syft . -o spdx-json | grype sbom:-      # SBOM piped into vulnerability match
 scorecard --repo=github.com/<org>/<repo>   # OpenSSF repo-posture heuristics
 ```
 

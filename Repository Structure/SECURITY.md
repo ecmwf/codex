@@ -8,7 +8,8 @@ as this may put users at risk before a fix is available.
 
 Instead, report it privately using **GitHub private vulnerability reporting**:
 open this repository's **Security** tab and click **Report a vulnerability**.
-Your report is visible only to you and the repository's maintainers.
+Your report is visible only to you and to the repository's administrators and
+security managers.
 
 If private vulnerability reporting is not available on this repository, report
 it through the [ECMWF Support Portal](https://support.ecmwf.int) instead,
