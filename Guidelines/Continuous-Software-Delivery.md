@@ -22,7 +22,7 @@ All source code must be delivered to ECMWF as one or more **GitHub repositories 
 * To enable ECMWF to create the repositories, the contractor must provide all of the information required as described in the [Software Management Plan](../Software%20Management%20Plan/README.md#5-new-repositories) guidelines.
 * Each repository is initialised using the ECMWF cookiecutter template and follows the [Repository Structure](../Repository%20Structure/README.md) conventions (including a `SECURITY.md`).
 * Each repository must contain a `README` describing its contents and providing instructions for building and running the component locally.
-* All delivered code must comply with ECMWF [Copyright and Licensing](../Legal/Copyright-And-Licensing.md): an Apache-2.0 `LICENSE` at the repository root and per-file licence headers. New files should carry the machine-readable [SPDX/REUSE headers](../Legal/SPDX-and-REUSE.md) (see ADR-010), with the copyright holder set as agreed in the contract.
+* All delivered code must comply with ECMWF [Copyright and Licensing](../Legal/Copyright-And-Licensing.md): an Apache-2.0 `LICENSE` at the repository root and per-file licence headers. New files should carry the machine-readable [SPDX/REUSE headers](../Legal/SPDX-and-REUSE.md) (see [ADR-010](../ADR/ADR-010-SPDX-License-Identifiers-and-REUSE-Headers.md)), with the copyright holder set as agreed in the contract.
 
 ## 2. Deployment on ECMWF Infrastructure
 
@@ -37,7 +37,7 @@ The deployment architecture — the containerisation and orchestration approach 
 * Any configuration that differs between environments (e.g. development, staging, production) must be documented, along with every environment variable, secret, and configuration value ECMWF must supply.
 * Any value, endpoint, or credential currently hardcoded or otherwise bound to the contractor's infrastructure must be clearly identified, with guidance on what ECMWF must change.
 
-## 3. Source Code
+## 3. Repository Documentation
 
 * Each repository's README must list every repository delivered for the project (e.g. frontend, backend, infrastructure, data pipelines), matching the repository names provided under Section 1, with a one-line description of each, and link to the others.
 * For each repository, the README must state the main branch, any branching conventions in use, and the location of build-and-run instructions.
