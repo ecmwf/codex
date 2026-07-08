@@ -1,6 +1,6 @@
 # MARS Language Decision Record 008: Handling of Short Names for New `paramid`s with WMO Units
 
-[**Proposed** | ~~Accepted~~ | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
+[~~Proposed~~ | **Accepted** | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
 
 ## Last Updated
 
@@ -9,7 +9,7 @@
 ## Context
 For some parameters, ECMWF has been providing values in units which are not the official WMO units for many years. These are typically surface parameters in units of metres or metres of water equivalent or as fractional values in the range 0-1. The WMO-standardised units for these data are kg m^-2 and % respectively.
 
-As part of the GRIB2 migration, we intend to update and standardise these fields. As we uniquely associate a unit with a `paramid` in the GRIB parameters database, and to avoid sharp numerical changes impacting downstream users with existing MARS requests, the fields with local units and their counterparts with WMO units will carry separate `paramid`s.
+As part of the GRIB2 migration, we intend to update and standardise these fields. As we uniquely associate a unit with a `paramid` in the GRIB parameters database, and to avoid sharp numerical changes impacting downstream users with existing MARS requests, the fields with local units and their counterparts with SI units will carry separate `paramid`s.
 
 There are three main categories of downstream challenges and decisions that need to be made:
 
@@ -80,12 +80,12 @@ There is a fundamental problem with this approach in this case, which does not a
    (b) If an ambiguous short name is supplied, data is returned as archived. This is straightforward, but significantly reduces the value of this mechanism as it means that continuity is not provided if requests are made in terms of short names.
    (c) If an ambiguous short name is supplied, a default representation is selected. Both possible defaults are undesirable, but possible - if we default to the local units then this sharply undermines the transition to modern units, but if we default to the new units then we lose all continuity with existing pipelines.
 
-Because this automatic conversion becomes a function of the language, it becomes important to support it properly. This means that we implicitly support conversion to WMO or local units for all data in the archive, and for all forthcoming data. This is a much larger scope of work both for implementation and for maintenance than other options.
+Because this automatic conversion becomes a function of the language, it becomes important to support it properly. This means that we implicitly support conversion to SI or local units for all data in the archive, and for all forthcoming data. This is a much larger scope of work both for implementation and for maintenance than other options.
 
 #### 3. Double Archiving
-For each of the pairs of parameters with local and WMO units we can generate both forms of output data (either directly from the model, or, more likely, by post-processing the data). This allows downstream users to request the form of data which they desire.
+For each of the pairs of parameters with local and SI units we can generate both forms of output data (either directly from the model, or, more likely, by post-processing the data). This allows downstream users to request the form of data which they desire.
 
-The obvious downside of this approach is the need to produce and archive double the data. There is no obvious window for when this double archiving should cease - both in terms of user support (if we don't wish to break user requests now, will there be a date in the future where we will), and more generally that scientific comparison of data to old contexts will continue to be valuable. Further, this entirely removes the (desirable) pressure on downstream consumers to update their workflows to use WMO units.
+The obvious downside of this approach is the need to produce and archive double the data. There is no obvious window for when this double archiving should cease - both in terms of user support (if we don't wish to break user requests now, will there be a date in the future where we will), and more generally that scientific comparison of data to old contexts will continue to be valuable. Further, this entirely removes the (desirable) pressure on downstream consumers to update their workflows to use SI units.
 
 This comes with an implicit requirement to support production of old and new versions of this data indefinitely.
 
@@ -150,56 +150,73 @@ such as:
 ```
 
 ### Post-processing Specification
+
 There are multiple ways to describe how a post-processing action to convert data could be implemented:
+
 #### 1. New keyword, `units`
+
 We can specify the transformation to perform with a new post-processing keyword, `units`, which (if present) instantiates a post-processing filter.
 
-This filter can be specified to leave data untouched (value `av`, for "archived version"), or to coerce appropriate data to WMO units (value `wmo`). For non-matching data this filter takes no action.
+This filter can be specified to leave data untouched (value `av`, for "archived version"), or to coerce appropriate data to SI units (value `si`). For non-matching data this filter takes no action.
 
 Note that this requires treating all parameters in a request in the same way, which may make incremental migrations difficult. This also gives us less flexibility to support different representations of data in the future. Note that treating all fields in the same way is consistent with, for example, the `grid` or `area` keywords which could equally be applied per parameter.
 
 #### 2. Annotation of parameters
 If we wish the post-processing behaviour to be per-`paramid`, then this annotation needs to be done within the list of values supplied to a MARS key. We can introduce a new syntax for this annotation by following each value with a parenthesis-enclosed annotation.
 
-Any form of parenthesis could be chosen, but `[ ]` gives a clean looking syntax. This introduces a new language feature such that a set of comma separated values could be given. In the current implementation we would only have use for a units specifier (`av` or `wmo`).
+Any form of parenthesis could be chosen, but `[ ]` gives a clean looking syntax. This introduces a new language feature such that a set of comma separated values could be given. In the current implementation we would only have use for a units specifier (`av` or `si`).
 
 The annotation does not form part of the MARS request proper, and should be considered an annotation on the *task* which is being carried out. This will be returned as a separate annotations object from the MARS request parser in metkit, and used to determine the post-processing to be carried out.
 
 There are two advantages to this approach:
- - This allows gradual migration of existing requests, such that not all downstream systems have to move from legacy units to WMO units in one step
+ - This allows gradual migration of existing requests, such that not all downstream systems have to move from legacy units to SI units in one step
  - This syntax is general, and could be used for other annotations in the future.
 
+#### 3. Hybrid, annotated `units` keyword
+
+We introduce a new keyword, `units`. When specified this instantiates a post-processing
+action as per option (1).
+
+We adapt the annotation mechanism from option 2. Instead of annotating the parameters with
+the conversion required, we optionally annotate the unit conversion with a (list of) parameters
+which should be considered for conversion.
+
+This has the advantage that migration of requests is extremely easy (at simplest, choose
+whether to add the unit conversion keyword or not). Whilst retaining additional control
+and forward looking flexibility. It also has the benefit of not requiring alteration to
+the data specification part of the MARS request (`param`) when specifying post-processing.
 
 ## Decision
-***To Discuss: Which mechanism of implementing option 4(b) is the right one?***
-We choose option 4(b)(l)(2). Note that for the MARS C client we will likely have to implement 4(b)(e)(2) as a less full-featured alternative, as it does not have the metkit type system to fall back on.
+We choose option 4(b)(l)(3). Note that for the MARS C client we will likely have to implement 4(b)(e)(2) as a less full-featured alternative, as it does not have the metkit type system to fall back on.
  - Permit old and new `paramid`s to share short names, even if they cannot be disambiguated by context, if (and only if) this is only to permit changes of units.
 	 - Add a constraint that either the old or the new `paramid`s may be produced and archived within the same context, never *both*.
  - In MARS retrieve, list and similar requests, these ambiguous short names will be expanded to both of the contextually matching `paramid`s
 	 - In the C client, the calculated `expect` value will *not* be updated with this expansion (the 'original' value will be used), summarised in the constraint that for each other combination of MARS values *one and only one* of the matching `paramid`s is permitted.
 	 - In the C++ client, the expansion will use the new Alternatives form.
 	 - Archival will not be permitted with these ambiguous short names. This data must be archived using the `paramid` directly.
-***Choice 1***
- - Introduce a new MARS syntax for request annotation
-	 - Values may be annotated with `[ ]` syntax, with the results returned in a parallel annotation object with the MARS reqest
-	 - Introduce `av`  or `si` (***CHOICE -  vocabulary***) as annotations for a paramid which trigger post-processing to return either as archived, or converted to SI units.
-***Choice 2***
  - Introduce a new post-processing keyword `units`
-	 - ***To Discuss: `unit` or `units`***
-	 - Available values `av` (archived version) or `wmo`
+	 - Available values `av` (archived version), `si`, `percent`
+     - The values may be specified as a list, such that known conversions to SI or percentage
+       can be applied.
+     - The values may be further annotated in the form `[parameter/list]`, which will specify
+       that only the specified parameters will be converted, and all other parameters will be
+       left unchanged. The specification may be in short name or `paramid` form.
 	 - This introduces a new post-processing action
-		 - If `units` is absent, `units=av`, a message is already in `wmo` form, or there is no units mapping available for the specified parameter, then this action is a NOP.
-		 - If a message is mappable, this action re-encodes the (source) data into the post-MTG2 metadata encoding and units, and scales the numerical values appropriately.
-		 - Note that we do not provide a mapping from WMO units to local units.
+		 - If `units` is absent, `units=av`, a message is already in the specified form, or
+           there is no units mapping available for the specified parameter, then this action
+           is a NOP.
+		 - If a message is mappable, this action re-encodes the (source) data into the
+           post-MTG2 metadata encoding and units, and scales the numerical values appropriately.
+		 - Note that we do not provide a mapping from SI units back to legacy local units.
  - To facilitate this conversion, the existing conversion functionality will be migrated from MultIO to MetKit.
 
-### Sample Requests - Option 4(b)(1)
-Explicitly retrieve all matching data (old and new paramid) across implementation date, with conversion to the WMO format. `expect=any` required as only one of the two parameters will be present at each step.
+### Sample Requests
+Explicitly retrieve all matching data (old and new paramid) across implementation date, with conversion to SI units. `expect=any` required as only one of the two parameters will be present at each step.
 ```
 retrieve,
     ...
     param  = 228/228228,
-    units  = wmo,
+    units  = si,
     expect = any
 ```
 
@@ -207,38 +224,32 @@ Retrieve parameter `tp` - either as `paramid` 228 or 228228. The fields will be 
 ```
 retrieve,
     ...
-    param  = tp,  # ==> 228|228228
-    units  = av
+    param = tp,  # ==> 228|228228
 ```
 
-Retrieve parameter `tp` - either as `paramid` 228 or 228228. If the archived value is `paramid=228` this will be converted into 228228 (WMO units) on the fly. If both 228 and 228228 are present this results in an error. In the C client, although `tp` will be expanded to `228/228228`, the implied value of `expect` will be the same as if only one param were requested.
+Retrieve parameter `tp` - either as `paramid` 228 or 228228. If the archived value is `paramid=228` this will be converted into `paramid=228228` (SI units) on the fly. If both 228 and 228228 are present this results in an error. In the C client, although `tp` will be expanded to `228/228228`, the implied value of `expect` will be the same as if only one param were requested.
 ```
 retrieve,  
     ...  
-    param  = tp,  # ==> 228|228228  
-    units  = wmo
+    param = tp,  # ==> 228|228228  
+    units = si
 ```
 
-### Sample Requests - Option 4(b)(2)
-Explicitly retrieve all matching data (old and new paramid) across implementation date, with conversion to the WMO format. `expect=any` required as only one of the two parameters will be present at each step.
+Retrieval in which we convert both parameters which have SI-unit conversions, and those which can be represented as percentage values
+
 ```
 retrieve,
     ...
-    param  = 228[wmo]/228228,
+    units = si/percent
 ```
 
-Retrieve parameter `tp` - either as `paramid` 228 or 228228. The fields will be returned as archived (`av`). If both 228 and 228228 are present this results in an error. Although `tp` will be expanded to `228/228228`, the implied value of `expect` will be the same as if only one param were requested.
+Retrieval in which we only convert a specified parameter to si units
+
 ```
 retrieve,
-    ...
-    param  = tp[av],  # ==> 228|228228
-```
-
-Retrieve parameter `tp` - either as `paramid` 228 or 228228. If the archived value is `paramid=228` this will be converted into 228228 (WMO units) on the fly. If both 228 and 228228 are present this results in an error. Although `tp` will be expanded to `228/228228`, the implied value of `expect` will be the same as if only one param were requested.
-```
-retrieve,  
-    ...  
-    param  = tp[wmo], ==> 228[wmo]/228228[wmo]
+    ...
+    param = tp/z/u/v/...,
+    units = si[tp]
 ```
 
 ### Related Decisions
