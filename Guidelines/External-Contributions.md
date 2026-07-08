@@ -7,6 +7,8 @@ Two contribution pathways exist, depending on the nature of the work:
 1. **Standard Contributions** — the default method for all collaborators, using a fork and pull request workflow.  
 2. **Integration Delivery Workflow** — an optional process for contractors who require tighter integration loops or internal tagging for staged testing prior to formal ECMWF review.
 
+Contractors delivering a complete software service or product that ECMWF will own and operate must additionally follow the [Continuous Software Delivery](./Continuous-Software-Delivery.md) guidelines, which define *what* must be delivered (code, deployment recipes, data, supporting services, and credentials).
+
 ---
 
 ## 1. Standard Contributions (Default Method)

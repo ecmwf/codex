@@ -20,6 +20,7 @@ The Codex is a set of principles and guidelines for development of software and 
 - [Observability](./Guidelines/Observability.md)
 - [ECMWF Software EnginE (ESEE)](./ESEE)
 - [External Contributions](./Guidelines/External-Contributions.md)
+- [Continuous Software Delivery](./Guidelines/Continuous-Software-Delivery.md)
 - [Security Vulnerability Disclosure](./Guidelines/Security-Vulnerability-Disclosure.md)
 - [Documentation and Training](./Documentation%20and%20Training/)
 - [Contributing to External Projects](./Contributing%20Upstream/)
