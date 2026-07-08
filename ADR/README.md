@@ -22,3 +22,4 @@ Architectural Decision Records capturing key technical decisions for ECMWF softw
 | [ADR-009 Repository Audit Store](./ADR-009-Repository-Audit-Store.md) | Accepted |
 | [ADR-010 Adopt SPDX Licence Identifiers and REUSE-Compliant File Headers](./ADR-010-SPDX-License-Identifiers-and-REUSE-Headers.md) | Accepted |
 | [ADR-011 Coordinated Vulnerability Disclosure via GitHub Private Vulnerability Reporting](./ADR-011-Coordinated-Vulnerability-Disclosure-via-PVR.md) | Accepted |
+| [ADR-012 JSON and JSON-Schema Support Libraries for C++](./ADR-012-JSON-Support.md) | Accepted |
