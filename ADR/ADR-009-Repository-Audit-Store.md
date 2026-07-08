@@ -17,11 +17,16 @@ publication and when it is re-audited afterwards.
 
 The store is governed by the following rules:
 
-- **Visibility and access.** The repository is private. Read and write access is
-  limited to **GitHub Enterprise / organisation owners**, who are the people who
-  perform the audits. Repository admins do not run these audits and do not have
-  access. Reports are pushed **directly to `main`** by the owner who ran the
-  audit; `main` is protected against force-push and deletion.
+- **Visibility and access.** The repository is private. **For now, while this
+  process is still maturing**, both read and write access are limited to
+  **GitHub Enterprise / organisation owners** — the same people who perform the
+  audits. Repository admins do not run these audits and do not have access at
+  this stage. Reports are pushed **directly to `main`** by the owner who ran the
+  audit; `main` is protected against force-push and deletion. As the process
+  matures, **read access may later be granted to the admins of the repositories
+  being audited** (for example, so they can see their own repository's reports),
+  while write access remains with owners. Any such change will be reflected in a
+  revision of this ADR.
 - **Layout.** Reports are namespaced by organisation and repository:
   `audits/<org>/<repo>/`. The store covers multiple ECMWF organisations from the
   outset: `ecmwf`, `ecmwf-ifs`, and `ecmwf-training`. Further organisations are
