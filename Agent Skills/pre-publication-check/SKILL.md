@@ -1,12 +1,14 @@
 ---
 name: pre-publication-check
 description: >
-  Audit a repository before it is made public. Use when asked to check,
+  Audit a repository before it is made public, and re-audit it after fixes or
+  periodically to confirm continued compliance. Use when asked to check,
   review, or prepare a repo for open-sourcing, publication, or a switch from
   private/internal to public visibility. Checks compliance with the ECMWF
-  Codex (licensing, README, maturity badge, contribution setup) and industry
-  best practices (secret scanning, git history audit, dependency licences,
-  CI hygiene). Produces a pass/fail report; does not flip visibility itself.
+  Codex (licensing, copied/third-party code and attribution, README, maturity
+  badge, contribution setup) and industry best practices (secret scanning, git
+  history audit, dependency licences, CI hygiene), and requires a security
+  audit. Produces a pass/fail Markdown report; does not flip visibility itself.
 ---
 
 # Pre-publication check
@@ -36,17 +38,39 @@ skill is to catch problems while they are still fixable.
 
 ## How to run the audit
 
-1. Work through every section below. Do not stop at the first failure —
+1. Identify the run mode — initial, follow-up after fixes, or periodic
+   re-audit (see "Run modes" below) — and read any previous report first.
+2. Work through every section below. Do not stop at the first failure —
    collect all findings.
-2. For each item record **PASS**, **FAIL**, or **N/A** (with a one-line
+3. For each item record **PASS**, **FAIL**, or **N/A** (with a one-line
    reason).
-3. Finish with the report format described at the end. Never make the
+4. Finish with the report format described at the end. Never make the
    repository public yourself.
 
 Checks marked **[Codex]** cite the source document in `ecmwf/codex`; read the
 cited file if the requirement is ambiguous.
 
-## 1. Licensing — [Codex: Legal/Copyright-And-Licensing.md]
+## Run modes
+
+This skill is designed to be run more than once over a repository's lifetime.
+Decide which mode applies before you start, and state it in the report.
+
+- **Initial audit** — the first pre-publication run. Work through every section
+  from scratch.
+- **Follow-up audit (after fixes)** — a repository that previously failed is
+  being re-checked. First locate and read the previous report(s) for this
+  repository (ask the operator for them; they live in the designated report
+  store, never in the repo itself — see "Report storage"). Confirm that every
+  prior **FAIL** and **Unverified** item has genuinely been resolved, and watch
+  for regressions introduced by the fixes. A READY verdict still requires a full
+  pass of every section, not only the previously-failing items.
+- **Periodic re-audit** — a re-check of an already-public repository to confirm
+  it *still* complies with every directive here (licences, copied code, secrets,
+  security, documentation, etc.). Recommended cadence is at least **once every
+  12 months**, and after any major change. Compare against the most recent
+  report, flag any drift, and record the next recommended review date.
+
+## 1. Licensing and third-party code — [Codex: Legal/Copyright-And-Licensing.md]
 
 - [ ] `LICENSE` exists at the repository root and is Apache License 2.0.
 - [ ] The Apache licence text carries the copyright line (the Codex says to
@@ -85,6 +109,36 @@ cited file if the requirement is ambiguous.
       npx license-checker --summary     # Node
       cargo deny check licenses         # Rust (needs deny.toml)
       go-licenses report ./...          # Go
+
+- [ ] **Scan the complete codebase for copied or inlined third-party code**,
+      not only declared dependencies. Sweep every source and data file (and the
+      git history) for code that looks copied in from elsewhere: foreign or
+      non-Apache licence headers, `SPDX-License-Identifier` tags that are not
+      `Apache-2.0`, other parties' copyright lines, blocks stylistically
+      inconsistent with the surrounding code, and tell-tale phrases
+      (`based on`, `borrowed from`, `adapted from`, `Stack Overflow`,
+      gist/blog URLs). Useful sweeps:
+
+      grep -rniE 'SPDX-License-Identifier|copyright \(c\)|all rights reserved' --exclude-dir=.git
+      grep -rniE 'GPL|LGPL|AGPL|MPL|CC[ -]BY|creative commons|proprietary|based on|borrowed from|adapted from' --exclude-dir=.git
+
+      Where available, run a provenance/licence scanner over the whole tree:
+      `scancode-toolkit`, `reuse lint`, or GitHub `licensee`.
+- [ ] **Copied code under an Apache-incompatible licence is a FAIL.** Any code
+      copied in under GPL/LGPL/AGPL, CC-BY-SA, a non-commercial or
+      "no-derivatives" licence, or an unknown/proprietary licence must be
+      removed or cleanly re-implemented — ECMWF cannot re-license it under
+      Apache 2.0.
+- [ ] **Copied code without attribution is a FAIL, even when the licence is
+      compatible.** Permissively-licensed third-party code (MIT, BSD, ISC,
+      Apache, etc.) may be included only if its original copyright and licence
+      notice are preserved *and* it is recorded in the `NOTICE` file alongside
+      `LICENSE` (see
+      [Copyright-And-Licensing.md](../../Legal/Copyright-And-Licensing.md)).
+      Stripped attribution, or a missing/incomplete `NOTICE` for included
+      third-party code, is a FAIL. If the provenance or licence of a block
+      cannot be established, treat it as an IPR risk: FAIL, and refer to the
+      Development Section for a formal code audit.
 
 ## 2. README and documentation — [Codex: Legal/Open-Sourcing-Software.md, Repository Structure/README.md, Principles/Open-Source-Principles.md]
 
@@ -235,13 +289,47 @@ publication. Removing the file in a new commit is not sufficient.
       sane: entries match actual tags, no placeholder sections, no internal
       references.
 
+## 9. Security audit (mandatory) — [Codex: Principles/Open-Source-Principles.md — Secure by Design]
+
+Publishing exposes the code to the world, so a security audit is a
+**mandatory** part of the open-sourcing process, not an optional extra. The
+secret/credential scanning in section 4 is necessary but not sufficient — a
+broader security review is required before the repository goes public.
+
+- [ ] A security audit of the repository has been completed and its blocking
+      findings addressed. A dedicated **`security-audit` skill is planned** in
+      `Agent Skills/`; until it lands, perform (or arrange) a security review
+      covering at least: dependency vulnerabilities (e.g. `pip-audit`,
+      `npm audit`, `osv-scanner`), unsafe or dangerous code patterns, insecure
+      defaults, and the workflow/supply-chain checks in section 4.
+- [ ] Absence of a completed security audit is a **FAIL** — the repository is
+      NOT READY until it has been done and blocking findings are resolved.
+
+> When the dedicated `security-audit` skill exists, run it and reference its
+> report here; this section then becomes a hand-off/confirmation step rather
+> than an inline review.
+
+## Post-publication recommendations (optional)
+
+These are suggestions, not pass/fail checks. Surface them to the repository
+owner, but never block publication on them.
+
+- **Create a Zenodo DOI.** ECMWF recommends that, once the repository is
+  public, the owner enables the GitHub–Zenodo integration (or mints a DOI via
+  [Zenodo](https://zenodo.org)) so the software is citable and archived. Add a
+  `CITATION.cff` file and the DOI badge to the README once the DOI is minted.
+  This is a recommendation, not a precondition for going public.
+
 ## Report format
 
-End with:
+Always produce the report as Markdown, in this shape:
 
 ```markdown
 # Pre-publication audit: <repo> @ <commit>
 
+**Run type**: Initial / Follow-up (after fixes) / Periodic re-audit
+**Date**: <YYYY-MM-DD>
+**Previous report**: <reference or date, or "none">
 **Verdict**: READY / NOT READY
 
 ## Blockers (FAIL)
@@ -250,11 +338,19 @@ End with:
 ## Unverified
 - <item> — <why it could not be checked, e.g. no API access to repo settings>
 
+## Status of previous findings (follow-up / periodic runs only)
+- <previous item> — Fixed / Still open / Regressed
+
 ## Passed
-<one line per section, e.g. "Licensing: 5/5 PASS">
+<one line per section, e.g. "Licensing and third-party code: 7/7 PASS">
 
 ## Not applicable
 - <item> — <reason>
+
+## Recommendations (optional, non-blocking)
+- <e.g. Zenodo DOI not yet minted>
+
+**Recommended next review**: <YYYY-MM-DD, ~12 months out>
 ```
 
 A repository is **READY** only when there are zero FAILs. List anything you
@@ -262,7 +358,17 @@ could not verify under "Unverified" rather than silently passing it. When
 in doubt, the verdict is NOT READY — the cost of a false "ready" is a public
 leak; the cost of a false "not ready" is a short delay.
 
-**Never store the report anywhere that becomes public with the repository**
-— not as a GitHub issue, not as a committed file, not in a PR description.
-The report contains exactly the evidence (secret locations, internal
-hostnames, personal emails) that must not be published.
+## Report storage
+
+Reports must be **kept** — later follow-up and periodic re-audits read the
+previous report to confirm findings were fixed and to detect drift — but they
+must **never** be stored anywhere that becomes public with the repository: not
+as a GitHub issue, not as a committed file, not in a PR description. A report
+contains exactly the evidence (secret locations, internal hostnames, personal
+emails, provenance concerns) that must not be published.
+
+ECMWF will provide a designated, access-controlled location for storing these
+reports (to be defined). Until it exists, hand the report to the requesting
+owner / GitHub organisation owner through an internal channel and do not commit
+it. Once the store exists, save each report there and reference the previous
+one on re-runs.
