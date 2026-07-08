@@ -303,8 +303,10 @@ access, otherwise note as Unverified.
 - [ ] **`SECURITY.md` present** *(recommendation, not a blocker)* — a
       vulnerability-disclosure policy. ECMWF's route for reporting is the
       **Support Portal, <https://support.ecmwf.int>**; recommend adding a
-      `SECURITY.md` that points reporters there. Its absence is a **LOW**
-      recommendation, never a FAIL.
+      `SECURITY.md` that points reporters there. A ready-to-use, generic template
+      is in the Codex at
+      [`Repository Structure/SECURITY.md`](../../Repository%20Structure/SECURITY.md).
+      Its absence is a **LOW** recommendation, never a FAIL.
 
 ## 9. Deep dive (high-risk repositories) — threat-model-driven
 

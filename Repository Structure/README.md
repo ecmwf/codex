@@ -13,6 +13,7 @@ repository following the guidelines documented below.
     - [C/C++](#cc)
   - [License](#license)
   - [Contributors](#contributors)
+  - [Security Policy](#security-policy)
   - [Resources](#resources)
 
 ## Readme
@@ -82,6 +83,19 @@ Add a LICENSE file at the root of the project. Add following text to the README.
 
 ## Contributors
 The cookiecutter template automatically generates a contributors file. External contributors are encouraged to open their Pull Requests to be added to the list.
+
+## Security Policy
+
+Each repository must contain a `SECURITY.md` file so that anyone who finds a
+vulnerability knows how to report it privately rather than in a public issue.
+Place it at the repository root (GitHub also recognises `.github/` or `docs/`),
+where GitHub surfaces it as the repository's security policy.
+
+Copy the generic template — [`SECURITY.md`](./SECURITY.md) — verbatim into the
+new repository. It is deliberately language- and project-agnostic and routes all
+vulnerability reports to the [ECMWF Support Portal](https://support.ecmwf.int),
+so it applies unchanged to any ECMWF repository. Adjust the *Supported Versions*
+table only if the project's release policy differs.
 
 ## Resources
 
