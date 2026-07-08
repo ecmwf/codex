@@ -4,12 +4,12 @@ version = 1
 [[annotations]]
 path = ["LICENSE", "NOTICE"]
 precedence = "closest"
-SPDX-FileCopyrightText = "European Centre for Medium-Range Weather Forecasts (ECMWF)"
+SPDX-FileCopyrightText = "<YEAR> European Centre for Medium-Range Weather Forecasts (ECMWF)"
 SPDX-License-Identifier = "Apache-2.0"
 
 # Cover files that cannot carry a comment (adapt paths per repository).
 [[annotations]]
 path = ["docs/_static/**", "tests/data/**"]
 precedence = "closest"
-SPDX-FileCopyrightText = "European Centre for Medium-Range Weather Forecasts (ECMWF)"
+SPDX-FileCopyrightText = "<YEAR> European Centre for Medium-Range Weather Forecasts (ECMWF)"
 SPDX-License-Identifier = "Apache-2.0"
