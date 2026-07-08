@@ -1,0 +1,10 @@
+# Advised GitHub Actions job. Copy into a repository's .github/workflows/
+# directory (e.g. as reuse.yml). Pin the action version when adopting.
+name: REUSE Compliance
+on: [push, pull_request]
+jobs:
+  reuse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: fsfe/reuse-action@v5   # check for the latest version when adopting
