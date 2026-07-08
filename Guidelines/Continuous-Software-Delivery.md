@@ -20,7 +20,7 @@ All source code must be delivered to ECMWF as one or more **GitHub repositories 
 
 * Repositories are created by ECMWF staff via the Technical Officer, following the [Requesting a New Repository](../Legal/Requesting-New-Repository.md) procedure, and should be requested as early as possible so that development happens in the ECMWF organisation from the outset.
 * To enable ECMWF to create the repositories, the contractor must provide all of the information required as described in the [Software Management Plan](../Software%20Management%20Plan/README.md#5-new-repositories) guidelines.
-* Each repository is initialised using the ECMWF cookie-cutter template and follows the [Repository Structure](../Repository%20Structure/README.md) conventions (including a `SECURITY.md`).
+* Each repository is initialised using the ECMWF cookiecutter template and follows the [Repository Structure](../Repository%20Structure/README.md) conventions (including a `SECURITY.md`).
 * Each repository must contain a `README` describing its contents and providing instructions for building and running the component locally.
 * All delivered code must comply with ECMWF [Copyright and Licensing](../Legal/Copyright-And-Licensing.md): an Apache-2.0 `LICENSE` at the repository root and per-file licence headers. New files should carry the machine-readable [SPDX/REUSE headers](../Legal/SPDX-and-REUSE.md) (see ADR-010), with the copyright holder set as agreed in the contract.
 
