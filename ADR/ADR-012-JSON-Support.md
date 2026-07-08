@@ -1,6 +1,14 @@
 # Architectural Decision Record 012: JSON and JSON-Schema Support Libraries for C++
 
-## Decisions
+## Status
+
+<s>Proposed</s> | **Accepted** | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>
+
+## Last Updated
+
+2026-07-08
+
+## Decision
 Projects may use *nlohmann-json* and *Valijson*. These libraries are an alternative to EcKit's existing JSON support. We chose this combination for its YAML validation potential and regex engine flexibility, see [Comparison of Solutions](#comparison-of-solutions) for detail.
 
 Follow the [Usage Guidelines](#usage-guidelines) below.
@@ -38,7 +46,7 @@ Many JSON parsing libraries exist, varying widely in popularity and activity. Th
 
 #### Analysis
 
-This section analyzes each library individually, then compares viable combinations. JSON Schema feature comparison uses the [Bowtie Report](https://bowtie.report/#/), a benchmark to track how well implementations follow the JSON schema specification.
+This section analyses each library individually, then compares viable combinations. JSON Schema feature comparison uses the [Bowtie Report](https://bowtie.report/#/), a benchmark to track how well implementations follow the JSON schema specification.
 
 ##### nlohmann-json
 
@@ -105,7 +113,7 @@ Keep JSON parsing and validation code separate from your application logic. Crea
 **Code Separation**
 ```mermaid
 ---
-Title: Serialization / Deserialization
+Title: Serialisation / Deserialisation
 ---
 flowchart LR
     A[JSON]
@@ -117,7 +125,7 @@ flowchart LR
     B -->|"json::dump()"|A
 ```
 
-Let your application or library code work only on domain objects deserialized from JSON. Provide free functions to serialize and deserialize from parsed representation \(`json::object`\) into your domain types. E.g., provide `to_json`/`from_json`.
+Let your application or library code work only on domain objects deserialised from JSON. Provide free functions to serialise and deserialise from parsed representation \(`json::object`\) into your domain types. E.g., provide `to_json`/`from_json`.
 
 #### Type Mapping JSON to C++
 
@@ -126,16 +134,16 @@ Let your application or library code work only on domain objects deserialized fr
 | `object` (known keys)   | `"type": "object"` with `"properties"`                                         | `struct`                             | One member per property. Prefer structs over classes — public by default, no boilerplate.                                                                              |
 | `object` (dynamic keys) | `"type": "object"` with `"additionalProperties"` or `"patternProperties"` only | `std::unordered_map<std::string, T>` | Only when keys are genuinely unknown at compile time (e.g., locale maps, feature flags).                                                                               |
 | `array`                 | `"type": "array"`                                                              | `std::vector<T>`                     | Contiguous memory, cache-friendly. Use `std::array<T, N>` only for fixed-size tuples (`minItems == maxItems`).                                                         |
-| `array` (unique)        | `"type": "array"`, `"uniqueItems": true`                                       | `std::vector<T>`                     | Prefer vector over `std::set` — uniqueness is already enforced by the schema validator. Use `std::set<T>` only if you need fast lookup by value after deserialization. |
+| `array` (unique)        | `"type": "array"`, `"uniqueItems": true`                                       | `std::vector<T>`                     | Prefer vector over `std::set` — uniqueness is already enforced by the schema validator. Use `std::set<T>` only if you need fast lookup by value after deserialisation. |
 | `string`                | `"type": "string"`                                                             | `std::string`                        |                                                                                                                                                                        |
-| `string` (enum)         | `"type": "string"`, `"enum": [...]`                                            | `enum class`                         | Map at deserialization time. Keeps invalid values out of your logic entirely.                                                                                          |
+| `string` (enum)         | `"type": "string"`, `"enum": [...]`                                            | `enum class`                         | Map at deserialisation time. Keeps invalid values out of your logic entirely.                                                                                          |
 | `number`                | `"type": "number"`                                                             | `double`                             | IEEE 754 double. Use `float` only if memory/bandwidth constrained and precision loss is acceptable.                                                                    |
 | `integer`               | `"type": "integer"`                                                            | `int64_t`                            | Covers the full JSON integer range. Use `int32_t` or `uint32_t` only when the schema's `minimum`/`maximum` guarantee it fits.                                          |
 | `boolean`               | `"type": "boolean"`                                                            | `bool`                               |                                                                                                                                                                        |
 | `null`                  | `"type": "null"`                                                               | —                                    | Rarely used alone. See nullable below.                                                                                                                                 |
 | nullable                | `"type": ["string", "null"]` etc.                                              | `std::optional<T>`                   | For fields that can be explicitly `null` or are not required by the schema.                                                                                            |
 | union type              | `"type": ["integer", "string"]`                                                | `std::variant<int64_t, std::string>` | For fields where multiple non-null types are valid. Rare in practice.                                                                                                  |
-| optional field          | not in `"required"`                                                            | `std::optional<T>`                   | Absent fields deserialize to `std::nullopt`.                                                                                                                           |
+| optional field          | not in `"required"`                                                            | `std::optional<T>`                   | Absent fields deserialise to `std::nullopt`.                                                                                                                           |
 
 ### Example
 
