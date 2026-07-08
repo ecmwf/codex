@@ -91,8 +91,14 @@ identifies the version and setup of the model producing this dataset. This will 
  - [MARS-004 Land Data Assimilation](MARS-004-land-data-assimilation-system.md)
 
 ## Consequences
-The data will be stored in newly created MARS classes, ensuring that existing datasets remain unaffected, except for the hydrology data, which will be rearchived within the new layout.
-The forcing and configuration MARS keywords are also applicable in other contexts. For example, the fire datasets are based on ERA5 and IFS medium-range forecasts. The configuration keyword can likewise be applied to the land data assimilation system, which operates with different model versions running in parallel to support multiple target forecasting systems that rely on this data as input.
+
+The data will be stored in newly created MARS classes, ensuring that existing datasets remain unaffected,
+except for the hydrology data, which will be rearchived within the new layout.
+
+The `forcing` and `configuration` keywords are also applicable in other contexts. For example, the fire
+datasets are based on ERA5 and IFS medium-range forecasts. The `configuration` keyword can likewise be
+applied to the land data assimilation system, which operates with different model versions running in
+parallel to support multiple target forecasting systems that rely on this data as input.
 
 ## References
 
