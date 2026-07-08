@@ -42,9 +42,14 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
       - Sensitive information that is internal to ECMWF (e.g. passwords, user names, hostnames, emails, etc.)
       - Ensure that the code is not using any third party software that is not compatible with the Apache Licence
       - Run the [pre-publication-check agent skill](../Agent%20Skills/pre-publication-check/SKILL.md)
-        over the repository using a frontier model before making the repository public.
-        Use at least Opus 4.8 or GPT-5.5 with the highest available
-        thinking/reasoning setting.
+        over the repository as the final technical gate before it is made public.
+        This audit is triggered when a repository owner asks the GitHub
+        Enterprise / organisation owner (the contact points above) to switch the
+        repository to public, and is a required part of this open-sourcing process.
+        Run it with a current frontier model using the highest available
+        reasoning/thinking setting. Do not pin a specific model version here —
+        "frontier" means a top-tier model from a major provider at the time of
+        the audit.
    - NB: "licence" is the correct spelling for the noun; "license" for the verb (so "licensing")
 
 - If any external contributions are expected, ensure the contribution licence agreement plugin (CLA Assistant) to the repository.

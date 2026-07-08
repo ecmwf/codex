@@ -14,9 +14,21 @@ description: >
 Audit a repository against the [ECMWF Codex](https://github.com/ecmwf/codex)
 and general open-sourcing best practices **before** it is made public.
 
+This skill is run as part of the ECMWF open-sourcing process described in
+[`Legal/Open-Sourcing-Software.md`](../../Legal/Open-Sourcing-Software.md).
+It is the final technical gate, run when a repository owner requests the
+GitHub Enterprise / organisation owner to switch the repository from private
+to public. The audit is normally run by, or on behalf of, that owner before
+the visibility change is made.
+
 This skill assumes the human side is done: open-sourcing approval, scope,
 and maintainership have already been settled through the official ECMWF
 procedure. Your job is the technical audit of the repository contents.
+
+This file is written to be **model-agnostic** (see the portability notes in
+[`Agent Skills/README.md`](../README.md)): the instructions below are
+self-contained plain Markdown and work whether this skill is loaded by Claude,
+GPT or Gemini agents.
 
 Making a repo public is effectively irreversible: once pushed to a public
 remote, assume every byte of every commit has been copied. The point of this
@@ -43,8 +55,9 @@ cited file if the requirement is ambiguous.
 
       Copyright 1996- European Centre for Medium-Range Weather Forecasts (ECMWF)
 
-      or a European Union / EU-programme copyright statement. Either is
-      acceptable; missing entirely is a FAIL.
+      or the equivalent European Union copyright statement for EU-funded work
+      ("European Union" is the correct holder — not "European Commission").
+      Either is acceptable; missing entirely is a FAIL.
 - [ ] Every original source file (code and documentation, excluding
       generated files) carries a licence header of this shape:
 
@@ -73,7 +86,7 @@ cited file if the requirement is ambiguous.
       cargo deny check licenses         # Rust (needs deny.toml)
       go-licenses report ./...          # Go
 
-## 2. README — [Codex: Legal/Open-Sourcing-Software.md, Repository Structure/README.md]
+## 2. README and documentation — [Codex: Legal/Open-Sourcing-Software.md, Repository Structure/README.md, Principles/Open-Source-Principles.md]
 
 `README.md` must exist at the root and:
 
@@ -91,6 +104,14 @@ cited file if the requirement is ambiguous.
 - [ ] Any badges at the top of the README actually work and point at this
       repository's CI/coverage/docs (copy-pasted badges from a template repo
       are a common failure).
+- [ ] Some form of user-facing documentation is present — **missing is a
+      FAIL**. The Codex "Provide Documentation" principle treats undocumented
+      software as effectively unusable
+      [Codex: Principles/Open-Source-Principles.md]. The minimum bar is a
+      `README.md` that genuinely covers purpose, installation and usage; a
+      `docs/` tree, a published documentation site, or worked usage examples
+      are better and expected at higher maturity levels. A stub, empty, or
+      template-placeholder README does **not** satisfy this check.
 
 ## 3. Maturity badge — [Codex: Project Maturity/README.md]
 
