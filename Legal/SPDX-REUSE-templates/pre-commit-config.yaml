@@ -1,0 +1,8 @@
+# Advised REUSE pre-commit hook. Copy into a repository's .pre-commit-config.yaml
+# (or merge the `repos:` entry into an existing one). Pin `rev` to the latest
+# released tag when adopting.
+repos:
+  - repo: https://github.com/fsfe/reuse-tool
+    rev: v6.2.0   # check for the latest tag when adopting
+    hooks:
+      - id: reuse
