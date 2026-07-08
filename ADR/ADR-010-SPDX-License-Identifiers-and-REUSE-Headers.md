@@ -115,4 +115,3 @@ Risks mitigated:
 ## Authors
 
 - Tiago Quintino
-<!-- TODO: add reviewers / co-authors -->
