@@ -102,7 +102,7 @@ Decide which mode applies before you start, and state it in the report.
       comparing the hit count against the source file count. `ecbuild`
       ships `apply_license.sh` to add missing headers.
 - [ ] No references to old ECMWF licences, GPL, or LGPL remain
-      (`grep -ri "GPL\|GNU General Public" --exclude-dir=.git`, then filter
+      (`grep -riE "GPL|GNU General Public" . --exclude-dir=.git`, then filter
       false positives).
 - [ ] Third-party dependencies (and any vendored code) have licences
       compatible with Apache 2.0. Flag GPL/LGPL/AGPL dependencies as FAIL.
@@ -287,8 +287,9 @@ publication. Removing the file in a new commit is not sufficient.
 - [ ] The project builds and its tests pass from a fresh clone following
       only the README instructions — run this if feasible; it is the single
       best proxy for "publishable".
-- [ ] Version tags follow SemVer (`x.y.z`, no `v` prefix per ECMWF
-      convention) if the project has releases.
+- [ ] Version tags follow SemVer if the project has releases: ECMWF production
+      tags use the clean `x.y.z` form (no `v` prefix)
+      [Codex: Guidelines/External-Contributions.md].
 - [ ] A `CHANGELOG.md` is not required — but if one exists, check it is
       sane: entries match actual tags, no placeholder sections, no internal
       references.
@@ -325,9 +326,27 @@ owner, but never block publication on them.
 
 ## Report format
 
-Always produce the report as Markdown, in this shape:
+Always produce the report as Markdown, with the YAML front-matter required by
+the audit store (see "Report storage", the `repo-audits` `SCHEMA.md`, and
+`ADR-009`), in this shape:
 
 ```markdown
+---
+schema_version: 1
+repo: <org>/<repo>
+commit: <full 40-char SHA audited>
+audit_type: open-source
+run_type: initial            # initial | follow-up | periodic
+timestamp: <YYYY-MM-DDThh:mmZ>
+verdict: NOT_READY           # READY only when there are zero FAILs
+auditor_human: <github-username>
+auditor_model: <model + version, or "none">
+previous_report: none        # filename of previous report, or "none"
+next_review: <YYYY-MM-DD>     # audit date + 12 months
+fail_count: 0
+unverified_count: 0
+---
+
 # Open-source audit: <repo> @ <commit>
 
 **Run type**: Initial / Follow-up (after fixes) / Periodic re-audit

@@ -53,8 +53,8 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
       - File the resulting report in the private audit store
         [`ecmwf/repo-audits`](https://github.com/ecmwf/repo-audits) (access
         limited to Enterprise / organisation owners), never in the repository
-        being published. Publication proceeds only once the required audits
-        (open-source and, once available, security) are `READY`. See
+        being published. Publication proceeds only once both required audits —
+        the open-source audit and the security audit — are `READY`. See
         [ADR-009 Repository Audit Store](../ADR/ADR-009-Repository-Audit-Store.md).
    - NB: "licence" is the correct spelling for the noun; "license" for the verb (so "licensing")
 
