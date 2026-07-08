@@ -6,9 +6,15 @@ If you discover a security vulnerability in this software, please report it
 responsibly. **Do not open a public GitHub issue, pull request, or discussion**,
 as this may put users at risk before a fix is available.
 
-Instead, report it privately through the
-[ECMWF Support Portal](https://support.ecmwf.int), stating the affected
-repository and, where possible:
+Instead, report it privately using **GitHub private vulnerability reporting**:
+open this repository's **Security** tab and click **Report a vulnerability**.
+Your report is visible only to you and the repository's maintainers.
+
+If private vulnerability reporting is not available on this repository, report
+it through the [ECMWF Support Portal](https://support.ecmwf.int) instead,
+stating the affected repository.
+
+In either case, please include where possible:
 
 - a description of the vulnerability and its potential impact;
 - the steps, configuration, or input needed to reproduce it;

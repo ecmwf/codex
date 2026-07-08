@@ -94,10 +94,14 @@ also work). This matches the `security-audit` skill, which recommends a
 `SECURITY.md` but does not treat its absence as a blocker.
 
 Copy the generic template — [`SECURITY.md`](./SECURITY.md) — into the new
-repository. It is deliberately language- and project-agnostic and routes all
-vulnerability reports to the [ECMWF Support Portal](https://support.ecmwf.int),
-so it applies unchanged to any ECMWF repository. Adjust the *Supported Versions*
-table only if the project's release policy differs.
+repository. It is deliberately language- and project-agnostic: it routes
+reporters to **GitHub private vulnerability reporting** first, with the
+[ECMWF Support Portal](https://support.ecmwf.int) as the fallback, so it applies
+unchanged to any ECMWF repository. Adjust the *Supported Versions* table only if
+the project's release policy differs. What happens after a report is made is
+defined in the
+[Security Vulnerability Disclosure](../Guidelines/Security-Vulnerability-Disclosure.md)
+procedure.
 
 ## Citation
 

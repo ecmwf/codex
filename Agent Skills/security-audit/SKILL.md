@@ -174,6 +174,13 @@ unpinned *first-party* reusable workflow as "high" when the practical risk is a
 medium hardening item. Down- or up-rate each finding for the actual threat model
 and record the reasoning; the verdict follows the triaged severity.
 
+If the audited repository is **already public** and you confirm a CRITICAL or
+HIGH vulnerability, additionally recommend that the owner tracks the fix as a
+**draft security advisory** (private fork, coordinated release) per the
+[Security Vulnerability Disclosure](../../Guidelines/Security-Vulnerability-Disclosure.md)
+procedure — do not describe the vulnerability in any public issue or PR. You
+still only report and recommend; opening the advisory is the owner's action.
+
 ## 4. Methodology
 
 For each surface, work like an attacker and prove each concern:
@@ -321,12 +328,20 @@ Check settings with `gh api` where you have access, otherwise note as Unverified
       checks, no force-push, no deletion.
 - [ ] **No checked-in binaries** of unknown provenance (CWE-506 risk).
 - [ ] **`SECURITY.md` present** *(recommendation, not a blocker)* — a
-      vulnerability-disclosure policy. ECMWF's route for reporting is the
-      **Support Portal, <https://support.ecmwf.int>**; recommend adding a
-      `SECURITY.md` that points reporters there. A ready-to-use, generic template
-      is in the Codex at
+      vulnerability-disclosure policy. ECMWF's reporting route is **GitHub
+      private vulnerability reporting (PVR) first**, with the Support Portal
+      (<https://support.ecmwf.int>) as fallback, per the
+      [Security Vulnerability Disclosure](../../Guidelines/Security-Vulnerability-Disclosure.md)
+      procedure; recommend adding a `SECURITY.md` that points reporters there. A
+      ready-to-use, generic template is in the Codex at
       [`Repository Structure/SECURITY.md`](../../Repository%20Structure/SECURITY.md).
       Its absence is a **LOW** recommendation, never a FAIL.
+- [ ] **Private vulnerability reporting enabled** *(advisory, non-blocking
+      during rollout)* — public ECMWF repositories must have PVR enabled per the
+      disclosure procedure (organisation-wide default preferred). Check with
+      `gh api repos/<org>/<repo>/private-vulnerability-reporting` where you have
+      access; record as an advisory finding if disabled, and as Unverified if
+      you cannot check.
 
 ## 9. Deep dive (high-risk repositories) — threat-model-driven
 
@@ -429,7 +444,8 @@ unverified_count: 0
 ## Recommended follow-ups (non-blocking)
 - Run SAST and dependency-vulnerability scanning in CI so regressions are caught
   continuously (whatever tooling the project chooses).
-- Add SECURITY.md pointing disclosures to https://support.ecmwf.int.
+- Add SECURITY.md routing reporters to PVR first (Support Portal fallback), per
+  the Security Vulnerability Disclosure procedure; enable PVR if not inherited.
 - Wire a nightly/weekly deep-fuzz job for parser/codec entry points.
 - Report any upstream third-party vulnerability to its maintainers.
 
