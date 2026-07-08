@@ -1,6 +1,6 @@
 # ECMWF Source Licensing Standard (SPDX + REUSE)
 
-Status: recommended going forward per [ADR-010](../ADR/ADR-010-SPDX-License-Identifiers-and-REUSE-Headers.md). Applies to all ECMWF-authored source.
+Status: recommended going forward per [ADR-010](../ADR/ADR-010-SPDX-License-Identifiers-and-REUSE-Headers.md) (Proposed; becomes the organisation-wide standard on acceptance). Applies to all ECMWF-authored source.
 
 This standard is the recommended, machine-readable form of the licensing
 convention in [`Copyright-And-Licensing.md`](./Copyright-And-Licensing.md). The

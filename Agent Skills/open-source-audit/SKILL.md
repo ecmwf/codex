@@ -55,7 +55,8 @@ each FAIL:
 
 - **Blocker** — a genuine reason not to publish yet: secrets/credentials in the
   code or history, an Apache-incompatible or missing licence, copied code
-  without attribution, unresolved IPR/provenance concerns, or a **NOT_READY
+  without attribution, unresolved IPR/provenance concerns, software with **no
+  genuine documentation at all** (see section 2), or a **missing or NOT_READY
   security audit**. Blockers set the verdict to NOT_READY and are counted in
   `fail_count`.
 - **Advisory** — a real but low-impact hygiene deviation that should be fixed but
@@ -102,7 +103,11 @@ Decide which mode applies before you start, and state it in the report.
 
       or the equivalent European Union copyright statement for EU-funded work
       ("European Union" is the correct holder — not "European Commission").
-      Either is acceptable; missing entirely is a FAIL.
+      Either is acceptable; missing entirely is a FAIL. In repositories adopting
+      the SPDX/REUSE layout (ADR-010), the copyright line and the
+      intergovernmental notice live in the top-level `LICENSE` (notice at its
+      tail) and `NOTICE`, while `LICENSES/Apache-2.0.txt` must remain the
+      **unmodified** Apache text — do not flag that file for lacking them.
 - [ ] Every original source file (code and documentation) carries a licence
       header. Check **git-tracked files only** (`git ls-files`) — do not flag
       build/install artefacts such as a `setuptools_scm`-generated `_version.py`,
@@ -161,8 +166,13 @@ Decide which mode applies before you start, and state it in the report.
       (`based on`, `borrowed from`, `adapted from`, `Stack Overflow`,
       gist/blog URLs). Useful sweeps:
 
-      grep -rniE 'SPDX-License-Identifier|copyright \(c\)|all rights reserved' --exclude-dir=.git
+      grep -rniE 'SPDX-License-Identifier|copyright \(c\)|all rights reserved' --exclude-dir=.git | grep -v 'Apache-2.0'
       grep -rniE 'GPL|LGPL|AGPL|MPL|CC[ -]BY|creative commons|proprietary|based on|borrowed from|adapted from' --exclude-dir=.git
+
+      (In repositories migrated to SPDX headers per ADR-010, every ECMWF file
+      legitimately carries `SPDX-License-Identifier: Apache-2.0` and an ECMWF
+      `SPDX-FileCopyrightText` line — the filter above hides those; what you are
+      hunting is *non-Apache* tags and *other parties'* copyright lines.)
 
       Where available, run a provenance/licence scanner over the whole tree:
       `scancode-toolkit`, `reuse lint`, or GitHub `licensee`. Treat these as
@@ -206,8 +216,8 @@ Decide which mode applies before you start, and state it in the report.
       repository's CI/coverage/docs (copy-pasted badges from a template repo
       are a common failure).
 - [ ] Some form of user-facing documentation is present — **missing is a
-      FAIL**. The Codex "Provide Documentation" principle treats undocumented
-      software as effectively unusable
+      FAIL (Blocker)**. The Codex "Provide Documentation" principle treats
+      undocumented software as effectively unusable
       [Codex: Principles/Open-Source-Principles.md]. The minimum bar is a
       `README.md` that genuinely covers purpose, installation and usage; a
       `docs/` tree, a published documentation site, or worked usage examples
@@ -236,7 +246,8 @@ forecast-in-a-box) carry just the badge plus the disclaimer.
 
 - [ ] The claimed level is honest. A brand-new project should almost always
       start at Sandbox or Emerging. Flag an optimistic level as FAIL with a
-      note.
+      note (usually **Advisory**, unless the claimed level materially misleads
+      users about stability or support).
 
 ## 4. Secrets and sensitive information
 
