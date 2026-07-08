@@ -59,11 +59,12 @@ Decide which mode applies before you start, and state it in the report.
   from scratch.
 - **Follow-up audit (after fixes)** — a repository that previously failed is
   being re-checked. First locate and read the previous report(s) for this
-  repository (ask the operator for them; they live in the designated report
-  store, never in the repo itself — see "Report storage"). Confirm that every
-  prior **FAIL** and **Unverified** item has genuinely been resolved, and watch
-  for regressions introduced by the fixes. A READY verdict still requires a full
-  pass of every section, not only the previously-failing items.
+  repository in the audit store (`ecmwf/repo-audits`, under
+  `audits/<org>/<repo>/`; ask an org owner if you cannot access it), never in
+  the repo itself — see "Report storage". Confirm that every prior **FAIL** and
+  **Unverified** item has genuinely been resolved, and watch for regressions
+  introduced by the fixes. A READY verdict still requires a full pass of every
+  section, not only the previously-failing items.
 - **Periodic re-audit** — a re-check of an already-public repository to confirm
   it *still* complies with every directive here (licences, copied code, secrets,
   security, documentation, etc.). Recommended cadence is at least **once every
@@ -360,15 +361,23 @@ leak; the cost of a false "not ready" is a short delay.
 
 ## Report storage
 
-Reports must be **kept** — later follow-up and periodic re-audits read the
-previous report to confirm findings were fixed and to detect drift — but they
-must **never** be stored anywhere that becomes public with the repository: not
-as a GitHub issue, not as a committed file, not in a PR description. A report
-contains exactly the evidence (secret locations, internal hostnames, personal
-emails, provenance concerns) that must not be published.
+Reports are filed in the private store **`ecmwf/repo-audits`** (access limited
+to GitHub Enterprise / organisation owners). Reports are **kept** there so that
+later follow-up and periodic re-audits can read the previous report to confirm
+findings were fixed and to detect drift.
 
-ECMWF will provide a designated, access-controlled location for storing these
-reports (to be defined). Until it exists, hand the report to the requesting
-owner / GitHub organisation owner through an internal channel and do not commit
-it. Once the store exists, save each report there and reference the previous
-one on re-runs.
+A report must **never** be stored anywhere that becomes public with the
+repository — not as a GitHub issue, not as a committed file in the audited repo,
+not in a PR description. Even inside the private store, **redact actual secret
+values**: record locations and references (e.g. `path/to/file:42 — API token
+(••••redacted)`), never the live secret. Reports still contain other sensitive
+context (internal hostnames, personal emails, provenance concerns), which is why
+the store is private.
+
+File each report as
+`audits/<org>/<repo>/<YYYY-MM-DDThhmm>-<Type>.md` (UTC), where `<Type>` is
+`Open-Source-Audit` or `Security-Audit`, prepend the YAML front-matter (including
+the exact audited `commit` SHA), and update that repository's `index.md`. The
+audit is run and the report committed to `main` by an org/Enterprise owner. The
+authoritative naming and front-matter schema live in `SCHEMA.md` in the
+`repo-audits` repository; see also `ADR-009 Repository Audit Store` in the Codex.

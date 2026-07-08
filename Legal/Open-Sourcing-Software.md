@@ -50,6 +50,12 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
         reasoning/thinking setting. Do not pin a specific model version here —
         "frontier" means a top-tier model from a major provider at the time of
         the audit.
+      - File the resulting report in the private audit store
+        [`ecmwf/repo-audits`](https://github.com/ecmwf/repo-audits) (access
+        limited to Enterprise / organisation owners), never in the repository
+        being published. Publication proceeds only once the required audits
+        (open-source and, once available, security) are `READY`. See
+        [ADR-009 Repository Audit Store](../ADR/ADR-009-Repository-Audit-Store.md).
    - NB: "licence" is the correct spelling for the noun; "license" for the verb (so "licensing")
 
 - If any external contributions are expected, ensure the contribution licence agreement plugin (CLA Assistant) to the repository.
