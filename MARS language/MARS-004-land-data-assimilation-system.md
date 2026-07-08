@@ -53,6 +53,10 @@ suites and does not affect the design of the archive.
  3. Create a new class `ld` for `ldas`, and use the same stream as that of the target forecasting
     system (`enfo/eefo/mmsf`).
 
+ 4. Similar to option 1. In operations/research, `class=od/rd` are used respectively. Two separate
+    streams are created instead of introducing a new key to distinguish `BRT/NRT`. To archie
+    statistics of the LDAS fields, two additional statistical variants of these streams are created.
+
 ### Analysis
 
 We considered introducing a new class `ld` for ldas operational data, but this would require an
@@ -76,6 +80,9 @@ string might be more stable and less ambiguous than a “name” of the relevant
 several times in recent years (e.g. ENS>MR, EXT>SUBS>S2S) and may change again going forward.
 
 ## Decision
+
+Option 4 is the most appropriate way to archive LDAS data. It has the advantage that research and
+operations are handled in the same way.
 
 Four new mars streams will be created for the land data assimilation system. As there is at the
 moment only a distinction needed into a near-real-time and a behind-real-time configuration and
@@ -105,7 +112,8 @@ will contain entries such as:
 
 `anoffset` is included in the MARS namespace for the near-real-time case and absent in the
 behind-real-time case. The MARS key `timespan` is used and the MARS key `stattype` is also
-used in the statistical streams `ldst` and `ldsb`.
+used in the statistical streams `ldst` and `ldsb`. This allows the archiving of monthly
+and daily statistics, and using the `time` keyword also enables monthly synoptic statistics.
 
 ### Related Decisions
 
