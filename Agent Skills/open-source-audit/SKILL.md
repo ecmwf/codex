@@ -54,19 +54,29 @@ skill is to catch problems while they are still fixable.
 **Blocker vs advisory.** Not every deviation should stop publication. Classify
 each FAIL:
 
-- **Blocker** — a genuine reason not to publish yet: secrets/credentials in the
-  code or history, an Apache-incompatible or missing licence, copied code
-  without attribution, unresolved IPR/provenance concerns, software with **no
-  genuine documentation at all** (see section 2), or a **security audit that has
-  been run and is NOT_READY** (open CRITICAL/HIGH findings). Blockers set the
-  verdict to NOT_READY and are counted in `fail_count`. A security audit that has
-  simply **not been run yet is not a blocker** — remind the operator to run it
-  (see section 9).
+- **Blocker** — a genuine reason not to publish yet:
+  - secrets/credentials, or **any internal information** (internal hostnames,
+    IPs, filesystem paths, internal ticket references, or personal data such as
+    private emails or phone numbers) in the code **or git history** (see
+    sections 4 and 5);
+  - an Apache-incompatible or missing licence, or **any tracked source file
+    missing its per-file licence header** (see section 1);
+  - copied code without attribution, or unresolved IPR/provenance concerns;
+  - **committed build/install artefacts or editor/OS junk** (e.g. `*.pyc`,
+    `__pycache__/`, `*.egg-info/`, `build/`, `dist/`, `.DS_Store`) (see
+    section 6);
+  - software with **no genuine documentation at all** (see section 2);
+  - a **security audit that has been run and is NOT_READY** (open CRITICAL/HIGH).
+
+  Blockers set the verdict to NOT_READY and are counted in `fail_count`. A
+  security audit that has simply **not been run yet is not a blocker** — remind
+  the operator to run it (see section 9).
 - **Advisory** — a real but low-impact hygiene deviation that should be fixed but
-  is not a publication risk on its own (e.g. a missing licence header on a test
-  file, README licence-section wording, leftover template cruft, missing
-  `CONTRIBUTING.md`). Advisories are listed and should be fixed, but do **not**
-  block publication and are **not** counted in `fail_count`.
+  is not a publication risk on its own (e.g. README licence-section wording,
+  a maturity badge placed too low in the README, leftover template cruft, a
+  missing `CONTRIBUTING.md`, or an absent `CITATION.cff`). Advisories are listed
+  and should be fixed, but do **not** block publication and are **not** counted
+  in `fail_count`.
 
 When genuinely unsure whether something is a blocker, treat it as one — the cost
 of a false "ready" is a public leak.
@@ -112,9 +122,11 @@ Decide which mode applies before you start, and state it in the report.
       tail) and `NOTICE`, while `LICENSES/Apache-2.0.txt` must remain the
       **unmodified** Apache text — do not flag that file for lacking them.
 - [ ] Every original source file (code and documentation) carries a licence
-      header. Check **git-tracked files only** (`git ls-files`) — do not flag
-      build/install artefacts such as a `setuptools_scm`-generated `_version.py`,
-      which are not in version control. Two header forms are acceptable:
+      header — **any tracked source file without one is a FAIL (Blocker)**. Check
+      **git-tracked files only** (`git ls-files`) — do not flag build/install
+      artefacts such as a `setuptools_scm`-generated `_version.py`, which are not
+      in version control (and should not be committed at all — see section 6).
+      Two header forms are acceptable:
 
       1. The **SPDX + REUSE** form — *the ECMWF standard; required for new
          files* [Codex: Legal/SPDX-and-REUSE.md; ADR-010]:
@@ -249,6 +261,10 @@ forecast-in-a-box) carry just the badge plus the disclaimer.
       > This software is **<Level>** and subject to ECMWF's guidelines on
       > [Software Maturity](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity).
 
+- [ ] The badge and disclaimer are placed at the **top of the README** — after
+      the project title and an optional short synopsis, and **before** the main
+      body — so that a reader sees the maturity and support statement first. A
+      badge/disclaimer buried lower in the README is a finding (advisory).
 - [ ] The claimed level is honest. A brand-new project should almost always
       start at Sandbox or Emerging. Flag an optimistic level as FAIL with a
       note (usually **Advisory**, unless the claimed level materially misleads
@@ -267,7 +283,10 @@ the working tree** — deleted files and old commits are published too.
 
 - [ ] Grep history for high-risk patterns the scanners can miss —
       ECMWF-internal hostnames, internal IPs, usernames, and email addresses
-      are explicitly called out by the Codex audit:
+      are explicitly called out by the Codex audit. **Any such internal
+      information found in the code or history is a FAIL (Blocker)**, even for an
+      already-public repo (record it and flag that it should have been caught
+      before publication):
 
       git log -p --all | grep -inE 'password|passwd|secret|api[_-]?key|token|BEGIN (RSA|OPENSSH|EC) PRIVATE' | head
       git log -p --all | grep -inE '\.ecmwf\.int|10\.[0-9]+\.[0-9]+\.[0-9]+|192\.168\.' | head
@@ -295,12 +314,15 @@ publication. Removing the file in a new commit is not sufficient.
 
 ## 5. Git history and repo hygiene
 
-- [ ] Review author identities: `git shortlog -s -e --no-merges`. Flag
-      personal emails people may not want published, and obviously-internal
-      machine accounts.
+- [ ] Review author identities: `git shortlog -s -e --no-merges`. **Internal
+      information leaked through author identities is a FAIL (Blocker)** —
+      internal machine hostnames (e.g. `user@lfcb-014.ecmwf.int`, `*.bullx`
+      cluster nodes), and personal data such as private phone numbers or
+      non-work emails people may not want published.
 - [ ] Skim commit messages for internal ticket systems, internal URLs, or
       sensitive discussion: `git log --oneline --all | head -100` plus
-      targeted greps (e.g. JIRA project keys, `confluence.ecmwf.int`).
+      targeted greps (e.g. JIRA project keys, `confluence.ecmwf.int`). Internal
+      references here are a FAIL (Blocker).
 - [ ] No large binary blobs or datasets bloating the repo:
       `git rev-list --objects --all | sort -k2` combined with
       `git cat-file --batch-check` (or `git count-objects -vH` for a quick
@@ -320,9 +342,12 @@ publication. Removing the file in a new commit is not sufficient.
       only chaos, not taste.
 - [ ] No leftover template placeholders (`<project-name>`, `TODO: fill in`,
       cookiecutter variables) in README, docs, or config files.
-- [ ] No editor droppings, OS junk, or build artefacts committed
-      (`.DS_Store`, `*.pyc`, `__pycache__/`, `node_modules/`, `build/`,
-      `.vscode/` with local paths).
+- [ ] **No committed build/install artefacts, editor droppings, or OS junk —
+      any such tracked file is a FAIL (Blocker)**: `*.pyc`, `__pycache__/`,
+      `*.egg-info/`, `build/`, `dist/`, `*.so`/compiled outputs, `.DS_Store`,
+      `Thumbs.db`, `.vscode/`/`.idea/` with local paths, `.ipynb_checkpoints/`.
+      A missing `.gitignore` is usually the root cause — require one and have the
+      artefacts removed from tracking (`git rm -r --cached`).
 
 ## 7. Contributions and CI — [Codex: Guidelines/External-Contributions.md]
 
