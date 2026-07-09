@@ -8,8 +8,9 @@ description: >
   private/internal to public visibility. Checks compliance with the ECMWF
   Codex (licensing, copied/third-party code and attribution, README, maturity
   badge, contribution setup) and industry best practices (secret scanning, git
-  history audit, dependency licences, CI hygiene), and requires a security
-  audit. Produces a pass/fail Markdown report; does not flip visibility itself.
+  history audit, dependency licences, CI hygiene), and prompts the operator to
+  run a separate security audit. Produces a pass/fail Markdown report; does not
+  flip visibility itself.
 ---
 
 # Open-source audit
@@ -56,9 +57,11 @@ each FAIL:
 - **Blocker** — a genuine reason not to publish yet: secrets/credentials in the
   code or history, an Apache-incompatible or missing licence, copied code
   without attribution, unresolved IPR/provenance concerns, software with **no
-  genuine documentation at all** (see section 2), or a **missing or NOT_READY
-  security audit**. Blockers set the verdict to NOT_READY and are counted in
-  `fail_count`.
+  genuine documentation at all** (see section 2), or a **security audit that has
+  been run and is NOT_READY** (open CRITICAL/HIGH findings). Blockers set the
+  verdict to NOT_READY and are counted in `fail_count`. A security audit that has
+  simply **not been run yet is not a blocker** — remind the operator to run it
+  (see section 9).
 - **Advisory** — a real but low-impact hygiene deviation that should be fixed but
   is not a publication risk on its own (e.g. a missing licence header on a test
   file, README licence-section wording, leftover template cruft, missing
@@ -356,24 +359,29 @@ publication. Removing the file in a new commit is not sufficient.
       sane: entries match actual tags, no placeholder sections, no internal
       references.
 
-## 9. Security audit (mandatory) — [Codex: Principles/Open-Source-Principles.md — Secure by Design]
+## 9. Security audit — [Codex: Principles/Open-Source-Principles.md — Secure by Design]
 
-Publishing exposes the code to the world, so a security audit is a
-**mandatory** part of the open-sourcing process, not an optional extra. The
-secret/credential scanning in section 4 is necessary but not sufficient — a
-dedicated security review is required before the repository goes public.
+Publishing exposes the code to the world, so a dedicated security audit is an
+important part of the open-sourcing process — the secret/credential scanning in
+section 4 is necessary but not sufficient. This open-source audit does **not**
+run the security audit itself, and does **not** fail merely because one has not
+been run yet.
 
-- [ ] Run the [`security-audit` skill](../security-audit/SKILL.md) against the
-      repository and file its `Security-Audit` report in `ecmwf/repo-audits`
-      alongside this one. That skill builds a threat model, runs SAST /
-      dependency / supply-chain tooling, reviews security-sensitive surfaces
-      (deserialization, injection, memory safety / FFI, crypto, ML model
-      loading), and — for high-risk repositories — adds adversarial testing and
-      bounded fuzzing.
-- [ ] The security audit's verdict must be **READY** — that is, zero open
-      CRITICAL/HIGH findings. A missing security audit, or one with open
-      CRITICAL/HIGH findings, is a **FAIL**: the repository is NOT READY until
-      the security audit passes.
+- [ ] Check whether a current `Security-Audit` report exists for this commit in
+      `ecmwf/repo-audits`.
+      - **If one has not been run for this commit:** do **not** record a FAIL.
+        List it as an **advisory**, and **ask the human operator whether to run
+        the [`security-audit` skill](../security-audit/SKILL.md) next** — do not
+        run it yourself as part of this audit. That skill builds a threat model,
+        runs SAST / dependency / supply-chain tooling, reviews security-sensitive
+        surfaces (deserialization, injection, memory safety / FFI, crypto, ML
+        model loading), and — for high-risk repositories — adds adversarial
+        testing and bounded fuzzing. Publication should still wait for a READY
+        security audit, but confirming that is the operator's decision, not a
+        blocker recorded here.
+      - **If a security audit has been run for this commit and its verdict is
+        NOT_READY** (open CRITICAL/HIGH findings): that **is** a Blocker — the
+        repository is NOT READY until the security audit passes.
 
 ## Post-publication recommendations (optional)
 
