@@ -58,7 +58,7 @@ SPDX headers) follow [Copyright and Licensing](../Legal/Copyright-And-Licensing.
 and [SPDX and REUSE](../Legal/SPDX-and-REUSE.md); `SECURITY.md` and `CITATION.cff`
 are described below.
 
-Note the extra src directory. This prevents setuptool's find_package from adding unwanted code to the installation, without having to add exceptions for tests, examples, etc. It also forces the package to be pip install'ed before running the tests, which helps checking that the package will work as intended once installed. Simple use case: it won't import the local package if you run pytest in the folder.
+Note the extra src directory. This prevents setuptools' find_packages from adding unwanted code to the installation, without having to add exceptions for tests, examples, etc. It also forces the package to be pip install'ed before running the tests, which helps checking that the package will work as intended once installed. Simple use case: it won't import the local package if you run pytest in the folder.
 
 ### C/C++
 

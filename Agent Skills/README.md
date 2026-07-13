@@ -14,10 +14,10 @@ than act** — they never merge, fix, or publish on their own.
   contents against the Codex open-sourcing guidance and common publication
   risks, including licensing, README/maturity information, full-history secret
   scanning, dependency licence review, git-history hygiene, and CI
-  configuration.   It prompts for a separate `security-audit` (required before publication). A
-  not-yet-run security audit is advisory; a security audit that has been run and
-  whose verdict is `NOT_READY` (i.e. it has open CRITICAL/HIGH findings — see the
-  `security-audit` skill) is a blocker.
+  configuration. It prompts for a separate `security-audit` (required before
+  publication). A not-yet-run security audit is advisory; a security audit that
+  has been run and whose verdict is `NOT_READY` (i.e. it has open CRITICAL/HIGH
+  findings — see the `security-audit` skill) is a blocker.
 - [`security-audit`](./security-audit/SKILL.md) — risk-tiered security audit of
   a repository, run before publication (the security step of the open-source
   audit) and periodically afterwards. Builds a threat model,
