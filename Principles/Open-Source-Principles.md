@@ -30,7 +30,7 @@ Software developed at ECMWF is deployed in operational forecasting chains, natio
 
 *Enabling and facilitating diverse and inclusive contributions.*
 
-ECMWF's open source projects serve a global community spanning meteorological services, academic research institutions, and the private commercial sector. We welcome contributions regardless of organisational affiliation, geographic location, or background. This means maintaining clear contribution guidelines (see [External Contributions](../Guidelines/External-Contributions.md)), responding constructively and politely to issues and pull requests. Inclusive participation strengthens the software and broadens the community that sustains it.
+ECMWF's open source projects serve a global community spanning meteorological services, academic research institutions, and the private commercial sector. We welcome contributions regardless of organisational affiliation, geographic location, or background. This means maintaining clear contribution guidelines (see [External Contributions](../Guidelines/External-Contributions.md)), and responding constructively and politely to issues and pull requests. Inclusive participation strengthens the software and broadens the community that sustains it.
 
 ## 5 — Design for Reusability
 

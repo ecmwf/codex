@@ -2,7 +2,7 @@
 
 Changes to our repositories' primary branches, i.e. 'main' / 'master' /
 'develop' are to be approved through a peer review process based on Pull
-Requests (PR). Reviewer and Reviewee have specific responsibilities. This
+Requests (PRs). Reviewer and Reviewee have specific responsibilities. This
 document aims to help both roles to understand their responsibilities. Please
 also refer to our branching procedure in
 [Branching](./Branching.md) (with the decision and rationale in
