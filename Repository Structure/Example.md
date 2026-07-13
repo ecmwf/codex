@@ -3,7 +3,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/ESEE-Foundation-orange" alt="ESEE Foundation">
-  <a href="https://github.com/ecmwf/codex/blob/main/Project%20Maturity/README.md">
+  <a href="https://github.com/ecmwf/codex/blob/main/Project%20Maturity/README.md#sandbox">
     <img src="https://img.shields.io/badge/Maturity-Sandbox-yellow" alt="Maturity Sandbox">
   </a>
 
