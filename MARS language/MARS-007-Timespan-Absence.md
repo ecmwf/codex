@@ -194,7 +194,7 @@ Configuration changes required
 	* pre-MTG2 data will be archived with `timespan` absent
 	* post-MTG2 data will be archived with `timespan=none`
 	* Listing will return values as indexed (i.e. depending on pre/post-MTG2)
-	* Retrieval will work for both `timespan=none` and `timespan` absent as the language semantic is updated to treat these two values the same..
+	* Retrieval will work for both `timespan=none` and `timespan` absent as the language semantic is updated to treat these two values the same.
 * In MARS Server
 	* We select on the presence of `timespan` *in an archive request* to select the tree structure.
 	* We need to use `PSimpleNodeDefault` to select the correct branch during retrieve requests if `timespan` is not specified in the request.

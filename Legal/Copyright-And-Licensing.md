@@ -8,7 +8,7 @@ In December 2011, it was decided that ECMWF software packages, when open sourced
 
 ## Steps to apply the Apache License
 
-1. If you not familiar with the Apache license, for background information please read [Applying the Apache License](http://www.apache.org/dev/apply-license.html)
+1. If you are not familiar with the Apache License, for background information please read [Applying the Apache License](http://www.apache.org/dev/apply-license.html)
 
 2. Each maintainer of a package must include one copy of the full licence text by adding a `LICENSE` (note US spelling) file to the root of the repository. The ECMWF `LICENSE` is the **unmodified Apache License 2.0 text followed, at its tail, by ECMWF's intergovernmental notice**. Use the ready-made [Apache-Licence](./Apache-Licence) template in this repository (identical to this repository's own root `LICENSE`); do not hand-edit the Apache text itself. The copyright statement is asserted in the `NOTICE` file and in per-file headers (see below), not by editing the Apache text.
 
@@ -16,9 +16,9 @@ In December 2011, it was decided that ECMWF software packages, when open sourced
 
    The copyright **holder** is normally `European Centre for Medium-Range Weather Forecasts (ECMWF)`. For work funded under an EU programme the holder is the **European Union** (the correct term — not "European Commission"). Where code is co-developed with a partner, assert each holder (e.g. add a `Crown Copyright, Met Office` line for Met Office co-development); see [SPDX and REUSE](./SPDX-and-REUSE.md) for the per-file form.
 
-4. Each original source document (code and documentation, but excluding generated files) **must** include a short license header at the top. To facilitate this, please you may use the script provided in the [Available Tooling](#available-tooling) section below.
+4. Each original source document (code and documentation, but excluding generated files) **must** include a short licence header at the top. To facilitate this, you may use the script provided in the [Available Tooling](#available-tooling) section below.
 
-Each source file shall begin with the following license and liability disclaimer:
+Each source file shall begin with the following licence and liability disclaimer:
 
 ```
 (C) Copyright <FILE-CREATED-YEAR>- ECMWF and individual contributors.

@@ -44,7 +44,7 @@
 ---
 ## 1. Introduction:
 
-Before discussing the benefits of containerisation, it might be important to understand one of a key foundation for modern, cloud-native applications—[the 12-Factor App](https://12factor.net/).
+Before discussing the benefits of containerisation, it might be important to understand one of the key foundations for modern, cloud-native applications—[the 12-Factor App](https://12factor.net/).
 
 ### The 12-Factor App
 
@@ -66,7 +66,7 @@ Containerisation packages an application along with all its dependencies into a 
 
 ### 2.1 Declarative & Automated Setup
 
-By defining environments and configurations declaratively (e.g., Dockerfiles, Helm charts), containerisation standardises the setup process. This minimizes onboarding time and ensures reproducibility across different environments.  
+By defining environments and configurations declaratively (e.g., Dockerfiles, Helm charts), containerisation standardises the setup process. This minimises onboarding time and ensures reproducibility across different environments.  
 **No more "it works on my computer."**
 
 ### 2.2 Clean Contract with the Operating System
