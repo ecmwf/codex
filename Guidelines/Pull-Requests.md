@@ -1,11 +1,12 @@
 # Pull Requests
 
-Changes to our repositories primary branches, i.e. 'main' / 'master' /
+Changes to our repositories' primary branches, i.e. 'main' / 'master' /
 'develop' are to be approved through a peer review process based on Pull
 Requests (PR). Reviewer and Reviewee have specific responsibilities. This
 document aims to help both roles to understand their responsibilities. Please
-also refer to our branching policy in
-[ADR-001](../ADR/ADR-001-Git-Branching-Model.md)
+also refer to our branching procedure in
+[Branching](./Branching.md) (with the decision and rationale in
+[ADR-001](../ADR/ADR-001-Git-Branching-Model.md))
 
 ## Preparation
 
@@ -65,7 +66,7 @@ State disagreements openly so that they can be resolved.
 Once your reviewers approve, take some time to clean up your PR. Please do not
 merge commits such as "WIP" or "Fix Review Comment", commits like this make it
 more difficult in the future to reason about changes. Be aware that this means
-rewriting your PRs history. While history rewriting is strongly discourraged
+rewriting your PRs history. While history rewriting is strongly discouraged
 for the primary branches, it is explicitly encouraged on your development
 branch to create meaningful commits.
 

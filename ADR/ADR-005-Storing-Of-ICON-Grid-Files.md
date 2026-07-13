@@ -1,7 +1,7 @@
-# Architectural Decision Record 004: Storing of MeteoSwiss ICON Grid Definition Files
+# Architectural Decision Record 005: Storing of MeteoSwiss ICON Grid Definition Files
 
 ## Status
-[<s>Proposed</s> | **Accepted** | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
+<s>Proposed</s> | **Accepted** | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>
 
 ## Last Updated
 2026-02-18

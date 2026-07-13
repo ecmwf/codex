@@ -2,8 +2,6 @@
 
 This document describes ECMWF's approach to copyright and licensing of software packages.
 
-## Applying the Apache License
-
 ## Context
 
 In December 2011, it was decided that ECMWF software packages, when open sourced, will be in future released under the Apache License to legally clarify and simplify the distribution of our software to external users.
@@ -12,14 +10,11 @@ In December 2011, it was decided that ECMWF software packages, when open sourced
 
 1. If you not familiar with the Apache license, for background information please read [Applying the Apache License](http://www.apache.org/dev/apply-license.html)
 
-2. Each maintainer of a package must include once copy of the full license text by adding the `LICENSE` (note US spelling) file to the root of your repository. You can find the text of the Apache License [here](https://www.apache.org/licenses/LICENSE-2.0.txt). However, you need to make one change to the file (line 178) by adding the Centre and the year for the copyright statement. 
-```
-        Copyright 1996- European Centre for Medium-Range Weather Forecasts (ECMWF)
-```
+2. Each maintainer of a package must include one copy of the full licence text by adding a `LICENSE` (note US spelling) file to the root of the repository. The ECMWF `LICENSE` is the **unmodified Apache License 2.0 text followed, at its tail, by ECMWF's intergovernmental notice**. Use the ready-made [Apache-Licence](./Apache-Licence) template in this repository (identical to this repository's own root `LICENSE`); do not hand-edit the Apache text itself. The copyright statement is asserted in the `NOTICE` file and in per-file headers (see below), not by editing the Apache text.
 
-Alternatively, you can use the [Apache-Licence](Apache-Licence) file provided in this repository as a template.
+3. A `NOTICE` file **must** be included in the same directory as the `LICENSE`. It is **never empty for ECMWF packages**: it carries ECMWF's copyright and the intergovernmental notice, plus any third-party attributions. Use the [`NOTICE` template](./SPDX-REUSE-templates/NOTICE); follow the [Apache guidelines](http://www.apache.org/legal/src-headers.html#notice) for third-party entries.
 
-3. A correct `NOTICE` file **must** be included in the same directory as the `LICENSE` file and list ALL external code contributions (if any). Please follow the instructions the [Apache guidelines](http://www.apache.org/legal/src-headers.html#notice). Typically, the `NOTICE` file will be empty for ECMWF packages unless you have included third-party code.
+   The copyright **holder** is normally `European Centre for Medium-Range Weather Forecasts (ECMWF)`. For work funded under an EU programme the holder is the **European Union** (the correct term — not "European Commission"). Where code is co-developed with a partner, assert each holder (e.g. add a `Crown Copyright, Met Office` line for Met Office co-development); see [SPDX and REUSE](./SPDX-and-REUSE.md) for the per-file form.
 
 4. Each original source document (code and documentation, but excluding generated files) **must** include a short license header at the top. To facilitate this, please you may use the script provided in the [Available Tooling](#available-tooling) section below.
 
@@ -48,7 +43,9 @@ does it submit to any jurisdiction.
 ## Contributors
 
 Each repository shall maintain a `CONTRIBUTORS` file in the root of the repository
-which lists all contributors.
+which lists all contributors. (This is distinct from a `CONTRIBUTING.md`, which is
+the optional *contribution guide*; the audit skills treat a missing
+`CONTRIBUTING.md` as advisory, but the `CONTRIBUTORS` list is expected here.)
 
 Currently we do not have tooling available to generate the contributors list, but this can
 be created with a bit of manual intervention with git.
@@ -63,7 +60,13 @@ git shortlog -s -e --no-merges
 
 ### License Header
 
-In case you already have source files that are missing above text
-[ECBuild](https://github.com/ecmwf/ecbuild/) provides the
+For the **SPDX + REUSE** header (the standard for new files), apply and verify
+headers in bulk with the `reuse` tool — `reuse annotate --copyright "European
+Centre for Medium-Range Weather Forecasts (ECMWF)" --license Apache-2.0
+--merge-copyrights --recursive .` then `reuse lint` (see
+[SPDX and REUSE](./SPDX-and-REUSE.md)).
+
+For the legacy prose header, [ECBuild](https://github.com/ecmwf/ecbuild/)
+provides the
 [apply\_license.sh](https://github.com/ecmwf/ecbuild/blob/develop/tools/apply_license.sh)
-tool to add the above disclaimer to your source files automatically. 
+tool to add the disclaimer to source files that are missing it.

@@ -3,7 +3,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/ESEE-Foundation-orange" alt="ESEE Foundation">
-  <a href="https://github.com/ecmwf/codex/blob/cookiecutter/Project%20Maturity/project-maturity.md">
+  <a href="https://github.com/ecmwf/codex/blob/main/Project%20Maturity/README.md">
     <img src="https://img.shields.io/badge/Maturity-Sandbox-yellow" alt="Maturity Sandbox">
   </a>
 
@@ -35,6 +35,9 @@
 </p>
 
 # foo
+
+> [!IMPORTANT]
+> This software is **Sandbox** and subject to ECMWF's guidelines on [Software Maturity](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity).
 
 > [!TIP]
 > Write here the "mission statement" of the project.
@@ -69,4 +72,4 @@ python -m pip install foo
 
 ## License
 
-© 2025 ECMWF. All rights reserved.
+[Apache License 2.0](LICENSE) In applying this licence, ECMWF does not waive the privileges and immunities granted to it by virtue of its status as an intergovernmental organisation nor does it submit to any jurisdiction.

@@ -1,6 +1,6 @@
 # Branching Patterns
 
-This document describes the branching patterns used across ECMWF repositories. The choice of pattern for a given repository is governed by [ADR-001: Git Branching Model](../ADR/ADR-001-Git-Branching-Model.md).
+This document describes the branching patterns used across ECMWF repositories. [ADR-001: Git Branching Model](../ADR/ADR-001-Git-Branching-Model.md) records the *decision and rationale*; this document is the *normative operational procedure*. Version tags follow Semantic Versioning in the clean `x.y.z` form (no `v` prefix) — see the canonical tag and prerelease (`x.y.z-upstream.N`) conventions in [External Contributions](./External-Contributions.md).
 
 ## Contents
 
@@ -92,7 +92,7 @@ For critical production issues:
    ```
 2. Apply the fix and push.
 3. Open a PR against `main`; follow the expedited review process agreed by your team.
-4. After merge, tag a new patch release on `main` (`x.y.z+1`).
+4. After merge, tag the next patch release on `main` (e.g. `1.4.3` → `1.4.4`).
 
 ---
 
@@ -187,7 +187,7 @@ when users cannot immediately upgrade to the latest version:
 
 1. **Create a support branch** from the tag of the release to be maintained:
    ```
-   git switch -c support/1.x v1.9.0
+   git switch -c support/1.x 1.9.0
    ```
 2. **Apply fixes** — cherry-pick or develop fixes on the support branch. Only
    critical bug fixes and security patches should be included.

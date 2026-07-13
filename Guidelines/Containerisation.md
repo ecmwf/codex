@@ -1,13 +1,13 @@
-# Best Practices for Containerization
+# Best Practices for Containerisation
 
 ## Table of Contents
 
 1. [Introduction](#1-introduction)
    - [The 12-Factor App](#the-12-factor-app)
-2. [Why Containerize?](#2-why-containerize)
+2. [Why Containerise?](#2-why-containerise)
    - [Declarative & Automated Setup](#21-declarative--automated-setup)
    - [Clean Contract with the Operating System](#22-clean-contract-with-the-operating-system)
-     - [Standardized Environments](#standardized-environments)
+     - [Standardised Environments](#standardised-environments)
      - [Automation-Friendly](#automation-friendly)
    - [It is Lightweight](#23-it-is-lightweight)
      - [No Virtualization Overhead](#no-virtualization-overhead)
@@ -27,7 +27,7 @@
      - [Operational Complexity](#operational-complexity)
    - [Why Use Kubernetes Then?](#43-why-use-kubernetes-then)
      - [Easy Scaling](#easy-scaling)
-     - [Efficient Resource Utilization](#efficient-resource-utilization)
+     - [Efficient Resource Utilisation](#efficient-resource-utilisation)
      - [Reduced Dependence on System Administrators](#reduced-dependence-on-system-administrators)
      - [Multi-Application Management](#multi-application-management)
 5. [Tools](#5-tools)
@@ -44,7 +44,7 @@
 ---
 ## 1. Introduction:
 
-Before discussing the benefits of containerization, it might be important to understand one of a key foundation for modern, cloud-native applications—[the 12-Factor App](https://12factor.net/).
+Before discussing the benefits of containerisation, it might be important to understand one of a key foundation for modern, cloud-native applications—[the 12-Factor App](https://12factor.net/).
 
 ### The 12-Factor App
 
@@ -60,18 +60,18 @@ Adhering to these principles bridges the gap between development and production 
 
 ---
 
-## 2. Why Containerize?
+## 2. Why Containerise?
 
-Containerization packages an application along with all its dependencies into a lightweight, self-contained unit. This approach brings several advantages that complement the 12-Factor principles.
+Containerisation packages an application along with all its dependencies into a lightweight, self-contained unit. This approach brings several advantages that complement the 12-Factor principles.
 
 ### 2.1 Declarative & Automated Setup
 
-By defining environments and configurations declaratively (e.g., Dockerfiles, Helm charts), containerization standardizes the setup process. This minimizes onboarding time and ensures reproducibility across different environments.  
+By defining environments and configurations declaratively (e.g., Dockerfiles, Helm charts), containerisation standardises the setup process. This minimizes onboarding time and ensures reproducibility across different environments.  
 **No more "it works on my computer."**
 
 ### 2.2 Clean Contract with the Operating System
 
-#### Standardized Environments
+#### Standardised Environments
 Containers encapsulate applications and their dependencies while relying on a shared host kernel. This ensures portability across diverse execution environments without infrastructure-specific configurations.
 
 #### Automation-Friendly
@@ -95,13 +95,13 @@ Containers are designed to be ephemeral; each instance starts fresh with no resi
 #### Effortless Horizontal Scaling
 Containers are stateless and lightweight, making them ideal for scaling workloads. Orchestration tools such as **Kubernetes** facilitate automatic replication of containers to handle fluctuating traffic.
 
-Instead of upgrading a single large server (vertical scaling), containerized applications scale by increasing the number of running instances (horizontal scaling). This ensures:
+Instead of upgrading a single large server (vertical scaling), containerised applications scale by increasing the number of running instances (horizontal scaling). This ensures:
 - No single point of failure—if one container crashes, others continue processing requests.
 - On-demand scaling—applications dynamically scale up or down based on real-time load.
-- Efficient resource utilization—only necessary instances run at any given time.
+- Efficient resource utilisation—only necessary instances run at any given time.
 
 #### Orchestration: The Magic Behind Scaling
-Scaling manually is inefficient. Modern orchestration platforms automate scaling based on traffic, resource utilization, and predefined policies.
+Scaling manually is inefficient. Modern orchestration platforms automate scaling based on traffic, resource utilisation, and predefined policies.
 
 **Key benefits include:**
 - **Auto-scaling:** Adjusts the number of running containers dynamically.
@@ -134,7 +134,7 @@ Virtual machines operate like separate apartments with individual utilities, whi
 
 ## 4. Why Kubernetes?
 
-Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications. It abstracts away the complexity of infrastructure management, enabling teams to focus on building and running applications efficiently.
+Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerised applications. It abstracts away the complexity of infrastructure management, enabling teams to focus on building and running applications efficiently.
 
 ### 4.1 What Is Kubernetes?
 At its core, Kubernetes provides a framework to run distributed systems resiliently. It handles tasks such as scaling, failover, deployment rollouts, and service discovery, ensuring applications remain highly available and performant. Kubernetes operates on a cluster of machines (nodes), managing containers grouped into pods—the smallest deployable units in Kubernetes. Key features include:
@@ -145,7 +145,7 @@ At its core, Kubernetes provides a framework to run distributed systems resilien
 * **Multi-cloud Support:** Kubernetes provides a consistent deployment experience across on-premises data centers and public clouds.
 
 ### 4.2 What’s the Cost?
-While Kubernetes offers tremendous benefits, it comes with some upfront costs that organization must consider:
+While Kubernetes offers tremendous benefits, it comes with some upfront costs that organisation must consider:
 
 #### Learning Cost
 Kubernetes introduces a steep learning curve due to its extensive ecosystem and concepts such as pods, services, deployments, ingress controllers, and networking policies. Teams must invest time in mastering these components as well as tools like Helm (for package management) and kubectl (for cluster interaction).
@@ -154,16 +154,16 @@ Kubernetes introduces a steep learning curve due to its extensive ecosystem and 
 Setting up a project in Kubernetes involves creating configuration files (manifests) or Helm charts to define application deployments, services, secrets, and other resources. While this adds initial complexity, these configurations are reusable and modular. Once established, they significantly streamline future deployments and updates.
 
 #### Operational Complexity
-Managing a Kubernetes cluster requires additional expertise in areas such as monitoring (e.g., Prometheus), logging (e.g., Fluentd, OpenTelemetry), security policies, and resource optimization.
+Managing a Kubernetes cluster requires additional expertise in areas such as monitoring (e.g., Prometheus), logging (e.g., Fluentd, OpenTelemetry), security policies, and resource optimisation.
 
 ### 4.3 Why Use Kubernetes Then?
 Despite the costs, the advantages of Kubernetes far outweigh its challenges:
 
 #### Easy Scaling
-Kubernetes makes horizontal scaling effortless by allowing you to add or remove container instances dynamically based on traffic or resource utilization. With auto-scaling features like the Horizontal Pod Autoscaler (HPA), applications can handle sudden spikes in demand without manual intervention.
+Kubernetes makes horizontal scaling effortless by allowing you to add or remove container instances dynamically based on traffic or resource utilisation. With auto-scaling features like the Horizontal Pod Autoscaler (HPA), applications can handle sudden spikes in demand without manual intervention.
 
-#### Efficient Resource Utilization
-Kubernetes optimizes resource allocation by scheduling workloads intelligently across nodes based on CPU and memory requirements. This ensures that hardware is used efficiently while avoiding over-provisioning or underutilization.
+#### Efficient Resource Utilisation
+Kubernetes optimises resource allocation by scheduling workloads intelligently across nodes based on CPU and memory requirements. This ensures that hardware is used efficiently while avoiding over-provisioning or underutilisation.
 
 #### Reduced Dependence on System Administrators
 By automating routine tasks such as rollouts, rollbacks, health checks, and failover mechanisms, Kubernetes reduces reliance on system administrators for day-to-day operations. Developers can deploy applications independently using declarative configurations without needing deep infrastructure knowledge.
@@ -177,7 +177,7 @@ Ultimately, Kubernetes excels in environments where scalability, portability, an
 
 ## 5. Tools
 
-The container ecosystem is rich with tools designed to simplify development, deployment, debugging, and monitoring. While many options exist, this is a **curated list** of tools that stand out for their practicality and reliability in containerized workflows.
+The container ecosystem is rich with tools designed to simplify development, deployment, debugging, and monitoring. While many options exist, this is a **curated list** of tools that stand out for their practicality and reliability in containerised workflows.
 
 ### 5.1 Skaffold
 
@@ -225,13 +225,13 @@ By using Telepresence, teams can debug services in real-time without disrupting 
 - **Flexible Filtering**: Supports regex-based filtering to display only relevant log messages.
 - **Compatibility**: Works seamlessly with Kubernetes and can be integrated into debugging workflows.
 
-Stern provides a **real-time** view of application behavior, making it indispensable for troubleshooting and monitoring large-scale deployments.
+Stern provides a **real-time** view of application behaviour, making it indispensable for troubleshooting and monitoring large-scale deployments.
 
 ---
 
 ## 6. Repository Structure
 
-A well-organized repository structure ensures that your containerized application can be built, tested, and deployed consistently across various environments. An increasingly popular best practice is **splitting your Helm charts into a separate public repository** and placing environment-specific configurations (including overrides and sensitive data) in a **private configuration repository**. This approach leverages hierarchical Helm configurations, allowing you to manage multiple deployments from a single source of truth while keeping sensitive details out of public view.
+A well-organised repository structure ensures that your containerised application can be built, tested, and deployed consistently across various environments. An increasingly popular best practice is **splitting your Helm charts into a separate public repository** and placing environment-specific configurations (including overrides and sensitive data) in a **private configuration repository**. This approach leverages hierarchical Helm configurations, allowing you to manage multiple deployments from a single source of truth while keeping sensitive details out of public view.
 
 ### 6.1 Public Helm Chart Repository
 

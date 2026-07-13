@@ -34,7 +34,13 @@ my-repo/
 ├── bin/
 ├── docs/ 
 ├── examples/             # optional
-├── LICENSE
+├── LICENSE               # Apache 2.0 + ECMWF intergovernmental notice
+├── LICENSES/             # REUSE: unmodified licence texts (Apache-2.0.txt)
+├── NOTICE                # ECMWF copyright + intergovernmental notice
+├── REUSE.toml            # REUSE annotations for non-commentable files
+├── SECURITY.md           # recommended: vulnerability-disclosure policy
+├── CITATION.cff          # recommended: citation metadata
+├── CONTRIBUTORS          # list of contributors
 ├── pyproject.toml
 ├── README.md            # deviation from the guide
 ├── setup.py              # VERY shallow, just calls setup() or something
@@ -47,6 +53,11 @@ my-repo/
 └── tox.ini 
 ```
 
+The licensing artefacts (`LICENSE`, `LICENSES/`, `NOTICE`, `REUSE.toml`, per-file
+SPDX headers) follow [Copyright and Licensing](../Legal/Copyright-And-Licensing.md)
+and [SPDX and REUSE](../Legal/SPDX-and-REUSE.md); `SECURITY.md` and `CITATION.cff`
+are described below.
+
 Note the extra src directory. This prevents setuptool's find_package from adding unwanted code to the installation, without having to add exceptions for tests, examples, etc. It also forces the package to be pip install'ed before running the tests, which helps checking that the package will work as intended once installed. Simple use case: it won't import the local package if you run pytest in the folder.
 
 ### C/C++
@@ -54,7 +65,13 @@ Note the extra src directory. This prevents setuptool's find_package from adding
 ```
 <project-name>
 ├── CMakeLists.txt
-├── LICENSE
+├── LICENSE               # Apache 2.0 + ECMWF intergovernmental notice
+├── LICENSES/             # REUSE: unmodified licence texts
+├── NOTICE                # ECMWF copyright + intergovernmental notice
+├── REUSE.toml            # REUSE annotations for non-commentable files
+├── SECURITY.md           # recommended
+├── CITATION.cff          # recommended
+├── CONTRIBUTORS
 ├── README.md
 ├── VERSION
 ├── cmake

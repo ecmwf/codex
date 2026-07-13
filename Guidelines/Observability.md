@@ -75,7 +75,7 @@ The keywords `MUST`, `SHOULD`, and `MAY` are used as requirement levels:
 
 - `MUST`: mandatory requirement for compliance.
 - `SHOULD`: recommended default; deviations require justification.
-- `MAY`: optional behavior.
+- `MAY`: optional behaviour.
 
 ## 3. Platform Context
 
@@ -182,7 +182,7 @@ Ownership model:
 
 ### 3.4 Telemetry Outage and Recovery
 
-Observability design MUST include degraded-mode behavior for periods when
+Observability design MUST include degraded-mode behaviour for periods when
 central telemetry ingestion is unavailable.
 
 Minimum requirements:
@@ -206,7 +206,7 @@ Ownership model:
 | Ensure service emits local telemetry in degraded mode | MUST | SHOULD provide guidance | SHOULD validate in production |
 | Provide buffering/retry/backfill capability in pipeline | N/A | SHOULD | MUST validate operational readiness |
 | Detect and report ingestion coverage gaps | SHOULD emit health signals | MUST provide platform-level detection | MUST monitor and escalate |
-| Maintain outage and recovery runbook | SHOULD contribute service behavior | SHOULD contribute platform behavior | MUST own incident operation |
+| Maintain outage and recovery runbook | SHOULD contribute service behaviour | SHOULD contribute platform behaviour | MUST own incident operation |
 
 ## 4. Logging Standard
 
@@ -580,8 +580,8 @@ Target-state requirement:
 Metrics MUST be exposed in Prometheus/OpenMetrics-compatible format.
 ECMWF services MUST use Prometheus metric types and naming conventions, and
 MUST expose metrics in a Prometheus/OpenMetrics-compatible text format.
-Metrics defined in this section are the source for alerting rules defined in
-the Alerting section.
+Metrics defined in this section are the source for alerting rules. A dedicated
+alerting specification is deferred to a later revision of this document.
 
 ### 5.1 Scope and Standard
 
@@ -660,7 +660,7 @@ series, increasing storage/query cost and weakening dashboard/alert signal.
   - `user_id`
   - Raw URLs with path parameters
   - UUIDs or timestamps
-- Label values SHOULD be normalized:
+- Label values SHOULD be normalised:
   - Prefer route templates (for example `/api/v1/items/{id}`) over raw paths.
   - Prefer status classes (`2xx`, `4xx`, `5xx`) when detail is not required.
 
@@ -725,7 +725,7 @@ Before release, teams SHOULD verify:
 
 - Metric names, units, and suffixes are compliant.
 - Required baseline metrics are present.
-- Label keys and values are bounded and normalized.
+- Label keys and values are bounded and normalised.
 - No high-cardinality identifiers are emitted as labels.
 - Histogram buckets are defined and justified.
 

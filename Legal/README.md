@@ -9,4 +9,4 @@ Legal guidance for ECMWF software projects covering licensing, copyright, and re
 - [Open Sourcing Software](./Open-Sourcing-Software.md) — checklist and guidelines for open sourcing ECMWF software
 - [Contributor Licence Agreement](./Contributor-License-Agreement.md) — CLA for contributions to ECMWF software
 - [Requesting a New Repository](./Requesting-New-Repository.md) — process for requesting or renaming GitHub repositories
-- [Apache Licence](./Apache-Licence) — full text of the Apache License 2.0
+- [Apache Licence](./Apache-Licence) — the ECMWF top-level `LICENSE` template: the Apache License 2.0 text with ECMWF's intergovernmental notice appended at the tail
