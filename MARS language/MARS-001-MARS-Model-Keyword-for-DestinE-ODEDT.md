@@ -1,6 +1,6 @@
 # MARS Language Decision Record 001: MARS Model Keyword for DestinE ODEDT (DE330)
 
-~~Proposed~~ | **Accepted** | ~~Deprecated~~ | ~~Superseded~~
+[~~Proposed~~ | **Accepted** | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
 
 > Originally raised as [ADR-006](../ADR/ADR-006-MARS-Model-Keyword-for-DestinE-ODEDT.md), which was withdrawn and moved here; this record is the authoritative decision.
 
