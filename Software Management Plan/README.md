@@ -9,7 +9,7 @@ and should be provided in the planning stages of the project.
 For internal contributors, an SMP is required to progress a project from the *Sandbox*
 to the *Emerging* [Project Maturity](../Project%20Maturity/) level.
 
-Please use the [template SMP](./SMP-template.docx) to create your SMP, it contains much of the description
+Please use the [template SMP](./SMP-template.docx) to create your SMP; it contains much of the description
 provided below.
 
 ## 1. Project Overview
