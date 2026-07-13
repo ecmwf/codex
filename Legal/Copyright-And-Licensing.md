@@ -61,10 +61,12 @@ git shortlog -s -e --no-merges
 ### License Header
 
 For the **SPDX + REUSE** header (the standard for new files), apply and verify
-headers in bulk with the `reuse` tool — `reuse annotate --copyright "European
-Centre for Medium-Range Weather Forecasts (ECMWF)" --license Apache-2.0
---merge-copyrights --recursive .` then `reuse lint` (see
-[SPDX and REUSE](./SPDX-and-REUSE.md)).
+headers in bulk with the `reuse` tool (see [SPDX and REUSE](./SPDX-and-REUSE.md)):
+
+```
+reuse annotate --copyright "European Centre for Medium-Range Weather Forecasts (ECMWF)" --license Apache-2.0 --merge-copyrights --recursive .
+reuse lint
+```
 
 For the legacy prose header, [ECBuild](https://github.com/ecmwf/ecbuild/)
 provides the
