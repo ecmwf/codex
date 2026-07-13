@@ -3,11 +3,11 @@
 This document captures known gaps, incomplete sections, and issues identified across the Codex repository.
 Contributions addressing any of these items are welcome via pull request.
 
-A consistency pass (see the `docs/consistency-pass` work) fixed the cross-document
-inconsistencies, broken links, licensing contradictions, ADR status/formatting
-drift, and spelling/house-style issues. The items below are the remaining
-**content gaps** — sections that are advertised but not yet written. Their index
-entries now flag them as work-in-progress.
+A consistency pass has fixed the cross-document inconsistencies, broken links,
+licensing contradictions, ADR status/formatting drift, and spelling/house-style
+issues. The items below are the remaining **content gaps** — sections that are
+advertised but not yet written. Their index entries now flag them as
+work-in-progress.
 
 ---
 

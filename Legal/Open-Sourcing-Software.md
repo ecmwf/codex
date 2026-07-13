@@ -60,6 +60,6 @@ When open sourcing an ECMWF software, either as an ECMWF member or as a sub-cont
    - NB: "licence" is the correct spelling for the noun; "license" for the verb (so "licensing")
 
 - If any external contributions are expected, add the Contributor Licence Agreement plugin (CLA Assistant) to the repository (see the [Contributor Licence Agreement](./Contributor-License-Agreement.md)).
-   - Contact GitHub admin for this — typically done by ensuring your PRs use a template that presents the CLA
+   - Contact a GitHub admin for this — typically done by ensuring your PRs use a template that presents the CLA
    - Ideally some automatic CI tests should be set up, that any pull request can be checked. Contact Development section to arrange for integration into ECMWF CI/CD system.
    - Make sure to stress that any contribution should come with documentation and tests!
