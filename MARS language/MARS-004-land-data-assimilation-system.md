@@ -68,10 +68,10 @@ data if required in the future. It avoids relying on specific `expver` ranges re
 research experiments, and facilitates a clean introduction of the required MARS keywords under
 the new streams.
 
-The same challenges of distinguishing between different model configurations exists in this case
+The same challenges of distinguishing between different model configurations exist in this case
 as for that of hydrological data (see MARS-005), and it makes sense to introduce and use the same
 keyword and language structure, `configuration`, for this purpose. The structure of the
-configuration keyword should be similarly dash-delineated. Using the `configuration` keyword in
+configuration keyword should be similarly dash-delimited. Using the `configuration` keyword in
 the same way will enhance the consistency of MARS.
 
 It was considered that using the names of the streams (`enfo/eefo/mmsf`) in the `configuration`
