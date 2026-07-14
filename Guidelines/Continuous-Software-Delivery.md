@@ -24,7 +24,15 @@ All source code must be delivered to ECMWF as one or more **GitHub repositories 
 * Each repository must contain a `README` describing its contents and providing instructions for building and running the component locally.
 * All delivered code must comply with ECMWF [Copyright and Licensing](../Legal/Copyright-And-Licensing.md): an Apache-2.0 `LICENSE` at the repository root and per-file licence headers. New files should carry the machine-readable [SPDX/REUSE headers](../Legal/SPDX-and-REUSE.md) (see [ADR-010](../ADR/ADR-010-SPDX-License-Identifiers-and-REUSE-Headers.md)), with the copyright holder set as agreed in the contract.
 
-## 2. Deployment on ECMWF Infrastructure
+## 2. Testing and Continuous Integration
+
+Every delivered repository must carry its own tests and documentation about the continuous integration (CI) configuration that runs them, so that ECMWF can verify the software without any dependency on the contractor.
+
+* Each repository should include an automated test suite for its components (see also the [Testing](./Testing.md) guidelines), and its README must explain how to run the tests locally.
+* CI must be delivered as configuration committed to the ECMWF repository (e.g. GitHub Actions workflows) and must run there — not only in the contractor's own infrastructure — so that ECMWF can run, inspect, and maintain it after handover.
+* At any point during the project, **the software must build and its tests must pass from a fresh clone, following only the README**.
+
+## 3. Deployment on ECMWF Infrastructure
 
 ECMWF must be able to deploy and operate every delivered component on its **own infrastructure**, independently of any environment maintained by the contractor. ECMWF will not assume responsibility for, or continue to use, contractor-hosted infrastructure.
 
@@ -37,33 +45,33 @@ The deployment architecture — the containerisation and orchestration approach 
 * Any configuration that differs between environments (e.g. development, staging, production) must be documented, along with every environment variable, secret, and configuration value ECMWF must supply.
 * Any value, endpoint, or credential currently hardcoded or otherwise bound to the contractor's infrastructure must be clearly identified, with guidance on what ECMWF must change.
 
-## 3. Repository Documentation
+## 4. Repository Documentation
 
 * Each repository's README must list every repository delivered for the project (e.g. frontend, backend, infrastructure, data pipelines), matching the repository names provided under Section 1, with a one-line description of each, and link to the others.
 * For each repository, the README must state the main branch, any branching conventions in use, and the location of build-and-run instructions.
 
-## 4. Data
+## 5. Data
 
 * The README must describe how the data behind the application was generated or sourced, including original sources and any scripts or pipelines used to produce it.
 * It must explain how ECMWF would regenerate or refresh the data itself, identifying the repository in which the relevant scripts reside and any manual steps involved.
 
-## 5. Supporting Services
+## 6. Supporting Services
 
 * The README must list every external service required to run the application, including but not limited to databases, object storage (e.g. S3 buckets), caches, queues, authentication providers, and monitoring.
 * For each service, the README must state its purpose, its configuration, and what ECMWF must provision on its own infrastructure to replace any instance currently running in the contractor's environment. For databases, this includes type, version, schema, and connection details.
 
-## 6. Licences and Third-Party Services
+## 7. Licences and Third-Party Services
 
 * The README must list every commercial licence, paid API, or subscription required to run the application — for example, a Mapbox licence for mapping.
 * For each, it must state its purpose, where the corresponding API keys or credentials are configured, and what ECMWF must establish under its own accounts. Anything currently bound to the contractor's accounts must be flagged.
 
-## 7. Access, Credentials, and Configuration
+## 8. Access, Credentials, and Configuration
 
 * **Secret values must never be committed** to the repository or its git history — document only the *names*, *locations*, and *regeneration procedures*. Repository history is scanned for leaked secrets (e.g. with `gitleaks`) before any publication, and a leaked credential must be rotated at source, not merely deleted in a later commit.
 * The README must summarise all secrets, keys, and configuration values required to run the application, and state where each should reside (e.g. Kubernetes secrets, environment variables).
 * For every secret, key, or credential that can or must be re-generated (e.g. API keys, signing keys, tokens, database passwords, TLS certificates), the README must document **how ECMWF regenerates it** — the service or tool used, the exact steps to follow, and where the new value must then be configured for the application to keep working.
 * Any credential bound to the contractor's personal or organisational accounts must be flagged as requiring replacement rather than transfer, with instructions for generating an equivalent value under ECMWF's own accounts.
 
-## 8. Publication and Open-Sourcing
+## 9. Publication and Open-Sourcing
 
-Delivered repositories typically start **private** within the ECMWF organisation. If and when a repository is to be made public, ECMWF does so following [Open Sourcing Software at ECMWF](../Legal/Open-Sourcing-Software.md), which includes the open-source and security audit gates. Because any repository may later be audited for publication, contractors should keep history free of secrets and internal references from the outset (see Section 7).
+Delivered repositories typically start **private** within the ECMWF organisation. If and when a repository is to be made public, ECMWF does so following [Open Sourcing Software at ECMWF](../Legal/Open-Sourcing-Software.md), which includes the open-source and security audit gates. Because any repository may later be audited for publication, contractors should keep history free of secrets and internal references from the outset (see Section 8).
