@@ -58,7 +58,7 @@ Beyond deploying the software (Section 3), ECMWF must be able to **operate** it 
 * **Logs** — where each component writes its logs and how to access them. Logging and metrics must follow the [Observability](./Observability.md) guidelines.
 * **Health checks** — how to determine that each component is healthy: the endpoints or probes to use, and the responses to expect.
 * **Monitoring and alerting** — any dashboards or alerting rules the contractor uses to operate the service must be delivered as configuration that ECMWF can deploy, not only described in prose.
-* **Usage analytics** — **Matomo** is ECMWF's standard tool for monitoring how users interact with web applications (page views, events, and similar). Web applications must integrate Matomo for this purpose, and the documentation must state what is tracked and where the tracking configuration is set. The Matomo endpoint should point at ECMWF's Matomo instance, which can be organised by a Technical Officer.
+* **Usage analytics** — monitoring must use ECMWF's standard tools for tracking how users interact with web applications (page views, events, and similar). Web applications must integrate ECMWF's approach for this purpose, and the documentation must state what is tracked and where the tracking configuration is set. The monitoring endpoint should point at an ECMWF monitoring instance, which can be organised by a Technical Officer.
 * **Backup and restore** — for every stateful service (databases especially): how backups are taken, where they are stored and on what schedule, and the step-by-step procedure for restoring from a backup.
 
 ## 6. Repository Documentation
