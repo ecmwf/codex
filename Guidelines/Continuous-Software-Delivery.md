@@ -48,36 +48,46 @@ The deployment architecture — the containerisation and orchestration approach 
 ## 4. Releases and Image Provenance
 
 * Deliveries must be marked by **tagged releases** using [Semantic Versioning](https://semver.org) (`x.y.z`), following the tagging rules in [External Contributions](./External-Contributions.md) and the release process in the [Branching](./Branching.md) guidelines, so that deployments and rollbacks reference identifiable versions rather than moving branches. Only clean `x.y.z` tags on `main` represent production software; `x.y.z-upstream.N` prerelease tags are non-production and must not be deployed beyond test environments.
-* The README or deployment documentation must state **where container images are published** — the registry, the image names, and how image tags correspond to release tags. Images must be published somewhere ECMWF can pull from and, on handover, operate under its own accounts: an image that exists only in the contractor's registry is bound to the contractor's accounts in the same way as the licences and credentials covered in Sections 8 and 9, and must be flagged accordingly.
+* The README or deployment documentation must state **where container images are published** — the registry, the image names, and how image tags correspond to release tags. Images must be published somewhere ECMWF can pull from and, on handover, operate under its own accounts: an image that exists only in the contractor's registry is bound to the contractor's accounts in the same way as the licences and credentials covered in Sections 9 and 10, and must be flagged accordingly.
 * ECMWF must be able to **rebuild every image from source** at any release tag, using the Dockerfiles and instructions delivered under Section 3, so that no deployed image is irreproducible.
 
-## 5. Repository Documentation
+## 5. Operations
+
+Beyond deploying the software (Section 3), ECMWF must be able to **operate** it day-to-day. The README, or operations documentation linked from it, must cover (where relevant):
+
+* **Logs** — where each component writes its logs and how to access them. Logging and metrics must follow the [Observability](./Observability.md) guidelines.
+* **Health checks** — how to determine that each component is healthy: the endpoints or probes to use, and the responses to expect.
+* **Monitoring and alerting** — any dashboards or alerting rules the contractor uses to operate the service must be delivered as configuration that ECMWF can deploy, not only described in prose.
+* **Usage analytics** — **Matomo** is ECMWF's standard tool for monitoring how users interact with web applications (page views, events, and similar). Web applications must integrate Matomo for this purpose, and the documentation must state what is tracked and where the tracking configuration. The Matomo endpoint should point at ECMWF's Matomo instance, which can be organised by a Technical Officer.
+* **Backup and restore** — for every stateful service (databases especially): how backups are taken, where they are stored and on what schedule, and the step-by-step procedure for restoring from a backup.
+
+## 6. Repository Documentation
 
 * Each repository's README must list every repository delivered for the project (e.g. frontend, backend, infrastructure, data pipelines), matching the repository names provided under Section 1, with a one-line description of each, and link to the others.
 * For each repository, the README must state the main branch, any branching conventions in use, and the location of build-and-run instructions.
 
-## 6. Data
+## 7. Data
 
 * The README must describe how the data behind the application was generated or sourced, including original sources and any scripts or pipelines used to produce it.
 * It must explain how ECMWF would regenerate or refresh the data itself, identifying the repository in which the relevant scripts reside and any manual steps involved.
 
-## 7. Supporting Services
+## 8. Supporting Services
 
 * The README must list every external service required to run the application, including but not limited to databases, object storage (e.g. S3 buckets), caches, queues, authentication providers, and monitoring.
 * For each service, the README must state its purpose, its configuration, and what ECMWF must provision on its own infrastructure to replace any instance currently running in the contractor's environment. For databases, this includes type, version, schema, and connection details.
 
-## 8. Licences and Third-Party Services
+## 9. Licences and Third-Party Services
 
 * The README must list every commercial licence, paid API, or subscription required to run the application — for example, a Mapbox licence for mapping.
 * For each, it must state its purpose, where the corresponding API keys or credentials are configured, and what ECMWF must establish under its own accounts. Anything currently bound to the contractor's accounts must be flagged.
 
-## 9. Access, Credentials, and Configuration
+## 10. Access, Credentials, and Configuration
 
 * **Secret values must never be committed** to the repository or its git history — document only the *names*, *locations*, and *regeneration procedures*. Repository history is scanned for leaked secrets (e.g. with `gitleaks`) before any publication, and a leaked credential must be rotated at source, not merely deleted in a later commit.
 * The README must summarise all secrets, keys, and configuration values required to run the application, and state where each should reside (e.g. Kubernetes secrets, environment variables).
 * For every secret, key, or credential that can or must be re-generated (e.g. API keys, signing keys, tokens, database passwords, TLS certificates), the README must document **how ECMWF regenerates it** — the service or tool used, the exact steps to follow, and where the new value must then be configured for the application to keep working.
 * Any credential bound to the contractor's personal or organisational accounts must be flagged as requiring replacement rather than transfer, with instructions for generating an equivalent value under ECMWF's own accounts.
 
-## 10. Publication and Open-Sourcing
+## 11. Publication and Open-Sourcing
 
-Delivered repositories typically start **private** within the ECMWF organisation. If and when a repository is to be made public, ECMWF does so following [Open Sourcing Software at ECMWF](../Legal/Open-Sourcing-Software.md), which includes the open-source and security audit gates. Because any repository may later be audited for publication, contractors should keep history free of secrets and internal references from the outset (see Section 9).
+Delivered repositories typically start **private** within the ECMWF organisation. If and when a repository is to be made public, ECMWF does so following [Open Sourcing Software at ECMWF](../Legal/Open-Sourcing-Software.md), which includes the open-source and security audit gates. Because any repository may later be audited for publication, contractors should keep history free of secrets and internal references from the outset (see Section 10).
