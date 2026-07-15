@@ -152,7 +152,7 @@ Minimum governance requirements:
 
 Ownership model:
 
-| Control | Development Team | Platform Engineering Team | Production Team |
+| Control | Development Team | Application Delivery Team | Production Team |
 | --- | --- | --- | --- |
 | Define service log access requirements | MUST | SHOULD review feasibility | MUST review operational fit |
 | Implement central access controls (RBAC/SSO/groups) | N/A | MUST | SHOULD validate |
@@ -173,7 +173,7 @@ Retention model:
 
 Ownership model:
 
-| Control | Development Team | Platform Engineering Team | Production Team |
+| Control | Development Team | Application Delivery Team | Production Team |
 | --- | --- | --- | --- |
 | Declare required retention and archival period | MUST | SHOULD review feasibility | MUST review operational fit |
 | Implement retention in central logging platform | N/A | MUST | SHOULD validate production coverage |
@@ -201,7 +201,7 @@ Minimum requirements:
 
 Ownership model:
 
-| Control | Development Team | Platform Engineering Team | Production Team |
+| Control | Development Team | Application Delivery Team | Production Team |
 | --- | --- | --- | --- |
 | Ensure service emits local telemetry in degraded mode | MUST | SHOULD provide guidance | SHOULD validate in production |
 | Provide buffering/retry/backfill capability in pipeline | N/A | SHOULD | MUST validate operational readiness |
@@ -543,7 +543,7 @@ Before release, teams SHOULD verify:
 
 Ownership split for compliance:
 
-| Control | Development Team | Platform Engineering Team |
+| Control | Development Team | Application Delivery Team |
 | --- | --- | --- |
 | Structured JSON emitted by app | MUST for new services; phased plan allowed for approved legacy services | N/A |
 | Required app fields (`service.name`, `service.version`, `body`, severity); `deployment.environment` where known | MUST; `deployment.environment` SHOULD | Validate only |
@@ -593,7 +593,7 @@ the Alerting section.
   - HTTP services SHOULD expose a `/metrics` endpoint owned by the service.
   - Non-HTTP and batch/HPC workloads MUST still expose Prometheus-compatible
     metrics, typically via a local collector/forwarder integration.
-  - Platform Engineering Team owns central scrape and ingestion configuration.
+  - Application Delivery Team owns central scrape and ingestion configuration.
 
 ### 5.2 References
 
@@ -731,7 +731,7 @@ Before release, teams SHOULD verify:
 
 Ownership split for compliance:
 
-| Control | Development Team | Platform Engineering Team | Production Team |
+| Control | Development Team | Application Delivery Team | Production Team |
 | --- | --- | --- | --- |
 | Instrument required baseline metrics | MUST | N/A | SHOULD review service-level usefulness |
 | Naming and unit compliance | MUST | SHOULD validate | SHOULD validate monitoring readiness |
