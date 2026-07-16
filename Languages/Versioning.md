@@ -43,7 +43,7 @@ artefacts keep their own tag conventions (e.g. `actions/checkout@v4`).
 
 A project below `1.0.0` is in initial development: **anything may change at any
 time** and the public interface is not considered stable. Reach `1.0.0` when the
-interface is stable and the software is used in anger. New public repositories
+interface is stable and the software is used in production. New public repositories
 usually start at a low [Project Maturity](../Project%20Maturity/README.md) level,
 which is a better signal of stability for users than the version number alone.
 

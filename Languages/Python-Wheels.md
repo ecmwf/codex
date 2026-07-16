@@ -52,10 +52,10 @@ This has an additional benefit of allowing simple check of ABI compatibility of 
 List all installed wheels and check that their fourth versioning number is _exactly_ equal.
 If not, you are likely to experience "Symbol not found" or worse.
 The reason for this possibly happening is that pip does not necessarily guarantee to leave your environment in a correct state.
-Say you first `pip install multio`, and pip notices that there is multio.C.1, which in turn brings eckit.A.1.
+Say you first `pip install multio`, and pip notices that there is multio.A.1, which in turn brings eckit.C.1.
 And then later, you `pip install gribjump` -- which is not in any relationship to multio, but depends on eckit.
-And say that the most recent gribjump wheel has been released as gribjump.D.2, with eckit.A+1.2 as a dependency.
-Pip dully updates eckit, while telling you "oh and btw your environment is broken, multio wheel has unsatisfied dependency".
+And say that the most recent gribjump wheel has been released as gribjump.D.2, with eckit.C+1.2 as a dependency.
+Pip duly updates eckit, while telling you "oh and btw your environment is broken, multio wheel has unsatisfied dependency".
 Other package managers like `uv` would refuse to install multio in the first place, but this behaviour can't be relied upon.
 
 
