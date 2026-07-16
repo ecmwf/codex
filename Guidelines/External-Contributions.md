@@ -89,6 +89,8 @@ Contractors may work in one of two ways:
 
 ### Tagging Rules
 
+These tags follow ECMWF's [Versioning](../Languages/Versioning.md) policy (Semantic Versioning, clean `x.y.z`, no `v` prefix); the rules below cover the contractor prerelease and production tags specifically.
+
 Contractors using this model may create prerelease tags for internal testing and staging:
 
 ```

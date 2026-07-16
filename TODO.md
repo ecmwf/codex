@@ -8,7 +8,6 @@ Contributions addressing any of these items are welcome via pull request.
 ## High Priority
 
 - [ ] **Guidelines/Testing.md** — File opens with an explicit `TODO`. No actual testing guidelines exist beyond test data hosting via `sites.ecmwf.int`. Needs unit, integration, and regression testing standards.
-- [ ] **Languages/Versioning.md** — Entire file is a single-line placeholder: *"How do we manage multi-language repositories with a single version number?"*. Needs a versioning policy.
 - [ ] **LICENSE** (root) — File is empty. The licence text exists in `Legal/Apache-Licence` but the root `LICENSE` file that GitHub uses for badge detection and display contains no content.
 
 ## Medium Priority

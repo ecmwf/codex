@@ -379,7 +379,7 @@ publication. Removing the file in a new commit is not sufficient.
       best proxy for "publishable".
 - [ ] Version tags follow SemVer if the project has releases: ECMWF production
       tags use the clean `x.y.z` form (no `v` prefix)
-      [Codex: Guidelines/External-Contributions.md].
+      [Codex: Languages/Versioning.md; Guidelines/External-Contributions.md].
 - [ ] A `CHANGELOG.md` is not required — but if one exists, check it is
       sane: entries match actual tags, no placeholder sections, no internal
       references.

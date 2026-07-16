@@ -43,7 +43,7 @@ Say we release multio with version A, depending on mir B and eckit C, with exact
 Later on, a new version C+1 of eckit appears, and then we'd like to release multio A+1.
 However, if there is no mir of version B+1, we are stuck -- the mirlib-B.wheel already exists, and it depends on eckit-A.wheel, not eckit-A+1.wheel.
 
-To get around that limitation, we switch to 4-dimensional versioning, x.y.z.C, where C is a monotonic counter shared across all packages.
+To get around that limitation, we extend ECMWF's base [Semantic Versioning](./Versioning.md) scheme to 4-dimensional versioning, x.y.z.C, where C is a monotonic counter shared across all packages (this is a wheel build identifier and does not change the software's `x.y.z` release version).
 For the example above, we would first release eckit.A.1, mir.B.1 and multio.C.1.
 And in the second run, we would release eckit.A+1.2, mir.B.2 and multio.C2, all with exact pins.
 The mir.B.1 and mir.B.2 are seemingly the same, from the point of view of the compiled mir code -- but they actually differ in which version of eckit they were build against, and thus justify being separate wheels.

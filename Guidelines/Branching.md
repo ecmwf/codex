@@ -1,6 +1,6 @@
 # Branching Patterns
 
-This document describes the branching patterns used across ECMWF repositories. The choice of pattern for a given repository is governed by [ADR-001: Git Branching Model](../ADR/ADR-001-Git-Branching-Model.md).
+This document describes the branching patterns used across ECMWF repositories. The choice of pattern for a given repository is governed by [ADR-001: Git Branching Model](../ADR/ADR-001-Git-Branching-Model.md). Release version numbers and tags follow the [Versioning](../Languages/Versioning.md) policy (Semantic Versioning, clean `x.y.z`, no `v` prefix).
 
 ## Contents
 
