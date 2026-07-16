@@ -100,12 +100,13 @@ its CLI) is versioned as **a single unit under one version number**:
 ### Compiled Python wheels
 
 Where a repository publishes compiled Python wheels split across interdependent
-packages (e.g. a library wheel and its Python interface wheel), the base `x.y.z`
-scheme is extended to a **four-component `x.y.z.C`** form, where `C` is a
-monotonic counter shared across the packages so that matching builds can be
-pinned together. This mechanism, and its current limitations, are described in
-[Python Wheels](./Python-Wheels.md); it does not change the `x.y.z` release
-version of the software, only the wheel build identifier.
+packages (e.g. a library wheel and its Python interface wheel), a
+**four-component build identifier `x.y.z.N`** is used for the *wheels*, where `N`
+is a monotonic counter shared across the packages so that ABI-compatible builds
+can be pinned together. This is a **packaging/build identifier, not a SemVer
+version**: the software's release version — and the authoritative git tag —
+remains `x.y.z`. The mechanism, and its current limitations, are described in
+[Python Wheels](./Python-Wheels.md).
 
 ## Summary
 
@@ -113,4 +114,4 @@ version of the software, only the wheel build identifier.
 - MAJOR = breaking, MINOR = backwards-compatible feature, PATCH = backwards-compatible fix; `0.y.z` = unstable.
 - Production tags are clean `x.y.z` on `main`/`master`; prereleases are `x.y.z-upstream.N` (non-production).
 - One version per repository; the git tag is the single source of truth; all languages/artefacts release together.
-- Compiled Python wheels may use `x.y.z.C` for build pinning (see [Python Wheels](./Python-Wheels.md)).
+- Compiled Python wheels may use a `x.y.z.N` build identifier for pinning (see [Python Wheels](./Python-Wheels.md)).
