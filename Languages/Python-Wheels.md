@@ -41,7 +41,7 @@ We could thus switch to exact pinning, ie, say that the mirlib wheel in question
 However, that introduces a problem once we realize that our compiled stack consists of multiple libraries.
 Say we release multio with version A, depending on mir B and eckit C, with exact pins.
 Later on, a new version C+1 of eckit appears, and then we'd like to release multio A+1.
-However, if there is no mir of version B+1, we are stuck -- the mirlib-B.wheel already exists, and it depends on eckit-C.wheel, not eckit-C+1.wheel.
+However, if there is no mir of version B+1, we are stuck -- the mirlib-B.wheel already exists, and it depends on eckitlib-C.wheel, not eckitlib-C+1.wheel.
 
 To get around that limitation, we add a fourth component to the wheel version, `x.y.z.N`, where `N` is a monotonic counter shared across all packages (this is a wheel build identifier and does not change the software's `x.y.z` release version — see the [Versioning](./Versioning.md) policy).
 For the example above, we would first release eckit.C.1, mir.B.1 and multio.A.1 (all with build counter `1`).
