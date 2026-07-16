@@ -71,13 +71,16 @@ The mechanics of creating and pushing release tags are in
 
 ## Single source of truth
 
-A repository has **one** version number. Do not maintain the version in several
-places that can drift. The **git tag is authoritative**; build tooling should
-derive the package/library version from it rather than hard-coding it — for
-example `setuptools_scm` for Python, or a single top-level `VERSION` file (or the
-`project.version` in `pyproject.toml` / the CMake `project(... VERSION ...)`)
-that the build reads. A generated version file (e.g. `_version.py`) is a build
-artefact and must not be committed (see [Repository Structure](../Repository%20Structure/README.md)).
+A repository has **one** version number, and the **git tag is the single source
+of truth**. Do not maintain the version in several places that can drift.
+Prefer to **derive** the package/library version from the tag automatically
+(e.g. `setuptools_scm` for Python, or CMake reading `git describe`) so there is
+nothing to keep in sync. If an in-repo version field is unavoidable (for example
+`project.version` in `pyproject.toml`, a CMake `project(... VERSION ...)`, or a
+top-level `VERSION` file), keep **exactly one** such field and treat it as a
+mirror that must always match the tag. A generated version file (e.g.
+`_version.py`) is a build artefact and must not be committed (see
+[Repository Structure](../Repository%20Structure/README.md)).
 
 ## Multi-language and multi-package repositories
 
