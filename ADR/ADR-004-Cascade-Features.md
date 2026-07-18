@@ -1,7 +1,7 @@
 # Architectural Decision Record 004: Building Cascade
 
 ## Status
-[<s>Proposed</s> | **Accepted** | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
+<s>Proposed</s> | **Accepted** | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>
 
 ## Last Updated
 2025-07-28
@@ -14,7 +14,7 @@ This record captures the decision making of the initial feature set and design, 
 
 ### Options Considered
 
-Firstly, we considered using Dask as a comprehensive offering, and analyzed it in greater detail.
+Firstly, we considered using Dask as a comprehensive offering, and analysed it in greater detail.
 Other Dask-like solutions like Daft or Spark were not analysed thoroughly -- while they are presumably more performant than Dask in certain cases, the top level design and intent is very similar, and thus arguments again Dask apply equally. 
 Another possible option was Ray, which is has a less restrictive model than Dask, but based on a shallow analysis of its performance and ease of extensibility, we opted not to explore it further.
 
@@ -60,7 +60,7 @@ We purposefully don't implement a resource negotiator inside Cascade, as we don'
 Instead, we rely on external one (currently Slurm, eventually Troika), and only expect a thin wrapper to invoke the resource negotiation and bootstrap Cascade processes.
 
 For workflow executors, there is always the question whether the workflows themselves are aware of the executor, tightly coupled to it.
-We chose a middle path -- we implement lightweight adapters (organized in a plugin fashion) for each class of workflow elements.
+We chose a middle path -- we implement lightweight adapters (organised in a plugin fashion) for each class of workflow elements.
 For example, individual Anemoi or PProc functions are oblivious of Cascade, but there exists Earthkit-Workflows-Anemoi and Earthkit-Workflows-Pproc which wrap anemoi runners or pproc pipelines in a Cascade-compatible fashion.
 Those are exposed to the user in a fluent-style API.
 This is additionally only thinly coupled to Cascade -- thus Cascade can execute workflows declared without fluent/plugin API, and vice versa we could implement a different executor for those fluent-declared objects.

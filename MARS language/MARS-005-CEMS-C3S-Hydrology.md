@@ -38,9 +38,9 @@ issue is observed between the COSMO and ICON models at DWD. Sufficient data is p
 to identify this data further.
 
 As such we propose a new MARS keyword `forcing` which will combine the originating centre and the associated
-atmospheric model. The values will be construted of the form `<originating centre>-<model name>`.
+atmospheric model. The values will be constructed of the form `<originating centre>-<model name>`.
 
-Finally, we propose restructuring the overall archive. Currently in CEMS th edifferent hydrological versions for
+Finally, we propose restructuring the overall archive. Currently in CEMS the different hydrological versions for
 the European and the global domains are archived into different `stream`s under `class` `ce`. We introduce instead
 four distinct `class`es for the European CEMS / C3S and their global counterparts.
 

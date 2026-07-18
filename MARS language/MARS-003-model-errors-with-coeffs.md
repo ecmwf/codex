@@ -1,7 +1,7 @@
 # MARS Language Decision Record 003: Model Error Coefficients Index 
 
 ## Status
-[<s>Proposed</s> | **Accepted** | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
+[~~Proposed~~ | **Accepted** | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
 
 ## Last Updated
 2026-01-09

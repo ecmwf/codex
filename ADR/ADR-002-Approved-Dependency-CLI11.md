@@ -1,6 +1,6 @@
 # Architectural Decision Record 002: Approved C++ Dependency CLI11
 
- ## Status
+## Status
 
 <s>Proposed</s> | **Accepted** | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>
 
