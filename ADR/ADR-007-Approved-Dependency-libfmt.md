@@ -45,7 +45,7 @@ libfmt features (named arguments, custom join separators, terminal colours,
 `fmt::memory_buffer`) have no standard equivalent at any horizon.
 
 libfmt is the reference implementation from which `std::format` was
-standardized. Its author, Victor Zverovich, is also the author and editor of the
+standardised. Its author, Victor Zverovich, is also the author and editor of the
 C++ formatting papers (P0645 for `std::format`, P2093 for `std::print`). The
 libfmt API and the standard API are the same by design.
 
@@ -98,7 +98,7 @@ Defer until the codebase migrates to C++20, then use `std::format` directly.
   Comparison](#feature-comparison-c20-vs-c23-vs-libfmt) — Tier 1). It does not
   include `std::print` (C++23), range formatting (C++23), or features like
   named arguments, custom join separators, and terminal colours (never
-  standardized).
+  standardised).
 - Some `std::format` implementations have been slower and produced larger
   binaries than libfmt. The gap is narrowing but was significant in early
   GCC libstdc++ releases.
@@ -160,7 +160,7 @@ Effectively abandoned. Last meaningful update circa 2014. Not a viable option.
 
 [libfmt](https://github.com/fmtlib/fmt)
 
-The reference implementation that was standardized as `std::format` in C++20 and
+The reference implementation that was standardised as `std::format` in C++20 and
 `std::print` in C++23. Provides a type-safe, performant, and expressive
 formatting API with features that go beyond any current or proposed C++ standard
 revision.

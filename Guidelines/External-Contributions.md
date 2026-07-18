@@ -59,8 +59,8 @@ If ECMWF inherits an external repository (e.g., a Code4Earth project), one of th
    - Adding the CLA agreement to the PR template.  
    - Ensuring all past contributions comply with ECMWF’s [Copyright and Licensing](../Legal/Copyright-And-Licensing.md).  
    - Ensuring the open sourcing guidelines in [Open Sourcing Software at ECMWF](../Legal/Open-Sourcing-Software.md) are followed.
-3. **Fork** — ECMWF forks the repository to maintain its own variant while the original remains active.  
-   - Create an empty `default` branch containing a notice linking to the original project.  
+3. **Fork** — ECMWF forks the repository to maintain its own variant while the original remains active. Follow the standard procedure and notice template in [Forking other repositories](../Contributing%20Upstream/Forking.md).  
+   - Create an empty `default` branch containing a notice linking to the original project (use the notice template in [Forking](../Contributing%20Upstream/Forking.md#readme-template)).  
    - Make `default` the default branch so that it shows as the main entrypoint to the repository.  
    - Disable all GitHub Actions to prevent execution of unverified workflows.
    - Where applicable, ensure the forked repository complies with ECMWF’s [Copyright and Licensing](../Legal/Copyright-And-Licensing.md).

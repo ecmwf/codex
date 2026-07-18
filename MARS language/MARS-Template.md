@@ -1,4 +1,4 @@
-# MARS Languge Decision Record XXX: 
+# MARS Language Decision Record XXX: 
 
 [**Proposed** | ~~Accepted~~ | ~~Deprecated~~ | ~~Superseded by [ADR-XXX]~~]
 

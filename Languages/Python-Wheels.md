@@ -110,7 +110,7 @@ We don't have any process for deleting broken wheels from PyPI.
 ### How do I bring external compiled dependencies?
 Say, for example, you need `libcurl` or `libaec` somewhere in your Compiled library. Ideally, you actually don't. If you do, check whether said library is already available somewhere (as is the case for libcurl and libaec), and consider interfacing with that library through that -- e.g., `eckit` brings in `curl`, so you may want to have `eckit` expose a `curl` call to simplify matters.
 
-If the library is not yet present anywhere, follow the `pre-compile.sh` and `post-build.sh` examples in `eckit/python_wrapper`/`eccodes/python_wrapper` -- those are optional customizable hooks checked for by the repeatable github action, which download and build those dependencies. Note that this process is error-prone and manual, so think twice and test thrice.
+If the library is not yet present anywhere, follow the `pre-compile.sh` and `post-build.sh` examples in `eckit/python_wrapper`/`eccodes/python_wrapper` -- those are optional customisable hooks checked for by the repeatable github action, which download and build those dependencies. Note that this process is error-prone and manual, so think twice and test thrice.
 
 We are currently in the middle of incorporating https://github.com/ecmwf/cxx-dependencies to the wheel building stack -- ideally include your library there.
 However, that will still leave in place the need to actually bundle that library somewhere into our stack, which has its own licensing and sizing problems.

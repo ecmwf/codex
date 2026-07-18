@@ -2,7 +2,7 @@
 
 ## Our Pledge
 
-In developing software and services at ECMWF and with our community of Member and Cooperating States, we are
+In developing software and services at ECMWF and with our community of Member and Co-operating States, we are
 committed to fostering an inclusive, respectful, and harassment-free community
 in line with [ECMWF's Open Source Principles](./Open-Source-Principles.md),
 which are inspired by the [United Nations Open Source Principles](https://opensource.un.org/en/news/united-nations-open-source-principles).
