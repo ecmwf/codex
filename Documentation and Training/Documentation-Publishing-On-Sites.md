@@ -249,8 +249,8 @@ structure:
 │   ├── pull_requests/  # Not Indexed
 │   │   ├── PR-XXX/     # Will be deleted when PR is closed
 │   │   └── PR-YYY/     # Will be deleted when PR is closed
-│   ├── v1.2.3/         # Indexed through version.json
-│   ├── v1.2.4/         # Indexed through version.json
+│   ├── 1.2.3/         # Indexed through version.json
+│   ├── 1.2.4/         # Indexed through version.json
 │   ├── develop/        # Indexed through version.json
 │   ├── latest/         # Indexed through version.json / Softlink to develop
 │   ├── master/         # Indexed through version.json
@@ -435,7 +435,7 @@ regenerates the Sphinx version selector.
 2. Uploads HTML to `<path>/<id>` via
    [`ecmwf-sites-upload`](#ecmwf-sites-upload)
 3. If `softlink` is provided, creates a server-side softlink via
-   `PUT` — e.g. `<path>/stable` -> `<path>/v2.1.0`. No content
+   `PUT` — e.g. `<path>/stable` -> `<path>/2.1.0`. No content
    is duplicated.
 4. Runs [`generate-version-selector`](#generate-version-selector)
    to rebuild `version.json` for the Sphinx version dropdown
@@ -447,11 +447,11 @@ Versioned:   https://sites.ecmwf.int/<space>/<name>/<path>/<id>/
 Softlinked:  https://sites.ecmwf.int/<space>/<name>/<path>/<softlink>/
 ```
 
-Example with `path: fdb`, `id: v5.2.0`, `softlink: stable`:
+Example with `path: fdb`, `id: 5.2.0`, `softlink: stable`:
 
 ```
-.../docs/dev-section/fdb/v5.2.0/   <- concrete version
-.../docs/dev-section/fdb/stable/    <- softlink to v5.2.0
+.../docs/dev-section/fdb/5.2.0/   <- concrete version
+.../docs/dev-section/fdb/stable/    <- softlink to 5.2.0
 ```
 
 ##### Inputs

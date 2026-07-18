@@ -155,7 +155,10 @@ Rate every finding, tagging the relevant **CWE** where possible:
   exploit, secret/key compromise, or auth bypass on a network-facing path.
 - **HIGH** — memory-safety violation / UB, trivially-triggered crash/abort/hang
   on small untrusted input, injection, unsafe deserialization of untrusted data,
-  a known CVE with a practical exploit path in the project's usage.
+  a known CVE with a practical exploit path in the project's usage, or **any
+  hardcoded credential present in the code or git history** — a password, token,
+  API key, secret, or private key (CWE-798/CWE-259). This is **CRITICAL** when the
+  credential grants broad, remote, or write access.
 - **MEDIUM** — DoS requiring large/crafted input, resource exhaustion mitigable
   by an opt-in limit, weak-but-not-broken crypto, a CVE not clearly reachable.
 - **LOW** — defence-in-depth, hardening, hygiene.
@@ -173,6 +176,16 @@ under-rate a finding in context — for example a workflow auditor may flag an
 unpinned *first-party* reusable workflow as "high" when the practical risk is a
 medium hardening item. Down- or up-rate each finding for the actual threat model
 and record the reasoning; the verdict follows the triaged severity.
+
+**Hardcoded credentials are never triaged below HIGH.** Any password, token, API
+key, secret, or private key committed to the repository or its history is at
+minimum a **HIGH** finding — and therefore makes the verdict **NOT_READY** —
+regardless of how low-value it appears or whether it is "only" for a shared or
+test account. It must be **rotated/revoked at the source** and removed; deleting
+it in a later commit is not sufficient. Note that automated scanners miss many of
+these (e.g. tokens embedded in URL query strings), so **grep the code and history
+directly** for `password`/`token`/`api_key`/`secret`/`security_token`/`export_key`
+and private-key markers in addition to running `gitleaks`.
 
 If the audited repository is **already public** and you confirm a CRITICAL or
 HIGH vulnerability, additionally recommend that the owner tracks the fix as a
@@ -227,7 +240,10 @@ lockfile-only scanners.
 
 Secret scanning (`gitleaks`, `trufflehog`) is covered by the
 `open-source-audit` skill's Secrets section; re-run it here only if this is a
-standalone security audit, and cross-reference rather than duplicate.
+standalone security audit, and cross-reference rather than duplicate. **Do not
+rely on the scanners alone** — they routinely miss credentials embedded in URL
+query strings, config, and test fixtures — so also grep the code and history
+directly (see the hardcoded-credentials rule in §3 and §6).
 
 **Per ecosystem:**
 
@@ -277,10 +293,18 @@ its sink and record findings with CWE tags.
       (CWE-918: user-controlled URLs in fetchers), template/SSTI, **XXE**
       (CWE-611: XML parsers with external entities), dynamic `eval`/`exec`
       (CWE-95).
-- [ ] **Cryptography & secret handling** — broken/weak algorithms (MD5/SHA1 for
-      security, DES) (CWE-327), hardcoded keys/credentials (CWE-798), disabled
-      TLS/cert verification (CWE-295), insecure randomness for security tokens
-      (CWE-330). Cross-reference the open-source audit's secret scan.
+- [ ] **Hardcoded credentials — any password, token, API key, secret, or private
+      key present in the code or git history is a FAIL (at least HIGH)** (CWE-798).
+      This is non-negotiable and cannot be triaged away, regardless of how
+      low-value, shared, or "test" the credential seems. Automated scanners miss
+      many of these — grep the code and history directly, including inside URL
+      query strings (`export_key=`, `security_token=`, `?token=`) and config/test
+      fixtures. Report it, require rotation/revocation at the source, and mark the
+      verdict NOT_READY.
+- [ ] **Cryptography & other secret handling** — broken/weak algorithms (MD5/SHA1
+      for security, DES) (CWE-327), disabled TLS/cert verification (CWE-295),
+      insecure randomness for security tokens (CWE-330), cleartext transmission of
+      credentials (CWE-319). Cross-reference the open-source audit's secret scan.
 - [ ] **FFI / `unsafe` boundaries** — raw pointers, `from_raw_parts`, `ctypes`,
       `cffi`, Cython, JNI: unchecked lengths, NULL/dangling pointers, missing
       UTF-8/encoding validation, lifetime/double-free across the boundary

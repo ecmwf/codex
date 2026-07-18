@@ -8,8 +8,9 @@ description: >
   private/internal to public visibility. Checks compliance with the ECMWF
   Codex (licensing, copied/third-party code and attribution, README, maturity
   badge, contribution setup) and industry best practices (secret scanning, git
-  history audit, dependency licences, CI hygiene), and requires a security
-  audit. Produces a pass/fail Markdown report; does not flip visibility itself.
+  history audit, dependency licences, CI hygiene), and prompts the operator to
+  run a separate security audit. Produces a pass/fail Markdown report; does not
+  flip visibility itself.
 ---
 
 # Open-source audit
@@ -53,17 +54,29 @@ skill is to catch problems while they are still fixable.
 **Blocker vs advisory.** Not every deviation should stop publication. Classify
 each FAIL:
 
-- **Blocker** — a genuine reason not to publish yet: secrets/credentials in the
-  code or history, an Apache-incompatible or missing licence, copied code
-  without attribution, unresolved IPR/provenance concerns, software with **no
-  genuine documentation at all** (see section 2), or a **missing or NOT_READY
-  security audit**. Blockers set the verdict to NOT_READY and are counted in
-  `fail_count`.
+- **Blocker** — a genuine reason not to publish yet:
+  - secrets/credentials, or **any internal information** (internal hostnames,
+    IPs, filesystem paths, internal ticket references, or personal data such as
+    private emails or phone numbers) in the code **or git history** (see
+    sections 4 and 5);
+  - an Apache-incompatible or missing licence, or **any tracked source file
+    missing its per-file licence header** (see section 1);
+  - copied code without attribution, or unresolved IPR/provenance concerns;
+  - **committed build/install artefacts or editor/OS junk** (e.g. `*.pyc`,
+    `__pycache__/`, `*.egg-info/`, `build/`, `dist/`, `.DS_Store`) (see
+    section 6);
+  - software with **no genuine documentation at all** (see section 2);
+  - a **security audit that has been run and is NOT_READY** (open CRITICAL/HIGH).
+
+  Blockers set the verdict to NOT_READY and are counted in `fail_count`. A
+  security audit that has simply **not been run yet is not a blocker** — remind
+  the operator to run it (see section 9).
 - **Advisory** — a real but low-impact hygiene deviation that should be fixed but
-  is not a publication risk on its own (e.g. a missing licence header on a test
-  file, README licence-section wording, leftover template cruft, missing
-  `CONTRIBUTING.md`). Advisories are listed and should be fixed, but do **not**
-  block publication and are **not** counted in `fail_count`.
+  is not a publication risk on its own (e.g. README licence-section wording,
+  a maturity badge placed too low in the README, leftover template cruft, a
+  missing `CONTRIBUTING.md`, or an absent `CITATION.cff`). Advisories are listed
+  and should be fixed, but do **not** block publication and are **not** counted
+  in `fail_count`.
 
 When genuinely unsure whether something is a blocker, treat it as one — the cost
 of a false "ready" is a public leak.
@@ -109,9 +122,11 @@ Decide which mode applies before you start, and state it in the report.
       tail) and `NOTICE`, while `LICENSES/Apache-2.0.txt` must remain the
       **unmodified** Apache text — do not flag that file for lacking them.
 - [ ] Every original source file (code and documentation) carries a licence
-      header. Check **git-tracked files only** (`git ls-files`) — do not flag
-      build/install artefacts such as a `setuptools_scm`-generated `_version.py`,
-      which are not in version control. Two header forms are acceptable:
+      header — **any tracked source file without one is a FAIL (Blocker)**. Check
+      **git-tracked files only** (`git ls-files`) — do not flag build/install
+      artefacts such as a `setuptools_scm`-generated `_version.py`, which are not
+      in version control (and should not be committed at all — see section 6).
+      Two header forms are acceptable:
 
       1. The **SPDX + REUSE** form — *the ECMWF standard; required for new
          files* [Codex: Legal/SPDX-and-REUSE.md; ADR-010]:
@@ -246,6 +261,10 @@ forecast-in-a-box) carry just the badge plus the disclaimer.
       > This software is **<Level>** and subject to ECMWF's guidelines on
       > [Software Maturity](https://github.com/ecmwf/codex/raw/refs/heads/main/Project%20Maturity).
 
+- [ ] The badge and disclaimer are placed at the **top of the README** — after
+      the project title and an optional short synopsis, and **before** the main
+      body — so that a reader sees the maturity and support statement first. A
+      badge/disclaimer buried lower in the README is a finding (advisory).
 - [ ] The claimed level is honest. A brand-new project should almost always
       start at Sandbox or Emerging. Flag an optimistic level as FAIL with a
       note (usually **Advisory**, unless the claimed level materially misleads
@@ -264,7 +283,10 @@ the working tree** — deleted files and old commits are published too.
 
 - [ ] Grep history for high-risk patterns the scanners can miss —
       ECMWF-internal hostnames, internal IPs, usernames, and email addresses
-      are explicitly called out by the Codex audit:
+      are explicitly called out by the Codex audit. **Any such internal
+      information found in the code or history is a FAIL (Blocker)**, even for an
+      already-public repo (record it and flag that it should have been caught
+      before publication):
 
       git log -p --all | grep -inE 'password|passwd|secret|api[_-]?key|token|BEGIN (RSA|OPENSSH|EC) PRIVATE' | head
       git log -p --all | grep -inE '\.ecmwf\.int|10\.[0-9]+\.[0-9]+\.[0-9]+|192\.168\.' | head
@@ -292,12 +314,15 @@ publication. Removing the file in a new commit is not sufficient.
 
 ## 5. Git history and repo hygiene
 
-- [ ] Review author identities: `git shortlog -s -e --no-merges`. Flag
-      personal emails people may not want published, and obviously-internal
-      machine accounts.
+- [ ] Review author identities: `git shortlog -s -e --no-merges`. **Internal
+      information leaked through author identities is a FAIL (Blocker)** —
+      internal machine hostnames (e.g. `user@lfcb-014.ecmwf.int`, `*.bullx`
+      cluster nodes), and personal data such as private phone numbers or
+      non-work emails people may not want published.
 - [ ] Skim commit messages for internal ticket systems, internal URLs, or
       sensitive discussion: `git log --oneline --all | head -100` plus
-      targeted greps (e.g. JIRA project keys, `confluence.ecmwf.int`).
+      targeted greps (e.g. JIRA project keys, `confluence.ecmwf.int`). Internal
+      references here are a FAIL (Blocker).
 - [ ] No large binary blobs or datasets bloating the repo:
       `git rev-list --objects --all | sort -k2` combined with
       `git cat-file --batch-check` (or `git count-objects -vH` for a quick
@@ -317,9 +342,12 @@ publication. Removing the file in a new commit is not sufficient.
       only chaos, not taste.
 - [ ] No leftover template placeholders (`<project-name>`, `TODO: fill in`,
       cookiecutter variables) in README, docs, or config files.
-- [ ] No editor droppings, OS junk, or build artefacts committed
-      (`.DS_Store`, `*.pyc`, `__pycache__/`, `node_modules/`, `build/`,
-      `.vscode/` with local paths).
+- [ ] **No committed build/install artefacts, editor droppings, or OS junk —
+      any such tracked file is a FAIL (Blocker)**: `*.pyc`, `__pycache__/`,
+      `*.egg-info/`, `build/`, `dist/`, `*.so`/compiled outputs, `.DS_Store`,
+      `Thumbs.db`, `.vscode/`/`.idea/` with local paths, `.ipynb_checkpoints/`.
+      A missing `.gitignore` is usually the root cause — require one and have the
+      artefacts removed from tracking (`git rm -r --cached`).
 
 ## 7. Contributions and CI — [Codex: Guidelines/External-Contributions.md]
 
@@ -351,29 +379,34 @@ publication. Removing the file in a new commit is not sufficient.
       best proxy for "publishable".
 - [ ] Version tags follow SemVer if the project has releases: ECMWF production
       tags use the clean `x.y.z` form (no `v` prefix)
-      [Codex: Guidelines/External-Contributions.md].
+      [Codex: Languages/Versioning.md; Guidelines/External-Contributions.md].
 - [ ] A `CHANGELOG.md` is not required — but if one exists, check it is
       sane: entries match actual tags, no placeholder sections, no internal
       references.
 
-## 9. Security audit (mandatory) — [Codex: Principles/Open-Source-Principles.md — Secure by Design]
+## 9. Security audit — [Codex: Principles/Open-Source-Principles.md — Secure by Design]
 
-Publishing exposes the code to the world, so a security audit is a
-**mandatory** part of the open-sourcing process, not an optional extra. The
-secret/credential scanning in section 4 is necessary but not sufficient — a
-dedicated security review is required before the repository goes public.
+Publishing exposes the code to the world, so a dedicated security audit is an
+important part of the open-sourcing process — the secret/credential scanning in
+section 4 is necessary but not sufficient. This open-source audit does **not**
+run the security audit itself, and does **not** fail merely because one has not
+been run yet.
 
-- [ ] Run the [`security-audit` skill](../security-audit/SKILL.md) against the
-      repository and file its `Security-Audit` report in `ecmwf/repo-audits`
-      alongside this one. That skill builds a threat model, runs SAST /
-      dependency / supply-chain tooling, reviews security-sensitive surfaces
-      (deserialization, injection, memory safety / FFI, crypto, ML model
-      loading), and — for high-risk repositories — adds adversarial testing and
-      bounded fuzzing.
-- [ ] The security audit's verdict must be **READY** — that is, zero open
-      CRITICAL/HIGH findings. A missing security audit, or one with open
-      CRITICAL/HIGH findings, is a **FAIL**: the repository is NOT READY until
-      the security audit passes.
+- [ ] Check whether a current `Security-Audit` report exists for this commit in
+      `ecmwf/repo-audits`.
+      - **If one has not been run for this commit:** do **not** record a FAIL.
+        List it as an **advisory**, and **ask the human operator whether to run
+        the [`security-audit` skill](../security-audit/SKILL.md) next** — do not
+        run it yourself as part of this audit. That skill builds a threat model,
+        runs SAST / dependency / supply-chain tooling, reviews security-sensitive
+        surfaces (deserialization, injection, memory safety / FFI, crypto, ML
+        model loading), and — for high-risk repositories — adds adversarial
+        testing and bounded fuzzing. Publication should still wait for a READY
+        security audit, but confirming that is the operator's decision, not a
+        blocker recorded here.
+      - **If a security audit has been run for this commit and its verdict is
+        NOT_READY** (open CRITICAL/HIGH findings): that **is** a Blocker — the
+        repository is NOT READY until the security audit passes.
 
 ## Post-publication recommendations (optional)
 

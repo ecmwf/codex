@@ -24,13 +24,13 @@ ECMWF does not only publish its own software as open source — it also seeks to
 
 *Making security a priority in all software projects.*
 
-Software developed at ECMWF is deployed in operational forecasting chains, national meteorological services, and critical infrastructure. Security must therefore be considered from the outset, not bolted on later. This includes responsible management of dependencies, timely response to vulnerability disclosures (see the [Security Vulnerability Disclosure](../Guidelines/Security-Vulnerability-Disclosure.md) procedure), use of automated security scanning in CI pipelines, and following best practices for secrets management and access control.
+Software developed at ECMWF is deployed in operational forecasting chains, national meteorological services, and critical infrastructure. Security must therefore be considered from the outset, not bolted on later. This includes responsible management of dependencies, timely response to vulnerability disclosures (see the [Security Vulnerability Disclosure](../Guidelines/Security-Vulnerability-Disclosure.md) procedure), running automated security checks — such as dependency-vulnerability and static-analysis scanning — where practical, and following best practices for secrets management and access control.
 
 ## 4 — Foster Inclusive Participation
 
 *Enabling and facilitating diverse and inclusive contributions.*
 
-ECMWF's open source projects serve a global community spanning meteorological services, academic research institutions, and the private commercial sector. We welcome contributions regardless of organisational affiliation, geographic location, or background. This means maintaining clear contribution guidelines (see [External Contributions](../External%20Contributions)), responding constructively and politely to issues and pull requests. Inclusive participation strengthens the software and broadens the community that sustains it.
+ECMWF's open source projects serve a global community spanning meteorological services, academic research institutions, and the private commercial sector. We welcome contributions regardless of organisational affiliation, geographic location, or background. This means maintaining clear contribution guidelines (see [External Contributions](../Guidelines/External-Contributions.md)), and responding constructively and politely to issues and pull requests. Inclusive participation strengthens the software and broadens the community that sustains it.
 
 ## 5 — Design for Reusability
 

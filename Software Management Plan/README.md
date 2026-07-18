@@ -4,13 +4,13 @@ A software management plan (SMP) should be provided for all projects which contr
 This is to ensure that contributions are appropriate, visible, follow guidelines and there is a clear roadmap
 for development and ownership.
 
-A SMP is required for all projects where the lead developers are external contributors
+An SMP is required for all projects where the lead developers are external contributors
 and should be provided in the planning stages of the project.
-For internal contributors, a SMP is required to progress a project from the *Sandbox*
+For internal contributors, an SMP is required to progress a project from the *Sandbox*
 to the *Emerging* [Project Maturity](../Project%20Maturity/) level.
 
-Please use the [template SMP](./SMP-template.docx) to create your SMP, it contains much of the description
-provide below.
+Please use the [template SMP](./SMP-template.docx) to create your SMP; it contains much of the description
+provided below.
 
 ## 1. Project Overview
 
@@ -26,7 +26,7 @@ Provide a concise overview to allow others to understand the project and its pur
 
 ## 2. Alignment With ECMWF Strategy and Architecture
 
-How do the proposed software developments fit into ECMWF’s broader organizational goals?
+How do the proposed software developments fit into ECMWF’s broader organisational goals?
 
 - **Alignment with the ECMWF software stack**
   - New components
@@ -115,7 +115,7 @@ Include:
   - Branching model
   - Merge criteria, e.g. pull requests with mandatory X reviews, all CI/CD test pass
 - **Release strategy**
-  - Versioning system, e.g. *"Semantic versioning (MAJOR.MINOR.PATCH)"*
+  - Versioning system — ECMWF uses Semantic Versioning (MAJOR.MINOR.PATCH); see the [Versioning](../Languages/Versioning.md) policy
 - **Maintenance**
   - How will future developments, and user requests, be managed?
 - **Maturity timeline**
@@ -140,7 +140,7 @@ Include:
 - **Developer documentation**
   - What will it cover, e.g. API, architecture, contribution guidelines.
 - **Documentation location**
-  - read-the-docs/github-pages/confluence?
+  - Read the Docs, GitHub Pages, or `sites.ecmwf.int` (see [Documentation and Training](../Documentation%20and%20Training/README.md))
 - **Support model**
   - Who is the point of contact for support
   - Where and how is support provided, e.g. github issues and/or jira tickets.

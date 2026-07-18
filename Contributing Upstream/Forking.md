@@ -2,6 +2,8 @@
 
 External collaborators of ECMWF are expected to fork our repositories and then make a pull request from their fork. Likewise if we wish to contribute to other repositories, we often need to create a fork. This fork should exist in ECMWF GitHub but we want to take care that we distinguish it from code we own.
 
+This page covers **ECMWF forking an external repository** (to prepare upstream contributions, or to maintain an ECMWF variant). The same mechanics appear in the "Fork" option for *inheriting* an external repository in [External Contributions](../Guidelines/External-Contributions.md); that section should point here for the standard notice template below.
+
 ## Process
 
 1. Fork the repository. It will be public and cannot be changed.

@@ -41,21 +41,21 @@ We could thus switch to exact pinning, ie, say that the mirlib wheel in question
 However, that introduces a problem once we realize that our compiled stack consists of multiple libraries.
 Say we release multio with version A, depending on mir B and eckit C, with exact pins.
 Later on, a new version C+1 of eckit appears, and then we'd like to release multio A+1.
-However, if there is no mir of version B+1, we are stuck -- the mirlib-B.wheel already exists, and it depends on eckit-A.wheel, not eckit-A+1.wheel.
+However, if there is no mir of version B+1, we are stuck -- the `mirlib-B.wheel` already exists, and it depends on `eckitlib-C.wheel`, not `eckitlib-C+1.wheel`.
 
-To get around that limitation, we switch to 4-dimensional versioning, x.y.z.C, where C is a monotonic counter shared across all packages.
-For the example above, we would first release eckit.A.1, mir.B.1 and multio.C.1.
-And in the second run, we would release eckit.A+1.2, mir.B.2 and multio.C2, all with exact pins.
-The mir.B.1 and mir.B.2 are seemingly the same, from the point of view of the compiled mir code -- but they actually differ in which version of eckit they were build against, and thus justify being separate wheels.
+To get around that limitation, we add a fourth component to the wheel version, `x.y.z.N`, where `N` is a monotonic counter shared across all packages (this is a wheel build identifier and does not change the software's `x.y.z` release version — see the [Versioning](./Versioning.md) policy).
+For the example above, we would first release `eckit.C.1`, `mir.B.1` and `multio.A.1` (all with build counter `1`).
+And in the second run, we would release `eckit.C+1.2`, `mir.B.2` and `multio.A.2` (build counter `2`), all with exact pins.
+The `mir.B.1` and `mir.B.2` are seemingly the same, from the point of view of the compiled mir code -- but they actually differ in which version of eckit they were built against, and thus justify being separate wheels.
 
 This has an additional benefit of allowing simple check of ABI compatibility of a given python environment.
 List all installed wheels and check that their fourth versioning number is _exactly_ equal.
 If not, you are likely to experience "Symbol not found" or worse.
 The reason for this possibly happening is that pip does not necessarily guarantee to leave your environment in a correct state.
-Say you first `pip install multio`, and pip notices that there is multio.C.1, which in turn brings eckit.A.1.
+Say you first `pip install multio`, and pip notices that there is `multio.A.1`, which in turn brings `eckit.C.1`.
 And then later, you `pip install gribjump` -- which is not in any relationship to multio, but depends on eckit.
-And say that the most recent gribjump wheel has been released as gribjump.D.2, with eckit.A+1.2 as a dependency.
-Pip dully updates eckit, while telling you "oh and btw your environment is broken, multio wheel has unsatisfied dependency".
+And say that the most recent gribjump wheel has been released as `gribjump.D.2`, with `eckit.C+1.2` as a dependency.
+Pip duly updates eckit, while telling you "oh and btw your environment is broken, multio wheel has unsatisfied dependency".
 Other package managers like `uv` would refuse to install multio in the first place, but this behaviour can't be relied upon.
 
 
@@ -110,7 +110,7 @@ We don't have any process for deleting broken wheels from PyPI.
 ### How do I bring external compiled dependencies?
 Say, for example, you need `libcurl` or `libaec` somewhere in your Compiled library. Ideally, you actually don't. If you do, check whether said library is already available somewhere (as is the case for libcurl and libaec), and consider interfacing with that library through that -- e.g., `eckit` brings in `curl`, so you may want to have `eckit` expose a `curl` call to simplify matters.
 
-If the library is not yet present anywhere, follow the `pre-compile.sh` and `post-build.sh` examples in `eckit/python_wrapper`/`eccodes/python_wrapper` -- those are optional customizable hooks checked for by the repeatable github action, which download and build those dependencies. Note that this process is error-prone and manual, so think twice and test thrice.
+If the library is not yet present anywhere, follow the `pre-compile.sh` and `post-build.sh` examples in `eckit/python_wrapper`/`eccodes/python_wrapper` -- those are optional customisable hooks checked for by the repeatable github action, which download and build those dependencies. Note that this process is error-prone and manual, so think twice and test thrice.
 
 We are currently in the middle of incorporating https://github.com/ecmwf/cxx-dependencies to the wheel building stack -- ideally include your library there.
 However, that will still leave in place the need to actually bundle that library somewhere into our stack, which has its own licensing and sizing problems.

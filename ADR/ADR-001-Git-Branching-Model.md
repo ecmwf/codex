@@ -1,7 +1,7 @@
 # Architectural Decision Record 001: Git Branching Model
 
 ## Status
-[<s>Proposed</s> | Accepted | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>]
+<s>Proposed</s> | **Accepted** | <s>Deprecated</s> | <s>Superseded by [ADR-XXX]</s>
 
 ## Last Updated
 2025-06-25
@@ -193,6 +193,10 @@ The reverse can also happen, where a repository using Git Flow can revert to Git
 
 ### Migration Path
 
+> The authoritative, up-to-date operational migration procedure is maintained in
+> [Guidelines/Branching.md](../Guidelines/Branching.md). The summary below records
+> the intent at the time of this decision.
+
 When upgrading from GitHub Flow to Git Flow:
 
 * Create develop branch from current main
@@ -210,7 +214,7 @@ These decisions listed below were taken into account and they preexist this ADR.
 * CI/CD pipeline configuration must support both GitHub Flow and Git Flow
 * Code review exist for both branching models GitHub Flow and Git Flow
 * Branch protection rules must be configured appropriately for each model, with main/master and develop branches protected for changes only by pull requests accepted by GateKeepers
-* Deployment strategies may vary with the system or service and are not ncecessarily dependent on the chosen workflow, i.e. continuous vs. scheduled, where most ECMWF is deployed into operations with a scheduled release process.
+* Deployment strategies may vary with the system or service and are not necessarily dependent on the chosen workflow, i.e. continuous vs. scheduled, where most ECMWF is deployed into operations with a scheduled release process.
 
 ## Consequences
 

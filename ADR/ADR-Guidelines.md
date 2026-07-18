@@ -129,7 +129,7 @@ Before finalizing an ADR, ensure it meets these criteria:
 - Use sequential numbering: ADR-001-Meaningful-Title, ADR-002-Another-Meaningful-Title, etc.
 - Store ADRs in the central **Codex** repository under `/ADR/`
 - Use descriptive filenames: `ADR-001-Git-Branching-Model.md`
-- Use the [ADR index](./ADR-Index.md) to track all ADRs and their statuses
+- Use the [ADR index](./README.md) to track all ADRs and their statuses
 
 ## Review Process
 
