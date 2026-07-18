@@ -115,7 +115,7 @@ Include:
   - Branching model
   - Merge criteria, e.g. pull requests with mandatory X reviews, all CI/CD test pass
 - **Release strategy**
-  - Versioning system, e.g. *"Semantic versioning (MAJOR.MINOR.PATCH)"*
+  - Versioning system — ECMWF uses Semantic Versioning (MAJOR.MINOR.PATCH); see the [Versioning](../Languages/Versioning.md) policy
 - **Maintenance**
   - How will future developments, and user requests, be managed?
 - **Maturity timeline**

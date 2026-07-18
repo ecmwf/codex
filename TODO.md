@@ -14,7 +14,6 @@ work-in-progress.
 ## High Priority
 
 - [ ] **Guidelines/Testing.md** — Still only covers test-data hosting. Needs unit, integration, and regression testing standards (the README now marks it as draft; other docs' "tests are mandatory" wording depends on this being written).
-- [ ] **Languages/Versioning.md** — Still a single-line placeholder. Needs a versioning policy for multi-language repositories.
 
 ## Medium Priority
 

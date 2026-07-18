@@ -1,6 +1,6 @@
 # Branching Patterns
 
-This document describes the branching patterns used across ECMWF repositories. [ADR-001: Git Branching Model](../ADR/ADR-001-Git-Branching-Model.md) records the *decision and rationale*; this document is the *normative operational procedure*. Version tags follow Semantic Versioning in the clean `x.y.z` form (no `v` prefix) — see the canonical tag and prerelease (`x.y.z-upstream.N`) conventions in [External Contributions](./External-Contributions.md).
+This document describes the branching patterns used across ECMWF repositories. [ADR-001: Git Branching Model](../ADR/ADR-001-Git-Branching-Model.md) records the *decision and rationale*; this document is the *normative operational procedure*. Release version numbers and tags follow the [Versioning](../Languages/Versioning.md) policy (Semantic Versioning, clean `x.y.z`, no `v` prefix; prerelease `x.y.z-upstream.N`) — see also the tagging rules in [External Contributions](./External-Contributions.md).
 
 ## Contents
 
