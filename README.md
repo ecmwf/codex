@@ -16,7 +16,7 @@ The Codex is a set of principles and guidelines for development of software and 
 - [Repository Structure](./Repository%20Structure)
 - [Project Maturity](./Project%20Maturity)
 - [ECMWF Software EnginE (ESEE)](./ESEE)
-- [Guidelines](./Guidelines) — branching, pull requests, testing, containerisation, observability, external contributions, AI contributions, and security vulnerability disclosure
+- [Guidelines](./Guidelines) — branching, pull requests, testing, containerisation, observability, external contributions, continuous software delivery, AI contributions, and security vulnerability disclosure
 - [Languages](./Languages)
 - [Legal](./Legal)
 - [Documentation and Training](./Documentation%20and%20Training)
