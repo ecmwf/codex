@@ -10,6 +10,8 @@ than act** — they never merge, fix, or publish on their own.
 ## Contents
 
 - [Available skills](#available-skills)
+  - [Governance skills](#governance-skills)
+  - [Development skills](#development-skills)
 - [What a skill is](#what-a-skill-is)
 - [Authoring a skill](#authoring-a-skill)
   - [Directory layout](#directory-layout)
@@ -22,6 +24,15 @@ than act** — they never merge, fix, or publish on their own.
 - [Contributing a skill](#contributing-a-skill)
 
 ## Available skills
+
+Skills here fall into two kinds, which differ in how much authority they have.
+**Governance skills** gate a process and therefore never act: they produce a
+verdict and evidence for a human to act on. **Development skills** assist with
+ordinary engineering work and may change code — but they still stop short of
+merging, publishing or releasing, and they ask before changing behaviour that is
+ambiguous or public.
+
+### Governance skills
 
 - [`open-source-audit`](./open-source-audit/SKILL.md) — technical open-source
   compliance audit of a repository. Run before it is made public, and re-run any
@@ -39,6 +50,37 @@ than act** — they never merge, fix, or publish on their own.
   dependency / supply-chain tooling, reviews security-sensitive surfaces, and
   for high-risk repositories adds adversarial testing and bounded fuzzing.
   Produces a CWE-tagged pass/fail report.
+
+### Development skills
+
+- [`review-pull-request`](./review-pull-request/SKILL.md) — works through review
+  feedback on a pull request until it converges. Fetches every unresolved review
+  thread (including the inline comments that `gh pr view` does not show),
+  triages each as a fix or a reasoned rejection, applies focused commits,
+  replies to and resolves each thread, and drives an automated reviewer such as
+  the GitHub Copilot bot around repeated rounds until it stops producing new
+  findings. It never merges the pull request.
+- [`doc-fact-check`](./doc-fact-check/SKILL.md) — verifies documentation against
+  the code it describes. Executes the runnable examples and checks falsifiable
+  claims (API names and signatures, defaults, enum values, counts, CLI flags,
+  configuration keys) against the source, reporting each mismatch as an error, a
+  stale claim or a drift. Proposes fixes without applying them.
+- [`onboard-repository`](./onboard-repository/SKILL.md) — builds a working
+  mental model of an unfamiliar repository: reads its intent documents, maps its
+  structure and build system, surveys a representative slice of the code, and
+  identifies the conventions and the gate that constrain any change. Read-only;
+  reports drift between the documentation and the code.
+- [`robustness-audit`](./robustness-audit/SKILL.md) — audits how code behaves
+  when things go wrong: error paths (crashes on library paths, swallowed causes,
+  missing diagnostic context, inconsistent mapping across boundaries) and edge
+  cases (empty and boundary inputs, `NaN` and infinities, index limits,
+  concurrency, filesystem and encoding hazards). Fixes findings with tests, and
+  asks before changing ambiguous or public behaviour.
+- [`improve-code-coverage`](./improve-code-coverage/SKILL.md) — measures
+  coverage, categorises every gap as untested-but-testable, defensive, dead or
+  environment-specific, then closes the real gaps with tests that assert
+  behaviour, prioritising error paths and risky code. Deletes genuinely dead
+  code rather than suppressing it, and reports before and after.
 
 ## What a skill is
 
@@ -228,13 +270,6 @@ documentation:
 | Cursor | <https://cursor.com/docs/context/skills> |
 | Gemini CLI | <https://geminicli.com/docs/cli/skills/> |
 | OpenAI Codex | <https://developers.openai.com/codex/skills/> |
-| JetBrains Junie | <https://junie.jetbrains.com/docs/agent-skills.html> |
-| Goose | <https://block.github.io/goose/docs/guides/context-engineering/using-skills/> |
-| Amp | <https://ampcode.com/manual#agent-skills> |
-| Factory | <https://docs.factory.ai/cli/configuration/skills> |
-| Roo Code | <https://docs.roocode.com/features/skills> |
-| OpenHands | <https://docs.openhands.dev/overview/skills> |
-| Kiro | <https://kiro.dev/docs/skills/> |
 
 The full, current list of products supporting the format is maintained at
 <https://agentskills.io/clients>.
