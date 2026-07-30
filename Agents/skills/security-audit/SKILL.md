@@ -24,14 +24,14 @@ licensing, README/maturity, secrets-in-history and basic supply-chain hygiene;
 **this** skill is the dedicated, deeper security review.
 
 This skill is run as part of the ECMWF open-sourcing process
-([`Legal/Open-Sourcing-Software.md`](../../Legal/Open-Sourcing-Software.md)),
+([`Legal/Open-Sourcing-Software.md`](../../../Legal/Open-Sourcing-Software.md)),
 by a GitHub Enterprise / organisation owner. Its report is filed in the private
 audit store **`ecmwf/repo-audits`** as a `Security-Audit` (see that repository's
 `SCHEMA.md`). It supports the **Secure by Design** principle
-([`Principles/Open-Source-Principles.md`](../../Principles/Open-Source-Principles.md)).
+([`Principles/Open-Source-Principles.md`](../../../Principles/Open-Source-Principles.md)).
 
 This file is written to be **model-agnostic** (see the portability notes in
-[`Agent Skills/README.md`](../README.md)): the instructions below are
+[`Agents/skills/README.md`](../README.md)): the instructions below are
 self-contained plain Markdown and work whether this skill is loaded by Claude,
 GPT or Gemini agents.
 
@@ -190,7 +190,7 @@ and private-key markers in addition to running `gitleaks`.
 If the audited repository is **already public** and you confirm a CRITICAL or
 HIGH vulnerability, additionally recommend that the owner tracks the fix as a
 **draft security advisory** (private fork, coordinated release) per the
-[Security Vulnerability Disclosure](../../Guidelines/Security-Vulnerability-Disclosure.md)
+[Security Vulnerability Disclosure](../../../Guidelines/Security-Vulnerability-Disclosure.md)
 procedure — do not describe the vulnerability in any public issue or PR. You
 still only report and recommend; opening the advisory is the owner's action.
 
@@ -355,10 +355,10 @@ Check settings with `gh api` where you have access, otherwise note as Unverified
       vulnerability-disclosure policy. ECMWF's reporting route is **GitHub
       private vulnerability reporting (PVR) first**, with the Support Portal
       (<https://support.ecmwf.int>) as fallback, per the
-      [Security Vulnerability Disclosure](../../Guidelines/Security-Vulnerability-Disclosure.md)
+      [Security Vulnerability Disclosure](../../../Guidelines/Security-Vulnerability-Disclosure.md)
       procedure; recommend adding a `SECURITY.md` that points reporters there. A
       ready-to-use, generic template is in the Codex at
-      [`Repository Structure/SECURITY.md`](../../Repository%20Structure/SECURITY.md).
+      [`Repository Structure/SECURITY.md`](../../../Repository%20Structure/SECURITY.md).
       Its absence is a **LOW** recommendation, never a FAIL.
 - [ ] **Private vulnerability reporting enabled** *(advisory, non-blocking
       during rollout)* — public ECMWF repositories must have PVR enabled per the

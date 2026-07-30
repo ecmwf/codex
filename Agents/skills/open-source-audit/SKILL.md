@@ -21,7 +21,7 @@ and general open-sourcing best practices **before** it is made public — and
 (see "Run modes").
 
 This skill is run as part of the ECMWF open-sourcing process described in
-[`Legal/Open-Sourcing-Software.md`](../../Legal/Open-Sourcing-Software.md).
+[`Legal/Open-Sourcing-Software.md`](../../../Legal/Open-Sourcing-Software.md).
 It is the final technical gate, run when a repository owner requests the
 GitHub Enterprise / organisation owner to switch the repository from private
 to public. The audit is normally run by, or on behalf of, that owner before
@@ -32,7 +32,7 @@ and maintainership have already been settled through the official ECMWF
 procedure. Your job is the technical audit of the repository contents.
 
 This file is written to be **model-agnostic** (see the portability notes in
-[`Agent Skills/README.md`](../README.md)): the instructions below are
+[`Agents/skills/README.md`](../README.md)): the instructions below are
 self-contained plain Markdown and work whether this skill is loaded by Claude,
 GPT or Gemini agents.
 
@@ -206,7 +206,7 @@ Decide which mode applies before you start, and state it in the report.
       Apache, etc.) may be included only if its original copyright and licence
       notice are preserved *and* it is recorded in the `NOTICE` file alongside
       `LICENSE` (see
-      [Copyright-And-Licensing.md](../../Legal/Copyright-And-Licensing.md)).
+      [Copyright-And-Licensing.md](../../../Legal/Copyright-And-Licensing.md)).
       Stripped attribution, or a missing/incomplete `NOTICE` for included
       third-party code, is a FAIL. If the provenance or licence of a block
       cannot be established, treat it as an IPR risk: FAIL, and refer to the
@@ -243,7 +243,7 @@ Decide which mode applies before you start, and state it in the report.
       the GitHub–Zenodo integration) and add a `CITATION.cff` file at the
       repository root so downstream users and publications can cite it precisely.
       A copy-ready example is in the Codex at
-      [`Repository Structure/CITATION.cff`](../../Repository%20Structure/CITATION.cff).
+      [`Repository Structure/CITATION.cff`](../../../Repository%20Structure/CITATION.cff).
       This is an **advisory**, never a blocker (it is typically completed once
       the repository is public — see "Post-publication recommendations").
 
