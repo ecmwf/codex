@@ -213,12 +213,30 @@ gh api repos/<owner>/<repo>/pulls/<pr>/requested_reviewers # is the bot still qu
 ```
 
 After a successful request, `requested_reviewers` lists the bot; it clears back
-to `[]` when the bot has finished processing. That gives two outcomes:
+to `[]` when the bot has finished processing. That gives three outcomes:
 
-- **A new review is posted** (the review count rises) — go back to triage.
+- **A new review is posted with findings** (the review count rises) — go back to
+  triage.
 - **`requested_reviewers` cleared and no new review appeared** — the reviewer
   processed the request and had nothing to add. **Stop.** The cleared list is
   itself the terminating signal; do not run a confirmation round.
+- **A review is posted, but it is a service error rather than findings** — for
+  example a quota or rate limit reached, the service being unavailable, or the
+  diff being too large to review. **Read the review body before treating a
+  rising review count as findings.**
+
+That third outcome needs care, because it can produce an endless loop: each
+request returns a "review", so the count rises every round and the
+no-new-review stop condition is never reached, while no finding is ever
+produced. When the body reports a service error rather than a finding:
+
+- retry **at most once** — some errors are transient;
+- if the second attempt returns the same error, **stop and tell the user**,
+  naming the error and how many attempts were made;
+- do not treat the error review as a finding, do not reply to it as though it
+  were, and do not resolve anything on account of it;
+- state plainly in the report that the pull request **has not been reviewed**,
+  so that an unreviewed pull request is never mistaken for a clean one.
 
 Allow roughly five minutes for a bot to process a request. If the list has not
 cleared by then, request again.
@@ -230,7 +248,9 @@ cleared by then, request again.
 - the latest review contains no new actionable findings — every comment is a
   duplicate of one already resolved, or a false positive already rejected with a
   stated reason;
-- all threads are resolved and the checks are green, with no review pending.
+- all threads are resolved and the checks are green, with no review pending;
+- the reviewer returned the same service error twice (see above) — the loop
+  cannot make progress, and the pull request remains unreviewed.
 
 The loop terminates on the reviewer's behaviour, not on a fixed number of
 rounds. A single round meeting a stop condition is enough.
