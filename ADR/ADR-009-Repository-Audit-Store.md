@@ -145,7 +145,7 @@ automation target.
 
 - The report store is the "designated store" referenced by the
   `open-source-audit` skill in
-  [`Agent Skills/open-source-audit/SKILL.md`](../Agent%20Skills/open-source-audit/SKILL.md).
+  [`Agents/skills/open-source-audit/SKILL.md`](../Agents/skills/open-source-audit/SKILL.md).
 - Reports implement part of the open-sourcing process in
   [`Legal/Open-Sourcing-Software.md`](../Legal/Open-Sourcing-Software.md).
 - Supports the **Secure by Design** principle in
@@ -180,7 +180,7 @@ This ADR does not modify or supersede any existing ADR.
 - Report store: <https://github.com/ecmwf/repo-audits> (private) and its
   `SCHEMA.md`
 - Open-source audit skill:
-  [`Agent Skills/open-source-audit/SKILL.md`](../Agent%20Skills/open-source-audit/SKILL.md)
+  [`Agents/skills/open-source-audit/SKILL.md`](../Agents/skills/open-source-audit/SKILL.md)
 - Open-sourcing process:
   [`Legal/Open-Sourcing-Software.md`](../Legal/Open-Sourcing-Software.md)
 
