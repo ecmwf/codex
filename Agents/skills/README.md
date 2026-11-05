@@ -4,8 +4,10 @@ Reusable AI-agent skills that support ECMWF software governance processes.
 
 These skills are AI agents and operate under the
 [AI Contributions to Software](../../Guidelines/Ai-Contributions-To-Software.md)
-guidelines: they keep a human in the loop, and they **report and gate rather
-than act** — they never merge, fix, or publish on their own.
+guidelines. Every skill keeps a human in the loop, and no skill merges or
+publishes on its own. Beyond that, the two kinds of skill differ: the governance
+skills (the audits) **report and gate rather than act**, while the development
+skills make changes only within the scope the user asked for.
 
 ## Contents
 

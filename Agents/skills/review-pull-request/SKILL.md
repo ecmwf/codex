@@ -53,20 +53,24 @@ already be obsolete because the base moved.
 
 **Inline review comments do not appear in `gh pr view`.** Use the GraphQL
 `reviewThreads` query, which is also the only way to see which threads are
-already resolved:
+already resolved. Page through every thread: `--paginate` follows
+`pageInfo`, and it needs the `$endCursor` variable and the `after:` argument on
+the connection it pages:
 
 ```bash
-gh api graphql -f query='
-query($owner:String!, $repo:String!, $pr:Int!) {
+gh api graphql --paginate -f query='
+query($owner:String!, $repo:String!, $pr:Int!, $endCursor:String) {
   repository(owner:$owner, name:$repo) {
     pullRequest(number:$pr) {
-      reviewThreads(first:100) {
+      reviewThreads(first:50, after:$endCursor) {
+        pageInfo { hasNextPage endCursor }
         nodes {
           id
           isResolved
           isOutdated
           path
-          comments(first:20) {
+          comments(first:100) {
+            totalCount
             nodes { databaseId author { login } body path line originalLine }
           }
         }
@@ -76,16 +80,39 @@ query($owner:String!, $repo:String!, $pr:Int!) {
 }' -f owner=<owner> -f repo=<repo> -F pr=<pr>
 ```
 
+Keep `pageInfo` out of the inner `comments` selection: `--paginate` expects a
+single paginated connection. Instead, if a thread's `totalCount` is larger than
+the number of comments returned, fetch the rest of that thread's comments with
+its node `id`:
+
+```bash
+gh api graphql --paginate -f query='
+query($threadId:ID!, $endCursor:String) {
+  node(id:$threadId) {
+    ... on PullRequestReviewThread {
+      comments(first:100, after:$endCursor) {
+        pageInfo { hasNextPage endCursor }
+        nodes { databaseId author { login } body path line originalLine }
+      }
+    }
+  }
+}' -f threadId=<thread_node_id>
+```
+
+This returns every comment in the thread, including the first 100 again;
+deduplicate by `databaseId`.
+
 Threads where `isResolved` is `true` are done — do not reopen them. Threads
 where `isOutdated` is `true` refer to code that has since changed; re-read the
 current code before deciding whether the point still stands.
 
 Also collect the review bodies and any top-level discussion, which carry
-findings that are not attached to a line:
+findings that are not attached to a line. Always pass `--paginate` to REST list
+calls, because each returns only its first page (30 items) by default:
 
 ```bash
-gh api repos/<owner>/<repo>/pulls/<pr>/reviews
-gh api repos/<owner>/<repo>/issues/<pr>/comments
+gh api --paginate repos/<owner>/<repo>/pulls/<pr>/reviews
+gh api --paginate repos/<owner>/<repo>/issues/<pr>/comments
 ```
 
 Build a single list of open items. Deduplicate: reviewers frequently raise the
@@ -208,8 +235,8 @@ request again.
 While waiting, poll **both** endpoints together:
 
 ```bash
-gh api repos/<owner>/<repo>/pulls/<pr>/reviews            # has the review count risen?
-gh api repos/<owner>/<repo>/pulls/<pr>/requested_reviewers # is the bot still queued?
+gh api --paginate repos/<owner>/<repo>/pulls/<pr>/reviews  # has the review count risen?
+gh api repos/<owner>/<repo>/pulls/<pr>/requested_reviewers  # is the bot still queued?
 ```
 
 After a successful request, `requested_reviewers` lists the bot; it clears back
@@ -218,8 +245,9 @@ to `[]` when the bot has finished processing. That gives three outcomes:
 - **A new review is posted with findings** (the review count rises) — go back to
   triage.
 - **`requested_reviewers` cleared and no new review appeared** — the reviewer
-  processed the request and had nothing to add. **Stop.** The cleared list is
-  itself the terminating signal; do not run a confirmation round.
+  processed the request and had nothing to add. **Stop**, provided the request
+  was made on the current head (see below). The cleared list is itself the
+  terminating signal; do not run a confirmation round.
 - **A review is posted, but it is a service error rather than findings** — for
   example a quota or rate limit reached, the service being unavailable, or the
   diff being too large to review. **Read the review body before treating a
@@ -241,16 +269,27 @@ produced. When the body reports a service error rather than a finding:
 Allow roughly five minutes for a bot to process a request. If the list has not
 cleared by then, request again.
 
-**Stop the loop** when any of these holds:
+**Converged** means a review of the **latest pushed head** has completed. Get
+the current head with `gh pr view <pr> --repo <owner>/<repo> --json headRefOid`
+and compare it with the `commit_id` of the newest review. Either of these
+establishes it:
 
-- the reviewer processed a request without posting a new review (the cycle
-  `[bot] → []` completed and the review count did not rise);
-- the latest review contains no new actionable findings — every comment is a
-  duplicate of one already resolved, or a false positive already rejected with a
-  stated reason;
-- all threads are resolved and the checks are green, with no review pending;
-- the reviewer returned the same service error twice (see above) — the loop
-  cannot make progress, and the pull request remains unreviewed.
+- the newest review's `commit_id` equals the current head SHA, and it contains
+  no new actionable findings — every comment is a duplicate of one already
+  resolved, or a false positive already rejected with a stated reason;
+- the reviewer processed a request made on the current head without posting a
+  new review (the cycle `[bot] → []` completed and the review count did not
+  rise).
+
+Resolved threads and green checks are not enough on their own. If you have
+pushed since the last review, nobody has reviewed those commits yet: request
+another round.
+
+**Stop the loop** when the loop has converged as above, or when this holds:
+
+- the reviewer returned the same service error twice (see above). This is **not**
+  convergence: the loop cannot make progress, and the pull request remains
+  unreviewed. The report must say so.
 
 The loop terminates on the reviewer's behaviour, not on a fixed number of
 rounds. A single round meeting a stop condition is enough.
@@ -267,7 +306,9 @@ Finish with a summary that maps every item to its outcome:
 - **Rejected** — the finding, and the one-line reason given to the reviewer.
 - **Asked** — anything referred back to the user, still open.
 - **State** — threads resolved versus outstanding, check status, and whether the
-  loop terminated or was escalated.
+  loop converged (name the head SHA the last completed review covered), stopped
+  on a service error, or was escalated.
 
-State plainly whether the pull request is ready for a human decision. Do not
-merge it.
+State plainly whether the pull request is ready for a human decision. If the
+loop stopped on a service error, or the latest pushed head has not been
+reviewed, say that the pull request **has not been reviewed**. Do not merge it.

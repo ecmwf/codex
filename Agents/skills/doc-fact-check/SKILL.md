@@ -92,12 +92,15 @@ General approach by language family:
   tested rather than a published release. Build it, run it if it produces a
   binary, then clean up.
 - **Shell examples**: only those that can run without user-specific data and
-  without mutating the user's system. Check for a zero exit status. Never run a
-  command that writes outside the temporary area, deletes data, publishes, or
-  contacts a production service.
+  without mutating the user's system. Check for a zero exit status.
 
-Two absolute rules:
+Three absolute rules:
 
+- **Execution safety applies to every runnable block, in any language** —
+  shell, Python, compiled code or anything else. Before running a block, read it
+  and skip it if it would write outside the temporary area, delete data,
+  publish, or contact a production service. Skip it and record why; do not edit
+  it to make it safe.
 - **Never invent missing imports, variables or arguments** to make a block run.
   If it is not self-contained, it is a skip — and if the documentation presents
   it as complete, that itself is a finding.
