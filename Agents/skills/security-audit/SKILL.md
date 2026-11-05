@@ -47,6 +47,12 @@ GPT or Gemini agents.
 
 ## How to run the audit
 
+**Work in a fresh clone.** Never use or delete an existing checkout of the
+audited repository: clone it afresh under `$TMPDIR/codex-audits/<repo>` (ask if
+`$TMPDIR` is unset, and before replacing a folder there that you did not create
+in this session), keep all builds and tests inside it, and delete only what you
+created there. See [AGENTS.md](../../../AGENTS.md).
+
 1. Identify the **run mode** (see "Run modes") and read any previous report.
 2. **Characterise the target and build a threat model** (§1).
 3. Determine the **risk tier** (§2). It decides how deep you go.

@@ -16,34 +16,34 @@ description: >
 # Open-source audit
 
 Audit a repository against the [ECMWF Codex](https://github.com/ecmwf/codex)
-and general open-sourcing best practices **before** it is made public — and
-**re-run it any time** to confirm an already-public repository still complies
-(see "Run modes").
+and open-sourcing best practices **before** it is made public, and **re-run it
+any time** to confirm a public repository still complies (see "Run modes").
 
 This skill is run as part of the ECMWF open-sourcing process described in
 [`Legal/Open-Sourcing-Software.md`](../../../Legal/Open-Sourcing-Software.md).
-It is the final technical gate, run when a repository owner requests the
-GitHub Enterprise / organisation owner to switch the repository from private
-to public. The audit is normally run by, or on behalf of, that owner before
-the visibility change is made.
+It is the final technical gate, normally run by, or on behalf of, the owner who
+asks the GitHub Enterprise / organisation owner to switch the repository from
+private to public, before the visibility change is made. It assumes the human
+side (approval, scope, maintainership) is already settled through the official
+ECMWF procedure; your job is the technical audit of the repository contents.
 
-This skill assumes the human side is done: open-sourcing approval, scope,
-and maintainership have already been settled through the official ECMWF
-procedure. Your job is the technical audit of the repository contents.
-
-This file is written to be **model-agnostic** (see the portability notes in
-[`Agents/skills/README.md`](../README.md)): the instructions below are
-self-contained plain Markdown and work whether this skill is loaded by Claude,
-GPT or Gemini agents.
+This file is **model-agnostic** (see the portability notes in
+[`Agents/skills/README.md`](../README.md)): self-contained plain Markdown.
 
 Making a repo public is effectively irreversible: once pushed to a public
-remote, assume every byte of every commit has been copied. The point of this
-skill is to catch problems while they are still fixable.
+remote, assume every byte of every commit has been copied. This skill exists to
+catch problems while they are still fixable.
 
 ## How to run the audit
 
-1. Identify the run mode — initial, follow-up after fixes, or periodic
-   re-audit (see "Run modes" below) — and read any previous report first.
+**Work in a fresh clone.** Never use or delete an existing checkout of the
+audited repository: clone it afresh under `$TMPDIR/codex-audits/<repo>` (ask if
+`$TMPDIR` is unset, and before replacing a folder there that you did not create
+in this session), keep all builds and tests inside it, and delete only what you
+created there. See [AGENTS.md](../../../AGENTS.md).
+
+1. Identify the run mode (initial, follow-up after fixes, or periodic re-audit;
+   see "Run modes") and read any previous report first.
 2. Work through every section below. Do not stop at the first failure —
    collect all findings.
 3. For each item record **PASS**, **FAIL**, or **N/A** (with a one-line
@@ -57,14 +57,13 @@ each FAIL:
 - **Blocker** — a genuine reason not to publish yet:
   - secrets/credentials, or **any internal information** (internal hostnames,
     IPs, filesystem paths, internal ticket references, or personal data such as
-    private emails or phone numbers) in the code **or git history** (see
-    sections 4 and 5);
+    private phone numbers, or a non-work email whose owner declines publication)
+    in the code **or git history** (see sections 4 and 5);
   - an Apache-incompatible or missing licence, or **any tracked source file
     missing its per-file licence header** (see section 1);
   - copied code without attribution, or unresolved IPR/provenance concerns;
   - **committed build/install artefacts or editor/OS junk** (e.g. `*.pyc`,
-    `__pycache__/`, `*.egg-info/`, `build/`, `dist/`, `.DS_Store`) (see
-    section 6);
+    `__pycache__/`, `*.egg-info/`, `build/`, `dist/`, `.DS_Store`) (section 6);
   - software with **no genuine documentation at all** (see section 2);
   - a **security audit that has been run and is NOT_READY** (open CRITICAL/HIGH).
 
@@ -74,59 +73,54 @@ each FAIL:
 - **Advisory** — a real but low-impact hygiene deviation that should be fixed but
   is not a publication risk on its own (e.g. README licence-section wording,
   a maturity badge placed too low in the README, leftover template cruft, a
-  missing `CONTRIBUTING.md`, or an absent `CITATION.cff`). Advisories are listed
-  and should be fixed, but do **not** block publication and are **not** counted
-  in `fail_count`.
+  missing `CONTRIBUTING.md`, or an absent `CITATION.cff`). Advisories are listed,
+  do **not** block publication and are **not** counted in `fail_count`.
 
 When genuinely unsure whether something is a blocker, treat it as one — the cost
 of a false "ready" is a public leak.
 
-Checks marked **[Codex]** cite the source document in `ecmwf/codex`; read the
-cited file if the requirement is ambiguous.
+Checks marked **[Codex]** cite the source document in `ecmwf/codex`; read it if
+the requirement is ambiguous.
 
 ## Run modes
 
-This skill is designed to be run more than once over a repository's lifetime.
-Decide which mode applies before you start, and state it in the report.
+This skill can run many times over a repository's lifetime. Decide the mode
+before you start, and state it in the report.
 
 - **Initial audit** — the first audit run, before publication. Work through
   every section from scratch.
 - **Follow-up audit (after fixes)** — a repository that previously failed is
-  being re-checked. First locate and read the previous report(s) for this
-  repository in the audit store (`ecmwf/repo-audits`, under
-  `audits/<org>/<repo>/`; ask an org owner if you cannot access it), never in
-  the repo itself — see "Report storage". Confirm that every prior **FAIL** and
-  **Unverified** item has genuinely been resolved, and watch for regressions
-  introduced by the fixes. A READY verdict still requires a full pass of every
+  being re-checked. First read the previous report(s) in the audit store
+  (`ecmwf/repo-audits`, under `audits/<org>/<repo>/`; ask an org owner if you
+  cannot access it), never in the repo itself — see "Report storage". Confirm
+  that every prior **FAIL** and **Unverified** item has genuinely been resolved,
+  and watch for regressions. A READY verdict still requires a full pass of every
   section, not only the previously-failing items.
 - **Periodic re-audit** — a re-check of an already-public repository to confirm
-  it *still* complies with every directive here (licences, copied code, secrets,
-  security, documentation, etc.). Recommended cadence is at least **once every
-  12 months**, and after any major change. Compare against the most recent
+  it *still* complies with every directive here. Recommended at least **once
+  every 12 months**, and after any major change. Compare against the most recent
   report, flag any drift, and record the next recommended review date.
 
 ## 1. Licensing and third-party code — [Codex: Legal/Copyright-And-Licensing.md]
 
 - [ ] `LICENSE` exists at the repository root and is Apache License 2.0.
 - [ ] The Apache licence text carries the copyright line (the Codex says to
-      add it at line 178 of the standard text). The holder is either ECMWF
-      or the European Union, depending on the funding of the project:
+      add it at line 178 of the standard text). The holder is ECMWF or, for
+      EU-funded work, the European Union ("European Union" is the correct
+      holder — not "European Commission"):
 
       Copyright 1996- European Centre for Medium-Range Weather Forecasts (ECMWF)
 
-      or the equivalent European Union copyright statement for EU-funded work
-      ("European Union" is the correct holder — not "European Commission").
       Either is acceptable; missing entirely is a FAIL. In repositories adopting
-      the SPDX/REUSE layout (ADR-010), the copyright line and the
-      intergovernmental notice live in the top-level `LICENSE` (notice at its
-      tail) and `NOTICE`, while `LICENSES/Apache-2.0.txt` must remain the
-      **unmodified** Apache text — do not flag that file for lacking them.
+      the SPDX/REUSE layout (ADR-010), the copyright line and intergovernmental
+      notice live in the top-level `LICENSE` (notice at its tail) and `NOTICE`,
+      while `LICENSES/Apache-2.0.txt` must remain the **unmodified** Apache text
+      — do not flag that file for lacking them.
 - [ ] Every original source file (code and documentation) carries a licence
       header — **any tracked source file without one is a FAIL (Blocker)**. Check
-      **git-tracked files only** (`git ls-files`) — do not flag build/install
-      artefacts such as a `setuptools_scm`-generated `_version.py`, which are not
-      in version control (and should not be committed at all — see section 6).
-      Two header forms are acceptable:
+      **git-tracked files only** (`git ls-files`) — do not flag untracked
+      artefacts such as a `setuptools_scm`-generated `_version.py` (which should
+      not be committed at all — see section 6). Two header forms are acceptable:
 
       1. The **SPDX + REUSE** form — *the ECMWF standard; required for new
          files* [Codex: Legal/SPDX-and-REUSE.md; ADR-010]:
@@ -134,8 +128,8 @@ Decide which mode applies before you start, and state it in the report.
          SPDX-FileCopyrightText: <year> European Centre for Medium-Range Weather Forecasts (ECMWF)
          SPDX-License-Identifier: Apache-2.0
 
-         with one extra `SPDX-FileCopyrightText:` line per additional copyright
-         holder (e.g. `Crown Copyright, Met Office` for partner-co-developed code).
+         plus one extra `SPDX-FileCopyrightText:` line per additional copyright
+         holder (e.g. `Crown Copyright, Met Office`).
 
       2. The legacy **prose** header — still valid for not-yet-migrated files:
 
@@ -150,53 +144,44 @@ Decide which mode applies before you start, and state it in the report.
       (holder ECMWF or, for EU-funded work, European Union). Spot-check by
       grepping for `SPDX-License-Identifier`, `Apache Licence Version 2.0`, or
       `intergovernmental` and comparing the hit count against the source file
-      count. The SPDX form is required for new files (ADR-010); `reuse annotate`
-      or `ecbuild`'s `apply_license.sh` can add missing headers.
+      count. `reuse annotate` or `ecbuild`'s `apply_license.sh` can add missing
+      headers.
 - [ ] No references to old ECMWF licences, GPL, or LGPL remain
       (`grep -riE "GPL|GNU General Public" . --exclude-dir=.git`, then filter
       false positives).
 - [ ] Third-party dependencies (and any vendored code) have licences
       compatible with Apache 2.0. Flag GPL/LGPL/AGPL dependencies as FAIL.
-      Check lockfiles and vendored directories, not just declared
-      dependencies. Ecosystem tools:
-
-      pip-licenses                      # Python (run in the project venv)
-      npx license-checker --summary     # Node
-      cargo deny check licenses         # Rust (needs deny.toml)
-      go-licenses report ./...          # Go
-
+      Check lockfiles and vendored directories, not just declared dependencies.
+      Ecosystem tools: `pip-licenses` (Python, in the project venv),
+      `npx license-checker --summary` (Node), `cargo deny check licenses`
+      (Rust, needs `deny.toml`), `go-licenses report ./...` (Go).
       Weak-copyleft dependencies (e.g. MPL-2.0, EPL) are file-level and remain
       Apache-compatible — do not fail them. A dependency reported as `UNKNOWN`
       usually means missing licence metadata, not a bad licence; **confirm it
-      manually** (check the project's repository/LICENSE) rather than
-      auto-failing — some first-party or binary wheels ship Apache-2.0 code with
-      no licence classifier.
+      manually** (the project's repository/LICENSE), don't auto-fail.
 
 - [ ] **Scan the complete codebase for copied or inlined third-party code**,
       not only declared dependencies. Sweep every source and data file (and the
-      git history) for code that looks copied in from elsewhere: foreign or
-      non-Apache licence headers, `SPDX-License-Identifier` tags that are not
-      `Apache-2.0`, other parties' copyright lines, blocks stylistically
-      inconsistent with the surrounding code, and tell-tale phrases
-      (`based on`, `borrowed from`, `adapted from`, `Stack Overflow`,
-      gist/blog URLs). Useful sweeps:
+      git history) for foreign or non-Apache licence headers,
+      `SPDX-License-Identifier` tags that are not `Apache-2.0`, other parties'
+      copyright lines, blocks stylistically inconsistent with the surrounding
+      code, and tell-tale phrases (`based on`, `borrowed from`, `adapted from`,
+      `Stack Overflow`, gist/blog URLs). Useful sweeps:
 
       grep -rniE 'SPDX-License-Identifier|copyright \(c\)|all rights reserved' . --exclude-dir=.git | grep -v 'Apache-2.0'
       grep -rniE 'GPL|LGPL|AGPL|MPL|CC[ -]BY|creative commons|proprietary|based on|borrowed from|adapted from' . --exclude-dir=.git
 
-      (In repositories migrated to SPDX headers per ADR-010, every ECMWF file
-      legitimately carries `SPDX-License-Identifier: Apache-2.0` and an ECMWF
-      `SPDX-FileCopyrightText` line — the filter above hides those; what you are
-      hunting is *non-Apache* tags and *other parties'* copyright lines.)
+      (SPDX-migrated repositories legitimately carry `Apache-2.0` tags and ECMWF
+      `SPDX-FileCopyrightText` lines — the filter hides those; you are hunting
+      *non-Apache* tags and *other parties'* copyright lines.)
 
       Where available, run a provenance/licence scanner over the whole tree:
       `scancode-toolkit`, `reuse lint`, or GitHub `licensee`. Treat these as
-      **provenance leads, not a hard gate**. **SPDX + REUSE** headers are the
-      ECMWF standard (ADR-010 / [Codex: Legal/SPDX-and-REUSE.md]), but migration
-      of existing repositories is incremental: a repository still on prose
-      headers will fail `reuse lint`, which is **advisory, not a blocker** —
-      recommend SPDX/REUSE migration rather than failing the audit on it.
-- [ ] **Copied code under an Apache-incompatible licence is a FAIL.** Any code
+      **provenance leads, not a hard gate**. Migration to **SPDX + REUSE**
+      headers (ADR-010 / [Codex: Legal/SPDX-and-REUSE.md]) is incremental: a
+      repository still on prose headers fails `reuse lint`, which is **advisory,
+      not a blocker** — recommend migration rather than failing the audit.
+- [ ] **Copied code under an Apache-incompatible licence is a FAIL.** Code
       copied in under GPL/LGPL/AGPL, CC-BY-SA, a non-commercial or
       "no-derivatives" licence, or an unknown/proprietary licence must be
       removed or cleanly re-implemented — ECMWF cannot re-license it under
@@ -207,10 +192,9 @@ Decide which mode applies before you start, and state it in the report.
       notice are preserved *and* it is recorded in the `NOTICE` file alongside
       `LICENSE` (see
       [Copyright-And-Licensing.md](../../../Legal/Copyright-And-Licensing.md)).
-      Stripped attribution, or a missing/incomplete `NOTICE` for included
-      third-party code, is a FAIL. If the provenance or licence of a block
-      cannot be established, treat it as an IPR risk: FAIL, and refer to the
-      Development Section for a formal code audit.
+      Stripped attribution or a missing/incomplete `NOTICE` entry is a FAIL. If the
+      provenance or licence of a block cannot be established, treat it as an IPR
+      risk: FAIL, and refer to the Development Section for a formal code audit.
 
 ## 2. README and documentation — [Codex: Legal/Open-Sourcing-Software.md, Repository Structure/README.md, Principles/Open-Source-Principles.md]
 
@@ -235,24 +219,21 @@ Decide which mode applies before you start, and state it in the report.
       undocumented software as effectively unusable
       [Codex: Principles/Open-Source-Principles.md]. The minimum bar is a
       `README.md` that genuinely covers purpose, installation and usage; a
-      `docs/` tree, a published documentation site, or worked usage examples
-      are better and expected at higher maturity levels. A stub, empty, or
-      template-placeholder README does **not** satisfy this check.
-- [ ] **Citation & DOI — advisory (should).** The repository *should* consider
-      making the software citable for external references: mint a DOI (e.g. via
-      the GitHub–Zenodo integration) and add a `CITATION.cff` file at the
-      repository root so downstream users and publications can cite it precisely.
-      A copy-ready example is in the Codex at
+      `docs/` tree, documentation site, or worked examples are better and
+      expected at higher maturity levels. A stub, empty, or template-placeholder
+      README does **not** satisfy this check.
+- [ ] **Citation & DOI — advisory (should).** The repository *should* make the
+      software citable: mint a DOI (e.g. via the GitHub–Zenodo integration) and
+      add a `CITATION.cff` file at the repository root. Example:
       [`Repository Structure/CITATION.cff`](../../../Repository%20Structure/CITATION.cff).
-      This is an **advisory**, never a blocker (it is typically completed once
-      the repository is public — see "Post-publication recommendations").
+      **Advisory**, never a blocker (typically completed once the repository is
+      public — see "Post-publication recommendations").
 
 ## 3. Maturity badge — [Codex: Project Maturity/README.md]
 
-The maturity badge is also the support statement: it tells users what
-stability and support to expect, so no separate "level of support" wording
-is needed. Public ECMWF projects at low maturity (e.g. qubed,
-forecast-in-a-box) carry just the badge plus the disclaimer.
+The maturity badge is also the support statement, so no separate "level of
+support" wording is needed (e.g. qubed and forecast-in-a-box carry just the
+badge plus the disclaimer).
 
 - [ ] README shows one of the maturity badges: Sandbox, Emerging,
       Incubating, Graduated, or Archived — with the matching disclaimer:
@@ -263,83 +244,103 @@ forecast-in-a-box) carry just the badge plus the disclaimer.
 
 - [ ] The badge and disclaimer are placed at the **top of the README** — after
       the project title and an optional short synopsis, and **before** the main
-      body — so that a reader sees the maturity and support statement first. A
-      badge/disclaimer buried lower in the README is a finding (advisory).
-- [ ] The claimed level is honest. A brand-new project should almost always
-      start at Sandbox or Emerging. Flag an optimistic level as FAIL with a
-      note (usually **Advisory**, unless the claimed level materially misleads
-      users about stability or support).
+      body. One buried lower in the README is a finding (advisory).
+- [ ] The claimed level is honest: a brand-new project should almost always be
+      Sandbox or Emerging. Flag an optimistic level as FAIL with a note (usually
+      **Advisory**, unless it materially misleads users about stability or
+      support).
 
 ## 4. Secrets and sensitive information
 
 This is the highest-stakes section. **Scan the full git history, not just
 the working tree** — deleted files and old commits are published too.
 
-- [ ] Run an automated secret scanner over all history. Prefer whichever is
-      installed; install `gitleaks` if none is:
+- [ ] **Fetch the pull-request refs first.** GitHub keeps a read-only
+      `refs/pull/<n>/head` for every pull request, publishes it with the
+      repository, and a history rewrite cannot change it. It can expose
+      pre-rewrite history (in two real audits a home path and internal hostnames
+      survived a rewrite this way), and closed, unmerged pull requests can hold
+      content that never reached the default branch. Fetch them so every sweep
+      below (`--all`, `gitleaks`) covers them:
+
+      git fetch origin '+refs/pull/*/head:refs/remotes/pr/*'
+
+      Anything found only there is published too: rate it like a history
+      finding. If history was rewritten or the repository recreated, also check
+      whether GitHub still serves old commits by ID
+      (`gh api repos/<org>/<repo>/commits/<sha>`). If it does, ask GitHub Support
+      to purge them (it may decline non-sensitive data), or publish from a fresh
+      repository holding only the rewritten history, keeping any archive of the
+      old repository private.
+- [ ] Run an automated secret scanner over all history (`gitleaks` if none is
+      installed):
 
       gitleaks git .            # or: gitleaks detect --source .
       # alternatives: trufflehog git file://. ; detect-secrets scan
 
-- [ ] Grep history for high-risk patterns the scanners can miss —
-      ECMWF-internal hostnames, internal IPs, usernames, and email addresses
-      are explicitly called out by the Codex audit. **Any such internal
-      information found in the code or history is a FAIL (Blocker)**, even for an
-      already-public repo (record it and flag that it should have been caught
-      before publication):
+- [ ] Grep history for high-risk patterns the scanners can miss — the Codex
+      audit calls out ECMWF-internal hostnames, internal IPs, usernames and email
+      addresses. **Any such internal information found in the code or history is
+      a FAIL (Blocker)**, even for an already-public repo (record it and flag that
+      it should have been caught before publication):
 
       git log -p --all | grep -inE 'password|passwd|secret|api[_-]?key|token|BEGIN (RSA|OPENSSH|EC) PRIVATE' | head
       git log -p --all | grep -inE '\.ecmwf\.int|10\.[0-9]+\.[0-9]+\.[0-9]+|192\.168\.' | head
 
-- [ ] Check for committed credential files in history:
-      `.env`, `.netrc`, `.npmrc`/`.pypirc` with tokens, `id_rsa`, `*.pem`,
-      `*.p12`, kubeconfigs, `credentials.json`, cloud provider config.
-      `git log --all --diff-filter=A --name-only | sort -u` gives every path
+- [ ] Check for committed credential files in history: `.env`, `.netrc`,
+      `.npmrc`/`.pypirc` with tokens, `id_rsa`, `*.pem`, `*.p12`, kubeconfigs,
+      `credentials.json`, cloud provider config.
+      `git log --all --diff-filter=A --name-only | sort -u` lists every path
       that ever existed.
-- [ ] Check GitHub Actions workflows: no inlined secrets, no `echo` of
-      secret values, and no `pull_request_target` triggers that run
-      untrusted PR code with secret access. Also check supply-chain
-      hygiene: top-level `permissions:` blocks are least-privilege, and
-      third-party actions are pinned to a commit SHA rather than a mutable
-      tag (`uses: some-org/action@<sha>`).
+- [ ] Check GitHub Actions workflows: no inlined secrets, no `echo` of secret
+      values, and no `pull_request_target` triggers that run untrusted PR code
+      with secret access. Also check supply-chain hygiene: top-level
+      `permissions:` blocks are least-privilege, and third-party actions are
+      pinned to a commit SHA rather than a mutable tag
+      (`uses: some-org/action@<sha>`).
 - [ ] Check issue/PR templates, docs, example configs, and test fixtures for
       real credentials or internal URLs used as "examples".
-- [ ] `.gitignore` covers credential and local-config patterns so secrets
+- [ ] `.gitignore` covers credential and local-config patterns, so secrets
       don't arrive *after* publication.
 
-**If anything is found**: report as FAIL and state plainly that the
-credential must be rotated/revoked at the source, and history rewritten
+**If anything is found**: report as FAIL, state plainly that the credential must
+be rotated/revoked at the source, and that history must be rewritten
 (`git filter-repo`) or the repo re-created from a clean export before
 publication. Removing the file in a new commit is not sufficient.
 
 ## 5. Git history and repo hygiene
 
-- [ ] Review author identities: `git shortlog -s -e --no-merges`. **Internal
-      information leaked through author identities is a FAIL (Blocker)** —
-      internal machine hostnames (e.g. `user@lfcb-014.ecmwf.int`, `*.bullx`
-      cluster nodes), and personal data such as private phone numbers or
-      non-work emails people may not want published.
+- [ ] Review author identities: `git shortlog -s -e --no-merges`.
+      **Internal information in identities is a FAIL (Blocker)** — internal
+      hostnames (e.g. `user@lfcb-014.ecmwf.int`, `*.bullx` cluster nodes) — and
+      so are private phone numbers and other personal data. A personal
+      (non-work) commit address is a **Pass when its owner has evidently chosen
+      to publish it** — they kept it when rewriting history, or use it in their
+      public commits elsewhere; record that evidence in the report. Otherwise it
+      is **Unverified until the owner consents**; never assume consent. If the
+      owner declines, it is a **FAIL (Blocker)**: rewrite with
+      `git filter-repo --mailmap` before publication.
 - [ ] Skim commit messages for internal ticket systems, internal URLs, or
-      sensitive discussion: `git log --oneline --all | head -100` plus
-      targeted greps (e.g. JIRA project keys, `confluence.ecmwf.int`). Internal
-      references here are a FAIL (Blocker).
+      sensitive discussion: `git log --oneline --all | head -100` plus targeted
+      greps (e.g. JIRA keys, `confluence.ecmwf.int`). Internal references here
+      are a FAIL (Blocker).
 - [ ] No large binary blobs or datasets bloating the repo:
-      `git rev-list --objects --all | sort -k2` combined with
-      `git cat-file --batch-check` (or `git count-objects -vH` for a quick
-      size check). Flag anything unexpected over ~5 MB.
-- [ ] No embedded third-party code of unknown provenance (IPR concern —
-      flag suspicious vendored directories as FAIL with a note).
-- [ ] Branches and tags will be published too: delete stale/experimental
-      branches or confirm they're clean. `git branch -r` and `git tag`.
+      `git rev-list --objects --all | sort -k2` with `git cat-file --batch-check`
+      (or `git count-objects -vH` for a quick check). Flag anything unexpected
+      over ~5 MB.
+- [ ] No embedded third-party code of unknown provenance (IPR concern — flag
+      suspicious vendored directories as FAIL with a note).
+- [ ] Branches, tags and pull-request refs (`refs/pull/*`, see section 4) will
+      be published too: delete stale/experimental branches or confirm they're
+      clean (`git branch -r`, `git tag`).
 - [ ] No submodules pointing at private or internal repositories
       (`.gitmodules`).
 
 ## 6. Repository structure — [Codex: Repository Structure/README.md]
 
 - [ ] Layout broadly follows the ECMWF conventions (cookiecutter-style):
-      source under `src/`, tests under `tests/`, docs under `docs/`,
-      examples under `examples/`. Deviations are fine if deliberate — flag
-      only chaos, not taste.
+      `src/`, `tests/`, `docs/`, `examples/`. Deviations are fine if deliberate
+      — flag only chaos, not taste.
 - [ ] No leftover template placeholders (`<project-name>`, `TODO: fill in`,
       cookiecutter variables) in README, docs, or config files.
 - [ ] **No committed build/install artefacts, editor droppings, or OS junk —
@@ -351,45 +352,42 @@ publication. Removing the file in a new commit is not sufficient.
 
 ## 7. Contributions and CI — [Codex: Guidelines/External-Contributions.md]
 
-- [ ] PR template: the ECMWF org-level template applies automatically when
-      the repo has none, so absence is fine. Only flag if the repo
-      **overrides** it with its own `.github/PULL_REQUEST_TEMPLATE.md` —
-      then check the override is sane and doesn't drop the org template's
-      substance.
+- [ ] PR template: the ECMWF org-level template applies automatically when the
+      repo has none, so absence is fine. Only flag if the repo **overrides** it
+      with its own `.github/PULL_REQUEST_TEMPLATE.md` — then check the override
+      is sane and doesn't drop the org template's substance.
 - [ ] CI runs on pull requests; external-PR workflows gate on the
       `approved-for-ci` label (or equivalent) rather than auto-running
       untrusted code.
 - [ ] Branch protection on the default branch: required reviews and status
-      checks, no force-pushes. Check with
-      `gh api repos/<org>/<repo>/branches/<default>/protection` if you have
-      access; otherwise note it as unverified in the report.
+      checks, no force-pushes
+      (`gh api repos/<org>/<repo>/branches/<default>/protection`); if you lack
+      access, note it as unverified in the report.
 
 ## 8. Industry best practices (beyond Codex)
 
 - [ ] Automated security checks run in CI — dependency-vulnerability scanning
-      and static analysis (SAST), using whatever tooling the project chooses —
-      the Codex "Secure by Design" principle expects automated security scanning
-      in CI [Codex: Principles/Open-Source-Principles.md]. (The audit performs
-      these scans itself; this item checks they also run continuously.) Note as
+      and static analysis (SAST), with whatever tooling the project chooses (the
+      Codex "Secure by Design" principle expects it)
+      [Codex: Principles/Open-Source-Principles.md]. The audit performs these
+      scans itself; this item checks they also run continuously. Note as
       unverified if you cannot inspect the CI configuration.
-- [ ] Dependencies are pinned or locked (lockfile committed) so builds are
-      reproducible for outside users.
-- [ ] The project builds and its tests pass from a fresh clone following
-      only the README instructions — run this if feasible; it is the single
-      best proxy for "publishable".
+- [ ] Dependencies are pinned or locked (lockfile committed) for reproducible
+      builds.
+- [ ] The project builds and its tests pass from a fresh clone following only
+      the README instructions — run this if feasible; it is the best proxy for
+      "publishable".
 - [ ] Version tags follow SemVer if the project has releases: ECMWF production
-      tags use the clean `x.y.z` form (no `v` prefix)
+      tags use the clean `x.y.z` form, no `v` prefix
       [Codex: Languages/Versioning.md; Guidelines/External-Contributions.md].
-- [ ] A `CHANGELOG.md` is not required — but if one exists, check it is
-      sane: entries match actual tags, no placeholder sections, no internal
-      references.
+- [ ] A `CHANGELOG.md` is not required — but if one exists, check it is sane:
+      entries match actual tags, no placeholder sections, no internal references.
 
 ## 9. Security audit — [Codex: Principles/Open-Source-Principles.md — Secure by Design]
 
-Publishing exposes the code to the world, so a dedicated security audit is an
-important part of the open-sourcing process — the secret/credential scanning in
-section 4 is necessary but not sufficient. This open-source audit does **not**
-run the security audit itself, and does **not** fail merely because one has not
+A dedicated security audit is an important part of the open-sourcing process —
+the secret scanning in section 4 is necessary but not sufficient. This audit
+does **not** run it itself, and does **not** fail merely because one has not
 been run yet.
 
 - [ ] Check whether a current `Security-Audit` report exists for this commit in
@@ -397,34 +395,28 @@ been run yet.
       - **If one has not been run for this commit:** do **not** record a FAIL.
         List it as an **advisory**, and **ask the human operator whether to run
         the [`security-audit` skill](../security-audit/SKILL.md) next** — do not
-        run it yourself as part of this audit. That skill builds a threat model,
-        runs SAST / dependency / supply-chain tooling, reviews security-sensitive
-        surfaces (deserialization, injection, memory safety / FFI, crypto, ML
-        model loading), and — for high-risk repositories — adds adversarial
-        testing and bounded fuzzing. Publication should still wait for a READY
-        security audit, but confirming that is the operator's decision, not a
-        blocker recorded here.
-      - **If a security audit has been run for this commit and its verdict is
-        NOT_READY** (open CRITICAL/HIGH findings): that **is** a Blocker — the
-        repository is NOT READY until the security audit passes.
+        run it yourself as part of this audit. Publication should still wait
+        for a READY security audit, but confirming that is the operator's
+        decision, not a blocker recorded here.
+      - **If one has been run for this commit and its verdict is NOT_READY**
+        (open CRITICAL/HIGH findings): that **is** a Blocker — the repository is
+        NOT READY until the security audit passes.
 
 ## Post-publication recommendations (optional)
 
-These are suggestions, not pass/fail checks. Surface them to the repository
-owner, but never block publication on them.
+Suggestions, not pass/fail checks. Surface them to the repository owner, but
+never block publication on them.
 
-- **Create a Zenodo DOI and add `CITATION.cff`.** ECMWF recommends that, once the
-  repository is public, the owner enables the GitHub–Zenodo integration (or mints
-  a DOI via [Zenodo](https://zenodo.org)) so the software is citable and archived,
-  and adds a `CITATION.cff` file at the repository root (plus the DOI badge in the
-  README) so external users and publications can reference it (example template:
-  `Repository Structure/CITATION.cff` in the Codex). This is a recommendation,
-  not a precondition for going public.
+- **Create a Zenodo DOI and add `CITATION.cff`.** Once the repository is public,
+  the owner should enable the GitHub–Zenodo integration (or mint a DOI via
+  [Zenodo](https://zenodo.org)) and add a `CITATION.cff` at the repository root
+  plus the DOI badge in the README (template: `Repository Structure/CITATION.cff`
+  in the Codex).
 
 ## Report format
 
-Always produce the report as Markdown, with the YAML front-matter required by
-the audit store (see "Report storage", the `repo-audits` `SCHEMA.md`, and
+Produce the report as Markdown, with the YAML front-matter required by the
+audit store (see "Report storage", the `repo-audits` `SCHEMA.md`, and
 `ADR-009`), in this shape:
 
 ```markdown
@@ -476,31 +468,29 @@ unverified_count: 0
 ```
 
 A repository is **READY** only when there are zero open **Blockers** (advisories
-may remain, and should be tracked for a follow-up). List anything you
-could not verify under "Unverified" rather than silently passing it. When
-in doubt, the verdict is NOT READY — the cost of a false "ready" is a public
-leak; the cost of a false "not ready" is a short delay.
+may remain, and should be tracked for a follow-up). List anything you could not
+verify under "Unverified" rather than silently passing it. When in doubt, the
+verdict is NOT READY — the cost of a false "ready" is a public leak; the cost of
+a false "not ready" is a short delay.
 
 ## Report storage
 
 Reports are filed in the private store **`ecmwf/repo-audits`** (writable by
 GitHub Enterprise / organisation owners, who serve as the auditors; readable
-only internally at ECMWF). Reports are **kept** there so that later follow-up
-and periodic re-audits can read the previous report to confirm findings were
-fixed and to detect drift.
+only internally at ECMWF) and **kept** there, so later follow-up and periodic
+re-audits can read them to confirm fixes and detect drift.
 
 A report must **never** be stored anywhere that becomes public with the
-repository — not as a GitHub issue, not as a committed file in the audited repo,
-not in a PR description. Even inside the private store, **redact actual secret
-values**: record locations and references (e.g. `path/to/file:42 — API token
+repository — not as a GitHub issue, a committed file in the audited repo, or a
+PR description. Even in the private store, **redact actual secret values**:
+record locations and references (e.g. `path/to/file:42 — API token
 (••••redacted)`), never the live secret. Reports still contain other sensitive
 context (internal hostnames, personal emails, provenance concerns), which is why
 the store is private.
 
-File each report as
-`audits/<org>/<repo>/<YYYY-MM-DDThhmm>-<Type>.md` (UTC), where `<Type>` is
-`Open-Source-Audit` or `Security-Audit`, prepend the YAML front-matter (including
-the exact audited `commit` SHA), and update that repository's `index.md`. The
-audit is run and the report committed to `main` by an org/Enterprise owner. The
-authoritative naming and front-matter schema live in `SCHEMA.md` in the
-`repo-audits` repository; see also `ADR-009 Repository Audit Store` in the Codex.
+File each report as `audits/<org>/<repo>/<YYYY-MM-DDThhmm>-<Type>.md` (UTC),
+where `<Type>` is `Open-Source-Audit` or `Security-Audit`, prepend the YAML
+front-matter (with the exact audited `commit` SHA), and update that repository's
+`index.md`. An org/Enterprise owner runs the audit and commits the report to
+`main`. The schema is defined in `SCHEMA.md` in `repo-audits`; see also
+`ADR-009 Repository Audit Store`.
