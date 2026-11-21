@@ -22,4 +22,4 @@ The Codex is a set of principles and guidelines for development of software and 
 - [Documentation and Training](./Documentation%20and%20Training)
 - [Contributing to External Projects](./Contributing%20Upstream)
 - [Software Management Plan](./Software%20Management%20Plan)
-- [Agent Skills](./Agent%20Skills)
+- [Agent Skills](./Agents/skills)
